@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private float fuelTicks;
     [SerializeField] private float fuelDecrementInterval = 10.0f;
     [SerializeField] private float fuelDecrementAmt = 0.05f;
+    [SerializeField] private float fuelSneakDecrementAmt = 0.02f;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         InputHandler();
-        ChooseSpeed();
+        SneakCheck();
         FuelManager();
     }
 
@@ -60,9 +61,15 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftControl)) {
             isSneaking = !isSneaking;
         }
+
+        if (!isSneaking) // if the player is not sneaking then accept ability input
+        {
+            // ability input
+        }
     }
 
-    void ChooseSpeed() {
+    void SneakCheck()
+    {
         if (isSneaking)
         {
             actualSpeed = sneakSpeed;
@@ -90,7 +97,15 @@ public class PlayerController : MonoBehaviour
         fuelTicks += Time.deltaTime;
         if(fuelTicks > fuelDecrementInterval)
         {
-            fuelAmt -= fuelDecrementAmt;
+            if (isSneaking)
+            {
+                fuelAmt -= fuelSneakDecrementAmt;
+
+            }
+            else
+            {
+                fuelAmt -= fuelDecrementAmt;
+            } 
             fuelTicks = 0.0f;
         }
         Debug.Log("Fuel: " + fuelAmt);
