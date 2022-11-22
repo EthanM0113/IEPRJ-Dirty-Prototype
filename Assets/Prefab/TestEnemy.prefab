@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7247073434045152968}
   - component: {fileID: 7247073434045152969}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: idle_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7247073434300809933}
   - component: {fileID: 7247073434300809932}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,8 @@ GameObject:
   - component: {fileID: 7247073434511506498}
   - component: {fileID: 7247073434511506499}
   - component: {fileID: 7247073434511506508}
-  m_Layer: 0
+  - component: {fileID: -6866074978018771310}
+  m_Layer: 3
   m_Name: TestEnemy
   m_TagString: TestEnemy
   m_Icon: {fileID: 0}
@@ -268,3 +269,16 @@ CapsuleCollider:
   m_Height: 0.40165383
   m_Direction: 1
   m_Center: {x: -0.0038079321, y: -0.06767842, z: -0.059390545}
+--- !u!114 &-6866074978018771310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247073434511506501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf9c501d2f427f6499c6c300a588f816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 7247073434045152969}

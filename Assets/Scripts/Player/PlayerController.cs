@@ -15,12 +15,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float minLight = 1.5f;
 
     [SerializeField] Light playerLight;
+    [SerializeField] SpriteRenderer playerSprite; // used to flip the sprite
+    [SerializeField] GameObject attackPosition; // used to move the attack position
+    [SerializeField] float attackDistance = 0.58f;
 
     Rigidbody rb;
 
-    bool isSneaking;
+    bool isSneaking; // used for sneaking
+    bool isFacingRight = true;
 
-    Vector2 moveInput;
+    Vector2 moveInput; // vector2 containing the players x and y movement
 
     // Variables for Light Resource
     public float MAX_FUEL = 2.0f; // match range of light for now
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
         actualSpeed = speed;
         fuelTicks = 0.0f;
         fuelAmt = MAX_FUEL;
+        attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
     }
 
     private void Update()
@@ -58,9 +63,14 @@ public class PlayerController : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.LeftControl)) {
-            isSneaking = !isSneaking;
+        if (Input.GetKey(KeyCode.LeftShift)) {
+            isSneaking = true;
         }
+        else if (!Input.GetKey(KeyCode.LeftShift))
+        {
+            isSneaking = false;
+        }
+
 
         if (!isSneaking) // if the player is not sneaking then accept ability input
         {
@@ -90,6 +100,23 @@ public class PlayerController : MonoBehaviour
                rb.velocity.y,
                moveInput.normalized.y * actualSpeed * Time.deltaTime
             );
+
+        if (!isFacingRight && moveInput.x > 0) // flip to the right 
+        {
+            Flip();
+            attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
+        }
+        else if(isFacingRight && moveInput.x < 0) // flip to the left 
+        {
+            Flip();
+            attackPosition.transform.localPosition = new Vector3(-attackDistance, 0, 0);
+        }
+    }
+
+    private void Flip()
+    {
+        playerSprite.flipX = isFacingRight;
+        isFacingRight = !isFacingRight;
     }
 
     void FuelManager()
@@ -110,6 +137,11 @@ public class PlayerController : MonoBehaviour
         }
         Debug.Log("Fuel: " + fuelAmt);
         playerLight.range = fuelAmt;
+    }
+
+    public bool GetFaceDirection()
+    {
+        return isFacingRight;
     }
 }
  
