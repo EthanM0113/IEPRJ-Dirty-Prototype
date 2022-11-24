@@ -5,6 +5,7 @@ using UnityEngine;
 public class FaceDirection : MonoBehaviour
 {
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] GameObject detectionCone;
     bool isFacingRight;
     // Start is called before the first frame update
     void OnEnable()
@@ -14,11 +15,14 @@ public class FaceDirection : MonoBehaviour
         {
             isFacingRight = true;
             sprite.flipX = !isFacingRight;
+            detectionCone.transform.rotation = Quaternion.Euler(0,90,0);
+
         }
         else
         {
             isFacingRight = false;
             sprite.flipX = !isFacingRight;
+            detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
         }
     }
 

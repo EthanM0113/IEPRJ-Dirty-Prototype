@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
             } 
             fuelTicks = 0.0f;
         }
-        Debug.Log("Fuel: " + fuelAmt);
+        //Debug.Log("Fuel: " + fuelAmt);
         playerLight.range = fuelAmt;
     }
 

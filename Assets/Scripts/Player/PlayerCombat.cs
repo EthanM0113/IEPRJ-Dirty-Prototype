@@ -41,7 +41,7 @@ public class PlayerCombat : MonoBehaviour
         // inflict dmg/kill
         foreach (Collider enemy in hitEnemies)
         {
-            if (enemy.GetComponent<FaceDirection>().GetFaceDirection() != playerController.GetFaceDirection()) // if the enemy is facing the same direction
+            if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
             {
                 enemy.gameObject.SetActive(false);
             }
