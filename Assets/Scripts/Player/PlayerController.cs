@@ -34,6 +34,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fuelDecrementAmt = 0.05f;
     [SerializeField] private float fuelSneakDecrementAmt = 0.02f;
 
+    // Variables fo Dashing
+    private bool canDash = true;
+    private bool isDashing = false;
+    private float dashSpeed = 6.7f;
+    private float dashDuration = 0.2f;
+    private float dashCooldown = 0.6f;
+    private Vector3 dashDirection;
+    private TrailRenderer tr;
+    private float dashFuelCost = 0.13f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,10 +54,16 @@ public class PlayerController : MonoBehaviour
         fuelTicks = 0.0f;
         fuelAmt = MAX_FUEL;
         attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
+        tr = GetComponent<TrailRenderer>();
     }
 
     private void Update()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         InputHandler();
         SneakCheck();
         FuelManager();
@@ -56,6 +72,11 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isDashing)
+        {
+            return;
+        }
+
         Move();
     }
     
@@ -71,10 +92,14 @@ public class PlayerController : MonoBehaviour
             isSneaking = false;
         }
 
-
         if (!isSneaking) // if the player is not sneaking then accept ability input
         {
             // ability input
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && canDash && CheckFuel(dashFuelCost))
+        {
+            StartCoroutine(Dash());
         }
     }
 
@@ -93,7 +118,8 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Move() 
-    {    
+    {
+
         rb.velocity = new Vector3
             (
                moveInput.normalized.x * actualSpeed * Time.deltaTime,
@@ -139,9 +165,54 @@ public class PlayerController : MonoBehaviour
         playerLight.range = fuelAmt;
     }
 
+    public void UseFuel(float amount)
+    {
+        fuelAmt -= amount;
+    }
+
+    // checks if player has enough fuel
+    public bool CheckFuel(float fuel)
+    {
+        if (fuelAmt >= fuel)
+            return true;
+        else
+            return false;
+    }
+
+    
     public bool GetFaceDirection()
     {
         return isFacingRight;
     }
+
+    private IEnumerator Dash()
+    {
+        // Set dash variables
+        canDash = false;
+        isDashing = true;
+
+        // Actual Dash
+        UseFuel(dashFuelCost);
+        dashDirection = new Vector3(moveInput.x, 0, moveInput.y);
+        if (dashDirection == Vector3.zero)
+        {
+            if (isFacingRight)
+                dashDirection = new Vector3(1, 0, 0);
+            else
+                dashDirection = new Vector3(-1, 0, 0);
+        }
+        rb.velocity = dashDirection.normalized * dashSpeed;
+        tr.emitting = true;
+
+        // During Dash
+        yield return new WaitForSeconds(dashDuration);
+        tr.emitting = false;
+        isDashing = false;
+
+        // Dash Cooldown
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
 }
  
