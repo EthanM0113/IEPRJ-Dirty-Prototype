@@ -1,23 +1,47 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Animations;
+[System.Serializable]
 public class PlayerController : MonoBehaviour
 {
+    [Header("Speed Variables")]
+    [Tooltip("Used for Player Movement Speed")]
     [SerializeField] float speed;
+    [Tooltip("Used for Player Sneaking Speed")]
     [SerializeField] float sneakSpeed;
     float actualSpeed = 0;
 
+    [Space(10)]
+
+    [Header("Health Variables")]
+    [Tooltip("Health cap of the player")]
     public int maxHealth = 100;
+    [Tooltip("Players current health")]
     public int health; // current
+    [Space(10)]
 
+
+    [Header("Light Variables")]
+    [Tooltip("Used for Player Maximum Light Strength")]
     [SerializeField] float maxLight = 2f;
+    [Tooltip("Used for Player Minimum Light Strength")]
     [SerializeField] float minLight = 1.5f;
-
+    [Tooltip("Reference to the light source")]
     [SerializeField] Light playerLight;
+    [Space(10)]
+
+
+    [Tooltip("Reference to the player sprite")]
     [SerializeField] SpriteRenderer playerSprite; // used to flip the sprite
+    [Space(10)]
+
+    [Header("Attack Related")]
+    [Tooltip("Position of the attack point")]
     [SerializeField] GameObject attackPosition; // used to move the attack position
+    [Tooltip("Distance of attack point from player")]
     [SerializeField] float attackDistance = 0.58f;
+    [Space(10)]
 
     Rigidbody rb;
 
@@ -26,12 +50,16 @@ public class PlayerController : MonoBehaviour
 
     Vector2 moveInput; // vector2 containing the players x and y movement
 
+    [Header("Light Resource Variables")]
     // Variables for Light Resource
     public float MAX_FUEL = 2.0f; // match range of light for now
     public float fuelAmt;
     private float fuelTicks;
+    [Tooltip("Interval between ticks")]
     [SerializeField] private float fuelDecrementInterval = 10.0f;
+    [Tooltip("By how much the fuel with decrement per interval")]
     [SerializeField] private float fuelDecrementAmt = 0.05f;
+    [Tooltip("By how much the fuel with decrement per interval while sneaking")]
     [SerializeField] private float fuelSneakDecrementAmt = 0.02f;
 
     // Variables fo Dashing
@@ -44,6 +72,17 @@ public class PlayerController : MonoBehaviour
     private TrailRenderer tr;
     private float dashFuelCost = 0.13f;
 
+    // Player Combat
+    PlayerCombat playerCombat;
+    PlayerAbilityHandler playerAbility;
+    [SerializeField] ParticleSystem abilityEffects;
+
+    // Variables for Animation
+    Animator animator;
+
+    // Checks if the player is alive or dead
+    public bool isAlive = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,18 +94,28 @@ public class PlayerController : MonoBehaviour
         fuelAmt = MAX_FUEL;
         attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
         tr = GetComponent<TrailRenderer>();
+        animator = GetComponent<Animator>();
+        playerCombat = GetComponent<PlayerCombat>();
+        playerAbility = GetComponent<PlayerAbilityHandler>();
     }
 
     private void Update()
     {
-        if (isDashing)
+        if (isAlive)
         {
-            return;
-        }
+            if (isDashing)
+            {
+                return;
+            }
 
-        InputHandler();
-        SneakCheck();
-        FuelManager();
+            InputHandler();
+            SneakCheck();
+            FuelManager();
+        }
+        else
+        {
+            animator.SetTrigger("Dead");
+        }
     }
 
     // Update is called once per frame
@@ -81,26 +130,63 @@ public class PlayerController : MonoBehaviour
     }
     
     void InputHandler() {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.LeftShift)) {
-            isSneaking = true;
-        }
-        else if (!Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.J)) // Consume
         {
-            isSneaking = false;
-        }
+            playerAbility.Consume();
+            animator.SetBool("IsConsuming", true);
 
-        if (!isSneaking) // if the player is not sneaking then accept ability input
-        {
-            // ability input
+            // Stops movement
+            moveInput.x = 0;
+            moveInput.y = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && canDash && CheckFuel(dashFuelCost))
+
+        else if (!Input.GetKey(KeyCode.J)) // Not Consuming, can move
         {
-            StartCoroutine(Dash());
-        }
+            animator.SetBool("IsConsuming", false);
+            playerAbility.Unconsume();
+
+            moveInput.x = Input.GetAxisRaw("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
+
+            if (Mathf.Abs(moveInput.x) > 0 ||
+                Mathf.Abs(moveInput.y) > 0) // if there is a movement input
+            {
+                animator.SetBool("IsMoving", true);
+            }
+            else // not moving
+            {
+                animator.SetBool("IsMoving", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.U)) // Attack
+            {
+                animator.SetTrigger("Attack");
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift)) // Checks if it's sneaking
+            {
+                isSneaking = true;
+            }
+            else if (!Input.GetKey(KeyCode.LeftShift))
+            {
+                isSneaking = false;
+            }
+
+            if (!isSneaking) // if the player is not sneaking then accept ability input
+            {
+                if (Input.GetKey(KeyCode.I))
+                {
+                    UseAbility(playerAbility.GetCurrentAbility());
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && canDash && CheckFuel(dashFuelCost))
+            {
+                StartCoroutine(Dash());
+            }
+        } 
     }
 
     void SneakCheck()
@@ -119,7 +205,6 @@ public class PlayerController : MonoBehaviour
 
     private void Move() 
     {
-
         rb.velocity = new Vector3
             (
                moveInput.normalized.x * actualSpeed * Time.deltaTime,
@@ -214,5 +299,14 @@ public class PlayerController : MonoBehaviour
         canDash = true;
     }
 
+
+    void UseAbility(Ability.Type ability)
+    {
+        if (ability == Ability.Type.TEST)
+        {
+            abilityEffects.Play();
+            actualSpeed = speed * 4;
+        }
+    }
 }
  

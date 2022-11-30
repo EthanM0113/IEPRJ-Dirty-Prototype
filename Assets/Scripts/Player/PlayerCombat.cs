@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class PlayerCombat : MonoBehaviour
 {
+    [Tooltip("Position of the attack")]
     [SerializeField] Transform attackPoint;
+    [Tooltip("The Radius on which the attack with have effect on")]
     [SerializeField] float attackRange;
+    [Tooltip("The layers that are considered as enemies")]
     [SerializeField] LayerMask enemyLayers;
     PlayerController playerController;
 
@@ -15,21 +19,7 @@ public class PlayerCombat : MonoBehaviour
         playerController = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        InputListener();
-    }
-
-    void InputListener()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Attack();
-        }  
-    }
-
-    void Attack()
+    public void Attack()
     {
         // Gets all of the enemies within the hit Collider
         Collider[] hitEnemies = Physics.OverlapSphere(
@@ -39,13 +29,18 @@ public class PlayerCombat : MonoBehaviour
             );
 
         // inflict dmg/kill
-        foreach (Collider enemy in hitEnemies)
+        if (hitEnemies != null)
         {
-            if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+            foreach (Collider enemy in hitEnemies)
             {
-                enemy.gameObject.SetActive(false);
+                if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                {
+                    enemy.GetComponent<BaseEnemy>().EnemyDeath();
+                    enemy.gameObject.SetActive(false);
+                }
             }
         }
+        
     }
 
     private void OnDrawGizmos()
@@ -53,4 +48,10 @@ public class PlayerCombat : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
+
+    // Returns the attack position
+    public Transform GetAttackTransform() { return attackPoint; }
+
+    // Returns the attack range
+    public float GetAttackRange() { return (attackRange); }
 }

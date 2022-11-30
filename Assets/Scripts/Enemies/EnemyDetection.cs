@@ -14,6 +14,8 @@ public class EnemyDetection : MonoBehaviour
 
     Transform playerTransform;
 
+    bool isPlayerDetected = false;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -23,6 +25,7 @@ public class EnemyDetection : MonoBehaviour
     private void OnEnable()
     {
         cone.color = undetectedColor;
+        isPlayerDetected = false;
     }
 
     // Update is called once per frame
@@ -41,14 +44,20 @@ public class EnemyDetection : MonoBehaviour
 
                     Debug.DrawRay(lookPoint.position, dir, Color.red);
                     cone.color = detectedColor;
+                    isPlayerDetected = true;
                 }
                 else
                 {
                     Debug.DrawRay(lookPoint.position, dir, Color.green);
                     cone.color = undetectedColor;
+                    isPlayerDetected = false;
                 }
                 
             }
         }
+    }
+    public bool IsPlayerDetected()
+    {
+        return isPlayerDetected;
     }
 }
