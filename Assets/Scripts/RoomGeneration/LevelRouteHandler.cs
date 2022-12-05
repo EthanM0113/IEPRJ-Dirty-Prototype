@@ -15,21 +15,21 @@ public class LevelRouteHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Initialize
-        List<List<GameObject>> RouteNodeList = new List<List<GameObject>>();
+        //// Initialize
+        //List<List<GameObject>> RouteNodeList = new List<List<GameObject>>();
 
-        Debug.Log("Happens Once!");
-        objectPooler = GameObject.FindGameObjectWithTag("ObjectPooler");
-        samplePooler = objectPooler.GetComponent<SamplePooler>();
-        samplePooler.PoolerTest();
+        //Debug.Log("Happens Once!");
+        //objectPooler = GameObject.FindGameObjectWithTag("ObjectPooler");
+        //samplePooler = objectPooler.GetComponent<SamplePooler>();
+        //samplePooler.PoolerTest();
 
-        // Pass Route List Parents 1D Array
-        samplePooler.PassRouteList(RouteList);
+        //// Pass Route List Parents 1D Array
+        //samplePooler.PassRouteList(RouteList);
 
-        // Pass Route Node List, 2D Array, 1st Element is Spawn Node
-        ParseParentList(RouteList, RouteNodeList);
-        samplePooler.PassRouteNodeList(RouteNodeList);
-        samplePooler.PrintRouteNodeList();
+        //// Pass Route Node List, 2D Array, 1st Element is Spawn Node
+        //ParseParentList(RouteList, RouteNodeList);
+        //samplePooler.PassRouteNodeList(RouteNodeList);
+        //samplePooler.PrintRouteNodeList();
     }
 
     // Update is called once per frame
