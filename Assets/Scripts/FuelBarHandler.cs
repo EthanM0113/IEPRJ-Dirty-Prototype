@@ -9,10 +9,11 @@ public class FuelBarHandler : MonoBehaviour
 
     private float fuelMax;
 
-    public PlayerController playerController;
+    PlayerController playerController;
 
     void Start()
     {
+        playerController = FindObjectOfType<PlayerController>();
         fuelMax = playerController.MAX_FUEL;
     }
 

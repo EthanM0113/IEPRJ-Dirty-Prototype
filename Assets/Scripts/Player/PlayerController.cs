@@ -168,10 +168,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift)) // Checks if it's sneaking
             {
                 isSneaking = true;
+                animator.SetBool("IsCrouching", true);
             }
             else if (!Input.GetKey(KeyCode.LeftShift))
             {
                 isSneaking = false;
+                animator.SetBool("IsCrouching", false);
             }
 
             if (!isSneaking) // if the player is not sneaking then accept ability input

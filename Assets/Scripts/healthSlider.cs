@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class healthSlider : MonoBehaviour
 {
     Slider hp;
-    [SerializeField] PlayerController playerController;
+    PlayerController playerController;
 
     private void Start()
     {
         hp = GetComponent<Slider>();
+        playerController = FindObjectOfType<PlayerController>();
         SetMaxHealth(playerController.maxHealth);
         SetHealth(playerController.health);
     }

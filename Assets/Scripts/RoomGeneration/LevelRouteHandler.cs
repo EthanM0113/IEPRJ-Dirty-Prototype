@@ -30,6 +30,8 @@ public class LevelRouteHandler : MonoBehaviour
         //ParseParentList(RouteList, RouteNodeList);
         //samplePooler.PassRouteNodeList(RouteNodeList);
         //samplePooler.PrintRouteNodeList();
+
+        //ObjectPooler.Instance.SpawnFromPool("TestEnemy", RouteNodeList[0][0].transform.position);
     }
 
     // Update is called once per frame
