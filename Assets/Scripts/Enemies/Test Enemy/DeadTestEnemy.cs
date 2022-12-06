@@ -71,4 +71,9 @@ public class DeadTestEnemy : MonoBehaviour
     {
         consumeParticle.externalForces.AddInfluence(field);
     }
+
+    public void RemoveInfluence()
+    {
+        consumeParticle.externalForces.RemoveAllInfluences();
+    }
 }
