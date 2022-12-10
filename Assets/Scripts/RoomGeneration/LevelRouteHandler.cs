@@ -11,9 +11,12 @@ public class LevelRouteHandler : MonoBehaviour
     // Object pooler
     private GameObject objectPooler;
     private SamplePooler samplePooler;
-        
+
+    EnemySpawner spawner;
+
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         //// Initialize
         //List<List<GameObject>> RouteNodeList = new List<List<GameObject>>();
@@ -32,6 +35,15 @@ public class LevelRouteHandler : MonoBehaviour
         //samplePooler.PrintRouteNodeList();
 
         //ObjectPooler.Instance.SpawnFromPool("TestEnemy", RouteNodeList[0][0].transform.position);
+
+
+        spawner = GetComponent<EnemySpawner>();
+
+
+        for (int i = 0; i < RouteList.Count; i++)
+        {
+            spawner.Push_Back_Node(RouteList[i].transform);// passes the parent route nodes
+        }
     }
 
     // Update is called once per frame
