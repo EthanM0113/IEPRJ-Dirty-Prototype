@@ -25,10 +25,10 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < RouteList.Count; i++)
         {
-            GameObject newEnemy = objPooler.SpawnFromPool("TestEnemy", RouteList[i].GetComponentsInChildren<Transform>()[1].position);
+            GameObject newEnemy = objPooler.SpawnFromPool("TestEnemy", RouteList[i].GetComponentsInChildren<Transform>()[1].position); // Spawn at spawnPoint
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
-            enemyRef.SetRouteNode(RouteList[i]);
-            enemyRef.Activate();
+            enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
+            enemyRef.Activate(); // set needed path
         }
     }
 

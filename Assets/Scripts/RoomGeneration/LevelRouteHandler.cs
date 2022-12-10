@@ -36,9 +36,7 @@ public class LevelRouteHandler : MonoBehaviour
 
         //ObjectPooler.Instance.SpawnFromPool("TestEnemy", RouteNodeList[0][0].transform.position);
 
-
-        spawner = GetComponent<EnemySpawner>();
-
+        spawner = GetComponent<EnemySpawner>(); // Get a reference from the EnemySpawner that came with it
 
         for (int i = 0; i < RouteList.Count; i++)
         {

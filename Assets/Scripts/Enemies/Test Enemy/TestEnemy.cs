@@ -21,9 +21,9 @@ public class TestEnemy : BaseEnemy
         agent.speed = speed;
     }
 
-    public override void Activate()
+    public override void Activate() // Everytime the enemy is spawned
     {
-        route = baseRouteNode.GetComponentsInChildren<Transform>();
+        route = baseRouteNode.GetComponentsInChildren<Transform>(); // Gets the node List
         isActivated = true;
     }
 
@@ -52,6 +52,5 @@ public class TestEnemy : BaseEnemy
             }
         }
         agent.destination = route[currentNode].position; // moves the agent
-        //Debug.Log(route[currentNode]);
     }
 }
