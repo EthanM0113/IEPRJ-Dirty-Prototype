@@ -5,30 +5,36 @@ using UnityEngine.AI;
 
 public class TestEnemy : BaseEnemy
 {
-    NavMeshAgent agent;
+    Rigidbody rb;
 
-    // Skips the parent node
-    int currentNode = 1;
+    // how long the enemy waits after getting into a point. Two values to randomize the wait time
+    [SerializeField] float startWaitTime = 2f; // minimum wait time
+    [SerializeField] float endWaitTime = 4f; // maximum wait time
+    float waitTimer; // the actual timer/ cooldown
+
+    // the node to traverse to. The node that the enemy needs to be at
+    int currentNode = 2;
 
     [SerializeField] Transform[] route;
 
+    // determines if the enemy is activated
     bool isActivated = false;
-
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = speed;
+        rb = GetComponent<Rigidbody>();
     }
 
     public override void Activate() // Everytime the enemy is spawned
     {
         route = baseRouteNode.GetComponentsInChildren<Transform>(); // Gets the node List
         isActivated = true;
+        currentState = State.STATIONARY;
+        waitTimer = Random.Range(startWaitTime, endWaitTime);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isActivated)
         {
@@ -38,19 +44,47 @@ public class TestEnemy : BaseEnemy
 
     private void Move()
     {
-        if (this.transform.position.x == route[currentNode].position.x &&
-            this.transform.position.z == route[currentNode].position.z) // if the agent is on the node of the path
+        if (currentState == State.STATIONARY) // If the enemy is stationary
         {
-            if (currentNode == route.Length - 1)// checks if the agent has reached the endpoint
-            {
-                currentNode = 1;
+            if (waitTimer <= 0)
+            { // When timer ends
+                waitTimer = Random.Range(startWaitTime, endWaitTime);
+                currentState = State.MOVING;
             }
-            else if (currentNode < route.Length) // going towards the goal
+            else
             {
-                currentNode++;
-
+                waitTimer -= Time.deltaTime;
             }
         }
-        agent.destination = route[currentNode].position; // moves the agent
+        else if (currentState == State.MOVING)
+        {
+            if (Vector3.Distance(transform.position, route[currentNode].position) < 0.2) // if the transform is near the target node go to next node
+            {
+                currentState = State.STATIONARY;
+                if (currentNode == route.Length - 1)// checks if the agent has reached the end node
+                {
+                    currentNode = 1;
+                }
+                else if (currentNode < route.Length) // going towards the next node
+                {
+                    currentNode++;
+                }
+            }
+
+            // gets the direction to move to
+            Vector3 direction = new Vector3(
+                route[currentNode].position.x - transform.position.x,
+                0,
+                route[currentNode].position.z - transform.position.z
+                );
+
+            // Moves the rigidbody
+            rb.velocity = new Vector3
+                        (
+                           direction.normalized.x * speed * Time.deltaTime,
+                           rb.velocity.y,
+                           direction.normalized.z * speed * Time.deltaTime
+                        );
+        }
     }
 }

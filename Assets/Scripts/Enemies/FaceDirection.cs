@@ -8,12 +8,13 @@ public class FaceDirection : MonoBehaviour
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] GameObject detectionCone;
 
-    NavMeshAgent agent;
+    //NavMeshAgent agent;
+    Rigidbody rb;
     bool isFacingRight;
 
     private void Awake()
     {
-        agent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
     }
     // Start is called before the first frame update
     void OnEnable()
@@ -36,13 +37,13 @@ public class FaceDirection : MonoBehaviour
 
     private void Update()
     {
-        if (agent.velocity.x > 0.1f && !isFacingRight) // if the agent is moving right but not facing right, then flip
+        if (rb.velocity.x > 0.1f && !isFacingRight) // if the agent is moving right but not facing right, then flip
         {
             isFacingRight = true;
             sprite.flipX = !isFacingRight;
             detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
         }
-        else if(agent.velocity.x < -0.1f && isFacingRight)
+        else if(rb.velocity.x < -0.1f && isFacingRight)
         {
             isFacingRight = false;
             sprite.flipX = !isFacingRight;

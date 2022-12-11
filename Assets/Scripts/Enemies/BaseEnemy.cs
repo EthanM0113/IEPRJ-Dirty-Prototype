@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class BaseEnemy : MonoBehaviour
 {
+    protected enum State
+    {
+        STATIONARY = 0,
+        MOVING
+    }
+
+    protected State currentState;
+
     [SerializeField] protected float speed = 3f;
     [SerializeField] GameObject deadVersion;
     protected Transform baseRouteNode;
