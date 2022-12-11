@@ -10,16 +10,18 @@ public class FirstBossManager : MonoBehaviour
     private bool isDoneSettingTorches = false;
     bool areBothTorchesLit = false;
 
-    // Boss HP
+    // Boss 
     [SerializeField] private TextMeshProUGUI bossHpText;
     [SerializeField] private int bossHp;
+    [SerializeField] private FirstBossMovement firstBossMovement;
+    [SerializeField] private float speedIncrementOnHit;
 
     // Start is called before the first frame update
     void Start()
     {
         bossHpText.text = bossHp.ToString();
 
-        for(int i = 0; i < hpTorches.Count; i++)
+        for (int i = 0; i < hpTorches.Count; i++)
         {
             hpTorches[i].GetComponent<HpTorchHandler>().SetFlameLight(false);
         }
@@ -30,14 +32,14 @@ public class FirstBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(areBothTorchesLit = CheckTwoTorchesLit())
+        if (areBothTorchesLit = CheckTwoTorchesLit())
         {
             Debug.Log("Torches remain lit");
         }
         else
         {
             Debug.Log("TAKE DAMAGE!!");
-            bossHp--;
+            DealDamageToBoss();
             bossHpText.text = bossHp.ToString();
             LigtTwoTorches();
         }
@@ -91,6 +93,12 @@ public class FirstBossManager : MonoBehaviour
         hpTorches[litTorches[1]].GetComponent<HpTorchHandler>().SetFlameLight(true);
 
         // reset values
-        isDoneSettingTorches = false; 
+        isDoneSettingTorches = false;
+    }
+
+    public void DealDamageToBoss()
+    {
+        bossHp--;
+        firstBossMovement.IncreaseSpeed(speedIncrementOnHit);
     }
 }
