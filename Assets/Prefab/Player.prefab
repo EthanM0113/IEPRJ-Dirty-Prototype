@@ -5702,8 +5702,6 @@ GameObject:
   - component: {fileID: 8600752381076193321}
   - component: {fileID: 8600752381076193327}
   - component: {fileID: 1682376469}
-  - component: {fileID: 8600752381076193322}
-  - component: {fileID: 8600752381076193316}
   - component: {fileID: 1682376474}
   - component: {fileID: 1682376468}
   - component: {fileID: 8600752381076193326}
@@ -5774,33 +5772,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &8600752381076193322
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8600752381076193325}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.2884788, y: 0.18089524, z: 0.6656655}
-  m_Center: {x: -0.03120777, y: 0.055284932, z: 0.12042391}
---- !u!136 &8600752381076193316
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8600752381076193325}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.20082691
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: -0.0038079321, y: 0.14, z: 0.18}
 --- !u!136 &1682376474
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5968,8 +5939,8 @@ MonoBehaviour:
   attackRange: 0.41
   enemyLayers:
     serializedVersion: 2
-    m_Bits: 8
-  hpTorchTag: 
+    m_Bits: 72
+  hpTorchTag: HpTorch
 --- !u!114 &8557472063509523471
 MonoBehaviour:
   m_ObjectHideFlags: 0

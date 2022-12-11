@@ -24,7 +24,7 @@ public class FirstBossMovement : MonoBehaviour
 
     public void MoveBoss()
     {
-        Debug.Log("Chosen Path " + chosenPath);
+        //Debug.Log("Chosen Path " + chosenPath);
         if (transform.position != pathNode[chosenPath].transform.position)
         {
             transform.position = Vector3.MoveTowards(transform.position, pathNode[chosenPath].transform.position, speed * Time.deltaTime);
@@ -43,5 +43,15 @@ public class FirstBossMovement : MonoBehaviour
     public void IncreaseSpeed(float num)
     {
         speed += num;
+    }
+
+    public void SetSpeed(float num)
+    {
+        speed = num;
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
     }
 }

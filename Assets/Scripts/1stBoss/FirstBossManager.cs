@@ -15,10 +15,18 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private int bossHp;
     [SerializeField] private FirstBossMovement firstBossMovement;
     [SerializeField] private float speedIncrementOnHit;
+    private bool isBossDead = false;
+    [SerializeField] private GameObject winScreen;
+    private int bossMaxHp;
+    private float bossMaxSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Set Max Values
+        bossMaxHp = bossHp;
+        bossMaxSpeed = firstBossMovement.GetSpeed();
+
         bossHpText.text = bossHp.ToString();
 
         for (int i = 0; i < hpTorches.Count; i++)
@@ -32,16 +40,25 @@ public class FirstBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (areBothTorchesLit = CheckTwoTorchesLit())
-        {
-            Debug.Log("Torches remain lit");
+        if(!isBossDead)
+        { 
+            if (areBothTorchesLit = CheckTwoTorchesLit())
+            {
+                //Debug.Log("Torches remain lit");
+            }
+            else
+            {
+                //Debug.Log("TAKE DAMAGE!!");
+                DealDamageToBoss();
+                isBossDead = CheckBossDead();
+                bossHpText.text = bossHp.ToString();
+                if(!isBossDead)
+                    LigtTwoTorches();
+            }
         }
         else
         {
-            Debug.Log("TAKE DAMAGE!!");
-            DealDamageToBoss();
-            bossHpText.text = bossHp.ToString();
-            LigtTwoTorches();
+            DisplayWinScreen();
         }
     }
 
@@ -65,7 +82,7 @@ public class FirstBossManager : MonoBehaviour
         while (!isDoneSettingTorches)
         {
             int pickedTorch = Random.Range(0, 4);
-            Debug.Log("Picked Torch " + pickedTorch);
+            //Debug.Log("Picked Torch " + pickedTorch);
 
             if (litTorches.Count == 0)
             {
@@ -82,11 +99,11 @@ public class FirstBossManager : MonoBehaviour
             if (litTorches.Count == 2)
             {
                 isDoneSettingTorches = true;
-                Debug.Log("Done Setting Torches");
+                //Debug.Log("Done Setting Torches");
             }
         }
 
-        Debug.Log("Selected Torch " + litTorches[0] + " and Torch " + litTorches[1]);
+        //Debug.Log("Selected Torch " + litTorches[0] + " and Torch " + litTorches[1]);
 
         // Light 2 Selected Torches
         hpTorches[litTorches[0]].GetComponent<HpTorchHandler>().SetFlameLight(true);
@@ -100,5 +117,35 @@ public class FirstBossManager : MonoBehaviour
     {
         bossHp--;
         firstBossMovement.IncreaseSpeed(speedIncrementOnHit);
+    }
+
+    public bool CheckBossDead()
+    {
+        if (bossHp <= 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void DisplayWinScreen()
+    {
+        Time.timeScale = 0;
+        winScreen.SetActive(true);
+    }
+
+    public void ResetValues()
+    {
+        bossHp = bossMaxHp;
+        bossHpText.text = bossHp.ToString();
+        firstBossMovement.SetSpeed(bossMaxSpeed);
+        for (int i = 0; i < hpTorches.Count; i++)
+        {
+            hpTorches[i].GetComponent<HpTorchHandler>().SetFlameLight(false);
+        }
+        LigtTwoTorches();
     }
 }
