@@ -3109,6 +3109,7 @@ MonoBehaviour:
   extraObjects:
   - {fileID: 526753870571513849, guid: 3e8d8c1a0c96db448b8a53f6412d2c5b, type: 3}
   plane: {fileID: 5814401245442572429}
+  totalEnemies: 0
 --- !u!1 &5423143234063836196
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,6 +4223,7 @@ GameObject:
   - component: {fileID: 3805061852551950886}
   - component: {fileID: 6695128390531402834}
   - component: {fileID: 6369137286026386966}
+  - component: {fileID: 5408518241241604018}
   m_Layer: 0
   m_Name: Plane
   m_TagString: isGround
@@ -4498,6 +4500,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &5408518241241604018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5814401245442572429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c779cfcacee7c0141996afac0140ab29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5935270789216812933
 GameObject:
   m_ObjectHideFlags: 0

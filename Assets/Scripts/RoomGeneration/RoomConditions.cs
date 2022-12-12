@@ -18,6 +18,7 @@ public class RoomConditions : MonoBehaviour
     [SerializeField] GameObject[] extraNodes;
     [SerializeField] GameObject[] extraObjects;
     [SerializeField] GameObject plane;
+    [SerializeField] private int totalEnemies;
 
 
 
@@ -36,13 +37,17 @@ public class RoomConditions : MonoBehaviour
             //{
                 Instantiate(obj, list[i]);
                 Debug.Log("Created Item");
-            //}
+            
         }
     }
     private void enemySetup()
     {
-      
+        plane.GetComponent<PlaneCollider>().setStart();
+       totalEnemies =  plane.GetComponent<PlaneCollider>().GetTotalEnemy();
+        Debug.Log("Total Enemies for ID: " + RoomID + " TE: " + totalEnemies);
     }
+
+   
     public void setup(int dir, int ID)
     {
         Debug.Log("Setting up Room...");
@@ -76,7 +81,7 @@ public class RoomConditions : MonoBehaviour
         {
             generateMisc(extraNodes[i], extraObjects[i]);
         }
-        isFinished = true;
+        enemySetup();
     }
     void Start()
     {
@@ -138,6 +143,11 @@ public class RoomConditions : MonoBehaviour
     public void RemoveConsumes()
     {
         Consumes--;
+    }
+
+    public void DeadEnemies()
+    {
+        isFinished = true;
     }
 
 
