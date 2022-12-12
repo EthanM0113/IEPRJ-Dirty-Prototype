@@ -26,4 +26,14 @@ public class FuelBarHandler : MonoBehaviour
     {
         fuelMeter.value = playerController.fuelAmt;
     }
+
+    public void resetFuel(int amt)
+    {
+        Debug.Log("Nerfed fuel");
+        // Change max fuel by integer amt
+        fuelMax -= amt;
+        playerController.fuelAmt = fuelMax;
+    }
+
+    
 }

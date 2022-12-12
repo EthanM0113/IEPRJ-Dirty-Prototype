@@ -10,7 +10,8 @@ public class FirstBossAttack : MonoBehaviour
     [SerializeField] private FirstBossManager firstBossManager;
     [SerializeField] private FirstBossAnimationHandler firstBossAnimationHandler;
     [SerializeField] private GameObject player;
-    [SerializeField] private PlayerController playerController;
+    private PlayerHearts playerHearts;
+    FuelBarHandler fuelBarHandler;
 
     // attacking
     private bool attacking = false;
@@ -18,7 +19,10 @@ public class FirstBossAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        respawnPoint = GameObject.FindGameObjectWithTag("RespawnNode");
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHearts = GameObject.FindObjectOfType<PlayerHearts>();
+        fuelBarHandler = GameObject.FindObjectOfType<FuelBarHandler>();
     }
 
     // Update is called once per frame
@@ -54,6 +58,10 @@ public class FirstBossAttack : MonoBehaviour
     {
         bossAnimator.SetTrigger("isAttacking");
         Debug.Log("Player Hit!");
+        // Deal damage
+        playerHearts.DamagePlayer(1);
+        // Nerf player fuel
+        fuelBarHandler.resetFuel(1);
         attacking = true;
     }
 

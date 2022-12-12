@@ -15,20 +15,23 @@ public class EnemyDetection : MonoBehaviour
 
     Transform playerTransform;
     PlayerHearts playerHealth;
+    FuelBarHandler fuelBarHandler;
     Animator anim;
     ObjectPooler pooler;
 
     bool isPlayerDetected = false; // Checks if the player is detected
     EnemySpawner spawnerRef = null; // gets the reference of the spawner it came from
 
+    GameObject respawnNode;
 
     // Start is called before the first frame update
     void Awake()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
-        playerHealth = GetComponent<PlayerHearts>();
+        playerHealth = FindObjectOfType<PlayerHearts>();
         pooler = ObjectPooler.Instance;
+        fuelBarHandler = FindObjectOfType<FuelBarHandler>();
     }
 
     private void OnEnable()
@@ -53,11 +56,19 @@ public class EnemyDetection : MonoBehaviour
                     Debug.DrawRay(lookPoint.position, dir, Color.red);
                     cone.color = detectedColor;
                     isPlayerDetected = true;
-                    //playerHealth.DamagePlayer(1);
+
+                    // Find respawn node
+                    respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
+                    playerTransform.position = respawnNode.transform.position;
+
+                    // Nerf player fuel and deal dmg
+                    fuelBarHandler.resetFuel(1);
+                    playerHealth.DamagePlayer(1);
+
                     pooler.DisableAll();
                     spawnerRef.SpawnAll();
                     spawnerRef = null;
-
+                    
                 }
                 else
                 {

@@ -17,12 +17,16 @@ public class PlayerController : MonoBehaviour
     [Space(10)]
 
     [Header("Health Variables")]
+    /*
     [Tooltip("Health cap of the player")]
     public int maxHealth = 100;
     [Tooltip("Players current health")]
     public int health; // current
+    */
+    [SerializeField] private PlayerHearts playerHearts;
+    public int health;
+    public int maxHealth;
     [Space(10)]
-
 
     [Header("Light Variables")]
     [Tooltip("Used for Player Maximum Light Strength")]
@@ -51,6 +55,9 @@ public class PlayerController : MonoBehaviour
     bool isFacingRight = true;
 
     Vector2 moveInput; // vector2 containing the players x and y movement
+
+    // Lose Screen
+    [SerializeField] private GameObject loseScreen;
 
     [Header("Light Resource Variables")]
     // Variables for Light Resource
@@ -93,8 +100,10 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set HP
+        maxHealth = playerHearts.numOfHearts;
+        health = playerHearts.health; 
         rb = GetComponent<Rigidbody>();
-        health = maxHealth;
         isSneaking = false;
         actualSpeed = speed;
         fuelTicks = 0.0f;
@@ -110,6 +119,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        health = playerHearts.health;
+
+        isAlive = CheckAlive();
         if (isAlive)
         {
             if (isDashing)
@@ -121,10 +133,6 @@ public class PlayerController : MonoBehaviour
             SneakCheck();
             FuelManager();
             CheckAbility();
-        }
-        else
-        {
-            animator.SetTrigger("Dead");
         }
     }
 
@@ -354,6 +362,22 @@ public class PlayerController : MonoBehaviour
     public bool GetSneaking()
     {
         return isSneaking;
+    }
+
+    public bool CheckAlive()
+    {
+        if (health <= 0)
+        {
+            animator.SetTrigger("Dead");
+            Time.timeScale = 0;
+            loseScreen.SetActive(true);
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 }
  

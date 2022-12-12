@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PlayerHearts : MonoBehaviour
 {
-    [SerializeField] private int health;
-    [SerializeField] private int numOfHearts;
+    [SerializeField] public int health;
+    [SerializeField] public int numOfHearts;
     [SerializeField] private List<Image> hearts;
 
     [SerializeField] private Sprite fullHeart;

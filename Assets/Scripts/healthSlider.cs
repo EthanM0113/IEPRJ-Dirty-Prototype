@@ -12,13 +12,13 @@ public class healthSlider : MonoBehaviour
     {
         hp = GetComponent<Slider>();
         playerController = FindObjectOfType<PlayerController>();
-        SetMaxHealth(playerController.maxHealth);
-        SetHealth(playerController.health);
+        //SetMaxHealth(playerController.maxHealth);
+       // SetHealth(playerController.health);
     }
 
     private void Update()
     {
-        SetHealth(playerController.health);
+       // SetHealth(playerController.health);
     }
 
     public void SetMaxHealth(int health)
