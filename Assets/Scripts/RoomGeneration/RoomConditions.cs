@@ -21,7 +21,7 @@ public class RoomConditions : MonoBehaviour
     [SerializeField] private int totalEnemies;
     [SerializeField] private int totalDead = 0;
     bool isStart = false;
-
+    private int RoomGen;
     private void generateMisc(GameObject Misc, GameObject obj)
     {
         List<Transform> list = new List<Transform>();
@@ -31,9 +31,13 @@ public class RoomConditions : MonoBehaviour
         }
         for (int i = 0; i < list.Count; i++)
         {
-           
+            int range = Random.Range(1, 101);
+            if (range > 0 && range < 76)
+            {
                 Instantiate(obj, list[i]);
                 Debug.Log("Created Item");
+            }
+                
             
         }
     }
@@ -44,6 +48,10 @@ public class RoomConditions : MonoBehaviour
     public void enemyKill()
     {
         totalDead++;
+    }
+    public void resetKills()
+    {
+        totalDead = 0;
     }
    
     public void setup(int dir, int ID)
@@ -91,12 +99,13 @@ public class RoomConditions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        RoomGen = FindObjectOfType<RoomGeneration>().GetRoomsGenerated();
 
         if (totalEnemies == totalDead)
         {
             DeadEnemies();
         }
-        if (isFinished && !FinGenerated)
+        if (isFinished && !FinGenerated && RoomGen <= 14)
         {
             detectWalls();
         }

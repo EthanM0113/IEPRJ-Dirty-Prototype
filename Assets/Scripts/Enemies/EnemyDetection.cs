@@ -18,6 +18,7 @@ public class EnemyDetection : MonoBehaviour
     FuelBarHandler fuelBarHandler;
     Animator anim;
     ObjectPooler pooler;
+    RoomConditions room;
 
     bool isPlayerDetected = false; // Checks if the player is detected
     EnemySpawner spawnerRef = null; // gets the reference of the spawner it came from
@@ -61,6 +62,9 @@ public class EnemyDetection : MonoBehaviour
                     respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
                     playerTransform.position = respawnNode.transform.position;
 
+                    //Reset KillCounter
+                    room.resetKills();
+
                     // Nerf player fuel and deal dmg
                     fuelBarHandler.resetFuel(1);
                     playerHealth.DamagePlayer(1);
@@ -88,6 +92,15 @@ public class EnemyDetection : MonoBehaviour
     public void SetSpawnerReference(EnemySpawner spawnerRef)
     {
         this.spawnerRef = spawnerRef;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+
+        if (room = collision.gameObject.GetComponentInParent<RoomConditions>())
+        {
+            room = collision.gameObject.GetComponentInParent<RoomConditions>();
+        }
     }
 }
 

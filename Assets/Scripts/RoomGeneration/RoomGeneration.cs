@@ -61,7 +61,7 @@ public class RoomGeneration : MonoBehaviour
         GameObject room;
         Vector3 place = collisionRef.transform.position;
         
-        if (roomsGenerated == 1)//Set this for boss
+        if (roomsGenerated == 15)//Set this for boss
         {
             switch (direction)
             {
@@ -118,16 +118,21 @@ public class RoomGeneration : MonoBehaviour
                 
 
         }
+        
         //collisionRef.SetActive(false);
+    }
+    public int GetRoomsGenerated()
+    {
+        return roomsGenerated;
     }
     //void Start()
     //{
-        
+
     //}
 
     //// Update is called once per frame
     //void Update()
     //{
-        
+
     //}
 }
