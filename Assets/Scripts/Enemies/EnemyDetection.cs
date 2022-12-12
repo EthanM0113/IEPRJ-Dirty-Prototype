@@ -71,7 +71,8 @@ public class EnemyDetection : MonoBehaviour
                     Debug.DrawRay(lookPoint.position, dir, Color.green);
                     cone.color = undetectedColor;
                     isPlayerDetected = false;
-                    startDetectionTimer =false;
+                    detectionTimer = detectionTime;
+                    startDetectionTimer = false;
                 }
                 
             }
