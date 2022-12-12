@@ -67,4 +67,9 @@ public class PlayerAbilityHandler : MonoBehaviour
     {
         return currentAbility;
     }
+
+    public void SetCurrentAbility(Ability.Type ability)
+    {
+        currentAbility = ability;
+    }
 }

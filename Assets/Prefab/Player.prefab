@@ -5472,8 +5472,8 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.38823533, g: 0.27450982, b: 0.77647066, a: 1}
-  m_Intensity: 1.19
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 3
   m_Range: 6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5534,6 +5534,7 @@ GameObject:
   - component: {fileID: 8600752380185307720}
   - component: {fileID: 8600752380185307727}
   - component: {fileID: 8600752380185307726}
+  - component: {fileID: 8334665078863144718}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5581,7 +5582,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -5607,6 +5608,66 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8600752380185307725}
   m_Enabled: 1
+--- !u!114 &8334665078863144718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600752380185307725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 8600752380185307720}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &8600752381001842347
 GameObject:
   m_ObjectHideFlags: 0
@@ -5623,7 +5684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8600752381001842341
 Transform:
   m_ObjectHideFlags: 0
@@ -5707,6 +5768,7 @@ GameObject:
   - component: {fileID: 8600752381076193326}
   - component: {fileID: 112672430668485829}
   - component: {fileID: 8557472063509523471}
+  - component: {fileID: 1744724584}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -5908,15 +5970,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 120
   sneakSpeed: 70
-  abilitySpeed: 0
-  maxHealth: 100
-  health: 100
+  abilitySpeed: 300
+  playerHearts: {fileID: 0}
+  health: 5
+  maxHealth: 5
   maxLight: 3
   minLight: 1.5
   playerLight: {fileID: 8600752379906651558}
   playerSprite: {fileID: 8600752381282501281}
   attackPosition: {fileID: 4692066118449418193}
   attackDistance: 0.58
+  loseScreen: {fileID: 0}
   MAX_FUEL: 5
   fuelAmt: 0
   fuelDecrementInterval: 1
@@ -5925,6 +5989,7 @@ MonoBehaviour:
   abilityEffects: {fileID: 1875104495}
   isAlive: 1
   abilityDuration: 3
+  pauseScreen: {fileID: 0}
 --- !u!114 &112672430668485829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5957,9 +6022,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   consumeLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 128
   currentAbility: 0
   field: {fileID: 845141777}
+--- !u!114 &1744724584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600752381076193325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917ce62cb59a2344c87e7f1d54cc2683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnNode: {fileID: 0}
+  PrefabList:
+  - {fileID: 5283407739506655135, guid: 80d0db4e642d32a4692dd7d8d380600b, type: 3}
+  - {fileID: 450227254014140398, guid: c1b95064048655e41bb16fe7c9116908, type: 3}
+  - {fileID: 4517509391885463398, guid: 134863645c8e6294ca3bb081c9549ef7, type: 3}
+  - {fileID: 4406089090443305380, guid: e033e258daaae654d832f50f685842fd, type: 3}
+  BossPrefab: {fileID: 376534091614563050, guid: 24f644e1d46537746bb174af315fe52e, type: 3}
+  roomsGenerated: 1
 --- !u!1 &8600752381282501287
 GameObject:
   m_ObjectHideFlags: 0

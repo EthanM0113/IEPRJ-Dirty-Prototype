@@ -979,30 +979,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1682376474, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1682376474, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 112672430668485829, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: enemyLayers.m_Bits
-      value: 72
-      objectReference: {fileID: 0}
-    - target: {fileID: 8557472063509523471, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: consumeLayerMask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600752381076193316, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600752381076193316, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 1744724584, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: RespawnNode
+      value: 
+      objectReference: {fileID: 510876387}
     - target: {fileID: 8600752381076193321, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1047,21 +1027,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8600752381076193322, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8600752381076193325, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600752381076193326, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: health
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8600752381076193326, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: maxHealth
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8600752381076193326, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: loseScreen
@@ -1071,10 +1039,6 @@ PrefabInstance:
       propertyPath: pauseScreen
       value: 
       objectReference: {fileID: 526282928}
-    - target: {fileID: 8600752381076193326, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-      propertyPath: abilitySpeed
-      value: 300
-      objectReference: {fileID: 0}
     - target: {fileID: 8600752381076193326, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: playerHearts
       value: 
@@ -2017,31 +1981,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &1744724583 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8600752381076193325, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
-  m_PrefabInstance: {fileID: 826877049}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1744724584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744724583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 917ce62cb59a2344c87e7f1d54cc2683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnNode: {fileID: 510876387}
-  PrefabList:
-  - {fileID: 5283407739506655135, guid: 80d0db4e642d32a4692dd7d8d380600b, type: 3}
-  - {fileID: 450227254014140398, guid: c1b95064048655e41bb16fe7c9116908, type: 3}
-  - {fileID: 4517509391885463398, guid: 134863645c8e6294ca3bb081c9549ef7, type: 3}
-  - {fileID: 4406089090443305380, guid: e033e258daaae654d832f50f685842fd, type: 3}
-  BossPrefab: {fileID: 376534091614563050, guid: 24f644e1d46537746bb174af315fe52e, type: 3}
-  roomsGenerated: 1
 --- !u!114 &1803657027 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8061847381439789359, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}

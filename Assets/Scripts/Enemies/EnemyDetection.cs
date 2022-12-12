@@ -13,6 +13,11 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] Color undetectedColor;
     [SerializeField] Color detectedColor;
 
+    [SerializeField] float detectionTime = 1f;
+    float detectionTimer;
+
+    bool startDetectionTimer = false;
+
     Transform playerTransform;
     PlayerHearts playerHealth;
     FuelBarHandler fuelBarHandler;
@@ -39,6 +44,8 @@ public class EnemyDetection : MonoBehaviour
     {
         cone.color = undetectedColor;
         isPlayerDetected = false;
+        detectionTimer = detectionTime;
+        startDetectionTimer = false;
     }
 
     // Update is called once per frame
@@ -57,30 +64,46 @@ public class EnemyDetection : MonoBehaviour
                     Debug.DrawRay(lookPoint.position, dir, Color.red);
                     cone.color = detectedColor;
                     isPlayerDetected = true;
-
-                    // Find respawn node
-                    respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                    playerTransform.position = respawnNode.transform.position;
-
-                    //Reset KillCounter
-                    room.resetKills();
-
-                    // Nerf player fuel and deal dmg
-                    fuelBarHandler.resetFuel(1);
-                    playerHealth.DamagePlayer(1);
-
-                    pooler.DisableAll();
-                    spawnerRef.SpawnAll();
-                    spawnerRef = null;
-                    
+                    startDetectionTimer = true;
                 }
                 else
                 {
                     Debug.DrawRay(lookPoint.position, dir, Color.green);
                     cone.color = undetectedColor;
                     isPlayerDetected = false;
+                    startDetectionTimer =false;
                 }
                 
+            }
+        }
+
+        if (startDetectionTimer)
+        {
+            if (detectionTimer <= 0f)
+            {
+                // Find respawn node
+                respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
+                playerTransform.position = respawnNode.transform.position;
+
+                //Sets the ability to NONE
+                playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
+                //Reset KillCounter
+                room.resetKills();
+
+                // Nerf player fuel and deal dmg
+                fuelBarHandler.resetFuel(1);
+                playerHealth.DamagePlayer(1);
+
+                pooler.DisableAll();
+                spawnerRef.SpawnAll();
+                spawnerRef = null;
+                detectionTimer = detectionTime;
+                startDetectionTimer = false;
+            }
+            else
+            {
+                detectionTimer -= Time.deltaTime;
+                Debug.Log(detectionTimer);
             }
         }
     }
