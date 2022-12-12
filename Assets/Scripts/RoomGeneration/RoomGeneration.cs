@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomGeneration : MonoBehaviour
 {
+    [SerializeField] GameObject RespawnNode;
     private bool create = false;
     [SerializeField] GameObject[] PrefabList;
     [SerializeField] private int roomsGenerated = 1;
@@ -41,6 +42,7 @@ public class RoomGeneration : MonoBehaviour
             other.gameObject.SetActive(false);
 
         }
+        RespawnNode.transform.position = this.transform.position;
 
     }
     private void CreateRoom (int direction, GameObject collisionRef)
