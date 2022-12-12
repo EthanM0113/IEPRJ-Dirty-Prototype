@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class EnemyDetection : MonoBehaviour
 {
@@ -13,13 +14,21 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] Color detectedColor;
 
     Transform playerTransform;
+    PlayerHearts playerHealth;
+    Animator anim;
+    ObjectPooler pooler;
 
-    bool isPlayerDetected = false;
+    bool isPlayerDetected = false; // Checks if the player is detected
+    EnemySpawner spawnerRef = null; // gets the reference of the spawner it came from
+
 
     // Start is called before the first frame update
     void Awake()
     {
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        anim = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHearts>();
+        pooler = ObjectPooler.Instance;
     }
 
     private void OnEnable()
@@ -41,10 +50,14 @@ public class EnemyDetection : MonoBehaviour
             if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
             {
                 if (r.collider.gameObject.CompareTag("Player")) {
-
                     Debug.DrawRay(lookPoint.position, dir, Color.red);
                     cone.color = detectedColor;
                     isPlayerDetected = true;
+                    //playerHealth.DamagePlayer(1);
+                    pooler.DisableAll();
+                    spawnerRef.SpawnAll();
+                    spawnerRef = null;
+
                 }
                 else
                 {
@@ -60,4 +73,10 @@ public class EnemyDetection : MonoBehaviour
     {
         return isPlayerDetected;
     }
+
+    public void SetSpawnerReference(EnemySpawner spawnerRef)
+    {
+        this.spawnerRef = spawnerRef;
+    }
 }
+

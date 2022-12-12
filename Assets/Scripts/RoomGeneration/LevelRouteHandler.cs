@@ -8,8 +8,6 @@ public class LevelRouteHandler : MonoBehaviour
     [SerializeField] List<GameObject> RouteList;
     private List<List<GameObject>> RouteNodeList;
 
-   
-
     EnemySpawner spawner;
 
     public int GetRouteList()

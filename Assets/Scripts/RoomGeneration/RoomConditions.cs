@@ -22,8 +22,6 @@ public class RoomConditions : MonoBehaviour
     [SerializeField] private int totalDead = 0;
     bool isStart = false;
 
-
-
     private void generateMisc(GameObject Misc, GameObject obj)
     {
         List<Transform> list = new List<Transform>();

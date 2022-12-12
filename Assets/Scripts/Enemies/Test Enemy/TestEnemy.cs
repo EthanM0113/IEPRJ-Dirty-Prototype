@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.AI;
 
 public class TestEnemy : BaseEnemy
 {
     Rigidbody rb;
+    Animator anim;
 
     // how long the enemy waits after getting into a point. Two values to randomize the wait time
     [SerializeField] float startWaitTime = 2f; // minimum wait time
@@ -23,6 +25,7 @@ public class TestEnemy : BaseEnemy
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
     }
 
     public override void Activate() // Everytime the enemy is spawned
@@ -55,6 +58,7 @@ public class TestEnemy : BaseEnemy
             {
                 waitTimer -= Time.deltaTime;
             }
+            anim.SetBool("IsMoving", false);
         }
         else if (currentState == State.MOVING)
         {
@@ -85,6 +89,9 @@ public class TestEnemy : BaseEnemy
                            rb.velocity.y,
                            direction.normalized.z * speed * Time.deltaTime
                         );
+            anim.SetBool("IsMoving", true);
         }
     }
+
+
 }

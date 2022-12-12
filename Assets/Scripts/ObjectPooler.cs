@@ -13,10 +13,12 @@ public class ObjectPooler : MonoBehaviour
     }
 
     public static ObjectPooler Instance;
+
     private void Awake()
     {
         Instance = this;
     }
+
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     // Start is called before the first frame update
@@ -53,5 +55,12 @@ public class ObjectPooler : MonoBehaviour
         return objToSpawn;
     }
 
+    // This disables all of the poolable objects
+    public void DisableAll()
+    {
+        int children = transform.childCount;
+        for (int i = 0; i < children; ++i)
+            transform.GetChild(i).gameObject.SetActive(false);
+    } 
     
 }

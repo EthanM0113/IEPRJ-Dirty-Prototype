@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: -6866074978018771310}
   - component: {fileID: 487066772}
   - component: {fileID: 8701865460503795817}
+  - component: {fileID: 936747523444356981}
   m_Layer: 6
   m_Name: TestEnemy
   m_TagString: TestEnemy
@@ -392,8 +393,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 40
   deadVersion: {fileID: 6825563087839260311, guid: 583ac5f27df76ef478c861eb7e6f4b4a, type: 3}
+  startWaitTime: 2
+  endWaitTime: 4
   route: []
-  waitTime: 4
+--- !u!95 &936747523444356981
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7247073434511506501}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d044f1f3d9309da4b9741710a7664366, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7678222518058511104
 GameObject:
   m_ObjectHideFlags: 0

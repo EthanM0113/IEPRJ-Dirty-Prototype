@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8a5d5979d1aaf384c929f09dbc53b842
+guid: 9a7f8a36fd9e287429e1419d7a07f645
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 128
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -129,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Torch_MOVE_0
+      name: Beholder_Attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,20 +143,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 129fdc5fb8443f049be3a6a75f66111b
-      internalID: 2024366750
+      spriteID: cd6701c3aa7c8504d9d6822889825da4
+      internalID: -1963749841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Torch_MOVE_1
+      name: Beholder_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43627dd3b53e92343957f63f6a5b7343
+      internalID: -16323130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_Attack_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -164,20 +185,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fd8fde1a09bfd4b4cb16a46d5d099dee
-      internalID: 74114506
+      spriteID: f401f82634981ee4aa0f72f10ea9d81e
+      internalID: -1816846718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Torch_MOVE_2
+      name: Beholder_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55a0938e19ac7fd448990a0759786541
+      internalID: -1826806431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Beholder_Attack_4
       rect:
         serializedVersion: 2
         x: 256
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,20 +227,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12defa16a7b0f504aaedc726d5a84510
-      internalID: 1016573328
+      spriteID: b42859fc583015c488aa4a0c9e4ce85d
+      internalID: 524330411
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Torch_MOVE_3
+      name: Beholder_Attack_5
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 0
-        width: 128
-        height: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,8 +248,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f68c8532ef6a56f4aa637c6817aaf99b
-      internalID: -1389391610
+      spriteID: f36d0edb7dee2cd4b80df8724f173238
+      internalID: 1531989863
       vertices: []
       indices: 
       edges: []
@@ -215,7 +257,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: c37e667edb8ad4b44a08a9df4686b3cc
+    spriteID: fa10cefb358020049b2e180b92987aff
     internalID: 0
     vertices: []
     indices: 
@@ -223,10 +265,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Torch_MOVE_1: 74114506
-      Torch_MOVE_2: 1016573328
-      Torch_MOVE_3: -1389391610
-      Torch_MOVE_0: 2024366750
+      Beholder_Attack_4: 524330411
+      Beholder_Attack_2: -1816846718
+      Beholder_Attack_3: -1826806431
+      Beholder_Attack_1: -16323130
+      Beholder_Attack_0: -1963749841
+      Beholder_Attack_5: 1531989863
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

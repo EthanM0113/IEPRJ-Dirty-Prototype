@@ -29,6 +29,7 @@ public class EnemySpawner : MonoBehaviour
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
             enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
             enemyRef.Activate(); // set needed path
+            enemyRef.GetComponent<EnemyDetection>().SetSpawnerReference(this);
         }
     }
 
