@@ -97,9 +97,14 @@ public class PlayerController : MonoBehaviour
     float abilityTimer;
     bool startAbilityTimer = false;
 
+    // Pause Screen
+    [SerializeField] private GameObject pauseScreen;
+    private bool isPaused; 
+
     // Start is called before the first frame update
     void Start()
     {
+        isPaused = false;
         // Set HP
         maxHealth = playerHearts.numOfHearts;
         health = playerHearts.health; 
@@ -208,6 +213,19 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && canDash && CheckFuel(dashFuelCost))
             {
                 StartCoroutine(Dash());
+            }
+
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                if(!isPaused)
+                {
+                    PauseGame();
+                    
+                }
+                else
+                {
+                    UnpauseGame();
+                }
             }
         } 
     }
@@ -379,5 +397,20 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        pauseScreen.SetActive(true);
+        isPaused = true;
+    }
+
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1;
+        pauseScreen.SetActive(false);
+        isPaused = false;
+    }
+
 }
  

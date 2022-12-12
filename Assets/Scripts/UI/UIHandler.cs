@@ -9,4 +9,9 @@ public class UIHandler : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void ResumeButton()
+    {
+        FindObjectOfType<PlayerController>().UnpauseGame();
+    }
 }
