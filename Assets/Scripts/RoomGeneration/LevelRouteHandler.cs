@@ -12,7 +12,10 @@ public class LevelRouteHandler : MonoBehaviour
 
     EnemySpawner spawner;
 
-
+    public int GetRouteList()
+    {
+        return RouteList.Count;
+    }
     // Start is called before the first frame update
     void Awake()
     {
