@@ -105,7 +105,7 @@ public class RoomConditions : MonoBehaviour
         {
             DeadEnemies();
         }
-        if (isFinished && !FinGenerated && RoomGen <= 14)
+        if (isFinished && !FinGenerated && RoomGen <= 15)
         {
             detectWalls();
         }

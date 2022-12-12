@@ -8,6 +8,7 @@ public class UIHandler : MonoBehaviour
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1;
     }
 
     public void ResumeButton()
