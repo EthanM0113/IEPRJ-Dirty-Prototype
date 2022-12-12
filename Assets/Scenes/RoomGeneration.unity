@@ -528,6 +528,37 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &510876387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 510876388}
+  m_Layer: 0
+  m_Name: RespawnNode
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &510876388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510876387}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.9699993, y: 0.0001001358, z: -12.731607}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &645206925
 Mesh:
   m_ObjectHideFlags: 0
@@ -1380,6 +1411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917ce62cb59a2344c87e7f1d54cc2683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RespawnNode: {fileID: 510876387}
   PrefabList:
   - {fileID: 5283407739506655135, guid: 80d0db4e642d32a4692dd7d8d380600b, type: 3}
   - {fileID: 450227254014140398, guid: c1b95064048655e41bb16fe7c9116908, type: 3}
