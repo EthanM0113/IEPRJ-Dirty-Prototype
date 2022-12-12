@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [Tooltip("Used for Player Sneaking Speed")]
     [SerializeField] float sneakSpeed;
+    [Tooltip("Used for Player Test Ability Speed")]
+    [SerializeField] float abilitySpeed;
     float actualSpeed = 0;
 
     [Space(10)]
@@ -83,6 +85,11 @@ public class PlayerController : MonoBehaviour
     // Checks if the player is alive or dead
     public bool isAlive = true;
 
+    // Ability variables
+    [SerializeField] private float abilityDuration = 3f;
+    float abilityTimer;
+    bool startAbilityTimer = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +104,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerCombat = GetComponent<PlayerCombat>();
         playerAbility = GetComponent<PlayerAbilityHandler>();
+
+        abilityTimer = abilityDuration;
     }
 
     private void Update()
@@ -111,6 +120,7 @@ public class PlayerController : MonoBehaviour
             InputHandler();
             SneakCheck();
             FuelManager();
+            CheckAbility();
         }
         else
         {
@@ -178,9 +188,12 @@ public class PlayerController : MonoBehaviour
 
             if (!isSneaking) // if the player is not sneaking then accept ability input
             {
-                if (Input.GetKey(KeyCode.I))
+                if (!startAbilityTimer) // if the ability is not activated 
                 {
-                    UseAbility(playerAbility.GetCurrentAbility());
+                    if (Input.GetKeyDown(KeyCode.I))
+                    {
+                        UseAbility();
+                    }
                 }
             }
 
@@ -193,12 +206,17 @@ public class PlayerController : MonoBehaviour
 
     void SneakCheck()
     {
-        if (isSneaking)
+        if (isSneaking && playerAbility.GetCurrentAbility() == Ability.Type.NONE && startAbilityTimer)
         {
             actualSpeed = sneakSpeed;
             playerLight.intensity = minLight;
         }
-        else
+        else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
+        {
+            actualSpeed = abilitySpeed;
+            playerLight.intensity = maxLight;
+        }
+        else if (!isSneaking) 
         {
             actualSpeed = speed;
             playerLight.intensity = maxLight;
@@ -302,12 +320,34 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void UseAbility(Ability.Type ability)
+    void UseAbility()
     {
-        if (ability == Ability.Type.TEST)
+        startAbilityTimer = true;
+    }
+
+    void CheckAbility()
+    {
+        if (startAbilityTimer)
         {
-            abilityEffects.Play();
-            actualSpeed = speed * 4;
+            if (abilityTimer <= 0f)
+            {
+                abilityTimer = abilityDuration;
+                startAbilityTimer = false;
+            }
+            else
+            {
+                if (playerAbility.GetCurrentAbility() == Ability.Type.NONE)
+                {
+                    abilityTimer = abilityDuration;
+                    startAbilityTimer = false;
+                }
+                else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST)
+                {
+                    abilityEffects.Play();
+                }
+
+                abilityTimer -= Time.deltaTime;
+            }
         }
     }
 
