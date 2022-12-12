@@ -10,7 +10,8 @@ public class FirstBossAttack : MonoBehaviour
     [SerializeField] private FirstBossManager firstBossManager;
     [SerializeField] private FirstBossAnimationHandler firstBossAnimationHandler;
     [SerializeField] private GameObject player;
-    [SerializeField] private PlayerController playerController;
+    //[SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerHearts playerHearts;
 
     // attacking
     private bool attacking = false;
@@ -54,6 +55,8 @@ public class FirstBossAttack : MonoBehaviour
     {
         bossAnimator.SetTrigger("isAttacking");
         Debug.Log("Player Hit!");
+        // Damage player
+        playerHearts.DamagePlayer(1);
         attacking = true;
     }
 
