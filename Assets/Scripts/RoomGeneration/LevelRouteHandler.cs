@@ -8,9 +8,7 @@ public class LevelRouteHandler : MonoBehaviour
     [SerializeField] List<GameObject> RouteList;
     private List<List<GameObject>> RouteNodeList;
 
-    // Object pooler
-    private GameObject objectPooler;
-    private SamplePooler samplePooler;
+   
 
     EnemySpawner spawner;
 

@@ -6,46 +6,72 @@ public class RoomGeneration : MonoBehaviour
 {
     private bool create = false;
     [SerializeField] GameObject[] PrefabList;
-    
+    [SerializeField] private int roomsGenerated = 1;
+    //[SerializeField] GameObject footCollider;
+
+    private void OnCollisionStay(Collision collision)
+    {
+        RoomConditions room;
+       if ( room = collision.gameObject.GetComponentInParent<RoomConditions>())
+        Debug.Log($"Room ID {room.GetRoomID()}");
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "NorthWall" )
         {
             CreateRoom(0, other.gameObject);
+            other.gameObject.SetActive(false);
+            
         }
         else if (other.gameObject.tag == "EastWall")
         {
             CreateRoom(1, other.gameObject);
+            other.gameObject.SetActive(false);
         }
         else if (other.gameObject.tag == "WestWall")
         {
             CreateRoom(2, other.gameObject);
-            create = true;
+            other.gameObject.SetActive(false);
+
         }
         else if (other.gameObject.tag == "SouthWall")
         {
             CreateRoom(3, other.gameObject);
+            other.gameObject.SetActive(false);
+
         }
 
     }
     private void CreateRoom (int direction, GameObject collisionRef)
     {
         Debug.Log("CREATE ROOM");
-        //int chosen = Random.Range(1, PrefabList.Length + 1);
-        int chosen = 0;
+        int chosen = Random.Range(0, PrefabList.Length);
+        //int chosen = 0;
+        GameObject room;
         Vector3 place = collisionRef.transform.position;
         switch (direction) { 
             case 0:
-                Instantiate(PrefabList[chosen], new Vector3(place.x, place.y - 3, place.z + 16), Quaternion.identity);
+                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 10.5f, place.y - 0.6f, place.z + 19.3f), Quaternion.identity) as GameObject;
+                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                roomsGenerated++;
+
+
                 break;
             case 1:
-                Instantiate(PrefabList[chosen], new Vector3(place.x-8, place.y - 3.5f, place.z + 5), Quaternion.identity);
+                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 19.5f, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
+                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                roomsGenerated++;
                 break;
             case 2:
-                Instantiate(PrefabList[chosen], new Vector3(place.x+8, -2.427262f, place.z + 5), Quaternion.identity);
+                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 0.5f, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
+                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                roomsGenerated++;
                 break;
             case 3:
-                Instantiate(PrefabList[chosen], new Vector3(place.x, place.y - 3, place.z - 16), Quaternion.identity);
+                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 10.5f, place.y - 0.6f, place.z + 0.7f), Quaternion.identity) as GameObject;
+                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                roomsGenerated++;
                 break;
 
         }
