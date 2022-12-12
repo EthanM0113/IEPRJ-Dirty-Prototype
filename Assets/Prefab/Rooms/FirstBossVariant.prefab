@@ -353,9 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7558498055538952928}
-  - component: {fileID: 9200807179109242321}
-  - component: {fileID: 5506733126809494563}
-  - component: {fileID: 6048451095351159136}
+  - component: {fileID: 8177711572324218333}
   m_Layer: 0
   m_Name: FirstBossVariant
   m_TagString: Untagged
@@ -371,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 376534091614563050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 21.164654, y: 0, z: -1.77}
+  m_LocalPosition: {x: 30, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -392,7 +390,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9200807179109242321
+--- !u!114 &8177711572324218333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -401,36 +399,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 376534091614563050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e8848f3f496df545a38984b511f129c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RouteList:
-  - {fileID: 0}
-  - {fileID: 0}
---- !u!114 &5506733126809494563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376534091614563050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dcf17dbcec0b01459e433a8ec0869af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RouteList: []
-  SpawnInterval: 2
---- !u!114 &6048451095351159136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376534091614563050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0aff67c4f546f23428418068280814cf, type: 3}
+  m_Script: {fileID: 11500000, guid: ad4091d6fc799dd4994a7fe00e2f567a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ODir: 0
@@ -439,13 +408,6 @@ MonoBehaviour:
   WDir: {fileID: 2233024282099531994}
   SDir: {fileID: 4485939836189830097}
   RoomID: 0
-  extraNodes:
-  - {fileID: 0}
-  extraObjects:
-  - {fileID: 526753870571513849, guid: 3e8d8c1a0c96db448b8a53f6412d2c5b, type: 3}
-  plane: {fileID: 2079325721937106424}
-  totalEnemies: 0
-  totalDead: 0
 --- !u!1 &1150810448735719020
 GameObject:
   m_ObjectHideFlags: 0
