@@ -13,6 +13,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     PlayerController playerController;
 
+    // 1st boss stuff
+    [SerializeField] private string hpTorchTag; 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,9 @@ public class PlayerCombat : MonoBehaviour
         {
             foreach (Collider enemy in hitEnemies)
             {
+                // 1st Boss Stuff
+                FirstBoss(enemy);
+
                 if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                 {
                     enemy.GetComponent<BaseEnemy>().EnemyDeath();
@@ -54,4 +60,12 @@ public class PlayerCombat : MonoBehaviour
 
     // Returns the attack range
     public float GetAttackRange() { return (attackRange); }
+
+    public void FirstBoss(Collider enemy)
+    {
+        if(enemy.CompareTag(hpTorchTag))
+        {
+            enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
+        }
+    }
 }

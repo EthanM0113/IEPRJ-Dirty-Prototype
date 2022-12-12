@@ -310,5 +310,10 @@ public class PlayerController : MonoBehaviour
             actualSpeed = speed * 4;
         }
     }
+
+    public bool GetSneaking()
+    {
+        return isSneaking;
+    }
 }
  

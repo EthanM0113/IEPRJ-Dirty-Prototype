@@ -59,7 +59,7 @@ public class PlayerAbilityHandler : MonoBehaviour
         // inflict dmg/kill
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<DeadTestEnemy>().SetConsumed(false);
+            //enemy.GetComponent<DeadTestEnemy>().SetConsumed(false);
         }
     }
 
