@@ -5768,6 +5768,7 @@ GameObject:
   - component: {fileID: 8600752381076193326}
   - component: {fileID: 112672430668485829}
   - component: {fileID: 8557472063509523471}
+  - component: {fileID: 7043229411048727085}
   - component: {fileID: 1744724584}
   m_Layer: 0
   m_Name: Player
@@ -6025,6 +6026,23 @@ MonoBehaviour:
     m_Bits: 128
   currentAbility: 0
   field: {fileID: 845141777}
+--- !u!114 &7043229411048727085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600752381076193325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d32ce58ee5cef6140a6681797331b6fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attack: 117
+  consume: 106
+  ability: 105
+  dash: 32
+  sneak: 304
 --- !u!114 &1744724584
 MonoBehaviour:
   m_ObjectHideFlags: 0

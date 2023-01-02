@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Light playerLight;
     [Space(10)]
 
+    PlayerInputHandler inputHandler;
 
     [Tooltip("Reference to the player sprite")]
     [SerializeField] SpriteRenderer playerSprite; // used to flip the sprite
@@ -118,6 +119,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerCombat = GetComponent<PlayerCombat>();
         playerAbility = GetComponent<PlayerAbilityHandler>();
+        inputHandler = GetComponent<PlayerInputHandler>();
 
         abilityTimer = abilityDuration;
     }
@@ -154,7 +156,7 @@ public class PlayerController : MonoBehaviour
     
     void InputHandler() {
 
-        if (Input.GetKey(KeyCode.J)) // Consume
+        if (/*Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume()) // Consume
         {
             playerAbility.Consume();
             animator.SetBool("IsConsuming", true);
@@ -165,7 +167,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        else if (!Input.GetKey(KeyCode.J)) // Not Consuming, can move
+        else if (/*!Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume() == false) // Not Consuming, can move
         {
             animator.SetBool("IsConsuming", false);
             playerAbility.Unconsume();
@@ -183,17 +185,17 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsMoving", false);
             }
 
-            if (Input.GetKeyDown(KeyCode.U)) // Attack
+            if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
             {
                 animator.SetTrigger("Attack");
             }
 
-            if (Input.GetKey(KeyCode.LeftShift)) // Checks if it's sneaking
+            if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
             {
                 isSneaking = true;
                 animator.SetBool("IsCrouching", true);
             }
-            else if (!Input.GetKey(KeyCode.LeftShift))
+            else if (/*!Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak() == false)
             {
                 isSneaking = false;
                 animator.SetBool("IsCrouching", false);
@@ -203,14 +205,14 @@ public class PlayerController : MonoBehaviour
             {
                 if (!startAbilityTimer) // if the ability is not activated 
                 {
-                    if (Input.GetKeyDown(KeyCode.I))
+                    if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                     {
                         UseAbility();
                     }
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Space) && canDash && CheckFuel(dashFuelCost))
+            if (/*Input.GetKeyDown(KeyCode.Space)*/inputHandler.IsDash() && canDash && CheckFuel(dashFuelCost))
             {
                 StartCoroutine(Dash());
             }
