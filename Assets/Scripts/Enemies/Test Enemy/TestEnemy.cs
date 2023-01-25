@@ -73,6 +73,9 @@ public class TestEnemy : BaseEnemy
                 {
                     currentNode++;
                 }
+            }else if (route[currentNode] == null)
+            {
+                currentNode = 1;
             }
 
             // gets the direction to move to
