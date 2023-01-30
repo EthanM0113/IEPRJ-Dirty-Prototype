@@ -9,6 +9,7 @@ public class RoomGeneration : MonoBehaviour
     [SerializeField] GameObject[] PrefabList;
     [SerializeField] GameObject BossPrefab;
     [SerializeField] private int roomsGenerated = 1;
+    [SerializeField] private int bossRoomNo = 2;
     //[SerializeField] GameObject footCollider;
      
     private void OnCollisionStay(Collision collision)
@@ -61,7 +62,7 @@ public class RoomGeneration : MonoBehaviour
         GameObject room;
         Vector3 place = collisionRef.transform.position;
         
-        if (roomsGenerated == 15)//Set this for boss
+        if (roomsGenerated == bossRoomNo)//Set this for boss
         {
             switch (direction)
             {
@@ -124,6 +125,11 @@ public class RoomGeneration : MonoBehaviour
     public int GetRoomsGenerated()
     {
         return roomsGenerated;
+    }
+
+    public int GetBossRoomNo()
+    {
+        return bossRoomNo;
     }
     //void Start()
     //{
