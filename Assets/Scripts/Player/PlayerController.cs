@@ -5,6 +5,9 @@ using UnityEngine.Animations;
 [System.Serializable]
 public class PlayerController : MonoBehaviour
 {
+    // General Variables
+    [SerializeField] private GameObject playerCenter;
+
     [Header("Speed Variables")]
     [Tooltip("Used for Player Movement Speed")]
     [SerializeField] float speed;
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     Vector2 moveInput; // vector2 containing the players x and y movement
 
+
     // Lose Screen
     [SerializeField] private GameObject loseScreen;
 
@@ -98,6 +102,11 @@ public class PlayerController : MonoBehaviour
     float abilityTimer;
     bool startAbilityTimer = false;
 
+    // Flare Ability variables
+    [SerializeField] private GameObject flarePrefab;
+    [SerializeField] private float flareForce;
+    private bool didShootFlare;
+
     // Pause Screen
     [SerializeField] private GameObject pauseScreen;
     private bool isPaused; 
@@ -122,6 +131,9 @@ public class PlayerController : MonoBehaviour
         inputHandler = GetComponent<PlayerInputHandler>();
 
         abilityTimer = abilityDuration;
+
+        // for flare
+        didShootFlare = false;
     }
 
     private void Update()
@@ -365,13 +377,30 @@ public class PlayerController : MonoBehaviour
             else
             {
                 if (playerAbility.GetCurrentAbility() == Ability.Type.NONE)
-                {
+                {    
                     abilityTimer = abilityDuration;
                     startAbilityTimer = false;
                 }
                 else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST)
                 {
                     abilityEffects.Play();
+                }
+                else if (playerAbility.GetCurrentAbility() == Ability.Type.FLARE)
+                {
+                    if (!didShootFlare)
+                    {
+                        GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
+                        Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
+                        if(isFacingRight)
+                        {
+                            shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
+                        }
+                        else
+                        {
+                            shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
+                        }
+                        didShootFlare = true;
+                    }
                 }
 
                 abilityTimer -= Time.deltaTime;
