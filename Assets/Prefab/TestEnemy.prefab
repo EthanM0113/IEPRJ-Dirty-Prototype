@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8707939999792555958}
   m_Layer: 6
   m_Name: Self Light
-  m_TagString: Untagged
+  m_TagString: TestEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 7247073434045152969}
   m_Layer: 6
   m_Name: idle_0
-  m_TagString: Untagged
+  m_TagString: TestEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 7247073434300809932}
   m_Layer: 6
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: TestEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -379,6 +379,7 @@ MonoBehaviour:
   cone: {fileID: 830562000691713446}
   undetectedColor: {r: 0.9716981, g: 0.8256829, b: 0.27959237, a: 0}
   detectedColor: {r: 0.6981132, g: 0.16794232, b: 0.16794232, a: 0}
+  detectionTime: 1
 --- !u!114 &8701865460503795817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +399,7 @@ MonoBehaviour:
   route: []
 --- !u!95 &936747523444356981
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -415,7 +416,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7678222518058511104
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +429,7 @@ GameObject:
   - component: {fileID: 830562000691713446}
   m_Layer: 6
   m_Name: Spot Light
-  m_TagString: Untagged
+  m_TagString: TestEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -497,7 +498,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0

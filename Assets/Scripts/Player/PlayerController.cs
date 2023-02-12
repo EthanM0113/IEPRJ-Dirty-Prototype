@@ -250,16 +250,19 @@ public class PlayerController : MonoBehaviour
         {
             actualSpeed = sneakSpeed;
             playerLight.intensity = minLight;
+            playerLight.spotAngle = minLight;
         }
         else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
             actualSpeed = abilitySpeed;
             playerLight.intensity = maxLight;
+            playerLight.spotAngle = maxLight;
         }
         else if (!isSneaking) 
         {
             actualSpeed = speed;
             playerLight.intensity = maxLight;
+            playerLight.spotAngle = maxLight;
         }
     }
 
@@ -307,7 +310,7 @@ public class PlayerController : MonoBehaviour
             fuelTicks = 0.0f;
         }
         //Debug.Log("Fuel: " + fuelAmt);
-        playerLight.range = fuelAmt;
+        playerLight.spotAngle = fuelAmt;
     }
 
     public void UseFuel(float amount)

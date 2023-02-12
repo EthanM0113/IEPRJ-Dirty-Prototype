@@ -15,6 +15,9 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     [Tooltip("Spot where the consumption particles go")]
     [SerializeField] ParticleSystemForceField field;
+
+    public int abilityLevel = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,19 +34,29 @@ public class PlayerAbilityHandler : MonoBehaviour
             consumeLayerMask
             );
 
+        bool LevelUpRequest = false;
         // inflict dmg/kill
         foreach (Collider enemy in hitEnemies)
         {
-            enemy.GetComponent<DeadTestEnemy>().SetConsumed(true);
-            enemy.GetComponent<DeadTestEnemy>().AddInfluence(field);
+            enemy.GetComponent<BaseDeadEnemy>().SetConsumed(true);
+            enemy.GetComponent<BaseDeadEnemy>().AddInfluence(field);
             // When timer in the dead enemy is done. Refer to DeadTestEnemy Consumed()
-            if (enemy.GetComponent<DeadTestEnemy>().Consumed() != Ability.Type.NONE) 
+            if (enemy.GetComponent<BaseDeadEnemy>().Consumed() != Ability.Type.NONE) 
             {
                 if (enemy.gameObject.CompareTag("DeadTestEnemy"))
                 {
-                    currentAbility = enemy.GetComponent<DeadTestEnemy>().Consumed();
+                    if (enemy.GetComponent<BaseDeadEnemy>().GetAbilityType() == currentAbility)
+                    {
+                        LevelUpRequest = true;
+                    }
+                    currentAbility = enemy.GetComponent<BaseDeadEnemy>().Consumed();
                 } 
             }
+        }
+
+        if (LevelUpRequest)
+        {
+            abilityLevel++;
         }
     }
 
