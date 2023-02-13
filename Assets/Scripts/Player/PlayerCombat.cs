@@ -37,13 +37,18 @@ public class PlayerCombat : MonoBehaviour
             foreach (Collider enemy in hitEnemies)
             {
                 // 1st Boss Stuff
-                FirstBoss(enemy);
-
-                if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                if (FirstBoss(enemy))
                 {
-                    enemy.GetComponent<BaseEnemy>().EnemyDeath();
-                    enemy.gameObject.SetActive(false);
+                    return;
                 }
+                else // Normal enemy stuff
+                {
+                    if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                    {
+                        enemy.GetComponent<BaseEnemy>().EnemyDeath();
+                        enemy.gameObject.SetActive(false);
+                    }
+                } 
             }
         }
         
@@ -61,11 +66,16 @@ public class PlayerCombat : MonoBehaviour
     // Returns the attack range
     public float GetAttackRange() { return (attackRange); }
 
-    public void FirstBoss(Collider enemy)
+    public bool FirstBoss(Collider enemy)
     {
         if(enemy.CompareTag(hpTorchTag))
         {
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }
