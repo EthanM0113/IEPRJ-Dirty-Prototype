@@ -376,6 +376,7 @@ public class PlayerController : MonoBehaviour
             {
                 abilityTimer = abilityDuration;
                 startAbilityTimer = false;
+                didShootFlare = false;
             }
             else
             {
