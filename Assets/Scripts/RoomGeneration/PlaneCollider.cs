@@ -12,7 +12,7 @@ public class PlaneCollider : MonoBehaviour
 
         if (collision.collider.CompareTag("DeadTestEnemy"))
         {
-            this.transform.parent.GetComponent<RoomConditions>().enemyKill();
+            this.transform.GetComponent<RoomConditions>().enemyKill();
         }
     }
 

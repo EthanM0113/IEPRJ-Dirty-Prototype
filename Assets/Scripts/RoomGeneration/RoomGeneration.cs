@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoomGeneration : MonoBehaviour
@@ -10,7 +11,6 @@ public class RoomGeneration : MonoBehaviour
     [SerializeField] GameObject BossPrefab;
     [SerializeField] private int roomsGenerated = 1;
     [SerializeField] private int bossRoomNo = 2;
-    //[SerializeField] GameObject footCollider;
      
     private void OnCollisionStay(Collision collision)
     {
@@ -24,29 +24,45 @@ public class RoomGeneration : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        GameObject wall = other.transform.parent.GameObject().transform.parent.gameObject;
         if (other.gameObject.tag == "NorthWall" )
         {
-            CreateRoom(0, other.gameObject);
+            CreateRoom(0, wall);
+            Debug.Log("Coordinates: " + wall.transform.position.x + " " +
+                      wall.transform.position.y + " " +
+                wall.transform.position.z);
             other.gameObject.SetActive(false);
             RespawnNode.transform.position = this.transform.position;
 
         }
         else if (other.gameObject.tag == "EastWall")
         {
-            CreateRoom(1, other.gameObject);
+            CreateRoom(1,wall);
+            Debug.Log("Coordinates: " + wall.transform.position.x + " " +
+                      wall.transform.position.y + " " +
+                      wall.transform.position.z);
+            
             other.gameObject.SetActive(false);
             RespawnNode.transform.position = this.transform.position;
         }
         else if (other.gameObject.tag == "WestWall")
         {
-            CreateRoom(2, other.gameObject);
+            CreateRoom(2, wall);
+            Debug.Log("Coordinates: " + wall.transform.position.x + " " +
+                      wall.transform.position.y + " " +
+                      wall.transform.position.z);
+            
             other.gameObject.SetActive(false);
             RespawnNode.transform.position = this.transform.position;
 
         }
         else if (other.gameObject.tag == "SouthWall")
         {
-            CreateRoom(3, other.gameObject);
+            CreateRoom(3, wall);
+            Debug.Log("Coordinates: " + wall.transform.position.x + " " +
+                      wall.transform.position.y + " " +
+                      wall.transform.position.z);
+            
             other.gameObject.SetActive(false);
             RespawnNode.transform.position = this.transform.position;
 
@@ -58,32 +74,31 @@ public class RoomGeneration : MonoBehaviour
     {
         Debug.Log("CREATE ROOM");
         int chosen = Random.Range(0, PrefabList.Length);
-        //int chosen = 0;
         GameObject room;
         Vector3 place = collisionRef.transform.position;
-        
+
         if (roomsGenerated == bossRoomNo)//Set this for boss
         {
             switch (direction)
             {
                 case 0:
-                    room = Instantiate(BossPrefab, new Vector3(place.x - 25.4f, place.y - 0.6f, place.z + 19.3f), Quaternion.identity) as GameObject;
+                    room = Instantiate(BossPrefab, new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
                     room.GetComponent<FirstBossRoom>().setup(direction, roomsGenerated);
                     roomsGenerated++;
 
                     break;
                 case 1:
-                    room = Instantiate(BossPrefab, new Vector3(place.x -35f, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
+                    room = Instantiate(BossPrefab, new Vector3(place.x + 20, place.y, place.z), Quaternion.identity) as GameObject;
                     room.GetComponent<FirstBossRoom>().setup(direction, roomsGenerated);
                     roomsGenerated++;
                     break;
                 case 2:
-                    room = Instantiate(BossPrefab, new Vector3(place.x - 16, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
+                    room = Instantiate(BossPrefab, new Vector3(place.x - 20, place.y, place.z), Quaternion.identity) as GameObject;
                     room.GetComponent<FirstBossRoom>().setup(direction, roomsGenerated);
                     roomsGenerated++;
                     break;
                 case 3:
-                    room = Instantiate(BossPrefab, new Vector3(place.x - 25.4f, place.y - 0.6f, place.z + 0.7f), Quaternion.identity) as GameObject;
+                    room = Instantiate(BossPrefab, new Vector3(place.x, place.y, place.z - 20), Quaternion.identity) as GameObject;
                     room.GetComponent<FirstBossRoom>().setup(direction, roomsGenerated);
                     roomsGenerated++;
                     break;
@@ -91,35 +106,36 @@ public class RoomGeneration : MonoBehaviour
         }
         else
         {
+            switch (direction)
+            {
+                case 0:
+                    room = Instantiate(PrefabList[chosen], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                    roomsGenerated++;
 
-        switch (direction) { 
-            case 0:
-                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 10.5f, place.y - 0.6f, place.z + 19.3f), Quaternion.identity) as GameObject;
-                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
-                roomsGenerated++;
 
-
-                break;
-            case 1:
-                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 19.5f, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
-                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
-                roomsGenerated++;
-                break;
-            case 2:
-                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 0.5f, place.y - 0.6f, place.z + 10), Quaternion.identity) as GameObject;
-                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
-                roomsGenerated++;
-                break;
-            case 3:
-                room = Instantiate(PrefabList[chosen], new Vector3(place.x - 10.5f, place.y - 0.6f, place.z + 0.7f), Quaternion.identity) as GameObject;
-                room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
-                roomsGenerated++;
-                break;
+                    break;
+                case 1:
+                    room = Instantiate(PrefabList[chosen], new Vector3(place.x + 20, place.y, place.z), Quaternion.identity) as GameObject;
+                    room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                    roomsGenerated++;
+                    break;
+                case 2:
+                    room = Instantiate(PrefabList[chosen], new Vector3(place.x - 20, place.y, place.z), Quaternion.identity) as GameObject;
+                    room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                    roomsGenerated++;
+                    break;
+                case 3:
+                    room = Instantiate(PrefabList[chosen], new Vector3(place.x, place.y, place.z - 20), Quaternion.identity) as GameObject;
+                    room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
+                    roomsGenerated++;
+                    break;
             }
-                
+
 
         }
-        
+
+     
         //collisionRef.SetActive(false);
     }
     public int GetRoomsGenerated()

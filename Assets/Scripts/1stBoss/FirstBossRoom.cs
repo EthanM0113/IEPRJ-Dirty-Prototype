@@ -18,19 +18,31 @@ public class FirstBossRoom : MonoBehaviour
         {
             case 0:
                 ODir = 0;
+                NDir.SetActive(true);
+                EDir.SetActive(true);
+                WDir.SetActive(true);
                 SDir.SetActive(false);
                 break;
             case 1:
                 ODir = 1;
+                NDir.SetActive(true);
+                EDir.SetActive(true);
                 WDir.SetActive(false);
+                SDir.SetActive(true);
                 break;
             case 2:
                 ODir = 2;
+                NDir.SetActive(true);
                 EDir.SetActive(false);
+                WDir.SetActive(true);
+                SDir.SetActive(true);
                 break;
             case 3:
                 ODir = 3;
                 NDir.SetActive(false);
+                EDir.SetActive(true);
+                WDir.SetActive(true);
+                SDir.SetActive(true);
                 break;
 
         }
