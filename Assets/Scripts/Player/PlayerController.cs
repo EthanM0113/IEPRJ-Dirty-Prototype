@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
         {
             if (abilityLevel > 0)
             {
-                actualSpeed = abilitySpeed * (abilityLevel * abilityConstant);
+                actualSpeed = abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant));
             }
             else
             {
