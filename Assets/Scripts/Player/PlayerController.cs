@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
     // Flare Ability variables
     [SerializeField] private GameObject flarePrefab;
     [SerializeField] private float flareForce;
+    [SerializeField] private float flareAbilityIncrement = 0.3f;
     private bool didShootFlare;
 
     // Pause Screen
@@ -406,8 +407,11 @@ public class PlayerController : MonoBehaviour
                     if (!didShootFlare)
                     {
                         GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
+                        Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
+                        shotFlareLight.range += flareAbilityIncrement * abilityLevel;
                         Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
-                        shotFlare.transform.localScale *= ((1 + abilityLevel) * abilityConstant);
+                        // Just affecting x and y scale
+                        shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
                         if (isFacingRight)
                         {
                             shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
