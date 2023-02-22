@@ -16,7 +16,7 @@ public class PlayerAbilityHandler : MonoBehaviour
     [Tooltip("Spot where the consumption particles go")]
     [SerializeField] ParticleSystemForceField field;
 
-    public int abilityLevel = 0;
+    [SerializeField] int abilityLevel = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +81,10 @@ public class PlayerAbilityHandler : MonoBehaviour
         return currentAbility;
     }
 
+    public int GetAbilityLevel()
+    {
+        return abilityLevel;
+    }
     public void SetCurrentAbility(Ability.Type ability)
     {
         currentAbility = ability;

@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sneakSpeed;
     [Tooltip("Used for Player Test Ability Speed")]
     [SerializeField] float abilitySpeed;
+    [Tooltip("Used for Player Test Ability Speed Increase per level")]
+    [SerializeField] float abilityConstant = 0.3f;
     float actualSpeed = 0;
 
     [Space(10)]
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     bool isSneaking; // used for sneaking
     bool isFacingRight = true;
+
+    int abilityLevel = 0;
 
     Vector2 moveInput; // vector2 containing the players x and y movement
 
@@ -219,6 +223,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                     {
+                        abilityLevel = playerAbility.GetAbilityLevel();
                         UseAbility();
                     }
                 }
@@ -254,7 +259,14 @@ public class PlayerController : MonoBehaviour
         }
         else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
-            actualSpeed = abilitySpeed;
+            if (abilityLevel > 0)
+            {
+                actualSpeed = abilitySpeed * (abilityLevel * abilityConstant);
+            }
+            else
+            {
+                actualSpeed = abilitySpeed;
+            }
             playerLight.intensity = maxLight;
             playerLight.spotAngle = maxLight;
         }
@@ -395,7 +407,8 @@ public class PlayerController : MonoBehaviour
                     {
                         GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
                         Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
-                        if(isFacingRight)
+                        shotFlare.transform.localScale *= ((1 + abilityLevel) * abilityConstant);
+                        if (isFacingRight)
                         {
                             shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
                         }
