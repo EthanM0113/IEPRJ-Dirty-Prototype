@@ -252,7 +252,7 @@ public class PlayerController : MonoBehaviour
 
     void SneakCheck()
     {
-        if (isSneaking && playerAbility.GetCurrentAbility() == Ability.Type.NONE && startAbilityTimer)
+        if (isSneaking)
         {
             actualSpeed = sneakSpeed;
             playerLight.intensity = minLight;
