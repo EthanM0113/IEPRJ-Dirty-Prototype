@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6853446679586094969}
   - component: {fileID: 8420072866272406126}
   - component: {fileID: 4049677405561113731}
+  - component: {fileID: 6437673650139076033}
   m_Layer: 0
   m_Name: FlareShot
   m_TagString: Untagged
@@ -116,6 +117,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &6437673650139076033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6853446679586094968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db5ff16ba1cc0ee45b39a90cf6f59a4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LIFE_DURATION: 4
 --- !u!1 &6853446680203408848
 GameObject:
   m_ObjectHideFlags: 0
