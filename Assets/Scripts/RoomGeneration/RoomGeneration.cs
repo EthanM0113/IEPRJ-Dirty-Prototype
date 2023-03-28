@@ -138,7 +138,7 @@ public class RoomGeneration : MonoBehaviour
             switch (roomsGenerated)
             {
                 case 1:
-                    room = Instantiate(PrefabList[0], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    room = Instantiate(PrefabList[0], new Vector3(place.x, place.y, place.z + 30), Quaternion.identity) as GameObject;
                     roomsGenerated++;
                     break;
                 case 2:
@@ -146,7 +146,7 @@ public class RoomGeneration : MonoBehaviour
                     roomsGenerated++;
                     break;
                 case 3:
-                    room = Instantiate(PrefabList[2], new Vector3(place.x, place.y, place.z + 30), Quaternion.identity) as GameObject;
+                    room = Instantiate(PrefabList[2], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
                     roomsGenerated++;
                     break;
                 case 4:
@@ -157,10 +157,7 @@ public class RoomGeneration : MonoBehaviour
                     room = Instantiate(PrefabList[4], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
                     roomsGenerated++;
                     break;
-                case 6:
-                    room = Instantiate(PrefabList[5], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
-                    roomsGenerated++;
-                    break;
+               
 
             }
         }

@@ -22,6 +22,7 @@ public class RoomConditions : MonoBehaviour
     [SerializeField] private int totalDead = 0;
     bool isStart = false;
     private int RoomGen;
+    [SerializeField] private bool isTutorial = false;
     private void generateMisc(GameObject Misc, GameObject obj)
     {
         List<Transform> list = new List<Transform>();
@@ -29,16 +30,24 @@ public class RoomConditions : MonoBehaviour
         {
             list.Add(Misc.transform.GetChild(i));
         }
+
         for (int i = 0; i < list.Count; i++)
         {
-            int range = Random.Range(1, 101);
-            if (range > 0 && range < 76)
+            if (!isTutorial)
+            {
+                int range = Random.Range(1, 101);
+                if (range > 0 && range < 76)
+                {
+                    Instantiate(obj, list[i]);
+                    Debug.Log("Created Item");
+                }
+
+            }
+            else
             {
                 Instantiate(obj, list[i]);
                 Debug.Log("Created Item");
             }
-                
-            
         }
     }
     public void enemySetup()
@@ -99,7 +108,12 @@ public class RoomConditions : MonoBehaviour
         {
             generateMisc(extraNodes[i], extraObjects[i]);
         }
+
+        if (!isTutorial)
+        {
         enemySetup();
+
+        }
         isStart = true;
 
     }
