@@ -11,12 +11,20 @@ public class RoomNumberUIManager : MonoBehaviour
     [SerializeField] private int currentRoomNo;
     [SerializeField] private int maxRoomNo;
     [SerializeField] private RoomGeneration roomGeneration;
+    [SerializeField] private bool isTutorial = false;
 
     // Start is called before the first frame update
     void Start()
     {
         currentRoomNo = roomGeneration.GetRoomsGenerated();
-        maxRoomNo = roomGeneration.GetBossRoomNo() + 1; // temporarily +1 just to not change room gen script
+        if (!isTutorial)
+        {
+            maxRoomNo = roomGeneration.GetBossRoomNo() + 1; // temporarily +1 just to not change room gen script
+        }
+        else
+        {
+            maxRoomNo = 6;
+        }
     }
 
     // Update is called once per frame

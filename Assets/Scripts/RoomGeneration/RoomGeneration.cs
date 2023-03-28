@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RoomGeneration : MonoBehaviour
 {
@@ -28,12 +29,20 @@ public class RoomGeneration : MonoBehaviour
         GameObject wall = other.transform.parent.GameObject().transform.parent.gameObject;
         if (other.gameObject.tag == "NorthWall" )
         {
-            CreateRoom(0, wall);
-            Debug.Log("Coordinates: " + wall.transform.position.x + " " +
-                      wall.transform.position.y + " " +
-                wall.transform.position.z);
-            other.gameObject.SetActive(false);
-            RespawnNode.transform.position = this.transform.position;
+            
+           if (isTutorial && roomsGenerated == 6)
+            {
+                SceneManager.LoadScene("RoomGeneration");
+            }
+          else
+           {
+               CreateRoom(0, wall);
+               Debug.Log("Coordinates: " + wall.transform.position.x + " " +
+                         wall.transform.position.y + " " +
+                         wall.transform.position.z);
+               other.gameObject.SetActive(false);
+               RespawnNode.transform.position = this.transform.position;
+           }
 
         }
         else if (other.gameObject.tag == "EastWall")

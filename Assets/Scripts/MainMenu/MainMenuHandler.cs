@@ -7,7 +7,7 @@ public class MainMenuHandler : MonoBehaviour
 {
     public void PlayGame() {
         Debug.Log("PlayGame");
-        SceneManager.LoadScene("RoomGeneration");
+        SceneManager.LoadScene("TutorialLevel");
     }
 
     public void ExitGame() {
