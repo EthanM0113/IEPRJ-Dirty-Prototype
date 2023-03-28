@@ -15,7 +15,6 @@ public class WispAreaManager : MonoBehaviour
     [SerializeField] private float TP_INTERVAL = 0.1f;
 
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +28,7 @@ public class WispAreaManager : MonoBehaviour
         //Debug.Log("Top Left: " + tlBoundsPos);
         //Debug.Log("BottomRight: " + brBoundsPos);
         ticks += Time.deltaTime;
-        if(ticks >= TP_INTERVAL)
+        if (ticks >= TP_INTERVAL)
         {
             float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
             float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
@@ -46,6 +45,8 @@ public class WispAreaManager : MonoBehaviour
             }
             ticks = 0.0f;
         }
+
+
 
 
     }

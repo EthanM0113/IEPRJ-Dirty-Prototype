@@ -55,4 +55,21 @@ public class FaceDirection : MonoBehaviour
     {
         return isFacingRight;
     }
+
+    public void Flip(bool isRight)
+    {
+        if (!isRight)
+        {
+            isFacingRight = true;
+            sprite.flipX = !isFacingRight;
+            detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
+
+        }
+        else
+        {
+            isFacingRight = false;
+            sprite.flipX = !isFacingRight;
+            detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
+        }
+    }
 }

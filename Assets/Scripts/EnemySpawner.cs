@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     ObjectPooler objPooler;
 
+    [SerializeField] string EnemyKey = "TestEnemy";
+
     // Parent Route Node
     [SerializeField] List<Transform> RouteList;
 
@@ -25,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < RouteList.Count; i++)
         {
-            GameObject newEnemy = objPooler.SpawnFromPool("TestEnemy", RouteList[i].GetComponentsInChildren<Transform>()[1].position); // Spawn at spawnPoint
+            GameObject newEnemy = objPooler.SpawnFromPool(EnemyKey, RouteList[i].GetComponentsInChildren<Transform>()[1].position); // Spawn at spawnPoint
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
             enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
             enemyRef.Activate(); // set needed path
