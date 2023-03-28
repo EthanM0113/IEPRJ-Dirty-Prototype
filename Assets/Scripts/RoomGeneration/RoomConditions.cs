@@ -53,6 +53,7 @@ public class RoomConditions : MonoBehaviour
     public void enemySetup()
     {
         totalEnemies = FindObjectOfType<LevelRouteHandler>().GetRouteList();
+        Debug.Log("Total Enemies Set:" +  totalEnemies);
     }
     public void enemyKill()
     {
@@ -104,16 +105,15 @@ public class RoomConditions : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < extraNodes.Length; i++)
+        if (extraNodes.Length > 0)
         {
-            generateMisc(extraNodes[i], extraObjects[i]);
-        }
+            for (int i = 0; i < extraNodes.Length; i++)
+            {
+                generateMisc(extraNodes[i], extraObjects[i]);
+            }
 
-        if (!isTutorial)
-        {
+        }
         enemySetup();
-
-        }
         isStart = true;
 
     }
@@ -139,32 +139,41 @@ public class RoomConditions : MonoBehaviour
 
     public void detectWalls()
     {
-        int num = Random.Range(1, 4);
-        List<GameObject> RoomList =  new List<GameObject>();
-        RoomList.Add(NDir);
-        RoomList.Add(EDir);
-        RoomList.Add(WDir);
-        RoomList.Add(SDir);
-        switch (ODir)
+        if (!isTutorial)
         {
-            case 0://Origin is Bottom
-                RoomList.RemoveAt(3);
-                break;
-            case 1: //Origin is Right
-                RoomList.RemoveAt(2);
-                break;
-            case 2://Origin is Left
-                RoomList.RemoveAt(1);
-                break;
-            case 3://Origin is Top
-                RoomList.RemoveAt(0);
+            int num = Random.Range(1, 4);
+            List<GameObject> RoomList =  new List<GameObject>();
+            RoomList.Add(NDir);
+            RoomList.Add(EDir);
+            RoomList.Add(WDir);
+            RoomList.Add(SDir);
+            switch (ODir)
+            {
+                case 0://Origin is Bottom
+                    RoomList.RemoveAt(3);
                     break;
+                case 1: //Origin is Right
+                    RoomList.RemoveAt(2);
+                    break;
+                case 2://Origin is Left
+                    RoomList.RemoveAt(1);
+                    break;
+                case 3://Origin is Top
+                    RoomList.RemoveAt(0);
+                    break;
+            }
+            for (int i = 0; i < num; i++)
+            {
+                int gen = Random.Range(0, RoomList.Count);
+                RoomList[gen].transform.GetChild(0).gameObject.SetActive(false);
+                RoomList.RemoveAt(gen);
+                Debug.Log("Removed Wall");
+            }
+
         }
-        for (int i = 0; i < num; i++)
+        else
         {
-            int gen = Random.Range(0, RoomList.Count);
-            RoomList[gen].transform.GetChild(0).gameObject.SetActive(false);
-            RoomList.RemoveAt(gen);
+            NDir.transform.GetChild(0).gameObject.SetActive(false);
             Debug.Log("Removed Wall");
         }
         FinGenerated = true;

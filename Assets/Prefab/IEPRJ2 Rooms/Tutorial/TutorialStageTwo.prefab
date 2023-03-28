@@ -10540,6 +10540,8 @@ GameObject:
   - component: {fileID: 526704703248168579}
   - component: {fileID: 4346514656439119393}
   - component: {fileID: 3904678509596316315}
+  - component: {fileID: 177900951411021551}
+  - component: {fileID: 8577785584815132109}
   m_Layer: 0
   m_Name: TutorialStageTwo
   m_TagString: Untagged
@@ -10882,6 +10884,34 @@ MonoBehaviour:
   totalEnemies: 0
   totalDead: 0
   isTutorial: 1
+--- !u!114 &177900951411021551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943925098308911702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e8848f3f496df545a38984b511f129c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RouteList: []
+--- !u!114 &8577785584815132109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5943925098308911702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcf17dbcec0b01459e433a8ec0869af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyKey: TestEnemy
+  RouteList: []
+  SpawnInterval: 1.5
 --- !u!1 &6186934125876196749
 GameObject:
   m_ObjectHideFlags: 0
