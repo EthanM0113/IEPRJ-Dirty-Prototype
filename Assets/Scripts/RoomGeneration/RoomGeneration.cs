@@ -11,6 +11,7 @@ public class RoomGeneration : MonoBehaviour
     [SerializeField] GameObject BossPrefab;
     [SerializeField] private int roomsGenerated = 1;
     [SerializeField] private int bossRoomNo = 2;
+    [SerializeField] private bool isTutorial = false;
      
     private void OnCollisionStay(Collision collision)
     {
@@ -104,7 +105,7 @@ public class RoomGeneration : MonoBehaviour
                     break;
             }
         }
-        else
+        else if (!isTutorial) //Normal Level Room Generation
         {
             switch (direction)
             {
@@ -131,12 +132,39 @@ public class RoomGeneration : MonoBehaviour
                     roomsGenerated++;
                     break;
             }
+        }
+        else //This is when Scene is a Tutorial Level
+        {
+            switch (roomsGenerated)
+            {
+                case 1:
+                    room = Instantiate(PrefabList[0], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
+                case 2:
+                    room = Instantiate(PrefabList[1], new Vector3(place.x, place.y, place.z + 30), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
+                case 3:
+                    room = Instantiate(PrefabList[2], new Vector3(place.x, place.y, place.z + 30), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
+                case 4:
+                    room = Instantiate(PrefabList[3], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
+                case 5:
+                    room = Instantiate(PrefabList[4], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
+                case 6:
+                    room = Instantiate(PrefabList[5], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
+                    roomsGenerated++;
+                    break;
 
-
+            }
         }
 
-     
-        //collisionRef.SetActive(false);
     }
     public int GetRoomsGenerated()
     {
@@ -147,14 +175,5 @@ public class RoomGeneration : MonoBehaviour
     {
         return bossRoomNo;
     }
-    //void Start()
-    //{
-
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-
-    //}
+   
 }
