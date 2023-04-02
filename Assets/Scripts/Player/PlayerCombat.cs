@@ -45,6 +45,7 @@ public class PlayerCombat : MonoBehaviour
                 {
                     if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
+                        Debug.Log($"Enemy: {enemy.gameObject.name} was hit!");
                         enemy.GetComponent<BaseEnemy>().EnemyDeath();
                         enemy.gameObject.SetActive(false);
                     }

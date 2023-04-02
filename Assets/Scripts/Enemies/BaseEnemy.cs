@@ -24,7 +24,14 @@ public class BaseEnemy : MonoBehaviour
     // Spawns a dead version of the enemy
     public virtual void EnemyDeath()
     {
-        Instantiate(deadVersion, transform.position, Quaternion.identity);
+        if (deadVersion != null)
+        {
+            Instantiate(deadVersion, transform.position, Quaternion.identity);
+        }
+        else
+        {
+            Debug.Log($"Dead Version of the {this.gameObject.name} was not set!");
+        }
     }
 
     public virtual void SetRouteNode(Transform node) // Gets the parent route node
