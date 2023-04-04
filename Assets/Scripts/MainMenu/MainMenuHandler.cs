@@ -5,13 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuHandler : MonoBehaviour
 {
+    [SerializeField] private AudioClip buttonSound;
     public void PlayGame() {
         Debug.Log("PlayGame");
+        SoundManager.Instance.PlaySound(buttonSound);
         SceneManager.LoadScene("TutorialLevel");
     }
 
     public void ExitGame() {
         Debug.Log("Exited");
+        SoundManager.Instance.PlaySound(buttonSound);
         Application.Quit();
     }
 }

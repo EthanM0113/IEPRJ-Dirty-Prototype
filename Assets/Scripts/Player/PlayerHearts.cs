@@ -12,6 +12,7 @@ public class PlayerHearts : MonoBehaviour
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
 
+    [SerializeField] private AudioClip damageSound;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class PlayerHearts : MonoBehaviour
 
     public void DamagePlayer(int dmg)
     {
+        SoundManager.Instance.PlaySound(damageSound);
         health -= dmg;
     }
 

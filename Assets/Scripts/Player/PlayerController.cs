@@ -114,7 +114,12 @@ public class PlayerController : MonoBehaviour
 
     // Pause Screen
     [SerializeField] private GameObject pauseScreen;
-    private bool isPaused; 
+    private bool isPaused;
+
+    // Sound Effects //
+    [SerializeField] private AudioClip walking;
+    [SerializeField] private AudioClip pausing;
+    [SerializeField] private AudioClip flare;
 
     // Start is called before the first frame update
     void Start()
@@ -196,6 +201,7 @@ public class PlayerController : MonoBehaviour
                 Mathf.Abs(moveInput.y) > 0) // if there is a movement input
             {
                 animator.SetBool("IsMoving", true);
+                SoundManager.Instance.PlayWalk(walking);
             }
             else // not moving
             {
@@ -406,6 +412,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (!didShootFlare)
                     {
+                        SoundManager.Instance.PlaySound(flare);
                         GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
                         Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
                         shotFlareLight.range += flareAbilityIncrement * abilityLevel;
@@ -453,6 +460,7 @@ public class PlayerController : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
+        SoundManager.Instance.PlaySound(pausing);
         pauseScreen.SetActive(true);
         isPaused = true;
     }
