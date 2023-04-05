@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioClip flare;
     [SerializeField] private GameObject levelMusic;
     [SerializeField] private GameObject loseMusic;
+    [SerializeField] private GameObject darkerMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -333,6 +334,15 @@ public class PlayerController : MonoBehaviour
         }
         //Debug.Log("Fuel: " + fuelAmt);
         playerLight.spotAngle = fuelAmt;
+
+        if(fuelAmt < 25.0f && isAlive)
+        {
+            if (levelMusic.GetComponent<AudioSource>().isPlaying)
+                levelMusic.GetComponent<AudioSource>().Stop();
+
+            if (!darkerMusic.GetComponent<AudioSource>().isPlaying)
+                darkerMusic.GetComponent<AudioSource>().Play();
+        }
     }
 
     public void UseFuel(float amount)
