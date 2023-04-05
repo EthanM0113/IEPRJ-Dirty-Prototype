@@ -343,6 +343,15 @@ public class PlayerController : MonoBehaviour
             if (!darkerMusic.GetComponent<AudioSource>().isPlaying)
                 darkerMusic.GetComponent<AudioSource>().Play();
         }
+
+        if (fuelAmt > 25.0f)
+        {
+            if (darkerMusic.GetComponent<AudioSource>().isPlaying)
+                darkerMusic.GetComponent<AudioSource>().Stop();
+
+            if (!levelMusic.GetComponent<AudioSource>().isPlaying)
+                levelMusic.GetComponent<AudioSource>().Play();
+        }
     }
 
     public void UseFuel(float amount)
