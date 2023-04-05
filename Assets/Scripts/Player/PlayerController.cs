@@ -117,9 +117,10 @@ public class PlayerController : MonoBehaviour
     private bool isPaused;
 
     // Sound Effects //
-    [SerializeField] private AudioClip walking;
     [SerializeField] private AudioClip pausing;
     [SerializeField] private AudioClip flare;
+    [SerializeField] private GameObject levelMusic;
+    [SerializeField] private GameObject loseMusic;
 
     // Start is called before the first frame update
     void Start()
@@ -201,11 +202,13 @@ public class PlayerController : MonoBehaviour
                 Mathf.Abs(moveInput.y) > 0) // if there is a movement input
             {
                 animator.SetBool("IsMoving", true);
-                SoundManager.Instance.PlayWalk(walking);
+                if(!GetComponent<AudioSource>().isPlaying)
+                    GetComponent<AudioSource>().Play();
             }
             else // not moving
             {
                 animator.SetBool("IsMoving", false);
+                GetComponent<AudioSource>().Stop();
             }
 
             if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
@@ -445,6 +448,11 @@ public class PlayerController : MonoBehaviour
     {
         if (health <= 0)
         {
+            levelMusic.GetComponent<AudioSource>().Stop();              // stop level music
+
+            if (!loseMusic.GetComponent<AudioSource>().isPlaying)       // start game over music, if it isn't already playing
+                loseMusic.GetComponent<AudioSource>().Play();
+
             animator.SetTrigger("Dead");
             Time.timeScale = 0;
             loseScreen.SetActive(true);
