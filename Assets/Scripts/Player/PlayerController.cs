@@ -368,6 +368,11 @@ public class PlayerController : MonoBehaviour
             return false;
     }
 
+    public float GetFuel()
+    {
+        return fuelAmt;
+    }
+
     
     public bool GetFaceDirection()
     {

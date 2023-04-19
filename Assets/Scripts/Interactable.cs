@@ -27,11 +27,15 @@ public class Interactable : MonoBehaviour
     {
         if (other.transform.CompareTag("Player") && !isInteractable)
         {
-            lightSource.SetActive(true);
+            if (other.gameObject.GetComponent<PlayerController>().GetFuel() > 0.0f)
+            {
+                lightSource.SetActive(true);
 
-            PlayerController playerController = other.GetComponent<PlayerController>();
-            playerController.fuelAmt -= fuelCost;
-            isInteractable = true;
+                PlayerController playerController = other.GetComponent<PlayerController>();
+                playerController.fuelAmt -= fuelCost;
+                isInteractable = true;
+            }
+            
         }
     }
 

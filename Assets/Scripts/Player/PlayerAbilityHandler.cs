@@ -10,6 +10,9 @@ public class PlayerAbilityHandler : MonoBehaviour
     [Tooltip("Determines what layers is the \"Dead\" enemies")]
     [SerializeField] LayerMask consumeLayerMask;
 
+    [Tooltip("The players previous ability")]
+    [SerializeField] Ability.Type previousAbility;
+
     [Tooltip("The players current ability")]
     [SerializeField] Ability.Type currentAbility;
 
@@ -45,15 +48,25 @@ public class PlayerAbilityHandler : MonoBehaviour
             {
                 if (enemy.gameObject.CompareTag("DeadTestEnemy"))
                 {
-                    if (enemy.GetComponent<BaseDeadEnemy>().GetAbilityType() == currentAbility)
+                    if (enemy.GetComponent<BaseDeadEnemy>().GetAbilityType() != previousAbility && previousAbility != Ability.Type.NONE)
+                    {
+                        LevelUpRequest = false;
+                        abilityLevel = 0;
+                    }
+                    else if (enemy.GetComponent<BaseDeadEnemy>().GetAbilityType() == currentAbility || enemy.GetComponent<BaseDeadEnemy>().GetAbilityType() == previousAbility)
                     {
                         LevelUpRequest = true;
+                        previousAbility = Ability.Type.NONE;
+
                     }
+
                     currentAbility = enemy.GetComponent<BaseDeadEnemy>().Consumed();
-                } 
+                    previousAbility = currentAbility;
+
+
+                }
             }
         }
-
         if (LevelUpRequest)
         {
             abilityLevel++;

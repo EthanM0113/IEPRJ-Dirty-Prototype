@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations;
 
-public class EnemyDetection : MonoBehaviour
+public class WispEnemyDetection : MonoBehaviour
 {
     [SerializeField] float coneAngle = 90f;
     [SerializeField] Transform lookPoint;
@@ -22,11 +21,11 @@ public class EnemyDetection : MonoBehaviour
     PlayerHearts playerHealth;
     FuelBarHandler fuelBarHandler;
     Animator anim;
-    ObjectPooler pooler;
+    //ObjectPooler pooler;
     RoomConditions room;
 
     bool isPlayerDetected = false; // Checks if the player is detected
-    EnemySpawner spawnerRef = null; // gets the reference of the spawner it came from
+    //EnemySpawner spawnerRef = null; // gets the reference of the spawner it came from
 
     GameObject respawnNode;
 
@@ -36,7 +35,7 @@ public class EnemyDetection : MonoBehaviour
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
         playerHealth = FindObjectOfType<PlayerHearts>();
-        pooler = ObjectPooler.Instance;
+        //pooler = ObjectPooler.Instance;
         fuelBarHandler = FindObjectOfType<FuelBarHandler>();
     }
 
@@ -60,7 +59,8 @@ public class EnemyDetection : MonoBehaviour
 
             if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
             {
-                if (r.collider.gameObject.CompareTag("Player")) {
+                if (r.collider.gameObject.CompareTag("Player"))
+                {
                     Debug.DrawRay(lookPoint.position, dir, Color.red);
                     cone.color = detectedColor;
                     isPlayerDetected = true;
@@ -74,7 +74,7 @@ public class EnemyDetection : MonoBehaviour
                     detectionTimer = detectionTime;
                     startDetectionTimer = false;
                 }
-                
+
             }
         }
 
@@ -96,9 +96,12 @@ public class EnemyDetection : MonoBehaviour
                 fuelBarHandler.resetFuel(1);
                 playerHealth.DamagePlayer(1);
 
-                pooler.DisableAll();
-                spawnerRef.SpawnAll();
-                spawnerRef = null;
+                //pooler.DisableAll();
+                //spawnerRef.SpawnAll();
+                //spawnerRef = null;
+                gameObject.SetActive(true);
+                cone.color = undetectedColor; 
+
                 detectionTimer = detectionTime;
                 startDetectionTimer = false;
             }
@@ -116,7 +119,7 @@ public class EnemyDetection : MonoBehaviour
 
     public void SetSpawnerReference(EnemySpawner spawnerRef)
     {
-        this.spawnerRef = spawnerRef;
+        //this.spawnerRef = spawnerRef;
     }
 
     private void OnCollisionStay(Collision collision)
@@ -128,4 +131,3 @@ public class EnemyDetection : MonoBehaviour
         }
     }
 }
-

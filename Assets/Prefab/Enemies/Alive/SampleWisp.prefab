@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5417641314928573030}
   m_LocalRotation: {x: -0.27059802, y: 0.6532815, z: -0.27059802, w: 0.6532815}
-  m_LocalPosition: {x: 0.275, y: 0.22, z: -0.172}
+  m_LocalPosition: {x: 0, y: 0.214, z: 0}
   m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5009,7 +5009,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 267630723188890267}
-  - component: {fileID: 6150069505810174620}
+  - component: {fileID: 1963048645067707816}
   - component: {fileID: 1218710624719555708}
   - component: {fileID: 1971463180407588441}
   - component: {fileID: 4304166775533502286}
@@ -5040,7 +5040,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6150069505810174620
+--- !u!114 &1963048645067707816
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5049,15 +5049,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8585431266356949173}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b09f1a6d59a15a46b69074b307832a7, type: 3}
+  m_Script: {fileID: 11500000, guid: bb83c6b350b6ddf4ab52efa566a720a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   coneAngle: 120
   lookPoint: {fileID: 2604274576764640876}
   detectionRange: 3
   cone: {fileID: 4908161695980144353}
-  undetectedColor: {r: 0.8584906, g: 0.82575744, b: 0.14983091, a: 0}
-  detectedColor: {r: 0.8867924, g: 0.06274474, b: 0.06274474, a: 0}
+  undetectedColor: {r: 0.8588236, g: 0.82745105, b: 0.14901961, a: 0}
+  detectedColor: {r: 0.8862746, g: 0.0627451, b: 0.0627451, a: 0}
   detectionTime: 1
 --- !u!114 &1218710624719555708
 MonoBehaviour:
