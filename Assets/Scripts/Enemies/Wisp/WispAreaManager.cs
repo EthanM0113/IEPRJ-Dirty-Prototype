@@ -36,6 +36,7 @@ public class WispAreaManager : MonoBehaviour
 
         if (ticks >= TP_INTERVAL)
         {
+            Random.InitState(Random.Range(int.MinValue, int.MaxValue));
             float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
             float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
             Vector3 newPos = new Vector3(newX, tlBoundsPos.y, newZ);

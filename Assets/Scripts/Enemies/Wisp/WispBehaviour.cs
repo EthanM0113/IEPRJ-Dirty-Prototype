@@ -7,6 +7,8 @@ public class WispBehaviour : BaseEnemy
     FaceDirection faceDirection;
     private float faceTicks = 0.0f;
     [SerializeField] private float FACE_INTERVAL = 1.0f;
+    [SerializeField] private float minFaceInterval = 0.7f;
+    [SerializeField] private float maxFaceInterval = 1.5f;
     bool faceRight = true;
 
     // Start is called before the first frame update
@@ -23,7 +25,9 @@ public class WispBehaviour : BaseEnemy
         {
             faceDirection.Flip(!faceRight);
             faceRight = !faceRight;
-            faceTicks = 0.0f;
+            Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+            FACE_INTERVAL = Random.Range(minFaceInterval, maxFaceInterval);
+            faceTicks = 0.0f;  
         }
     }
 }
