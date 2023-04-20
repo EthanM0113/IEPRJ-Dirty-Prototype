@@ -18,21 +18,26 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        
+        
+       
     }
 
     public void PlaySound(AudioClip sound)
     {
+        effectsSource.volume = 0.01f;
         effectsSource.PlayOneShot(sound);
     }
 
     public void PlayMusic(AudioClip music)
     {
+       
         musicSource.PlayOneShot(music);
         musicSource.loop = true;
     }
 
     public void PlayWalk(AudioClip sound)
     {
-        effectsSource.PlayOneShot(sound);
+        walkingSource.PlayOneShot(sound);
     }
 }
