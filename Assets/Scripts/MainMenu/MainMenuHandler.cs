@@ -9,6 +9,7 @@ public class MainMenuHandler : MonoBehaviour
     public void PlayGame() {
         Debug.Log("PlayGame");
         SoundManager.Instance.PlaySound(buttonSound);
+        Time.timeScale = 1;
         SceneManager.LoadScene("TutorialLevel");
     }
 

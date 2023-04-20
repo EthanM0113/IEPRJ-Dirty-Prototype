@@ -77,8 +77,6 @@ public class RoomGeneration : MonoBehaviour
             RespawnNode.transform.position = this.transform.position;
 
         }
-        
-
     }
     private void CreateRoom (int direction, GameObject collisionRef)
     {
@@ -122,8 +120,6 @@ public class RoomGeneration : MonoBehaviour
                     room = Instantiate(PrefabList[chosen], new Vector3(place.x, place.y, place.z + 20), Quaternion.identity) as GameObject;
                     room.GetComponent<RoomConditions>().setup(direction, roomsGenerated);
                     roomsGenerated++;
-
-
                     break;
                 case 1:
                     room = Instantiate(PrefabList[chosen], new Vector3(place.x + 20, place.y, place.z), Quaternion.identity) as GameObject;

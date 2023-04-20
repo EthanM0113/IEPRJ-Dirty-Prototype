@@ -1768,6 +1768,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4819978197214552194}
   - component: {fileID: 7028247486169589567}
+  - component: {fileID: 8250241538518672603}
+  - component: {fileID: 743373660144334181}
   m_Layer: 0
   m_Name: Collider
   m_TagString: WestWall
@@ -1802,7 +1804,35 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9, y: 3, z: 4}
-  m_Center: {x: 0.5, y: 1.5, z: 2}
+  m_Center: {x: 0.4, y: 1.5, z: 2}
+--- !u!114 &8250241538518672603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625078109192960846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5cc46648e5a249816cd5152c3837a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &743373660144334181
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1625078109192960846}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1633642855501138506
 GameObject:
   m_ObjectHideFlags: 0
@@ -3740,6 +3770,8 @@ GameObject:
   m_Component:
   - component: {fileID: 918257261728275927}
   - component: {fileID: 3182316766155515893}
+  - component: {fileID: 483241919265109256}
+  - component: {fileID: 8897448519194961901}
   m_Layer: 0
   m_Name: Collider
   m_TagString: SouthWall
@@ -3774,7 +3806,35 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 3, z: 0.9}
-  m_Center: {x: 2, y: 1.5, z: 0.5}
+  m_Center: {x: 2, y: 1.5, z: 0.4}
+--- !u!114 &483241919265109256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971189196954117752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5cc46648e5a249816cd5152c3837a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &8897448519194961901
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971189196954117752}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2986740651818991251
 GameObject:
   m_ObjectHideFlags: 0
@@ -4660,6 +4720,8 @@ GameObject:
   m_Component:
   - component: {fileID: 424648403072327319}
   - component: {fileID: 3834562227186174816}
+  - component: {fileID: 7236543729665154446}
+  - component: {fileID: 8055399860304772244}
   m_Layer: 0
   m_Name: Collider
   m_TagString: NorthWall
@@ -4694,7 +4756,35 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 3, z: 0.9}
-  m_Center: {x: 2, y: 1.5, z: 0.5}
+  m_Center: {x: 2, y: 1.5, z: 0.6}
+--- !u!114 &7236543729665154446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438340822588524226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5cc46648e5a249816cd5152c3837a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &8055399860304772244
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438340822588524226}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &3715649681133750718
 GameObject:
   m_ObjectHideFlags: 0
@@ -7971,6 +8061,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7412520180035759690}
   - component: {fileID: 2470283557554795824}
+  - component: {fileID: 4265301145086071658}
+  - component: {fileID: 6988441837633175133}
   m_Layer: 0
   m_Name: Collider
   m_TagString: EastWall
@@ -8005,7 +8097,35 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.9, y: 3, z: 4}
-  m_Center: {x: 0.5, y: 1.5, z: 2}
+  m_Center: {x: 0.6, y: 1.5, z: 2}
+--- !u!114 &4265301145086071658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6638091595012084753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bee5cc46648e5a249816cd5152c3837a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &6988441837633175133
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6638091595012084753}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &6656117262157123207
 GameObject:
   m_ObjectHideFlags: 0

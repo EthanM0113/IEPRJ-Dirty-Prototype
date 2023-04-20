@@ -10,6 +10,8 @@ public class RoomConditions : MonoBehaviour
     [SerializeField] private GameObject EDir;
     [SerializeField] private GameObject WDir;
     [SerializeField] private GameObject SDir;
+
+
     private bool isFinished = false; //Dictates whether the fighting is finished in the room
     private bool FinGenerated = false; //Dictates whether some of the walls have been removed
     private int Consumes = 1;
@@ -50,6 +52,8 @@ public class RoomConditions : MonoBehaviour
             }
         }
     }
+
+    
     public void enemySetup()
     {
         totalEnemies = FindObjectOfType<LevelRouteHandler>().GetRouteList();
@@ -71,31 +75,25 @@ public class RoomConditions : MonoBehaviour
         {
             case 0:
                 ODir = 0;
-                NDir.transform.GetChild(1).gameObject.SetActive(true);
-                EDir.transform.GetChild(1).gameObject.SetActive(true);
-                WDir.transform.GetChild(1).gameObject.SetActive(true);
+                
                 SDir.SetActive(false);
                 break;
             case 1:
                 ODir = 1;
-                NDir.transform.GetChild(1).gameObject.SetActive(true);
-                EDir.transform.GetChild(1).gameObject.SetActive(true);
+               
                 WDir.SetActive(false);
-                SDir.transform.GetChild(1).gameObject.SetActive(true);
+                
                 break;
             case 2:
                 ODir = 2;
-                NDir.transform.GetChild(1).gameObject.SetActive(true);
+               
                 EDir.SetActive(false);
-                WDir.transform.GetChild(1).gameObject.SetActive(true);
-                SDir.transform.GetChild(1).gameObject.SetActive(true);
+                
                 break;
             case 3:
                 ODir = 3;
                 NDir.SetActive(false);
-                EDir.transform.GetChild(1).gameObject.SetActive(true);
-                WDir.transform.GetChild(1).gameObject.SetActive(true);
-                SDir.transform.GetChild(1).gameObject.SetActive(true);
+                
                 break;
                 
         }
