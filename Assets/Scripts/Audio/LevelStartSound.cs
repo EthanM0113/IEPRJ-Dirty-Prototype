@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class LevelStartSound : MonoBehaviour
 {
-    [SerializeField] private AudioClip startSound;
-
-    // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Instance.PlaySound(startSound);
+        SoundManager.Instance.GameStart();
     }
 }

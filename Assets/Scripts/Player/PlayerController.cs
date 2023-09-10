@@ -116,9 +116,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject pauseScreen;
     private bool isPaused;
 
-    // Sound Effects //
-    [SerializeField] private AudioClip pausing;
-    [SerializeField] private AudioClip flare;
+    // Level Music (independent from sound manager) //
     [SerializeField] private GameObject levelMusic;
     [SerializeField] private GameObject loseMusic;
     [SerializeField] private GameObject darkerMusic;
@@ -439,7 +437,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (!didShootFlare)
                     {
-                        SoundManager.Instance.PlaySound(flare);
+                        SoundManager.Instance.Fireball();
                         GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
                         Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
                         shotFlareLight.range += flareAbilityIncrement * abilityLevel;
@@ -492,7 +490,7 @@ public class PlayerController : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0;
-        SoundManager.Instance.PlaySound(pausing);
+        SoundManager.Instance.Pause();
         pauseScreen.SetActive(true);
         isPaused = true;
     }
