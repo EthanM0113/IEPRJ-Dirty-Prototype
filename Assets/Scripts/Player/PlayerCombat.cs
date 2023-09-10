@@ -13,6 +13,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] LayerMask enemyLayers;
     PlayerController playerController;
 
+    [SerializeField] private Camera mainCamera;
+    private Animator mainCameraAnimator;
+
     // 1st boss stuff
     [SerializeField] private string hpTorchTag; 
 
@@ -20,6 +23,7 @@ public class PlayerCombat : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
+        mainCameraAnimator = mainCamera.GetComponent<Animator>();
     }
 
     public void Attack()
@@ -45,6 +49,7 @@ public class PlayerCombat : MonoBehaviour
                 {
                     if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
+                        mainCameraAnimator.SetTrigger("isQuickZoom");
                         Debug.Log($"Enemy: {enemy.gameObject.name} was hit!");
                         enemy.GetComponent<BaseEnemy>().EnemyDeath();
                         enemy.gameObject.SetActive(false);

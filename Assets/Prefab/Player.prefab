@@ -5880,6 +5880,7 @@ GameObject:
   - component: {fileID: 8600752380185307727}
   - component: {fileID: 8600752380185307726}
   - component: {fileID: 8334665078863144718}
+  - component: {fileID: 2676159434300216840}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6013,6 +6014,26 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &2676159434300216840
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8600752380185307725}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d1b6bc56938bfc4fa3dc711daadc5c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8600752381001842347
 GameObject:
   m_ObjectHideFlags: 0
@@ -6343,6 +6364,9 @@ MonoBehaviour:
   flareForce: 0
   flareAbilityIncrement: 0.3
   pauseScreen: {fileID: 0}
+  levelMusic: {fileID: 0}
+  loseMusic: {fileID: 0}
+  darkerMusic: {fileID: 0}
 --- !u!114 &112672430668485829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6360,6 +6384,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 72
+  mainCamera: {fileID: 8600752380185307727}
   hpTorchTag: HpTorch
 --- !u!114 &8557472063509523471
 MonoBehaviour:
@@ -6376,6 +6401,7 @@ MonoBehaviour:
   consumeLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  previousAbility: 0
   currentAbility: 0
   field: {fileID: 845141777}
   abilityLevel: 0

@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &121887695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4218777397633136264, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+  m_PrefabInstance: {fileID: 1222061880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &160832640
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +1011,17 @@ MonoBehaviour:
   musicSource: {fileID: 1482344181}
   effectsSource: {fileID: 160832641}
   walkingSource: {fileID: 1745431841}
+  playerDeath: {fileID: 0}
+  fireball: {fileID: 0}
+  gameStart: {fileID: 0}
+  pause: {fileID: 0}
+  playerWalk: {fileID: 0}
+  bigTorch: {fileID: 0}
+  darkerTheme: {fileID: 0}
+  gameOver: {fileID: 0}
+  levelOne: {fileID: 0}
+  mainMenu: {fileID: 0}
+  torchbearer: {fileID: 0}
 --- !u!4 &479212012
 Transform:
   m_ObjectHideFlags: 0
@@ -2106,7 +2128,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27b2d75750d48347bb240cb718be09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSound: {fileID: 8300000, guid: 664ed5834d97ef44791edb136c2e0740, type: 3}
 --- !u!4 &1163441014
 Transform:
   m_ObjectHideFlags: 0
@@ -2319,10 +2340,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2163602292698337181, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_Value
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4218777396050934012, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: damageSound
       value: 
       objectReference: {fileID: 8300000, guid: 195fff384ab3e3241a569a64c4dfa5c4, type: 3}
+    - target: {fileID: 4218777396050934012, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: hearts.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4218777396050934012, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: hearts.Array.data[5]
+      value: 
+      objectReference: {fileID: 121887695}
     - target: {fileID: 4682384093659547474, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

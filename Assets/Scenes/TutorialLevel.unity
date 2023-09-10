@@ -1570,7 +1570,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c27b2d75750d48347bb240cb718be09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startSound: {fileID: 8300000, guid: 664ed5834d97ef44791edb136c2e0740, type: 3}
 --- !u!4 &447599631
 Transform:
   m_ObjectHideFlags: 0
@@ -2158,6 +2157,10 @@ PrefabInstance:
       propertyPath: volumeLayer.m_Bits
       value: 55
       objectReference: {fileID: 0}
+    - target: {fileID: 112672430668485829, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1511934346}
     - target: {fileID: 1307915756149450875, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -2189,6 +2192,10 @@ PrefabInstance:
     - target: {fileID: 8600752379906651558, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600752380185307727, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: field of view
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8600752381076193321, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_RootOrder
@@ -3761,7 +3768,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh24828
+  m_Name: pb_Mesh32306
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4126,6 +4133,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1511934342 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8600752380185307725, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+  m_PrefabInstance: {fileID: 560031718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1511934346 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8600752380185307727, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+  m_PrefabInstance: {fileID: 560031718}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1511934347
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511934342}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0d1b6bc56938bfc4fa3dc711daadc5c8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!43 &1573977054
 Mesh:
   m_ObjectHideFlags: 0
