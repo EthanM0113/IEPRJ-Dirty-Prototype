@@ -87,7 +87,7 @@ public class WispEnemyDetection : MonoBehaviour
                 playerTransform.position = respawnNode.transform.position;
 
                 //Sets the ability to NONE
-                playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
+                //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
                 //Reset KillCounter
                 room.resetKills();
                 isPlayerDetected = false;
