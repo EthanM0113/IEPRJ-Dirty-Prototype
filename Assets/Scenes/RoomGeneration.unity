@@ -1016,6 +1016,8 @@ MonoBehaviour:
   walkingSource: {fileID: 1745431841}
   playerDeath: {fileID: 0}
   fireball: {fileID: 0}
+  backstabMiss: {fileID: 8300000, guid: c20c6ed5872c6c04595bfac2ab46298c, type: 3}
+  backstabHit: {fileID: 8300000, guid: 9bc7246c853579b48b6b6f09b3d30608, type: 3}
   gameStart: {fileID: 0}
   pause: {fileID: 0}
   playerWalk: {fileID: 0}
@@ -3063,7 +3065,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b02a0614954add843936926290f71aec, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
@@ -36,7 +38,7 @@ public class PlayerCombat : MonoBehaviour
             );
 
         // inflict dmg/kill
-        if (hitEnemies != null)
+        if (hitEnemies.Length != 0)
         {
             foreach (Collider enemy in hitEnemies)
             {
@@ -50,12 +52,17 @@ public class PlayerCombat : MonoBehaviour
                     if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
                         mainCameraAnimator.SetTrigger("isQuickZoom");
+                        SoundManager.Instance.BackstabHit();
                         Debug.Log($"Enemy: {enemy.gameObject.name} was hit!");
                         enemy.GetComponent<BaseEnemy>().EnemyDeath();
                         enemy.gameObject.SetActive(false);
                     }
                 } 
             }
+        }
+        else
+        {
+            SoundManager.Instance.BackstabMiss();
         }
         
     }
