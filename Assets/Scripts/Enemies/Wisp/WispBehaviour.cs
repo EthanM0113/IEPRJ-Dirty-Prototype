@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 public class WispBehaviour : BaseEnemy
@@ -7,9 +8,12 @@ public class WispBehaviour : BaseEnemy
     FaceDirection faceDirection;
     private float faceTicks = 0.0f;
     [SerializeField] private float FACE_INTERVAL = 1.0f;
-    [SerializeField] private float minFaceInterval = 0.7f;
-    [SerializeField] private float maxFaceInterval = 1.5f;
+    //[SerializeField] private float minFaceInterval = 0.7f; trying without random first
+    //[SerializeField] private float maxFaceInterval = 1.5f;
     bool faceRight = true;
+    [SerializeField] private ParticleSystem tpParticles;
+    [SerializeField] private ParticleSystem tpParticleHolder;
+    [SerializeField] private Light selfLight;
 
     // Start is called before the first frame update
     void Awake()
@@ -25,9 +29,20 @@ public class WispBehaviour : BaseEnemy
         {
             faceDirection.Flip(!faceRight);
             faceRight = !faceRight;
-            Random.InitState(Random.Range(int.MinValue, int.MaxValue));
-            FACE_INTERVAL = Random.Range(minFaceInterval, maxFaceInterval);
+            //Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+            //FACE_INTERVAL = Random.Range(minFaceInterval, maxFaceInterval);
             faceTicks = 0.0f;  
         }
+    }
+
+    public void PlayTpParticles(Vector3 pos)
+    {
+        tpParticleHolder = Instantiate(tpParticles, pos, Quaternion.identity);
+        Destroy(tpParticleHolder.gameObject, 1.5f);
+    }
+
+    public Light GetSelfLight()
+    {
+        return selfLight;
     }
 }

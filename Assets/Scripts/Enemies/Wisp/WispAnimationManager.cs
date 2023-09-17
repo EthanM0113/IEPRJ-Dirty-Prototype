@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WispAnimationManager : MonoBehaviour
 {
-    public bool finishedTP = true;
+    public bool finishedTP = false;
 
     // Start is called before the first frame update
     void Start()

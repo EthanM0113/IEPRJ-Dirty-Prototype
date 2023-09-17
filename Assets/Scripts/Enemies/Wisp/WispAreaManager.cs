@@ -9,12 +9,15 @@ public class WispAreaManager : MonoBehaviour
     [SerializeField] private GameObject BRBounds;
     private Vector3 tlBoundsPos;
     private Vector3 brBoundsPos;
-    private bool didSpawn = false;
+    private Vector3 newPos;
+    private bool isTPing = false;
+    private bool firstSpawn = true; // bool just to handle first time spawning
     private float ticks = 0.0f;
     private GameObject assignedWisp;
     [SerializeField] private float TP_INTERVAL = 0.1f;
-    public Animator wispAnimator;
-    public WispAnimationManager wispAnimationManager;
+    [SerializeField] private Animator wispAnimator;
+    [SerializeField] private WispAnimationManager wispAnimationManager;
+    private Light wispSelfLight;
 
     // Start is called before the first frame update
     void Start()
@@ -30,43 +33,61 @@ public class WispAreaManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Top Left: " + tlBoundsPos);
-        //Debug.Log("BottomRight: " + brBoundsPos);
-        ticks += Time.deltaTime;
-
-        if (ticks >= TP_INTERVAL)
+        // First time spawning
+        if (firstSpawn) 
         {
             Random.InitState(Random.Range(int.MinValue, int.MaxValue));
             float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
             float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
             Vector3 newPos = new Vector3(newX, tlBoundsPos.y, newZ);
-            
-            if (!didSpawn)
-            {
-                assignedWisp = GameObject.Instantiate(wispPrefab, newPos, wispPrefab.transform.rotation);
-                didSpawn = true;
-                wispAnimator = assignedWisp.GetComponentInChildren<Animator>();
-                wispAnimationManager = assignedWisp.GetComponentInChildren<WispAnimationManager>();
-                wispAnimator.SetBool("didTP", true);
-            }
-            else
-            {
-                wispAnimator.SetBool("didTP", true);
-                assignedWisp.transform.position = newPos;
-            }
-            ticks = 0.0f;
+
+            assignedWisp = GameObject.Instantiate(wispPrefab, newPos, wispPrefab.transform.rotation);
+            wispAnimator = assignedWisp.GetComponentInChildren<Animator>();
+            wispAnimationManager = assignedWisp.GetComponentInChildren<WispAnimationManager>();
+            assignedWisp.GetComponent<WispEnemyDetection>().SetAreaManager(this);
+            wispSelfLight = assignedWisp.GetComponent<WispBehaviour>().GetSelfLight();
+            firstSpawn = false;
         }
         else
         {
-            if(didSpawn && wispAnimationManager.GetFinishedTP())
+            // Increment only after spawning for the first time
+            ticks += Time.deltaTime;
+            
+        }
+
+        if (ticks >= TP_INTERVAL)
+        {
+            if (!isTPing)
             {
+                Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+                float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
+                float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
+                newPos = new Vector3(newX, tlBoundsPos.y, newZ);
+                isTPing = true;
+                wispAnimator.SetBool("didTP", true);
+                wispAnimationManager.NotFinishedTP();
+                Debug.Log("Teleporting!");
+                wispSelfLight.intensity = 140.0f;
+            }
+
+            if (wispAnimationManager.GetFinishedTP())
+            {
+                wispSelfLight.intensity = 1.0f;
+                Debug.Log("Finished Teleport!");
+                isTPing = false;
                 wispAnimator.SetBool("didTP", false);
+                wispAnimationManager.FinishedTP();
+                assignedWisp.transform.position = newPos;
+                wispPrefab.GetComponent<WispBehaviour>().PlayTpParticles(newPos);
+                ticks = 0.0f;
             }
         }
 
+    }
 
-
-
+    public bool GetIsTeleporting()
+    {
+        return isTPing;
     }
 
     public void SetAssignedWisp(GameObject wispToAssign)

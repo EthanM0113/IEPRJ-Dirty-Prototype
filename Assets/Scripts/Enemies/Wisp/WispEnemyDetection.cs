@@ -17,6 +17,8 @@ public class WispEnemyDetection : MonoBehaviour
 
     bool startDetectionTimer = false;
 
+    [SerializeField] private WispAreaManager wispAreaManager;
+
     Transform playerTransform;
     PlayerHearts playerHealth;
     FuelBarHandler fuelBarHandler;
@@ -50,66 +52,74 @@ public class WispEnemyDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 dir = playerTransform.position - transform.position;
-        float angle = Vector3.Angle(dir, lookPoint.forward);
-        RaycastHit r;
-
-        if (angle < coneAngle / 2)
+        if(!wispAreaManager.GetIsTeleporting())
         {
+            cone.enabled = true;
+            Vector3 dir = playerTransform.position - transform.position;
+            float angle = Vector3.Angle(dir, lookPoint.forward);
+            RaycastHit r;
 
-            if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
+            if (angle < coneAngle / 2)
             {
-                if (r.collider.gameObject.CompareTag("Player"))
+
+                if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
                 {
-                    Debug.DrawRay(lookPoint.position, dir, Color.red);
-                    cone.color = detectedColor;
-                    isPlayerDetected = true;
-                    startDetectionTimer = true;
+                    if (r.collider.gameObject.CompareTag("Player"))
+                    {
+                        Debug.DrawRay(lookPoint.position, dir, Color.red);
+                        cone.color = detectedColor;
+                        isPlayerDetected = true;
+                        startDetectionTimer = true;
+                    }
+                    else
+                    {
+                        Debug.DrawRay(lookPoint.position, dir, Color.green);
+                        cone.color = undetectedColor;
+                        isPlayerDetected = false;
+                        detectionTimer = detectionTime;
+                        startDetectionTimer = false;
+                    }
+
                 }
-                else
+            }
+
+            if (startDetectionTimer)
+            {
+                if (detectionTimer <= 0f)
                 {
-                    Debug.DrawRay(lookPoint.position, dir, Color.green);
-                    cone.color = undetectedColor;
+                    // Find respawn node
+                    respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
+                    playerTransform.position = respawnNode.transform.position;
+
+                    //Sets the ability to NONE
+                    //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
+                    //Reset KillCounter
+                    room.resetKills();
                     isPlayerDetected = false;
+
+                    // Nerf player fuel and deal dmg
+                    fuelBarHandler.resetFuel(1);
+                    playerHealth.DamagePlayer(1);
+
+                    //pooler.DisableAll();
+                    //spawnerRef.SpawnAll();
+                    //spawnerRef = null;
+                    gameObject.SetActive(true);
+                    cone.color = undetectedColor;
+
                     detectionTimer = detectionTime;
                     startDetectionTimer = false;
                 }
-
+                else
+                {
+                    detectionTimer -= Time.deltaTime;
+                    //Debug.Log(detectionTimer);
+                }
             }
         }
-
-        if (startDetectionTimer)
+        else
         {
-            if (detectionTimer <= 0f)
-            {
-                // Find respawn node
-                respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                playerTransform.position = respawnNode.transform.position;
-
-                //Sets the ability to NONE
-                //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
-                //Reset KillCounter
-                room.resetKills();
-                isPlayerDetected = false;
-
-                // Nerf player fuel and deal dmg
-                fuelBarHandler.resetFuel(1);
-                playerHealth.DamagePlayer(1);
-
-                //pooler.DisableAll();
-                //spawnerRef.SpawnAll();
-                //spawnerRef = null;
-                gameObject.SetActive(true);
-                cone.color = undetectedColor; 
-
-                detectionTimer = detectionTime;
-                startDetectionTimer = false;
-            }
-            else
-            {
-                detectionTimer -= Time.deltaTime;
-                //Debug.Log(detectionTimer);
-            }
+            cone.enabled = false;
         }
     }
     public bool IsPlayerDetected()
@@ -129,5 +139,10 @@ public class WispEnemyDetection : MonoBehaviour
         {
             room = collision.gameObject.GetComponentInParent<RoomConditions>();
         }
+    }
+
+    public void SetAreaManager(WispAreaManager wam)
+    {
+        wispAreaManager = wam;
     }
 }
