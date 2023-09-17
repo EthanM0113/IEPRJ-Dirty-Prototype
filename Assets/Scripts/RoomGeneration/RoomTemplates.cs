@@ -7,4 +7,3 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] Templates;
     public GameObject BaseRoom;
 }
-a
