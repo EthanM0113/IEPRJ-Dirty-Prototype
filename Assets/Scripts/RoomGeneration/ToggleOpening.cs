@@ -12,7 +12,12 @@ public class ToggleOpening : MonoBehaviour
         Wall.SetActive(true);
         SpawnNode.SetActive(false);
     }
-    public void OpenWall()
+    public void OpenWallV1()
+    {
+        Wall.SetActive(false);
+        SpawnNode.SetActive(true);
+    }
+    public void OpenWallV2()
     {
         Wall.SetActive(false);
         SpawnNode.SetActive(true);

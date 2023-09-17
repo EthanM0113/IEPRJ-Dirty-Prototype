@@ -16,10 +16,10 @@ public class RoomProperties : MonoBehaviour
     {
         if (IsStart)
         {
-            TD.GetComponent<ToggleOpening>().OpenWall();
-            LD.GetComponent<ToggleOpening>().OpenWall();
-            RD.GetComponent<ToggleOpening>().OpenWall();
-            BD.GetComponent<ToggleOpening>().OpenWall();
+            TD.GetComponent<ToggleOpening>().OpenWallV2();
+            LD.GetComponent<ToggleOpening>().OpenWallV2();
+            RD.GetComponent<ToggleOpening>().OpenWallV2();
+            BD.GetComponent<ToggleOpening>().OpenWallV2();
         }
     }
     public void RoomSetup(int dir, bool isClosed)
@@ -32,29 +32,29 @@ public class RoomProperties : MonoBehaviour
         {
             //Remove the wall based on the opening direction
             case 1: //Needs a bottom door
-                Roomlist.Add(BD);
+                BD.GetComponent<ToggleOpening>().OpenWallV1();
                 RoomRand.Add(RD);
                 RoomRand.Add(LD); 
                 RoomRand.Add(TD);
 
                 break;
             case 2:
-  
-                Roomlist.Add(TD);
+                TD.GetComponent<ToggleOpening>().OpenWallV1();
+                // Roomlist.Add(TD);
                 RoomRand.Add(RD);
                 RoomRand.Add(LD);
                 RoomRand.Add(BD);
                 break;
             case 3:
-
-                Roomlist.Add(LD);
+                LD.GetComponent<ToggleOpening>().OpenWallV1();
+                // Roomlist.Add(LD);
                 RoomRand.Add(RD);
                 RoomRand.Add(TD);
                 RoomRand.Add(BD);
                 break;
             case 4:
-
-                Roomlist.Add(RD);
+                RD.GetComponent<ToggleOpening>().OpenWallV1();
+                // Roomlist.Add(RD);
                 RoomRand.Add(LD);
                 RoomRand.Add(TD);
                 RoomRand.Add(BD);
@@ -73,12 +73,13 @@ public class RoomProperties : MonoBehaviour
                     Roomlist.Add(RoomRand[i]);
                 }
             }
+            //Determine Room Shape
+            for (int i = 0; i < Roomlist.Count; i++)
+            {
+                Roomlist[i].GetComponent<ToggleOpening>().OpenWallV2();
+            }
         }
        
-        //Determine Room Shape
-        for (int i = 0; i < Roomlist.Count; i++)
-        {
-            Roomlist[i].GetComponent<ToggleOpening>().OpenWall();
-        }
+       
     }
 }
