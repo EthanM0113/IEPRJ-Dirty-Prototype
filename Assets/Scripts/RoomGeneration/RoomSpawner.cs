@@ -63,7 +63,7 @@ public class RoomSpawner : MonoBehaviour
 
             rand = Random.Range(0, templates.Templates.Length); //Selects a random interior
             room = Instantiate(templates.BaseRoom, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("RoomList").transform); //Spawns the base room then sets parent to Roomlist
-                                                                                                                                                     //Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room
+            Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room                                                                                                                                          //Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room
             room.GetComponent<RoomProperties>().RoomSetup(OpeningDirection, isClosed); //Sets up the room
             isSpawned = true;
         }
@@ -72,15 +72,21 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.CompareTag("SpawnNode"))
         {
+            templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
             if (other.GetComponent<RoomSpawner>().isSpawned == false && isSpawned == false)
             {
-                room = Instantiate(templates.ClosedRoom, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("RoomList").transform); //Spawns the base room then sets parent to Roomlist
+                Debug.Log("Execute delete");
+                Instantiate(templates.ClosedRoom, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("RoomList").transform); //spawns the base room then sets parent to roomlist
                 Destroy(gameObject);
             }
             isSpawned = true;
-            
+            //this.gameObject.transform.parent.GetComponent<ToggleOpening>().OpenWallV1();
+            //other.gameObject.transform.parent.GetComponent<ToggleOpening>().OpenWallV1();
+            //Destroy(gameObject);
+
         }
     }
 }

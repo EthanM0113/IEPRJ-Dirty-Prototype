@@ -9,7 +9,9 @@ public class RoomProperties : MonoBehaviour
     [SerializeField] private GameObject LD;
     [SerializeField] private GameObject RD;
     [SerializeField] private GameObject BD;
+    
     [SerializeField] public bool IsStart = false;
+    [SerializeField] private bool isClosed = false;
     private int rand;
 
     private void Awake()
@@ -21,13 +23,17 @@ public class RoomProperties : MonoBehaviour
             RD.GetComponent<ToggleOpening>().OpenWallV2();
             BD.GetComponent<ToggleOpening>().OpenWallV2();
         }
+        
     }
+
+   
     public void RoomSetup(int dir, bool isClosed)
     {
         List<GameObject> Roomlist;
         List<GameObject> RoomRand;
         Roomlist = new List<GameObject>();
         RoomRand = new List<GameObject>();
+        this.isClosed = isClosed;
         switch (dir)
         {
             //Remove the wall based on the opening direction
@@ -79,7 +85,8 @@ public class RoomProperties : MonoBehaviour
                 Roomlist[i].GetComponent<ToggleOpening>().OpenWallV2();
             }
         }
-       
-       
     }
 }
+
+
+

@@ -3897,7 +3897,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 67012323889098032}
-  - component: {fileID: 1070492306125716375}
+  - component: {fileID: 4829659039075156847}
+  - component: {fileID: 3932060339774465517}
+  - component: {fileID: 1149380198309235886}
+  - component: {fileID: -8469519558045626567}
   m_Layer: 0
   m_Name: Interior_Sneak_01
   m_TagString: Untagged
@@ -3947,7 +3950,7 @@ Transform:
   - {fileID: 8130282342700962289}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1070492306125716375
+--- !u!114 &4829659039075156847
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3956,13 +3959,57 @@ MonoBehaviour:
   m_GameObject: {fileID: 4098964929755775323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8150488c2c841454391cef645f2fff5b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8e8848f3f496df545a38984b511f129c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TD: {fileID: 0}
-  LD: {fileID: 0}
-  RD: {fileID: 0}
-  BD: {fileID: 0}
+  RouteList:
+  - {fileID: 7801126894945594538}
+  - {fileID: 7310778103399653179}
+--- !u!114 &3932060339774465517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098964929755775323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39a683058d797c64ba6c834ec0244683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  extraNodes:
+  - {fileID: 4168705927426029737}
+  - {fileID: 8795209105643015523}
+  extraObjects:
+  - {fileID: 5333011809187558909, guid: 3b67227a7112a5645a5faead65c93ed0, type: 3}
+  - {fileID: 526753870571513849, guid: 3e8d8c1a0c96db448b8a53f6412d2c5b, type: 3}
+--- !u!114 &1149380198309235886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098964929755775323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dcf17dbcec0b01459e433a8ec0869af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EnemyKey: TestEnemy
+  RouteList: []
+  SpawnInterval: 1.5
+--- !u!114 &-8469519558045626567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098964929755775323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c772654c7e8d9844da4f0790a063dc90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4168705927426029737
 GameObject:
   m_ObjectHideFlags: 0
