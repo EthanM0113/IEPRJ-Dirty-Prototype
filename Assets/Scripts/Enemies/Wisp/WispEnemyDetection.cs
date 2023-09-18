@@ -18,6 +18,8 @@ public class WispEnemyDetection : MonoBehaviour
     bool startDetectionTimer = false;
 
     [SerializeField] private WispAreaManager wispAreaManager;
+    [SerializeField] LayerMask playerLayer;
+
 
     Transform playerTransform;
     PlayerHearts playerHealth;
@@ -55,32 +57,45 @@ public class WispEnemyDetection : MonoBehaviour
         if(!wispAreaManager.GetIsTeleporting())
         {
             cone.enabled = true;
-            Vector3 dir = playerTransform.position - transform.position;
-            float angle = Vector3.Angle(dir, lookPoint.forward);
-            RaycastHit r;
-
-            if (angle < coneAngle / 2)
+            Collider[] objectsWithinRange = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
+            if (objectsWithinRange.Length != 0)
             {
-
-                if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
+                if (objectsWithinRange[0])
                 {
-                    if (r.collider.gameObject.CompareTag("Player"))
+                    Vector3 dir = objectsWithinRange[0].transform.position - transform.position;
+                    float angle = Vector3.Angle(dir, lookPoint.forward);
+                    RaycastHit r;
+
+                    if (angle < coneAngle / 2)
                     {
-                        Debug.DrawRay(lookPoint.position, dir, Color.red);
+                        // Detected
                         cone.color = detectedColor;
                         isPlayerDetected = true;
                         startDetectionTimer = true;
+
+                        Debug.DrawRay(transform.position, dir, Color.red);
+
                     }
                     else
                     {
-                        Debug.DrawRay(lookPoint.position, dir, Color.green);
+                        // not detected
                         cone.color = undetectedColor;
                         isPlayerDetected = false;
-                        detectionTimer = detectionTime;
                         startDetectionTimer = false;
-                    }
+                        detectionTimer = detectionTime;
 
+                        Debug.DrawRay(transform.position, dir, Color.green);
+
+                    }
                 }
+            }
+            else
+            {
+                // not detected
+                cone.color = undetectedColor;
+                isPlayerDetected = false;
+                startDetectionTimer = false;
+                detectionTimer = detectionTime;
             }
 
             if (startDetectionTimer)
@@ -89,12 +104,12 @@ public class WispEnemyDetection : MonoBehaviour
                 {
                     // Find respawn node
                     respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                    playerTransform.position = respawnNode.transform.position;
+                    FindObjectOfType<PlayerAbilityHandler>().transform.position = respawnNode.transform.position;
 
                     //Sets the ability to NONE
                     //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
                     //Reset KillCounter
-                    room.resetKills();
+                    //room.resetKills();
                     isPlayerDetected = false;
 
                     // Nerf player fuel and deal dmg

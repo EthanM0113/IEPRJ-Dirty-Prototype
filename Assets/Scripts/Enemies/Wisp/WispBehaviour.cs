@@ -12,6 +12,7 @@ public class WispBehaviour : BaseEnemy
     //[SerializeField] private float maxFaceInterval = 1.5f;
     bool faceRight = true;
     [SerializeField] private ParticleSystem tpParticles;
+    [SerializeField] private ParticleSystem tpInParticles;
     [SerializeField] private ParticleSystem tpParticleHolder;
     [SerializeField] private Light selfLight;
 
@@ -39,6 +40,11 @@ public class WispBehaviour : BaseEnemy
     {
         tpParticleHolder = Instantiate(tpParticles, pos, Quaternion.identity);
         Destroy(tpParticleHolder.gameObject, 1.5f);
+    }
+
+    public void PlayPreTPParticles()
+    {
+        tpInParticles.Play();
     }
 
     public Light GetSelfLight()

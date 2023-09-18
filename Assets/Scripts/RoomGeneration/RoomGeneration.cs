@@ -32,7 +32,7 @@ public class RoomGeneration : MonoBehaviour
             
            if (isTutorial && roomsGenerated == 6)
             {
-                SceneManager.LoadScene("RoomGeneration");
+                SceneManager.LoadScene("LevelOne");
             }
           else
            {

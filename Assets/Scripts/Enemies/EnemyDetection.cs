@@ -18,7 +18,7 @@ public class EnemyDetection : MonoBehaviour
 
     bool startDetectionTimer = false;
 
-    Transform playerTransform;
+    [SerializeField] LayerMask playerLayer;
     PlayerHearts playerHealth;
     FuelBarHandler fuelBarHandler;
     Animator anim;
@@ -33,7 +33,6 @@ public class EnemyDetection : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
         playerHealth = FindObjectOfType<PlayerHearts>();
         pooler = ObjectPooler.Instance;
@@ -51,31 +50,43 @@ public class EnemyDetection : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 dir = playerTransform.position - transform.position;
-        float angle = Vector3.Angle(dir, lookPoint.forward);
-        RaycastHit r;
-
-        if (angle < coneAngle / 2)
+        Collider[] objectsWithinRange = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
+        if (objectsWithinRange.Length != 0)
         {
-
-            if (Physics.Raycast(lookPoint.position, dir, out r, detectionRange))
+            if (objectsWithinRange[0])
             {
-                if (r.collider.gameObject.CompareTag("Player")) {
-                    Debug.DrawRay(lookPoint.position, dir, Color.red);
+                Vector3 dir = objectsWithinRange[0].transform.position - transform.position;
+                float angle = Vector3.Angle(dir, lookPoint.forward);
+                RaycastHit r;
+
+                if (angle < coneAngle / 2)
+                {
+                    // Detected
                     cone.color = detectedColor;
                     isPlayerDetected = true;
                     startDetectionTimer = true;
+
+                    Debug.DrawRay(transform.position, dir, Color.red);
                 }
                 else
                 {
-                    Debug.DrawRay(lookPoint.position, dir, Color.green);
+                    // not detected
                     cone.color = undetectedColor;
                     isPlayerDetected = false;
-                    detectionTimer = detectionTime;
                     startDetectionTimer = false;
+                    detectionTimer = detectionTime;
+
+                    Debug.DrawRay(transform.position, dir, Color.green);
                 }
-                
             }
+        }
+        else
+        {
+            // not detected
+            cone.color = undetectedColor;
+            isPlayerDetected = false;
+            startDetectionTimer = false;
+            detectionTimer = detectionTime;
         }
 
         if (startDetectionTimer)
@@ -84,12 +95,12 @@ public class EnemyDetection : MonoBehaviour
             {
                 // Find respawn node
                 respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                playerTransform.position = respawnNode.transform.position;
+                FindObjectOfType<PlayerAbilityHandler>().transform.position = respawnNode.transform.position;
 
                 //Sets the ability to NONE
                 //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
                 //Reset KillCounter
-                room.resetKills();
+                //room.resetKills();
                 isPlayerDetected = false;
 
                 // Nerf player fuel and deal dmg

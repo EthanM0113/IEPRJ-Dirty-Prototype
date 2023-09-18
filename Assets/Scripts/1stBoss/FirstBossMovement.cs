@@ -24,9 +24,9 @@ public class FirstBossMovement : MonoBehaviour
 
     public void MoveBoss()
     {
-        Debug.Log("Chosen Path " + chosenPath);
+        //Debug.Log("Chosen Path " + chosenPath);
         float distanceBetween = Vector3.Distance(transform.position, pathNode[chosenPath].transform.position);
-        Debug.Log("Distance between: " + distanceBetween);
+        //Debug.Log("Distance between: " + distanceBetween);
         if (distanceBetween >= 0.5)
         {
             Debug.Log("MOVING");

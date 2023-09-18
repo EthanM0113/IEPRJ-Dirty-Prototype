@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3215543665909677481}
   - component: {fileID: 8707939999792555958}
+  - component: {fileID: 7617237234200304490}
   m_Layer: 6
   m_Name: Self Light
   m_TagString: TestEnemy
@@ -94,6 +95,29 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &7617237234200304490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4311540000268380286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &7247073434045152975
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +432,9 @@ MonoBehaviour:
   undetectedColor: {r: 0.9716981, g: 0.8256829, b: 0.27959237, a: 0}
   detectedColor: {r: 0.6981132, g: 0.16794232, b: 0.16794232, a: 0}
   detectionTime: 1
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &8701865460503795817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -457,6 +484,7 @@ GameObject:
   - component: {fileID: 483891743442538669}
   - component: {fileID: 830562000691713446}
   - component: {fileID: 4469866809607655645}
+  - component: {fileID: 1904962495884569675}
   m_Layer: 6
   m_Name: Spot Light
   m_TagString: TestEnemy
@@ -553,3 +581,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d20e0ed4c108dbf418734c30d50b3871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1904962495884569675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7678222518058511104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
