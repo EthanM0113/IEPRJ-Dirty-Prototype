@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class MinimapRender : MonoBehaviour
 {
-    [SerializeField] private Light[] limelight;
+    private LightContainer container;
 
     private void OnPreCull()
     {
+        for (int i = 0; i < container.LightList.Count; i++)
+        {
+            container.LightList[i].enabled = false;
+        }
         
         //limelight.enabled = false;
     }
     private void OnPreRender()
     {
-       // limelight.enabled = false;
+        for (int i = 0; i < container.LightList.Count; i++)
+        {
+            container.LightList[i].enabled = false;
+        }
     }
     private void OnPostRender()
     {
-       // limelight.enabled = true;
+        for (int i = 0; i < container.LightList.Count; i++)
+        {
+            container.LightList[i].enabled = true;
+        }
     }
 }
