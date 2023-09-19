@@ -18,6 +18,9 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     private Animator mainCameraAnimator;
 
+    // Coin stuff
+    [SerializeField] private int killReward;
+
     // 1st boss stuff
     [SerializeField] private string hpTorchTag; 
 
@@ -52,10 +55,12 @@ public class PlayerCombat : MonoBehaviour
                     if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
                         mainCameraAnimator.SetTrigger("isQuickZoom");
-                        SoundManager.Instance.BackstabHit();
-                        Debug.Log($"Enemy: {enemy.gameObject.name} was hit!");
+                        SoundManager.Instance.BackstabHit();   
                         enemy.GetComponent<BaseEnemy>().EnemyDeath();
                         enemy.gameObject.SetActive(false);
+
+                        // Add coins
+                        PlayerMoneyManager.Instance.AddCoins(killReward);
                     }
                 } 
             }
