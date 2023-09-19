@@ -11,6 +11,8 @@ public class FuelBarHandler : MonoBehaviour
 
     PlayerController playerController;
 
+    [SerializeField] private GameObject flameHandle;
+
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
@@ -25,6 +27,14 @@ public class FuelBarHandler : MonoBehaviour
     void updateFuel()
     {
         fuelMeter.value = playerController.fuelAmt;
+        if (fuelMeter.value <= 0f)
+        {
+            flameHandle.SetActive(false);
+        }
+        else
+        {
+            flameHandle.SetActive(true);
+        }
     }
 
     public void resetFuel(int amt)
