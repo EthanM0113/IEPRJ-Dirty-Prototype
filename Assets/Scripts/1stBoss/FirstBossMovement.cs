@@ -6,6 +6,7 @@ public class FirstBossMovement : MonoBehaviour
 {
     [SerializeField] private List<GameObject> pathNode;
     [SerializeField] private float speed;
+    [SerializeField] private FirstBossUIManager firstBossUIManager;
     private int pathNodeCount;
     private int chosenPath;
 
@@ -19,6 +20,7 @@ public class FirstBossMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(firstBossUIManager.GetPlayerWithinRange())
         MoveBoss();
     }
 

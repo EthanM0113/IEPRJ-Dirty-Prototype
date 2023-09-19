@@ -17,6 +17,9 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private float speedIncrementOnHit;
     private bool isBossDead = false;
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject bossUI;
+    [SerializeField] private float diplayDistance = 10.0f;
+    [SerializeField] private FirstBossUIManager firstBossUIManager;
     private int bossMaxHp;
     private float bossMaxSpeed;
 
@@ -40,26 +43,30 @@ public class FirstBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!isBossDead)
-        { 
-            if (areBothTorchesLit = CheckTwoTorchesLit())
+        if (firstBossUIManager.GetPlayerWithinRange()) // should offload some memory
+        {
+            if (!isBossDead)
             {
-                //Debug.Log("Torches remain lit");
+                if (areBothTorchesLit = CheckTwoTorchesLit())
+                {
+                    //Debug.Log("Torches remain lit");
+                }
+                else
+                {
+                    //Debug.Log("TAKE DAMAGE!!");
+                    DealDamageToBoss();
+                    isBossDead = CheckBossDead();
+                    bossHpText.text = bossHp.ToString();
+                    if (!isBossDead)
+                        LigtTwoTorches();
+                }
             }
             else
             {
-                //Debug.Log("TAKE DAMAGE!!");
-                DealDamageToBoss();
-                isBossDead = CheckBossDead();
-                bossHpText.text = bossHp.ToString();
-                if(!isBossDead)
-                    LigtTwoTorches();
+                DisplayWinScreen();
             }
         }
-        else
-        {
-            DisplayWinScreen();
-        }
+        
     }
 
     private bool CheckTwoTorchesLit()

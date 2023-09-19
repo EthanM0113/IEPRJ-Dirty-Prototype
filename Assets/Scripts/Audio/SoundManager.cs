@@ -25,6 +25,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public void Torchbearer() {
+        musicSource.volume = 0.3f;
         musicSource.PlayOneShot(torchbearer);
         musicSource.loop = true;
     }
