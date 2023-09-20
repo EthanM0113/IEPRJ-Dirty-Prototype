@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerMoneyUIHandler : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private Animator coinTextAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -19,4 +20,10 @@ public class PlayerMoneyUIHandler : MonoBehaviour
         int coins = PlayerMoneyManager.Instance.GetCoins();
         coinText.SetText(coins.ToString());
     }
+
+    public void PulseCointText()
+    {
+        coinTextAnimator.SetTrigger("didPulse");
+    }
+
 }

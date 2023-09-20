@@ -19,7 +19,8 @@ public class PlayerCombat : MonoBehaviour
     private Animator mainCameraAnimator;
 
     // Coin stuff
-    [SerializeField] private int killReward;
+    private int killReward;
+    [SerializeField] PlayerMoneyUIHandler playerMoneyUIHandler; 
 
     // 1st boss stuff
     [SerializeField] private string hpTorchTag; 
@@ -27,6 +28,7 @@ public class PlayerCombat : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        killReward = 0;
         playerController = GetComponent<PlayerController>();
         mainCameraAnimator = mainCamera.GetComponent<Animator>();
     }
@@ -60,6 +62,15 @@ public class PlayerCombat : MonoBehaviour
                         enemy.gameObject.SetActive(false);
 
                         // Add coins
+                        if (enemy.name.Contains("TestEnemy")) // Beholder
+                        {
+                            killReward = UnityEngine.Random.Range(3, 5);
+                        }
+                        else if (enemy.name.Contains("SampleWisp")) // Wisp
+                        {
+                            killReward = UnityEngine.Random.Range(6, 8);
+                        }
+                        playerMoneyUIHandler.PulseCointText();
                         PlayerMoneyManager.Instance.AddCoins(killReward);
                     }
                 } 

@@ -74,6 +74,7 @@ public class PlayerInputHandler : MonoBehaviour
         {
             usingSneak = false;
         }
+   
     }
 
     public bool IsAttack() { return usingAttack; }
@@ -81,5 +82,4 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsAbility() { return usingAbility; }
     public bool IsDash() { return usingDash; }
     public bool IsSneak() { return usingSneak; }
-
 }
