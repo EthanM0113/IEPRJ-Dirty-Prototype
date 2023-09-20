@@ -6,7 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     ObjectPooler objPooler;
-
+    EnemyTemplates templates;
+    [SerializeField] List<GameObject> EnemyList;
     [SerializeField] string EnemyKey = "TestEnemy";
 
     // Parent Route Node
@@ -21,14 +22,26 @@ public class EnemySpawner : MonoBehaviour
     {
         objPooler = ObjectPooler.Instance;
         Timer = SpawnInterval;
+        EnemyList = new List<GameObject>();
     }
 
     public void SpawnAll()
     {
+        templates = FindObjectOfType<EnemyTemplates>();
         for (int i = 0; i < RouteList.Count; i++)
         {
-            GameObject newEnemy = objPooler.SpawnFromPool(EnemyKey, RouteList[i].GetComponentsInChildren<Transform>()[1].position); // Spawn at spawnPoint
+
+            //GameObject newEnemy = objPooler.SpawnFromPool(EnemyKey, RouteList[i].GetComponentsInChildren<Transform>()[1].position); // Spawn at spawnPoint
+            //BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
+            //enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
+            //enemyRef.Activate(); // set needed path
+            //enemyRef.GetComponent<EnemyDetection>().SetSpawnerReference(this);
+
+
+            /* Creates a new enemy based on each route then adds them to a list*/
+            GameObject newEnemy = Instantiate(templates.EnemyList[0], RouteList[i].GetComponentsInChildren<Transform>()[1].position, Quaternion.identity, this.gameObject.transform);
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
+            EnemyList.Add(newEnemy);
             enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
             enemyRef.Activate(); // set needed path
             enemyRef.GetComponent<EnemyDetection>().SetSpawnerReference(this);
