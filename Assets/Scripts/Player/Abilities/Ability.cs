@@ -9,6 +9,7 @@ public class Ability
     {
         NONE = 0,
         TEST,
-        FLARE
+        FLARE,
+        SENTRY
     };
 }

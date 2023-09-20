@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAbilityHandler : MonoBehaviour
 {
     [System.Serializable]
-    class AbilityStats
+    public class AbilityStats
     {
         public AbilityStats(Ability.Type abilityVal, int levelVal) { ability = abilityVal; level = levelVal; }
         public Ability.Type ability;
@@ -18,8 +18,8 @@ public class PlayerAbilityHandler : MonoBehaviour
     [Tooltip("Determines what layers is the \"Dead\" enemies")]
     [SerializeField] LayerMask consumeLayerMask;
 
-    [Tooltip("The players previous ability")]
-    [SerializeField] Ability.Type previousAbility;
+    //[Tooltip("The players previous ability")]
+    //[SerializeField] Ability.Type previousAbility;
 
     [Tooltip("The players current ability")]
     [SerializeField] Ability.Type currentAbility;
@@ -119,7 +119,7 @@ public class PlayerAbilityHandler : MonoBehaviour
         // inflict dmg/kill
         foreach (Collider enemy in hitEnemies)
         {
-            //enemy.GetComponent<DeadTestEnemy>().SetConsumed(false);
+            enemy.GetComponent<BaseDeadEnemy>().SetConsumed(false);
         }
     }
 
@@ -130,6 +130,10 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     public int GetAbilityLevel()
     {
+        if (consumedAbilities.Count == 0)
+        {
+            return -1;
+        }
         return consumedAbilities[FindAbility(currentAbility)].level;
     }
     //public void SetCurrentAbility(Ability.Type ability)
@@ -144,6 +148,11 @@ public class PlayerAbilityHandler : MonoBehaviour
             currentAbility = ability;
             abilityLevel = consumedAbilities[FindAbility(ability)].level;
         }
+    }
+
+    public List<AbilityStats> GetConsumedAbilities()
+    {
+        return consumedAbilities;
     }
 
     // returns the index

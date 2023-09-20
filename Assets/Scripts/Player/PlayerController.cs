@@ -425,7 +425,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 if (playerAbility.GetCurrentAbility() == Ability.Type.NONE)
-                {    
+                {
                     abilityTimer = abilityDuration;
                     startAbilityTimer = false;
                 }
@@ -455,8 +455,12 @@ public class PlayerController : MonoBehaviour
                         didShootFlare = true;
                     }
                 }
+                else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY) 
+                { 
+                    // Spawn Sentry Blockade/barricade/wall
+                }
 
-                abilityTimer -= Time.deltaTime;
+                    abilityTimer -= Time.deltaTime;
             }
         }
     }
