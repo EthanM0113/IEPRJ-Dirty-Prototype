@@ -7,7 +7,7 @@ public class FuelBarHandler : MonoBehaviour
 {
     public Slider fuelMeter;
 
-    private float fuelMax;
+    [SerializeField] private float maxFuel;
 
     PlayerController playerController;
 
@@ -16,7 +16,7 @@ public class FuelBarHandler : MonoBehaviour
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
-        fuelMax = playerController.MAX_FUEL;
+        maxFuel = playerController.MAX_FUEL;
     }
 
     void Update()
@@ -37,12 +37,20 @@ public class FuelBarHandler : MonoBehaviour
         }
     }
 
-    public void resetFuel(int amt)
+    public void ResetFuel(float amt)
     {
         Debug.Log("Nerfed fuel");
         // Change max fuel by integer amt
-        fuelMax -= amt;
-        playerController.fuelAmt = fuelMax;
+        maxFuel -= amt;
+        playerController.fuelAmt = maxFuel;
+    }
+
+    public void IncreaseMaxFuel(float amount)
+    {
+        Debug.Log("Increased Max Fuel");
+        maxFuel += amount;
+        fuelMeter.maxValue = maxFuel;
+        playerController.fuelAmt = maxFuel;
     }
 
     

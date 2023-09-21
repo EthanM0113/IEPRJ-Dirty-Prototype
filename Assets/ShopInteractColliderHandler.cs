@@ -32,4 +32,9 @@ public class ShopInteractColliderHandler : MonoBehaviour
     {
         return isPlayerWithinRange;
     }
+
+    public void SetIsPlayerWithinRange(bool value)
+    {
+        isPlayerWithinRange = value;
+    }
 }

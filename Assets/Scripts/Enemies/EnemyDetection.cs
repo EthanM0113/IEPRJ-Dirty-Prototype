@@ -104,7 +104,7 @@ public class EnemyDetection : MonoBehaviour
                 isPlayerDetected = false;
 
                 // Nerf player fuel and deal dmg
-                fuelBarHandler.resetFuel(1);
+                fuelBarHandler.ResetFuel(1.0f);
                 playerHealth.DamagePlayer(1);
 
                 pooler.DisableAll();

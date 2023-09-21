@@ -126,8 +126,8 @@ public class PlayerController : MonoBehaviour
     {
         isPaused = false;
         // Set HP
-        maxHealth = playerHearts.numOfHearts;
-        health = playerHearts.health; 
+        maxHealth = playerHearts.GetMaxHp();
+        health = playerHearts.GetCurrentHp(); 
         rb = GetComponent<Rigidbody>();
         isSneaking = false;
         actualSpeed = speed;
@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        health = playerHearts.health;
+        health = playerHearts.GetCurrentHp();
 
         isAlive = CheckAlive();
         if (isAlive)

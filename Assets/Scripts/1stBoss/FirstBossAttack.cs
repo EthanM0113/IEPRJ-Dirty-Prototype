@@ -61,7 +61,7 @@ public class FirstBossAttack : MonoBehaviour
         // Deal damage
         playerHearts.DamagePlayer(1);
         // Nerf player fuel
-        fuelBarHandler.resetFuel(1);
+        fuelBarHandler.ResetFuel(1.0f);
         attacking = true;
     }
 

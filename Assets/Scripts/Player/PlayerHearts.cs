@@ -5,56 +5,102 @@ using UnityEngine.UI;
 
 public class PlayerHearts : MonoBehaviour
 {
-    [SerializeField] public int health;
-    [SerializeField] public int numOfHearts;
-    [SerializeField] private List<Image> hearts;
+    [SerializeField] private int currentHp;
+    [SerializeField] private int maxHp;
 
     [SerializeField] private Sprite fullHeart;
     [SerializeField] private Sprite emptyHeart;
+
+    [SerializeField] private GameObject heartGameObject;
+    [SerializeField] private List<GameObject> heartsList;
+    [SerializeField] private Transform firstHeartTransform;
+    [SerializeField] private Transform secondHeartTransform;
 
     [SerializeField] private AudioClip damageSound;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHp = maxHp;
+        UpdateMaxHealth();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(health > numOfHearts)
+        UpdateCurrentHealth();
+    }
+
+    public void UpdateCurrentHealth()
+    {
+        if (currentHp > maxHp)
         {
-            health = numOfHearts;
+            currentHp = maxHp;
         }
 
-        for(int i = 0; i < hearts.Count; i++)
+        for (int i = 0; i < heartsList.Count; i++)
         {
-            if(i < health)
+            if (i < currentHp)
             {
-                hearts[i].sprite = fullHeart;
+                heartsList[i].GetComponent<Image>().sprite = fullHeart;
             }
             else
             {
-                hearts[i].sprite = emptyHeart;
+                heartsList[i].GetComponent<Image>().sprite = emptyHeart;
             }
 
-
-            if(i < numOfHearts)
+            if (i < maxHp)
             {
-                hearts[i].enabled = true;
+                heartsList[i].GetComponent<Image>().enabled = true;
             }
             else
             {
-                hearts[i].enabled = false;
+                heartsList[i].GetComponent<Image>().enabled = false;
             }
         }
+    }
+
+    public void UpdateMaxHealth()
+    {
+        heartsList.Clear();
+        float spriteInterval = Vector3.Distance(firstHeartTransform.position, secondHeartTransform.position);
+        for(int i = 0; i < maxHp; i++)
+        {
+            heartsList.Add(GameObject.Instantiate(heartGameObject, transform));
+            // Draw First Heart
+            if(i == 0) 
+            {
+                heartsList[i].transform.position = firstHeartTransform.position;
+            }
+            else
+            {
+                Vector3 spritePos = new Vector3(firstHeartTransform.position.x + (spriteInterval * i), firstHeartTransform.position.y, firstHeartTransform.position.z);
+                heartsList[i].transform.position = spritePos;
+
+            }
+        }
+    }
+
+    public void IncreaseMaxHealth(int amount)
+    {
+        maxHp += amount;
+        currentHp = maxHp;
+        UpdateMaxHealth();
     }
 
     public void DamagePlayer(int dmg)
     {
         SoundManager.Instance.PlaySound(damageSound);
-        health -= dmg;
+        currentHp -= dmg;
     }
 
+    public int GetCurrentHp()
+    {
+        return currentHp;
+    }
+
+    public int GetMaxHp()
+    {
+        return maxHp;
+    }
 }
