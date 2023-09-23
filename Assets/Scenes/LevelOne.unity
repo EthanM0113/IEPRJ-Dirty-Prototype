@@ -556,11 +556,11 @@ Transform:
   m_GameObject: {fileID: 295936560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.9321, y: 60.740295, z: 86.25044}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 400099803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &308762413 stripped
 GameObject:
@@ -1405,18 +1405,18 @@ MonoBehaviour:
   musicSource: {fileID: 1188762220}
   effectsSource: {fileID: 1470149566}
   walkingSource: {fileID: 1537095901}
-  playerDeath: {fileID: 0}
-  fireball: {fileID: 0}
+  playerDeath: {fileID: 8300000, guid: 195fff384ab3e3241a569a64c4dfa5c4, type: 3}
+  fireball: {fileID: 8300000, guid: 80ab1c163579b7447bb1b3f89ea54198, type: 3}
   backstabMiss: {fileID: 8300000, guid: c20c6ed5872c6c04595bfac2ab46298c, type: 3}
   backstabHit: {fileID: 8300000, guid: 9bc7246c853579b48b6b6f09b3d30608, type: 3}
-  gameStart: {fileID: 0}
-  pause: {fileID: 0}
-  playerWalk: {fileID: 0}
-  bigTorch: {fileID: 0}
-  darkerTheme: {fileID: 0}
-  gameOver: {fileID: 0}
-  levelOne: {fileID: 0}
-  mainMenu: {fileID: 0}
+  gameStart: {fileID: 8300000, guid: 664ed5834d97ef44791edb136c2e0740, type: 3}
+  pause: {fileID: 8300000, guid: b5a911aad43b3ea49883a234ca3584a8, type: 3}
+  playerWalk: {fileID: 8300000, guid: b02a0614954add843936926290f71aec, type: 3}
+  bigTorch: {fileID: 8300000, guid: 8ce5ba5114ba19d489a5d64c3373f6e7, type: 3}
+  darkerTheme: {fileID: 8300000, guid: 6fd550998f6c9a4408c54edd464feac7, type: 3}
+  gameOver: {fileID: 8300000, guid: 05e36ecc680085e468472aa7cd73bd93, type: 3}
+  levelMusic: {fileID: 8300000, guid: a83b2218e5a83e5489fb0784b80c522c, type: 3}
+  mainMenu: {fileID: 8300000, guid: bb2169c1eb6b0c24298af030beed41c6, type: 3}
   torchbearer: {fileID: 8300000, guid: 9832cb116884db94d9b140d2aeb947b0, type: 3}
 --- !u!4 &400099803
 Transform:
@@ -1434,6 +1434,10 @@ Transform:
   - {fileID: 1188762221}
   - {fileID: 1470149567}
   - {fileID: 1537095902}
+  - {fileID: 2144903430}
+  - {fileID: 1628352263}
+  - {fileID: 295936563}
+  - {fileID: 862048145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &417731658 stripped
@@ -3063,11 +3067,11 @@ Transform:
   m_GameObject: {fileID: 862048142}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.9321, y: 60.740295, z: 86.25044}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 400099803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &865636774
 Mesh:
@@ -5679,11 +5683,11 @@ Transform:
   m_GameObject: {fileID: 1628352260}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.9321, y: 60.740295, z: 86.25044}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 400099803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1636775100 stripped
 GameObject:
@@ -7906,11 +7910,11 @@ Transform:
   m_GameObject: {fileID: 2144903428}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.651825, y: 37.144592, z: 35.994728}
+  m_LocalPosition: {x: 39.280273, y: -23.595703, z: -50.255714}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 400099803}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8697728274311270055
 PrefabInstance:
@@ -8005,12 +8009,8 @@ SceneRoots:
   - {fileID: 264770779}
   - {fileID: 1421252909}
   - {fileID: 2083374173}
-  - {fileID: 862048145}
   - {fileID: 420695209}
   - {fileID: 1067833830}
-  - {fileID: 2144903430}
-  - {fileID: 1628352263}
-  - {fileID: 295936563}
   - {fileID: 1246546210}
   - {fileID: 1134171387}
   - {fileID: 333919324}

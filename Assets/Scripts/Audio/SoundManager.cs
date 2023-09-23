@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch;
 
     //ost
-    [SerializeField] private AudioClip darkerTheme, gameOver, levelOne, mainMenu, torchbearer;
+    [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer;
 
     void Awake() {
         if(Instance == null) {
@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
+    
     public void Torchbearer() {
         musicSource.volume = 0.3f;
         musicSource.PlayOneShot(torchbearer);
@@ -35,8 +35,8 @@ public class SoundManager : MonoBehaviour
         musicSource.loop = true;
     }
 
-    public void LevelOne() {
-        musicSource.PlayOneShot(levelOne);
+    public void LevelMusic() {
+        musicSource.PlayOneShot(levelMusic);
         musicSource.loop = true;
     }
 
@@ -100,4 +100,5 @@ public class SoundManager : MonoBehaviour
         musicSource.PlayOneShot(music);
         musicSource.loop = true;
     }
+
 }
