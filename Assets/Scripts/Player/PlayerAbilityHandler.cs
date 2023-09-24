@@ -22,7 +22,7 @@ public class PlayerAbilityHandler : MonoBehaviour
     //[SerializeField] Ability.Type previousAbility;
 
     [Tooltip("The players current ability")]
-    [SerializeField] Ability.Type currentAbility;
+    [SerializeField] Ability.Type currentAbility = Ability.Type.NONE;
 
     [Tooltip("Spot where the consumption particles go")]
     [SerializeField] ParticleSystemForceField field;
@@ -31,16 +31,19 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     [SerializeField] List<AbilityStats> consumedAbilities = new List<AbilityStats>();
 
+    private UISkillHandler uISkillHandler;
+
     // Start is called before the first frame update
     void Start()
     {
         attackPoint = GetComponent<PlayerCombat>().GetAttackTransform();
         consumeRange = GetComponent<PlayerCombat>().GetAttackRange();
+        uISkillHandler = FindAnyObjectByType<UISkillHandler>();
     }
 
     private void Update()
     {
-
+        uISkillHandler.SetAbility(currentAbility);
     }
 
     public void Consume()

@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 public class PlayerController : MonoBehaviour
 {
     // General Variables
+    #region General Variables
     [SerializeField] private GameObject playerCenter;
 
     [Header("Speed Variables")]
@@ -20,7 +21,9 @@ public class PlayerController : MonoBehaviour
     float actualSpeed = 0;
 
     [Space(10)]
+    #endregion
 
+    #region Health Variables
     [Header("Health Variables")]
     /*
     [Tooltip("Health cap of the player")]
@@ -32,7 +35,9 @@ public class PlayerController : MonoBehaviour
     public int health;
     public int maxHealth;
     [Space(10)]
+    #endregion
 
+    #region Light Variables
     [Header("Light Variables")]
     [Tooltip("Used for Player Maximum Light Strength")]
     [SerializeField] float maxLight = 2f;
@@ -41,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Reference to the light source")]
     [SerializeField] Light playerLight;
     [Space(10)]
+    #endregion
 
     PlayerInputHandler inputHandler;
 
@@ -48,12 +54,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] SpriteRenderer playerSprite; // used to flip the sprite
     [Space(10)]
 
+    #region Attack Variables
     [Header("Attack Related")]
     [Tooltip("Position of the attack point")]
     [SerializeField] GameObject attackPosition; // used to move the attack position
     [Tooltip("Distance of attack point from player")]
     [SerializeField] float attackDistance = 0.58f;
     [Space(10)]
+    #endregion 
 
     Rigidbody rb;
 
@@ -68,6 +76,7 @@ public class PlayerController : MonoBehaviour
     // Lose Screen
     [SerializeField] private GameObject loseScreen;
 
+    #region Light Resource Variables
     [Header("Light Resource Variables")]
     // Variables for Light Resource
     public float MAX_FUEL = 2.0f; // match range of light for now
@@ -79,7 +88,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fuelDecrementAmt = 0.05f;
     [Tooltip("By how much the fuel with decrement per interval while sneaking")]
     [SerializeField] private float fuelSneakDecrementAmt = 0.02f;
+    #endregion
 
+    #region Dashing Variables
     // Variables fo Dashing
     private bool canDash = true;
     private bool isDashing = false;
@@ -89,6 +100,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 dashDirection;
     private TrailRenderer tr;
     private float dashFuelCost = 0.13f;
+    #endregion
+
 
     // Player Combat
     PlayerCombat playerCombat;
@@ -101,16 +114,20 @@ public class PlayerController : MonoBehaviour
     // Checks if the player is alive or dead
     public bool isAlive = true;
 
+    #region Ability Variables
     // Ability variables
     [SerializeField] private float abilityDuration = 3f;
     float abilityTimer;
     bool startAbilityTimer = false;
+    private UISkillHandler uISkillHandler;
 
     // Flare Ability variables
     [SerializeField] private GameObject flarePrefab;
     [SerializeField] private float flareForce;
     [SerializeField] private float flareAbilityIncrement = 0.3f;
     private bool didShootFlare;
+    #endregion
+
 
     // Pause Screen
     [SerializeField] private GameObject pauseScreen;
@@ -139,7 +156,7 @@ public class PlayerController : MonoBehaviour
         playerCombat = GetComponent<PlayerCombat>();
         playerAbility = GetComponent<PlayerAbilityHandler>();
         inputHandler = GetComponent<PlayerInputHandler>();
-
+        uISkillHandler = FindAnyObjectByType<UISkillHandler>();
         abilityTimer = abilityDuration;
 
         // for flare
@@ -460,7 +477,8 @@ public class PlayerController : MonoBehaviour
                     // Spawn Sentry Blockade/barricade/wall
                 }
 
-                    abilityTimer -= Time.deltaTime;
+                abilityTimer -= Time.deltaTime;
+                uISkillHandler.SetSkillMeter(abilityTimer/abilityDuration);
             }
         }
     }
