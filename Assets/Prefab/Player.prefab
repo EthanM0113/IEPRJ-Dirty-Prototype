@@ -146,7 +146,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.259}
-  m_LocalScale: {x: 6.8, y: 5.1000004, z: 6.8}
+  m_LocalScale: {x: 15.679999, y: 11.76, z: 15.679999}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2003240062}
@@ -5677,10 +5677,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.69
-    y: -0.02
-    width: 0.36
-    height: 0.39
+    x: 0.76
+    y: 0.59
+    width: 0.2
+    height: 0.35
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -6583,7 +6583,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   mainCamera: {fileID: 8600752380185307727}
-  killReward: 5
+  playerMoneyUIHandler: {fileID: 0}
   hpTorchTag: HpTorch
 --- !u!114 &8557472063509523471
 MonoBehaviour:
@@ -6600,7 +6600,6 @@ MonoBehaviour:
   consumeLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  previousAbility: 0
   currentAbility: 0
   field: {fileID: 845141777}
   abilityLevel: 0

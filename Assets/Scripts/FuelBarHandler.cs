@@ -27,7 +27,7 @@ public class FuelBarHandler : MonoBehaviour
     void updateFuel()
     {
         fuelMeter.value = playerController.fuelAmt;
-        if (fuelMeter.value <= 0f)
+        if (fuelMeter.value <= 1f)
         {
             flameHandle.SetActive(false);
         }
