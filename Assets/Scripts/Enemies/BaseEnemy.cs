@@ -13,9 +13,11 @@ public class BaseEnemy : MonoBehaviour
     protected State currentState;
 
     [SerializeField] protected float speed = 3f;
+    [SerializeField] protected float deathTimeOffset = 0f;
     [SerializeField] GameObject deadVersion;
     protected Transform baseRouteNode;
 
+    protected bool isAlive = true;
     public virtual void Activate() // when the enemy is spawned
     {
 
@@ -26,7 +28,7 @@ public class BaseEnemy : MonoBehaviour
     {
         if (deadVersion != null)
         {
-            Instantiate(deadVersion, transform.position, Quaternion.identity);
+            Invoke("SpawnDeadVersion", deathTimeOffset);
         }
         else
         {
@@ -37,5 +39,16 @@ public class BaseEnemy : MonoBehaviour
     public virtual void SetRouteNode(Transform node) // Gets the parent route node
     {
         baseRouteNode = node;
+    }
+
+    private void SpawnDeadVersion()
+    {
+        if (!isAlive)
+        {
+            return;
+        }
+        this.gameObject.SetActive(false);
+        Instantiate(deadVersion, transform.position, Quaternion.identity);
+        isAlive = false;
     }
 }

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
+using UnityEngine.Animations;
 
 public class SentryEnemy : BaseEnemy
 {
@@ -24,10 +26,17 @@ public class SentryEnemy : BaseEnemy
 
     bool facingRight = true;
 
+    [SerializeField] private SpriteRenderer spriteRef;
+    [SerializeField] private Sprite[] lookSpriteList;
+    int spriteIndex = 0;
+
+    Animator anim;
+
     // Start is called before the first frame update
     void Awake()
     {
-        faceDir= GetComponent<FaceDirection>();
+        faceDir = GetComponent<FaceDirection>();
+        anim = GetComponent<Animator>();
 
         currentState = State.STATIONARY;
         intervalTime = Time.time + interval;
@@ -35,30 +44,50 @@ public class SentryEnemy : BaseEnemy
         {
             dirMultiplier = -1f;
         }
+        spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
+        spriteIndex++;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (intervalTime <= Time.time)
+        if (isAlive)
         {
-            lightSource.RotateAround(lightSource.position, Vector3.up, rotationPerInterval * dirMultiplier);
-            intervalTime = Time.time + interval;
-
-            currentRotation += rotationPerInterval;
-            if (currentRotation >= 360f || currentRotation <= -0.01f)
+            if (intervalTime <= Time.time)
             {
-                currentRotation = 0;
+                lightSource.RotateAround(lightSource.position, Vector3.up, rotationPerInterval * dirMultiplier);
+                intervalTime = Time.time + interval;
+
+                currentRotation += rotationPerInterval;
+                if (currentRotation >= 360f || currentRotation <= -0.01f)
+                {
+                    currentRotation = 0;
+                }
+
+                if (Mathf.Abs(currentRotation) == 90f)
+                {
+                    facingRight = true;
+
+                    faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
+                }
+                else if (Mathf.Abs(currentRotation) == 270f)
+                {
+                    facingRight = false;
+
+                    faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
+                }
+
+                spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
+                spriteIndex++;
+
             }
-
-            if (Mathf.Abs(currentRotation) == 90f || Mathf.Abs(currentRotation) == 270f)
-            {
-                facingRight = !facingRight;
-
-                faceDir.FlipSprite(facingRight); // flip face direction // edit to not change sprite
-            }
-            Debug.Log(currentRotation);
-
         }
+    }
+
+    public override void EnemyDeath()
+    {
+        anim.enabled = true;
+        anim.SetTrigger("OnDeath");
+        base.EnemyDeath();
     }
 }

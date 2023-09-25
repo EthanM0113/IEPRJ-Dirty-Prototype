@@ -11,7 +11,9 @@ public class FaceDirection : MonoBehaviour
 
     //NavMeshAgent agent;
     Rigidbody rb;
-    bool isFacingRight;
+    bool isFacingRight = true;
+    [SerializeField] bool isRandomStart = true;
+    [SerializeField] bool rotateOnCollision = true;
 
     private void Awake()
     {
@@ -20,20 +22,24 @@ public class FaceDirection : MonoBehaviour
     // Start is called before the first frame update
     void OnEnable()
     {
-        int chooseFaceDirection = Random.Range(0, 2);
-        if(chooseFaceDirection == 0)
+        if (isRandomStart)
         {
-            isFacingRight = true;
-            sprite.flipX = !isFacingRight;
-            detectionCone.transform.rotation = Quaternion.Euler(0,90,0);
+            int chooseFaceDirection = Random.Range(0, 2);
+            if (chooseFaceDirection == 0)
+            {
+                isFacingRight = true;
+                sprite.flipX = !isFacingRight;
+                detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
 
+            }
+            else
+            {
+                isFacingRight = false;
+                sprite.flipX = !isFacingRight;
+                detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
+            }
         }
-        else
-        {
-            isFacingRight = false;
-            sprite.flipX = !isFacingRight;
-            detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
+        
     }
 
     private void Update()
@@ -76,36 +82,39 @@ public class FaceDirection : MonoBehaviour
         }
     }
 
-    public void FlipSprite(bool isRight)
+    public void FlipFaceDirection(bool isRight)
     {
         if (!isRight)
         {
             isFacingRight = true;
-            sprite.flipX = !isFacingRight;
+            //sprite.flipX = !isFacingRight;
         }
         else
         {
             isFacingRight = false;
-            sprite.flipX = !isFacingRight;
+            //sprite.flipX = !isFacingRight;
         }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (rotateOnCollision)
         {
-            if (!isFacingRight)
+            if (collision.gameObject.CompareTag("Player"))
             {
-                isFacingRight = true;
-                sprite.flipX = !isFacingRight;
-                detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
+                if (!isFacingRight)
+                {
+                    isFacingRight = true;
+                    sprite.flipX = !isFacingRight;
+                    detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-            }
-            else
-            {
-                isFacingRight = false;
-                sprite.flipX = !isFacingRight;
-                detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
+                else
+                {
+                    isFacingRight = false;
+                    sprite.flipX = !isFacingRight;
+                    detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
+                }
             }
         }
     }

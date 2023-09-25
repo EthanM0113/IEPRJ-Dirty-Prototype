@@ -59,7 +59,6 @@ public class PlayerCombat : MonoBehaviour
                         mainCameraAnimator.SetTrigger("isQuickZoom");
                         SoundManager.Instance.BackstabHit();   
                         enemy.GetComponent<BaseEnemy>().EnemyDeath();
-                        enemy.gameObject.SetActive(false);
 
                         // Add coins
                         if (enemy.name.Contains("TestEnemy")) // Beholder
