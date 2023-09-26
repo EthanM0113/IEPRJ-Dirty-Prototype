@@ -3901,9 +3901,11 @@ GameObject:
   - component: {fileID: 3932060339774465517}
   - component: {fileID: 1149380198309235886}
   - component: {fileID: -8469519558045626567}
+  - component: {fileID: 9113847494925714312}
+  - component: {fileID: 3016409277935766809}
   m_Layer: 0
   m_Name: Interior_Sneak_01
-  m_TagString: Untagged
+  m_TagString: RoomCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3995,8 +3997,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dcf17dbcec0b01459e433a8ec0869af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyList: []
   EnemyKey: TestEnemy
   RouteList: []
+  StationaryList: []
   SpawnInterval: 1.5
 --- !u!114 &-8469519558045626567
 MonoBehaviour:
@@ -4010,6 +4014,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c772654c7e8d9844da4f0790a063dc90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &9113847494925714312
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098964929755775323}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.5, y: 0.2, z: 20.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3016409277935766809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4098964929755775323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f34440e8f46b24b8bcd9b6f440ee57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HasPlayer: 0
+  IsActive: 0
+  AdjRooms: []
 --- !u!1 &4168705927426029737
 GameObject:
   m_ObjectHideFlags: 0
