@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
 
     // Parent Route Node
     [SerializeField] List<Transform> RouteList;
+    [SerializeField] List<Transform> StationaryList;
 
     [SerializeField] float SpawnInterval = 1.5f;
     private float Timer;
