@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: 1636580019522892331}
   - component: {fileID: 879108774789054948}
   - component: {fileID: 4922251514584384420}
+  - component: {fileID: 3375239479744865305}
   m_Layer: 0
   m_Name: Stairs (1)
   m_TagString: Untagged
@@ -1288,11 +1289,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &3375239479744865305
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1550300655783535524}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: 2, y: 0.5, z: -1}
 --- !u!1 &1803546534305119391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2110,6 +2132,7 @@ GameObject:
   - component: {fileID: 3196892324148465384}
   - component: {fileID: 4701841367854756862}
   - component: {fileID: 5224710841339481250}
+  - component: {fileID: 5907459029593360853}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -3044,11 +3067,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &5907459029593360853
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3539998652310184861}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.707107, y: 1.3535534, z: 2.7071066}
+  m_Center: {x: 3.0000002, y: 0.6767767, z: -1}
 --- !u!1 &3815869482656094431
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,6 +4081,7 @@ GameObject:
   - component: {fileID: 1504936734613203696}
   - component: {fileID: 8710613929865844062}
   - component: {fileID: 7567260126965063876}
+  - component: {fileID: 1128776898175495631}
   m_Layer: 0
   m_Name: Stairs (4)
   m_TagString: Untagged
@@ -5169,11 +5214,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &1128776898175495631
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4724473507887929956}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: 2, y: 0.5, z: -1}
 --- !u!1 &4812329575921913047
 GameObject:
   m_ObjectHideFlags: 0
@@ -5188,6 +5254,7 @@ GameObject:
   - component: {fileID: 1656983817655638055}
   - component: {fileID: 3929507551265969098}
   - component: {fileID: 514039197451904334}
+  - component: {fileID: 5263978375319108773}
   m_Layer: 0
   m_Name: Stairs (3)
   m_TagString: Untagged
@@ -6320,11 +6387,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &5263978375319108773
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4812329575921913047}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: -2, y: 0.5, z: -1}
 --- !u!1 &5013306843262553015
 GameObject:
   m_ObjectHideFlags: 0
@@ -6339,6 +6427,7 @@ GameObject:
   - component: {fileID: 1734137514818670018}
   - component: {fileID: 979583580588038813}
   - component: {fileID: 858378870211445674}
+  - component: {fileID: 4677014738331670073}
   m_Layer: 0
   m_Name: Stairs
   m_TagString: Untagged
@@ -7471,11 +7560,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &4677014738331670073
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5013306843262553015}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: -2, y: 0.5, z: -1}
 --- !u!1 &5192278513968918792
 GameObject:
   m_ObjectHideFlags: 0
@@ -7490,6 +7600,7 @@ GameObject:
   - component: {fileID: 6300728082445479490}
   - component: {fileID: 5351189833550419544}
   - component: {fileID: 1198104863652586990}
+  - component: {fileID: 1061157521997010324}
   m_Layer: 0
   m_Name: Stairs (2)
   m_TagString: Untagged
@@ -8622,11 +8733,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &1061157521997010324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192278513968918792}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: 2, y: 0.5, z: -1}
 --- !u!1 &5234628780202568513
 GameObject:
   m_ObjectHideFlags: 0
@@ -10175,6 +10307,7 @@ GameObject:
   - component: {fileID: 792967606640517206}
   - component: {fileID: 239708023752262108}
   - component: {fileID: 8641685476207869980}
+  - component: {fileID: 2019394473515748642}
   m_Layer: 0
   m_Name: Stairs (5)
   m_TagString: Untagged
@@ -11307,11 +11440,32 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!65 &2019394473515748642
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7222476162852260337}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 2}
+  m_Center: {x: -2, y: 0.5, z: -1}
 --- !u!1 &7297421213118128543
 GameObject:
   m_ObjectHideFlags: 0
@@ -11832,7 +11986,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4241868494185381418, guid: 711a76fb913e8cc46a76d7bb304e62b6, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 711a76fb913e8cc46a76d7bb304e62b6, type: 3}

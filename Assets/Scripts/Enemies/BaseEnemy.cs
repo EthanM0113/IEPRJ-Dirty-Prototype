@@ -16,7 +16,8 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] protected float deathTimeOffset = 0f;
     [SerializeField] GameObject deadVersion;
     protected Transform baseRouteNode;
-
+    // determines if the enemy is activated
+    protected bool isActivated = false;
     protected bool isAlive = true;
     public virtual void Activate() // when the enemy is spawned
     {

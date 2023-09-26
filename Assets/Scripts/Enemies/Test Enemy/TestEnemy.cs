@@ -19,8 +19,7 @@ public class TestEnemy : BaseEnemy
 
     [SerializeField] Transform[] route;
 
-    // determines if the enemy is activated
-    bool isActivated = false;
+    
 
     private void Awake()
     {
