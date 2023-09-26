@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.ProBuilder.Shapes;
 
 public class EnemyDetection : MonoBehaviour
 {
@@ -30,6 +31,10 @@ public class EnemyDetection : MonoBehaviour
 
     GameObject respawnNode;
 
+    FaceDirection faceDirection;
+    [SerializeField] bool rotateOnCollision = true;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -37,6 +42,7 @@ public class EnemyDetection : MonoBehaviour
         playerHealth = FindObjectOfType<PlayerHearts>();
         pooler = ObjectPooler.Instance;
         fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+        faceDirection = GetComponent<FaceDirection>();
     }
 
     private void OnEnable()
@@ -107,8 +113,8 @@ public class EnemyDetection : MonoBehaviour
                 fuelBarHandler.ResetFuel(1.0f);
                 playerHealth.DamagePlayer(1);
 
-                pooler.DisableAll();
-                spawnerRef.SpawnAll();
+                //pooler.DisableAll();
+                //spawnerRef.SpawnAll();
                 spawnerRef = null;
                 detectionTimer = detectionTime;
                 startDetectionTimer = false;
@@ -137,6 +143,14 @@ public class EnemyDetection : MonoBehaviour
         {
             room = collision.gameObject.GetComponentInParent<RoomConditions>();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!rotateOnCollision) return;
+
+        if(startDetectionTimer)
+            faceDirection.RotateOnCollision(collision);
     }
 }
 

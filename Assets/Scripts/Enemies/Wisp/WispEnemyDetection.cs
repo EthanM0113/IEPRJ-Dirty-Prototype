@@ -33,6 +33,10 @@ public class WispEnemyDetection : MonoBehaviour
 
     GameObject respawnNode;
 
+    FaceDirection faceDirection;
+    [SerializeField] bool rotateOnCollision = true;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -41,6 +45,8 @@ public class WispEnemyDetection : MonoBehaviour
         playerHealth = FindObjectOfType<PlayerHearts>();
         //pooler = ObjectPooler.Instance;
         fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+        faceDirection = GetComponent<FaceDirection>();
+
     }
 
     private void OnEnable()
@@ -159,5 +165,13 @@ public class WispEnemyDetection : MonoBehaviour
     public void SetAreaManager(WispAreaManager wam)
     {
         wispAreaManager = wam;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!rotateOnCollision) return;
+
+        if (startDetectionTimer)
+            faceDirection.RotateOnCollision(collision);
     }
 }

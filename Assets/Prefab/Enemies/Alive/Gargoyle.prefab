@@ -117,8 +117,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2380939, y: 0.494, z: 2.0339737}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 154138948979699239}
   - {fileID: 4736700314401604850}
@@ -213,7 +213,6 @@ MonoBehaviour:
   detectionCone: {fileID: 5104268531073084492}
   canMove: 0
   isRandomStart: 0
-  rotateOnCollision: 0
 --- !u!114 &9113610816216024646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,10 +231,11 @@ MonoBehaviour:
   cone: {fileID: 6718297364499602108}
   undetectedColor: {r: 0.9716981, g: 0.8256829, b: 0.27959237, a: 0}
   detectedColor: {r: 0.6981132, g: 0.16794232, b: 0.16794232, a: 0}
-  detectionTime: 1
+  detectionTime: 0.75
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  rotateOnCollision: 0
 --- !u!114 &1442021939392529441
 MonoBehaviour:
   m_ObjectHideFlags: 0

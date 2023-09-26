@@ -10090,6 +10090,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  rotateOnCollision: 1
 --- !u!114 &1218710624719555708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10105,6 +10106,7 @@ MonoBehaviour:
   sprite: {fileID: 8651674471247622357}
   detectionCone: {fileID: 5417641314928573030}
   canMove: 1
+  isRandomStart: 1
 --- !u!54 &1971463180407588441
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10166,6 +10168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  deathTimeOffset: 0
   deadVersion: {fileID: 4190281759016145970, guid: c187cdb7668f5e24f830418152a9c7cf, type: 3}
   FACE_INTERVAL: 2
   tpParticles: {fileID: 5331902824567962377}

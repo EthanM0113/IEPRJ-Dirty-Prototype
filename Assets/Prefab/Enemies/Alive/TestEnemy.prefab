@@ -414,6 +414,7 @@ MonoBehaviour:
   sprite: {fileID: 7247073434045152969}
   detectionCone: {fileID: 7678222518058511104}
   canMove: 1
+  isRandomStart: 1
 --- !u!114 &487066772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -436,6 +437,7 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
+  rotateOnCollision: 1
 --- !u!114 &8701865460503795817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 40
+  deathTimeOffset: 0
   deadVersion: {fileID: 6825563087839260311, guid: 583ac5f27df76ef478c861eb7e6f4b4a, type: 3}
   startWaitTime: 2
   endWaitTime: 4

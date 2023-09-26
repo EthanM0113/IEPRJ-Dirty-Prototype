@@ -13,7 +13,6 @@ public class FaceDirection : MonoBehaviour
     Rigidbody rb;
     bool isFacingRight = true;
     [SerializeField] bool isRandomStart = true;
-    [SerializeField] bool rotateOnCollision = true;
 
     private void Awake()
     {
@@ -96,26 +95,24 @@ public class FaceDirection : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void RotateOnCollision(Collision collision)
     {
-        if (rotateOnCollision)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (collision.gameObject.CompareTag("Player"))
+            if (!isFacingRight)
             {
-                if (!isFacingRight)
-                {
-                    isFacingRight = true;
-                    sprite.flipX = !isFacingRight;
-                    detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
+                isFacingRight = true;
+                sprite.flipX = !isFacingRight;
+                detectionCone.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-                }
-                else
-                {
-                    isFacingRight = false;
-                    sprite.flipX = !isFacingRight;
-                    detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
-                }
+            }
+            else
+            {
+                isFacingRight = false;
+                sprite.flipX = !isFacingRight;
+                detectionCone.transform.rotation = Quaternion.Euler(0, -90, 0);
             }
         }
     }
+    
 }
