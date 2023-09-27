@@ -5,8 +5,11 @@ using UnityEngine;
 public class RoomOptimization : MonoBehaviour
 {
     [SerializeField] GameObject MapNode;
+    [SerializeField] bool NeedsIcon = false;
     [SerializeField] private bool HasPlayer = false;
     [SerializeField] private bool IsActive = false;
+    private bool HasExplored = false;
+
 
     [SerializeField] protected List<GameObject> AdjRoomsA;
     // Start is called before the first frame update
@@ -27,7 +30,10 @@ public class RoomOptimization : MonoBehaviour
                 IsActive = true;
                 ActivateRooms();
                 GameObject.FindGameObjectWithTag("MapNode").transform.position = MapNode.transform.position;
-
+                if (!HasExplored && NeedsIcon)
+            {
+                MapNode.transform.GetChild(0).gameObject.SetActive(true);
+            }
 
             //}
             //else if (IsActive) //Moving to adjacent room
