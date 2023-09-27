@@ -1030,57 +1030,6 @@ Mesh:
     offset: 0
     size: 0
     path: 
---- !u!1 &264770777
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 264770779}
-  - component: {fileID: 264770778}
-  m_Layer: 0
-  m_Name: ObjectPooler
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &264770778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264770777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cdedf3e15de2f34d8531ec5611addbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pools:
-  - tag: TestEnemy
-    prefab: {fileID: 7247073434511506501, guid: 6cb8ecb8cbe1f6148a9fdd99bd907042, type: 3}
-    size: 20
-  - tag: Wisp
-    prefab: {fileID: 1773081230867081299, guid: 9554e33e948e1854484290210c68f96f, type: 3}
-    size: 20
---- !u!4 &264770779
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264770777}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.017975, y: -8.548009, z: 19.076859}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &295936560
 GameObject:
   m_ObjectHideFlags: 0
@@ -10756,7 +10705,6 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 88871465}
-  - {fileID: 264770779}
   - {fileID: 2083374173}
   - {fileID: 420695209}
   - {fileID: 1067833830}
