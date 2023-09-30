@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPlatform : MonoBehaviour
+public class PlateScript : MonoBehaviour
 {
     public int num;
 

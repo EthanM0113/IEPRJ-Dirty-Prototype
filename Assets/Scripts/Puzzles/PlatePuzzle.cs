@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestPuzzle : MonoBehaviour
+public class PlatePuzzle : MonoBehaviour
 {
     [SerializeField] GameObject platOne, platTwo, platThree;
 
@@ -11,11 +11,12 @@ public class TestPuzzle : MonoBehaviour
     private bool solved = false;
     private int timer = 800;
     private bool sentinel = true;
+    private bool rewardIsGranted = false;
 
     void Awake() {
-        numOne = platOne.GetComponent<TestPlatform>().GetNum();
-        numTwo = platTwo.GetComponent<TestPlatform>().GetNum();
-        numThree = platThree.GetComponent<TestPlatform>().GetNum();
+        numOne = platOne.GetComponent<PlateScript>().GetNum();
+        numTwo = platTwo.GetComponent<PlateScript>().GetNum();
+        numThree = platThree.GetComponent<PlateScript>().GetNum();
 
         prevOne = numOne;
         prevTwo = numTwo;
@@ -25,9 +26,9 @@ public class TestPuzzle : MonoBehaviour
     void Update() {
 
         if(!solved) {
-            numOne = platOne.GetComponent<TestPlatform>().GetNum();
-            numTwo = platTwo.GetComponent<TestPlatform>().GetNum();
-            numThree = platThree.GetComponent<TestPlatform>().GetNum();
+            numOne = platOne.GetComponent<PlateScript>().GetNum();
+            numTwo = platTwo.GetComponent<PlateScript>().GetNum();
+            numThree = platThree.GetComponent<PlateScript>().GetNum();
         }
 
         if (timer < 800) {
@@ -43,7 +44,7 @@ public class TestPuzzle : MonoBehaviour
             if (numTwo >= 4)
                 numTwo = 0;
 
-            platTwo.GetComponent<TestPlatform>().SetNum(numTwo);
+            platTwo.GetComponent<PlateScript>().SetNum(numTwo);
             timer = 0;
             sentinel = false;
         }
@@ -57,8 +58,8 @@ public class TestPuzzle : MonoBehaviour
             if(numThree >= 4) 
                 numThree = 0;
             
-            platOne.GetComponent<TestPlatform>().SetNum(numOne);
-            platThree.GetComponent<TestPlatform>().SetNum(numThree);
+            platOne.GetComponent<PlateScript>().SetNum(numOne);
+            platThree.GetComponent<PlateScript>().SetNum(numThree);
             timer = 0;
             sentinel = false;
         }
@@ -69,7 +70,7 @@ public class TestPuzzle : MonoBehaviour
             if (numTwo >= 4)
                 numTwo = 0;
 
-            platTwo.GetComponent<TestPlatform>().SetNum(numTwo);
+            platTwo.GetComponent<PlateScript>().SetNum(numTwo);
             timer = 0;
             sentinel = false;
         }
@@ -83,5 +84,10 @@ public class TestPuzzle : MonoBehaviour
         prevThree = numThree;
 
         Debug.Log(numOne + " - " + numTwo + " - " + numThree + " - " + solved);
+
+        if(solved && !rewardIsGranted) {
+            PlayerMoneyManager.Instance.AddCoins(10);
+            rewardIsGranted = true;
+        }
     }
 }
