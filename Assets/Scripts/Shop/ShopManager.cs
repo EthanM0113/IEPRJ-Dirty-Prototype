@@ -9,6 +9,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] ShopInteractColliderHandler shopInteractColliderHandler;
     [SerializeField] private GameObject shopInteractPopup;
     [SerializeField] private GameObject shopUI;
+    [SerializeField] private Animator shopKeeperAnimator;
     [SerializeField] private bool isPlayerInteractingWithShop;
     private bool finishedPurchase; // temporary flag because attack and buy for max hp is same button
 
@@ -50,6 +51,7 @@ public class ShopManager : MonoBehaviour
                 if(successfulPurchase)
                 {
                     SoundManager.Instance.BackstabHit(); // replace with buy sound next time
+                    shopKeeperAnimator.SetTrigger("didSucceed");
                     playerHearts.IncreaseMaxHealth(1);
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
