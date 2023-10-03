@@ -18,10 +18,10 @@ public class SoundManager : MonoBehaviour
     void Awake() {
         if(Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
-        else
-            Destroy(gameObject);
+        //else
+            //Destroy(gameObject);
     }
     
     public void Torchbearer() {

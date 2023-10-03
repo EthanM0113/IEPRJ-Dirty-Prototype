@@ -68,6 +68,7 @@ public class ShopManager : MonoBehaviour
                 if(successfulPurchase) 
                 {
                     SoundManager.Instance.BackstabHit(); // replace with buy sound next time
+                    shopKeeperAnimator.SetTrigger("didSucceed");
                     fuelBarHandler.IncreaseMaxFuel(fuelIncrease);
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
