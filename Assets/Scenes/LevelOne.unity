@@ -1511,6 +1511,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8600752380185307727, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600752380185307727, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: near clip plane
       value: 0.3
       objectReference: {fileID: 0}
@@ -3438,6 +3442,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.64, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0.18}
+--- !u!4 &614299008 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3831071603514349479, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+  m_PrefabInstance: {fileID: 8697728274311270055}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &658325041 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8334416740291025591, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
@@ -3960,6 +3969,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &807819371 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2163602291895216784, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+  m_PrefabInstance: {fileID: 1246546210}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &811863121
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3971,6 +3985,10 @@ PrefabInstance:
     - target: {fileID: 4500326305735346965, guid: e33de1a9cf1946d45b88ce83bdc8ba3e, type: 3}
       propertyPath: m_Name
       value: Gargoyle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5868385684789132152, guid: e33de1a9cf1946d45b88ce83bdc8ba3e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8119282692139375573, guid: e33de1a9cf1946d45b88ce83bdc8ba3e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4323,6 +4341,37 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &887583124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 887583125}
+  m_Layer: 0
+  m_Name: ShopKeeperCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &887583125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 887583124}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 1.437, z: -0.826}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 614299008}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!1001 &900747071
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10935,6 +10984,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 697722053}
     - target: {fileID: 6631694744005694071, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+      propertyPath: playerUI
+      value: 
+      objectReference: {fileID: 807819371}
+    - target: {fileID: 6631694744005694071, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
       propertyPath: hpCostText
       value: 
       objectReference: {fileID: 658325041}
@@ -10958,6 +11011,14 @@ PrefabInstance:
       propertyPath: shopKeeperAnimator
       value: 
       objectReference: {fileID: 948446691}
+    - target: {fileID: 6631694744005694071, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+      propertyPath: originalCameraTransform
+      value: 
+      objectReference: {fileID: 2121294817}
+    - target: {fileID: 6631694744005694071, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+      propertyPath: shopCameraTransformObject
+      value: 
+      objectReference: {fileID: 887583124}
     - target: {fileID: 7363686937456204466, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -10977,7 +11038,10 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5778881807085520753, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3831071603514349479, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 887583125}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2090087205762272627, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
       insertIndex: -1

@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
     #region Light Resource Variables
     [Header("Light Resource Variables")]
     // Variables for Light Resource
-    public float MAX_FUEL = 2.0f; // match range of light for now
+    [SerializeField] private float MAX_FUEL = 2.0f; // match range of light for now
     public float fuelAmt;
     private float fuelTicks;
     [Tooltip("Interval between ticks")]
@@ -523,6 +523,16 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1;
         pauseScreen.SetActive(false);
         isPaused = false;
+    }
+
+    public void SetMaxFuel(float newMaxFuel)
+    {
+        MAX_FUEL = newMaxFuel;
+    }
+
+    public float GetMaxFuel()
+    {
+        return MAX_FUEL;
     }
 
 }

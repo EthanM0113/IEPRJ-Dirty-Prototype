@@ -22,7 +22,7 @@ public class BigTorchHandler : MonoBehaviour
         if (other.transform.CompareTag("Player"))
         {
             PlayerController playerController = other.GetComponent<PlayerController>();
-            playerController.fuelAmt = playerController.MAX_FUEL;
+            playerController.fuelAmt = playerController.GetMaxFuel();
         }
     }
 }

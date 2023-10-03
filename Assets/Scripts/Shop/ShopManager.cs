@@ -13,6 +13,15 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private bool isPlayerInteractingWithShop;
     private bool finishedPurchase; // temporary flag because attack and buy for max hp is same button
 
+    // Trying this shop style
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private GameObject shopCameraTransformObject;
+    [SerializeField] private Transform originalCameraTransform;
+    [SerializeField] private Vector3 originalCameraPos;
+    [SerializeField] private Vector3 originalCameraRotation;
+    [SerializeField] private GameObject playerUI;
+    [SerializeField] private GameObject minimapCamera;
+
     [SerializeField] private PlayerHearts playerHearts;
     [SerializeField] private FuelBarHandler fuelBarHandler;
     [SerializeField] private float fuelIncrease;
@@ -30,6 +39,11 @@ public class ShopManager : MonoBehaviour
         fuelBarHandler = FindAnyObjectByType<FuelBarHandler>(); 
         isPlayerInteractingWithShop = false;
         finishedPurchase = false;
+
+        minimapCamera = GameObject.FindGameObjectWithTag("MapNode");
+        mainCamera = Camera.main;
+        originalCameraPos = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        originalCameraRotation = new Vector3(mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y, mainCamera.transform.eulerAngles.z);
     }
 
     // Update is called once per frame
@@ -56,6 +70,8 @@ public class ShopManager : MonoBehaviour
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
                     finishedPurchase = true;
+
+                    ChangeToOriginalView();
                 } 
             }
             if(Input.GetKeyUp(KeyCode.U)) 
@@ -72,12 +88,16 @@ public class ShopManager : MonoBehaviour
                     fuelBarHandler.IncreaseMaxFuel(fuelIncrease);
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
+
+                    ChangeToOriginalView();
                 }           
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
                 shopUI.SetActive(false);
                 isPlayerInteractingWithShop = false;
+
+                ChangeToOriginalView();
             }
         }
     }
@@ -103,6 +123,8 @@ public class ShopManager : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.U))
             {
+                ChangeToShopView();
+
                 shopInteractPopup.SetActive(false);
                 shopUI.SetActive(true);
                 isPlayerInteractingWithShop = true;
@@ -132,6 +154,35 @@ public class ShopManager : MonoBehaviour
     {
         hpCostText.SetText(hpIncreasePrice.ToString());
         fuelCostText.SetText(fuelIncreasePrice.ToString());
+    }
+
+    private void ChangeToShopView()
+    {
+        //originalCameraTransform = mainCamera.transform;
+        originalCameraPos = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        originalCameraRotation = new Vector3(mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y, mainCamera.transform.eulerAngles.z);
+        mainCamera.transform.position = shopCameraTransformObject.transform.position;
+        mainCamera.transform.eulerAngles = shopCameraTransformObject.transform.eulerAngles;
+
+        playerUI.SetActive(false);
+        minimapCamera.SetActive(false);
+
+        // Turn off Player and Enemies
+        mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
+        mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("TestEnemy"));
+    }
+
+    private void ChangeToOriginalView()
+    {
+        mainCamera.transform.position = originalCameraPos;
+        mainCamera.transform.eulerAngles = originalCameraRotation;
+
+        playerUI.SetActive(true);
+        minimapCamera.SetActive(true);
+
+        // Turn on Player and Enemies
+        mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("Player");
+        mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("TestEnemy");
     }
 }
 

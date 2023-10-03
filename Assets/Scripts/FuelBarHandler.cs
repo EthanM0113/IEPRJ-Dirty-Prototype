@@ -16,7 +16,7 @@ public class FuelBarHandler : MonoBehaviour
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
-        maxFuel = playerController.MAX_FUEL;
+        maxFuel = playerController.GetMaxFuel();
     }
 
     void Update()
@@ -43,6 +43,7 @@ public class FuelBarHandler : MonoBehaviour
         // Change max fuel by integer amt
         maxFuel -= amt;
         playerController.fuelAmt = maxFuel;
+        playerController.SetMaxFuel(maxFuel);
     }
 
     public void IncreaseMaxFuel(float amount)
@@ -51,6 +52,7 @@ public class FuelBarHandler : MonoBehaviour
         maxFuel += amount;
         fuelMeter.maxValue = maxFuel;
         playerController.fuelAmt = maxFuel;
+        playerController.SetMaxFuel(maxFuel);
     }
 
     
