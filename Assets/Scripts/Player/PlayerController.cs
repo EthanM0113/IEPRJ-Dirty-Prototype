@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float abilitySpeed;
     [Tooltip("Used for Player Test Ability Speed Increase per level")]
     [SerializeField] float abilityConstant = 0.3f;
-    float actualSpeed = 0;
+    [SerializeField] private float actualSpeed = 0;
 
     [Space(10)]
     #endregion
@@ -126,6 +126,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float flareForce;
     [SerializeField] private float flareAbilityIncrement = 0.3f;
     private bool didShootFlare;
+
+    // Gargoyle Ability variables
+    private MainCameraManager mainCameraManager;
+    private bool isPlayerDetectable;
     #endregion
 
 
@@ -161,6 +165,10 @@ public class PlayerController : MonoBehaviour
 
         // for flare
         didShootFlare = false;
+
+        // for gargoyle
+        mainCameraManager = FindAnyObjectByType<MainCameraManager>();
+        isPlayerDetectable = true;
     }
 
     private void Update()
@@ -285,6 +293,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
+            Debug.Log("Ability " + playerAbility.GetCurrentAbility() + " is Speed Boost.");
+
             if (abilityLevel > 0)
             {
                 actualSpeed = abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant));
@@ -296,12 +306,28 @@ public class PlayerController : MonoBehaviour
             playerLight.intensity = maxLight;
             playerLight.spotAngle = maxLight;
         }
-        else if (!isSneaking) 
+        else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY && startAbilityTimer)
+        {
+            // should be slower than speed boost abiltiy, right not 70% of speed boost speed
+            if (abilityLevel > 0)
+            {
+                actualSpeed = (abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant))) * 0.7f; 
+                actualSpeed = 20.0f;
+            }
+            else
+            {
+                actualSpeed = abilitySpeed * 0.7f;
+            }
+            playerLight.intensity = maxLight;
+            playerLight.spotAngle = maxLight;
+        }
+        else if (!isSneaking)
         {
             actualSpeed = speed;
             playerLight.intensity = maxLight;
             playerLight.spotAngle = maxLight;
         }
+        
     }
 
     private void Move() 
@@ -432,12 +458,20 @@ public class PlayerController : MonoBehaviour
     void CheckAbility()
     {
         if (startAbilityTimer)
-        {
+         {
             if (abilityTimer <= 0f)
             {
                 abilityTimer = abilityDuration;
                 startAbilityTimer = false;
                 didShootFlare = false;
+
+                // Check for gargoyle ability
+                if(playerAbility.GetCurrentAbility() == Ability.Type.SENTRY)
+                {
+                    mainCameraManager.ToggleGargoyleFX(false);
+                    isPlayerDetectable = true;
+                }
+
             }
             else
             {
@@ -452,29 +486,12 @@ public class PlayerController : MonoBehaviour
                 }
                 else if (playerAbility.GetCurrentAbility() == Ability.Type.FLARE)
                 {
-                    if (!didShootFlare)
-                    {
-                        SoundManager.Instance.Fireball();
-                        GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
-                        Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
-                        shotFlareLight.range += flareAbilityIncrement * abilityLevel;
-                        Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
-                        // Just affecting x and y scale
-                        shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
-                        if (isFacingRight)
-                        {
-                            shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
-                        }
-                        else
-                        {
-                            shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
-                        }
-                        didShootFlare = true;
-                    }
+                    FlareAbility();
                 }
                 else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY) 
-                { 
-                    // Spawn Sentry Blockade/barricade/wall
+                {
+                    GargoyleAbility();
+
                 }
 
                 abilityTimer -= Time.deltaTime;
@@ -535,5 +552,38 @@ public class PlayerController : MonoBehaviour
         return MAX_FUEL;
     }
 
+    public void FlareAbility()
+    {
+        if (!didShootFlare)
+        {
+            SoundManager.Instance.Fireball();
+            GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
+            Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
+            shotFlareLight.range += flareAbilityIncrement * abilityLevel;
+            Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
+            // Just affecting x and y scale
+            shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
+            if (isFacingRight)
+            {
+                shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
+            }
+            else
+            {
+                shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
+            }
+            didShootFlare = true;
+        }
+    }
+
+    public void GargoyleAbility()
+    {
+        mainCameraManager.ToggleGargoyleFX(true);
+        isPlayerDetectable = false;
+    }
+
+    public bool GetIsPlayerDetectable()
+    {
+        return isPlayerDetectable;
+    }
 }
  

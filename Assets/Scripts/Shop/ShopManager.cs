@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class ShopManager : MonoBehaviour
 {
+    // Future fixes - turn off player movement while interacting, turn off player audio (stabbing and stuff) if we decide to keep U as both attack and interact button
+
     [SerializeField] ShopInteractColliderHandler shopInteractColliderHandler;
     [SerializeField] private GameObject shopInteractPopup;
     [SerializeField] private GameObject shopUI;
@@ -21,6 +24,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Vector3 originalCameraRotation;
     [SerializeField] private GameObject playerUI;
     [SerializeField] private GameObject minimapCamera;
+    private MainCameraManager mainCameraManager;
+    private bool isCamearaTransitioning;
+    private bool isShopCameraActive; 
+    [SerializeField] private float transitionSpeed = 1.0f;
+    [SerializeField] private Vector3 velocity = Vector3.zero;
 
     [SerializeField] private PlayerHearts playerHearts;
     [SerializeField] private FuelBarHandler fuelBarHandler;
@@ -42,17 +50,31 @@ public class ShopManager : MonoBehaviour
 
         minimapCamera = GameObject.FindGameObjectWithTag("MapNode");
         mainCamera = Camera.main;
-        originalCameraPos = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        originalCameraPos = new Vector3(mainCamera.transform.localPosition.x, mainCamera.transform.localPosition.y, mainCamera.transform.localPosition.z);
         originalCameraRotation = new Vector3(mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y, mainCamera.transform.eulerAngles.z);
+
+        mainCameraManager = FindAnyObjectByType<MainCameraManager>();
+        isCamearaTransitioning = false;
+        isShopCameraActive = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        UpdatePrices();
-        ShopInteratction();
-        DisplayShopUI();
-        DisplayShopPopup();
+        if(!isCamearaTransitioning)
+        {
+            UpdatePrices();
+            ShopInteratction();
+            DisplayShopUI();
+            DisplayShopPopup();
+        }
+        else
+        {
+            if (!isShopCameraActive)
+                ChangeToShopView();
+            else
+                ChangeToOriginalView();
+        }
     }
 
     private void ShopInteratction()
@@ -62,17 +84,22 @@ public class ShopManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.U)) // Buy Max Hp Increase
             {
                 bool successfulPurchase = BuyItem(hpIncreasePrice);
-                if(successfulPurchase)
+                if (successfulPurchase)
                 {
-                    SoundManager.Instance.BackstabHit(); // replace with buy sound next time
+                    SoundManager.Instance.PurchaseSuccess();
                     shopKeeperAnimator.SetTrigger("didSucceed");
                     playerHearts.IncreaseMaxHealth(1);
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
                     finishedPurchase = true;
 
-                    ChangeToOriginalView();
-                } 
+                    //ChangeToOriginalView();
+                    isCamearaTransitioning = true;
+                }
+                else
+                {
+                    SoundManager.Instance.PurchaseFail();
+                }
             }
             if(Input.GetKeyUp(KeyCode.U)) 
             {
@@ -83,14 +110,19 @@ public class ShopManager : MonoBehaviour
                 bool successfulPurchase = BuyItem(fuelIncreasePrice);
                 if(successfulPurchase) 
                 {
-                    SoundManager.Instance.BackstabHit(); // replace with buy sound next time
+                    SoundManager.Instance.PurchaseSuccess();
                     shopKeeperAnimator.SetTrigger("didSucceed");
                     fuelBarHandler.IncreaseMaxFuel(fuelIncrease);
                     shopUI.SetActive(false);
                     isPlayerInteractingWithShop = false;
 
-                    ChangeToOriginalView();
-                }           
+                    //ChangeToOriginalView();
+                    isCamearaTransitioning = true;
+                }
+                else
+                {
+                    SoundManager.Instance.PurchaseFail();
+                }
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
@@ -98,6 +130,7 @@ public class ShopManager : MonoBehaviour
                 isPlayerInteractingWithShop = false;
 
                 ChangeToOriginalView();
+                isCamearaTransitioning = true;
             }
         }
     }
@@ -123,7 +156,7 @@ public class ShopManager : MonoBehaviour
         {
             if(Input.GetKeyDown(KeyCode.U))
             {
-                ChangeToShopView();
+                isCamearaTransitioning = true;
 
                 shopInteractPopup.SetActive(false);
                 shopUI.SetActive(true);
@@ -158,24 +191,32 @@ public class ShopManager : MonoBehaviour
 
     private void ChangeToShopView()
     {
-        //originalCameraTransform = mainCamera.transform;
-        originalCameraPos = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
-        originalCameraRotation = new Vector3(mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y, mainCamera.transform.eulerAngles.z);
-        mainCamera.transform.position = shopCameraTransformObject.transform.position;
-        mainCamera.transform.eulerAngles = shopCameraTransformObject.transform.eulerAngles;
+        mainCameraManager.ToggleBlackBars(true);
 
+        mainCamera.transform.eulerAngles = shopCameraTransformObject.transform.eulerAngles;
+        mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, shopCameraTransformObject.transform.position, ref velocity, transitionSpeed);
+        
         playerUI.SetActive(false);
         minimapCamera.SetActive(false);
 
         // Turn off Player and Enemies
         mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("Player"));
         mainCamera.cullingMask &= ~(1 << LayerMask.NameToLayer("TestEnemy"));
+
+
+        if (Vector3.Distance(mainCamera.transform.position, shopCameraTransformObject.transform.position) <= 0.1f)
+        {
+            isCamearaTransitioning = false;
+            isShopCameraActive = true;         
+        }    
     }
 
     private void ChangeToOriginalView()
     {
-        mainCamera.transform.position = originalCameraPos;
+        mainCameraManager.ToggleBlackBars(false);
+
         mainCamera.transform.eulerAngles = originalCameraRotation;
+        mainCamera.transform.localPosition = Vector3.SmoothDamp(mainCamera.transform.localPosition, originalCameraPos, ref velocity, transitionSpeed);
 
         playerUI.SetActive(true);
         minimapCamera.SetActive(true);
@@ -183,6 +224,18 @@ public class ShopManager : MonoBehaviour
         // Turn on Player and Enemies
         mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("Player");
         mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("TestEnemy");
+
+       
+        if (Vector3.Distance(mainCamera.transform.localPosition, originalCameraPos) <= 0.1f)
+        {
+            isCamearaTransitioning = false;
+            isShopCameraActive = false;
+        }
     }
+
+
+
+   
+       
 }
 

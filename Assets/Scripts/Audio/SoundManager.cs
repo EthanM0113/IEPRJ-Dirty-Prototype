@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource, effectsSource, walkingSource;
 
     //sound effects
-    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch;
+    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, purchaseSuccess, purchaseFail;
 
     //ost
     [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer;
@@ -79,6 +79,18 @@ public class SoundManager : MonoBehaviour
     {
         effectsSource.volume = 0.3f;
         effectsSource.PlayOneShot(backstabHit);
+    }
+
+    public void PurchaseSuccess()
+    {
+        effectsSource.volume = 1.0f;
+        effectsSource.PlayOneShot(purchaseSuccess);
+    }
+
+    public void PurchaseFail()
+    {
+        effectsSource.volume = 1.0f;
+        effectsSource.PlayOneShot(purchaseFail);
     }
 
     public void PlayerDeath() {
