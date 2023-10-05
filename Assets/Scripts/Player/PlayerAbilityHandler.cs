@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,12 +23,18 @@ public class PlayerAbilityHandler : MonoBehaviour
     //[SerializeField] Ability.Type previousAbility;
 
     [Tooltip("The players current ability")]
-    [SerializeField] Ability.Type currentAbility = Ability.Type.NONE;
+    [SerializeField] List<Ability.Type> currentAbility;
+
+    [SerializeField] int skillSlotIndex = 0;
+    [SerializeField] int skillSlotCount = 1;
+    [SerializeField] int skillSlotToEdit = 1;
 
     [Tooltip("Spot where the consumption particles go")]
     [SerializeField] ParticleSystemForceField field;
 
-    [SerializeField] int abilityLevel = 0;
+    [SerializeField] int abilityLevel1 = 0;
+    [SerializeField] int abilityLevel2 = 0;
+    [SerializeField] int abilityLevel3 = 0;
 
     [SerializeField] List<AbilityStats> consumedAbilities = new List<AbilityStats>();
 
@@ -39,11 +46,12 @@ public class PlayerAbilityHandler : MonoBehaviour
         attackPoint = GetComponent<PlayerCombat>().GetAttackTransform();
         consumeRange = GetComponent<PlayerCombat>().GetAttackRange();
         uISkillHandler = FindAnyObjectByType<UISkillHandler>();
+        currentAbility.Add(Ability.Type.NONE);
     }
 
     private void Update()
     {
-        uISkillHandler.SetAbility(currentAbility);
+        uISkillHandler.SetAbility(currentAbility[skillSlotIndex]);
     }
 
     public void Consume()
@@ -94,7 +102,7 @@ public class PlayerAbilityHandler : MonoBehaviour
                     {
                         if (consumedAbilities.Count == 0)
                         {
-                            currentAbility = consumedAbility;
+                            currentAbility[skillSlotIndex] = consumedAbility;
                         }
                         consumedAbilities.Add(new AbilityStats(consumedAbility, 0));
                     }
@@ -128,7 +136,7 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     public Ability.Type GetCurrentAbility()
     {
-        return currentAbility;
+        return currentAbility[skillSlotIndex];
     }
 
     public int GetAbilityLevel()
@@ -137,20 +145,35 @@ public class PlayerAbilityHandler : MonoBehaviour
         {
             return -1;
         }
-        return consumedAbilities[FindAbility(currentAbility)].level;
+        return consumedAbilities[FindAbility(currentAbility[skillSlotIndex])].level;
     }
     //public void SetCurrentAbility(Ability.Type ability)
     //{
     //    currentAbility = ability;
     //}
 
-    public void SetCurrentAbility(Ability.Type ability)
+    public int SetCurrentAbility(Ability.Type ability)
     {
         if (FindAbility(ability) != -1)
         {
-            currentAbility = ability;
-            abilityLevel = consumedAbilities[FindAbility(ability)].level;
+            if (skillSlotToEdit == 1)
+            {
+                currentAbility[0] = ability;
+                abilityLevel1 = consumedAbilities[FindAbility(ability)].level;
+            }
+            else if (skillSlotToEdit == 2)
+            {
+                currentAbility[1] = ability;
+                abilityLevel2 = consumedAbilities[FindAbility(ability)].level;
+            }
+            else if (skillSlotToEdit == 3)
+            {
+                currentAbility[2] = ability;
+                abilityLevel3 = consumedAbilities[FindAbility(ability)].level;
+            }
+
         }
+        return skillSlotToEdit;
     }
 
     public List<AbilityStats> GetConsumedAbilities()
@@ -171,6 +194,30 @@ public class PlayerAbilityHandler : MonoBehaviour
         }
         
         return flag;
+    }
+
+    public void AddSkillSlot()
+    {
+        skillSlotCount++;
+        currentAbility.Add(Ability.Type.NONE);
+    }
+
+    public void SelectSkillSlot(int index)
+    {
+        skillSlotToEdit = index;
+    }
+
+    public void CycleSkills()
+    {
+        if (skillSlotIndex + 1 < skillSlotCount)
+        {
+            skillSlotIndex += 1;
+
+        }
+        else
+        {
+            skillSlotIndex = 0;
+        }
     }
 }
 

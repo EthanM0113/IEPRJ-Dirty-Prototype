@@ -280,7 +280,11 @@ public class PlayerController : MonoBehaviour
                     UnpauseGame();
                 }
             }
-        } 
+        }
+        if(inputHandler.IsCycle())
+        {
+            playerAbility.CycleSkills();
+        }
     }
 
     void SneakCheck()

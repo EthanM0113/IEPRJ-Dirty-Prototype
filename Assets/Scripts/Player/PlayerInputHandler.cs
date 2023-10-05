@@ -9,12 +9,16 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private KeyCode ability;
     [SerializeField] private KeyCode dash;
     [SerializeField] private KeyCode sneak;
+    [SerializeField] private KeyCode skillSlotMenu;
+    [SerializeField] private KeyCode cycleSkill;
 
     bool usingAttack = false;
     bool usingConsume = false;
     bool usingAbility = false;
     bool usingDash = false;
     bool usingSneak = false;
+    bool usingSkillSlotMenu = false;
+    bool usingCycle = false;
 
     // Start is called before the first frame update
     void Start()
@@ -74,7 +78,9 @@ public class PlayerInputHandler : MonoBehaviour
         {
             usingSneak = false;
         }
-   
+
+        usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu);
+        usingCycle = Input.GetKeyDown(cycleSkill);
     }
 
     public bool IsAttack() { return usingAttack; }
@@ -82,4 +88,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool IsAbility() { return usingAbility; }
     public bool IsDash() { return usingDash; }
     public bool IsSneak() { return usingSneak; }
+
+    public bool IsSkillSlotMenuActive() { return usingSkillSlotMenu; }
+    public bool IsCycle() { return usingCycle; }
 }

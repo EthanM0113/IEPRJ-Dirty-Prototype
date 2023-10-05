@@ -6541,6 +6541,7 @@ MonoBehaviour:
   sneakSpeed: 70
   abilitySpeed: 300
   abilityConstant: 0.07
+  actualSpeed: 0
   playerHearts: {fileID: 0}
   health: 5
   maxHealth: 5
@@ -6601,9 +6602,14 @@ MonoBehaviour:
   consumeLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  currentAbility: 0
+  currentAbility: 
+  skillSlotIndex: 0
+  skillSlotCount: 1
+  skillSlotToEdit: 1
   field: {fileID: 845141777}
-  abilityLevel: 0
+  abilityLevel1: 0
+  abilityLevel2: 0
+  abilityLevel3: 0
   consumedAbilities: []
 --- !u!114 &7043229411048727085
 MonoBehaviour:
@@ -6622,6 +6628,8 @@ MonoBehaviour:
   ability: 105
   dash: 32
   sneak: 304
+  skillSlotMenu: 9
+  cycleSkill: 101
 --- !u!114 &1744724584
 MonoBehaviour:
   m_ObjectHideFlags: 0
