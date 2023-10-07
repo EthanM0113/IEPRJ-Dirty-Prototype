@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,12 +7,14 @@ public class FirstBossAttack : MonoBehaviour
 {
 
     [SerializeField] private Animator bossAnimator;
-    [SerializeField] private GameObject respawnPoint;
+    //[SerializeField] private GameObject respawnPoint;
     [SerializeField] private FirstBossManager firstBossManager;
     [SerializeField] private FirstBossAnimationHandler firstBossAnimationHandler;
     [SerializeField] private GameObject player;
     private PlayerHearts playerHearts;
     FuelBarHandler fuelBarHandler;
+    private Animator playerAnimator;
+    private PlayerController playerController;
 
     // attacking
     private bool attacking = false;
@@ -19,10 +22,12 @@ public class FirstBossAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        respawnPoint = GameObject.FindGameObjectWithTag("RespawnNode");
+       // respawnPoint = GameObject.FindGameObjectWithTag("RespawnNode");
         player = GameObject.FindGameObjectWithTag("Player");
         playerHearts = GameObject.FindObjectOfType<PlayerHearts>();
         fuelBarHandler = GameObject.FindObjectOfType<FuelBarHandler>();
+        playerAnimator = player.GetComponent<Animator>();
+        playerController = player.GetComponent<PlayerController>(); 
     }
 
     // Update is called once per frame
@@ -34,11 +39,6 @@ public class FirstBossAttack : MonoBehaviour
             {
                 Debug.Log("Attacking!");
             }
-            else
-            {
-                ResetBossAndPlayer();
-            }
-
         }
     }
 
@@ -49,28 +49,48 @@ public class FirstBossAttack : MonoBehaviour
             // Check if player is sneaking
             if (!other.GetComponent<PlayerController>().GetSneaking())
             {
-                BossAttack();
+                StartCoroutine(BossAttack());
             }
         }
     }
 
-    public void BossAttack()
+    public IEnumerator BossAttack()
     {
         bossAnimator.SetTrigger("isAttacking");
+        yield return new WaitForSecondsRealtime(0.80f); // Fine tune to fill in the animation 
         Debug.Log("Player Hit!");
-        // Deal damage
-        playerHearts.DamagePlayer(1);
-        // Nerf player fuel
-        fuelBarHandler.ResetFuel(1.0f);
+        // Damage Player
+        DamagePlayer();
         attacking = true;
     }
 
+    private void DamagePlayer()
+    {
+        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+
+        // Nerf player fuel and deal dmg
+        fuelBarHandler.ResetFuel(1.0f);
+        playerHearts.DamagePlayer(2);
+    }
+
+    private IEnumerator TriggerImpactFrame()
+    {
+        playerAnimator.SetTrigger("Dead");
+        yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(2);
+        playerController.PlayDeathParticles();
+        playerAnimator.SetTrigger("Idle");
+        Time.timeScale = 1;
+    }
+
+    /*
     public void ResetBossAndPlayer()
     {
         // Telport player to respawn point
-        player.transform.position = respawnPoint.transform.position;
+        //player.transform.position = respawnPoint.transform.position;
         // Reset boss hp
         firstBossManager.ResetValues();
     }
-
+    */
 }

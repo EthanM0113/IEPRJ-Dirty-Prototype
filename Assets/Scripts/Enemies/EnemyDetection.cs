@@ -35,6 +35,8 @@ public class EnemyDetection : MonoBehaviour
     [SerializeField] bool rotateOnCollision = true;
 
     private PlayerController playerController;
+    private Animator playerAnimator;
+    private PlayerInputHandler playerInputHandler;  
 
     // Start is called before the first frame update
     void Awake()
@@ -44,7 +46,9 @@ public class EnemyDetection : MonoBehaviour
         pooler = ObjectPooler.Instance;
         fuelBarHandler = FindObjectOfType<FuelBarHandler>();
         faceDirection = GetComponent<FaceDirection>();
-        playerController =FindObjectOfType<PlayerController>();
+        playerController = FindObjectOfType<PlayerController>();
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        playerInputHandler = FindObjectOfType<PlayerInputHandler>();
     }
 
     private void OnEnable()
@@ -103,22 +107,12 @@ public class EnemyDetection : MonoBehaviour
             {
                 if (detectionTimer <= 0f)
                 {
-                    // Find respawn node
-                    respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                    FindObjectOfType<PlayerAbilityHandler>().transform.position = respawnNode.transform.position;
-
-                    //Sets the ability to NONE
-                    //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
-                    //Reset KillCounter
-                    //room.resetKills();
                     isPlayerDetected = false;
-
-                    // Nerf player fuel and deal dmg
-                    fuelBarHandler.ResetFuel(1.0f);
-                    playerHealth.DamagePlayer(1);
-
-                    //pooler.DisableAll();
-                    //spawnerRef.SpawnAll();
+                    playerInputHandler.SetCanInput(false);
+                    playerController.SetCanInput(false);
+                    DamagePlayer();
+                    playerInputHandler.SetCanInput(true);
+                    playerController.SetCanInput(true);
                     spawnerRef = null;
                     detectionTimer = detectionTime;
                     startDetectionTimer = false;
@@ -141,6 +135,26 @@ public class EnemyDetection : MonoBehaviour
         this.spawnerRef = spawnerRef;
     }
 
+    public void DamagePlayer()
+    {
+        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+        
+        // Nerf player fuel and deal dmg
+        fuelBarHandler.ResetFuel(1.0f);
+        playerHealth.DamagePlayer(1);
+    }
+
+    public IEnumerator TriggerImpactFrame()
+    {
+        playerAnimator.SetTrigger("Dead");
+        yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(2);
+        playerController.PlayDeathParticles();
+        playerAnimator.SetTrigger("Idle");
+        Time.timeScale = 1;
+  
+    }
     private void OnCollisionStay(Collision collision)
     {
 
@@ -157,5 +171,6 @@ public class EnemyDetection : MonoBehaviour
         if(startDetectionTimer)
             faceDirection.RotateOnCollision(collision);
     }
+
 }
 

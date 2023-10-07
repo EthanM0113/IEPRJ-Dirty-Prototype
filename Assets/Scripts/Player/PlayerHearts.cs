@@ -42,10 +42,12 @@ public class PlayerHearts : MonoBehaviour
         {
             if (i < currentHp)
             {
+                Debug.Log("Heart " + i + " is full.");
                 heartsList[i].GetComponent<Image>().sprite = fullHeart;
             }
             else
             {
+                Debug.Log("Heart " + i + " is empty.");
                 heartsList[i].GetComponent<Image>().sprite = emptyHeart;
             }
 
@@ -62,7 +64,12 @@ public class PlayerHearts : MonoBehaviour
 
     public void UpdateMaxHealth()
     {
+        for (int i = 0; i < heartsList.Count; i++)
+        {
+            Destroy(heartsList[i]); 
+        }
         heartsList.Clear();
+       
         float spriteInterval = Vector3.Distance(firstHeartTransform.position, secondHeartTransform.position);
         for(int i = 0; i < maxHp; i++)
         {

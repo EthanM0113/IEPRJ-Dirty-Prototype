@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,6 +37,10 @@ public class WispEnemyDetection : MonoBehaviour
     FaceDirection faceDirection;
     [SerializeField] bool rotateOnCollision = true;
 
+    private PlayerController playerController;
+    private Animator playerAnimator;
+    private PlayerInputHandler playerInputHandler;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -46,6 +51,9 @@ public class WispEnemyDetection : MonoBehaviour
         //pooler = ObjectPooler.Instance;
         fuelBarHandler = FindObjectOfType<FuelBarHandler>();
         faceDirection = GetComponent<FaceDirection>();
+        playerController = FindObjectOfType<PlayerController>();
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        playerInputHandler = FindObjectOfType<PlayerInputHandler>();
 
     }
 
@@ -63,78 +71,64 @@ public class WispEnemyDetection : MonoBehaviour
         if(!wispAreaManager.GetIsTeleporting())
         {
             cone.enabled = true;
-            Collider[] objectsWithinRange = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
-            if (objectsWithinRange.Length != 0)
+
+            if (playerController.GetIsPlayerDetectable())
             {
-                if (objectsWithinRange[0])
+                Collider[] objectsWithinRange = Physics.OverlapSphere(transform.position, detectionRange, playerLayer);
+                if (objectsWithinRange.Length != 0)
                 {
-                    Vector3 dir = objectsWithinRange[0].transform.position - transform.position;
-                    float angle = Vector3.Angle(dir, lookPoint.forward);
-                    RaycastHit r;
-
-                    if (angle < coneAngle / 2)
+                    if (objectsWithinRange[0])
                     {
-                        // Detected
-                        cone.color = detectedColor;
-                        isPlayerDetected = true;
-                        startDetectionTimer = true;
+                        Vector3 dir = objectsWithinRange[0].transform.position - transform.position;
+                        float angle = Vector3.Angle(dir, lookPoint.forward);
+                        RaycastHit r;
 
-                        Debug.DrawRay(transform.position, dir, Color.red);
+                        if (angle < coneAngle / 2)
+                        {
+                            // Detected
+                            cone.color = detectedColor;
+                            isPlayerDetected = true;
+                            startDetectionTimer = true;
 
+                            Debug.DrawRay(transform.position, dir, Color.red);
+
+                        }
+                        else
+                        {
+                            // not detected
+                            cone.color = undetectedColor;
+                            isPlayerDetected = false;
+                            startDetectionTimer = false;
+                            detectionTimer = detectionTime;
+
+                            Debug.DrawRay(transform.position, dir, Color.green);
+
+                        }
                     }
-                    else
-                    {
-                        // not detected
-                        cone.color = undetectedColor;
-                        isPlayerDetected = false;
-                        startDetectionTimer = false;
-                        detectionTimer = detectionTime;
-
-                        Debug.DrawRay(transform.position, dir, Color.green);
-
-                    }
-                }
-            }
-            else
-            {
-                // not detected
-                cone.color = undetectedColor;
-                isPlayerDetected = false;
-                startDetectionTimer = false;
-                detectionTimer = detectionTime;
-            }
-
-            if (startDetectionTimer)
-            {
-                if (detectionTimer <= 0f)
-                {
-                    // Find respawn node
-                    respawnNode = GameObject.FindGameObjectWithTag("RespawnNode");
-                    FindObjectOfType<PlayerAbilityHandler>().transform.position = respawnNode.transform.position;
-
-                    //Sets the ability to NONE
-                    //playerTransform.GetComponent<PlayerAbilityHandler>().SetCurrentAbility(Ability.Type.NONE);
-                    //Reset KillCounter
-                    //room.resetKills();
-                    isPlayerDetected = false;
-
-                    // Nerf player fuel and deal dmg
-                    fuelBarHandler.ResetFuel(1.0f);
-                    playerHealth.DamagePlayer(1);
-
-                    //pooler.DisableAll();
-                    //spawnerRef.SpawnAll();
-                    //spawnerRef = null;
-                    gameObject.SetActive(true);
-                    cone.color = undetectedColor;
-
-                    detectionTimer = detectionTime;
-                    startDetectionTimer = false;
                 }
                 else
                 {
-                    detectionTimer -= Time.deltaTime;
-                    //Debug.Log(detectionTimer);
+                    // not detected
+                    cone.color = undetectedColor;
+                    isPlayerDetected = false;
+                    startDetectionTimer = false;
+                    detectionTimer = detectionTime;
+                }
+
+                if (startDetectionTimer)
+                {
+                    if (detectionTimer <= 0f)
+                    {
+                        isPlayerDetected = false;
+                        playerInputHandler.SetCanInput(false);
+                        playerController.SetCanInput(false);
+                        DamagePlayer();
+                        playerInputHandler.SetCanInput(true);
+                        playerController.SetCanInput(true);
+                        //spawnerRef = null;
+                        detectionTimer = detectionTime;
+                        startDetectionTimer = false;
+                    }
                 }
             }
         }
@@ -143,6 +137,27 @@ public class WispEnemyDetection : MonoBehaviour
             cone.enabled = false;
         }
     }
+
+    private void DamagePlayer()
+    {
+        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+
+        // Nerf player fuel and deal dmg
+        fuelBarHandler.ResetFuel(1.0f);
+        playerHealth.DamagePlayer(1);
+    }
+
+    private IEnumerator TriggerImpactFrame()
+    {
+        playerAnimator.SetTrigger("Dead");
+        yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
+        Time.timeScale = 0;
+        yield return new WaitForSecondsRealtime(2);
+        playerController.PlayDeathParticles();
+        playerAnimator.SetTrigger("Idle");
+        Time.timeScale = 1;
+    }
+
     public bool IsPlayerDetected()
     {
         return isPlayerDetected;

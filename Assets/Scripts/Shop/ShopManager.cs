@@ -31,6 +31,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Vector3 velocity = Vector3.zero;
 
     [SerializeField] private PlayerHearts playerHearts;
+    private PlayerController playerController;
+    private PlayerInputHandler playerInputHandler;
     [SerializeField] private FuelBarHandler fuelBarHandler;
     [SerializeField] private float fuelIncrease;
 
@@ -45,6 +47,9 @@ public class ShopManager : MonoBehaviour
     {
         playerHearts = FindAnyObjectByType<PlayerHearts>();
         fuelBarHandler = FindAnyObjectByType<FuelBarHandler>(); 
+        playerController = FindAnyObjectByType<PlayerController>(); 
+        playerInputHandler = FindAnyObjectByType<PlayerInputHandler>(); 
+
         isPlayerInteractingWithShop = false;
         finishedPurchase = false;
 
@@ -71,9 +76,22 @@ public class ShopManager : MonoBehaviour
         else
         {
             if (!isShopCameraActive)
+            {
+                //playerController.SetCanInput(false);
+                //playerInputHandler.SetCanInput(false);
+
+                // Stop Movement Keys Here
+
                 ChangeToShopView();
+            }
+                
             else
+            {
+               // playerController.SetCanInput(true);
+                //playerInputHandler.SetCanInput(true);
                 ChangeToOriginalView();
+            }
+                
         }
     }
 

@@ -20,6 +20,8 @@ public class PlayerInputHandler : MonoBehaviour
     bool usingSkillSlotMenu = false;
     bool usingCycle = false;
 
+    private bool canInput = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,58 +31,61 @@ public class PlayerInputHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Attacking
-        if (Input.GetKeyDown(attack))
+        if(canInput)
         {
-            usingAttack = true;
-        }
-        else if (!Input.GetKeyDown(attack))
-        {
-            usingAttack = false;
-        }
+            // Attacking
+            if (Input.GetKeyDown(attack))
+            {
+                usingAttack = true;
+            }
+            else if (!Input.GetKeyDown(attack))
+            {
+                usingAttack = false;
+            }
 
-        // Consuming
-        if (Input.GetKey(consume))
-        {
-            usingConsume = true;
-        }
-        else if (!Input.GetKey(consume))
-        {
-            usingConsume = false;
-        }
+            // Consuming
+            if (Input.GetKey(consume))
+            {
+                usingConsume = true;
+            }
+            else if (!Input.GetKey(consume))
+            {
+                usingConsume = false;
+            }
 
-        // Using Ability
-        if (Input.GetKeyDown(ability))
-        {
-            usingAbility = true;
-        }
-        else if (!Input.GetKeyDown(ability))
-        {
-            usingAbility = false;
-        }
+            // Using Ability
+            if (Input.GetKeyDown(ability))
+            {
+                usingAbility = true;
+            }
+            else if (!Input.GetKeyDown(ability))
+            {
+                usingAbility = false;
+            }
 
-        // Dashing
-        if (Input.GetKeyDown(dash))
-        {
-            usingDash = true;
-        }
-        else if (!Input.GetKeyDown(dash))
-        {
-            usingDash = false;
-        }
+            // Dashing
+            if (Input.GetKeyDown(dash))
+            {
+                usingDash = true;
+            }
+            else if (!Input.GetKeyDown(dash))
+            {
+                usingDash = false;
+            }
 
-        // Sneaking
-        if (Input.GetKey(sneak))
-        {
-            usingSneak = true;
-        }
-        else if (!Input.GetKey(sneak))
-        {
-            usingSneak = false;
-        }
+            // Sneaking
+            if (Input.GetKey(sneak))
+            {
+                usingSneak = true;
+            }
+            else if (!Input.GetKey(sneak))
+            {
+                usingSneak = false;
+            }
 
-        usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu);
-        usingCycle = Input.GetKeyDown(cycleSkill);
+            usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu);
+            usingCycle = Input.GetKeyDown(cycleSkill);
+        }  
     }
 
     public bool IsAttack() { return usingAttack; }
@@ -91,4 +96,6 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool IsSkillSlotMenuActive() { return usingSkillSlotMenu; }
     public bool IsCycle() { return usingCycle; }
+
+    public void SetCanInput(bool flag) { canInput = flag; }
 }

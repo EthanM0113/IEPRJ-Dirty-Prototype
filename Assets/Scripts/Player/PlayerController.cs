@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Animations;
 [System.Serializable]
@@ -132,6 +133,9 @@ public class PlayerController : MonoBehaviour
     private bool isPlayerDetectable;
     #endregion
 
+    // Death Variables
+    [SerializeField] private ParticleSystem deathParticles;
+    private bool canInput = true;
 
     // Pause Screen
     [SerializeField] private GameObject pauseScreen;
@@ -178,15 +182,18 @@ public class PlayerController : MonoBehaviour
         isAlive = CheckAlive();
         if (isAlive)
         {
-            if (isDashing)
+            if(canInput)
             {
-                return;
-            }
+                if (isDashing)
+                {
+                    return;
+                }
 
-            InputHandler();
-            SneakCheck();
-            FuelManager();
-            CheckAbility();
+                InputHandler();
+                SneakCheck();
+                FuelManager();
+                CheckAbility();
+            }
         }
     }
 
@@ -588,6 +595,16 @@ public class PlayerController : MonoBehaviour
     public bool GetIsPlayerDetectable()
     {
         return isPlayerDetectable;
+    }
+
+    public void PlayDeathParticles()
+    {
+        deathParticles.Play();
+    }
+
+    public void SetCanInput(bool flag)
+    {
+        canInput = flag;
     }
 }
  
