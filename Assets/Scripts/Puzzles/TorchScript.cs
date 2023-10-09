@@ -6,8 +6,19 @@ public class TorchScript : MonoBehaviour
 {
     [SerializeField] private GameObject puzzleBrain;
 
-    public bool state;
-    public int torchNum;
+    private bool state = false;
+    [SerializeField] private int torchNum;
+
+    [SerializeField] GameObject lightSource;
+    bool isActivated = false;
+
+    void Update()
+    {
+        if (isActivated)
+            lightSource.SetActive(true);
+        else
+            lightSource.SetActive(false);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +27,7 @@ public class TorchScript : MonoBehaviour
             if (other.gameObject.tag == "Player")
             {
                 state = !state;
+                isActivated = state;
                 puzzleBrain.GetComponent<TorchPuzzle>().TorchActivated(torchNum);
             }
         }
@@ -23,5 +35,11 @@ public class TorchScript : MonoBehaviour
 
     public bool GetState() {
         return state;
+    }
+
+    public void SetState(bool newState)
+    {
+        state = newState;
+        isActivated = state;
     }
 }

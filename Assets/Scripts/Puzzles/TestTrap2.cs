@@ -30,7 +30,6 @@ public class TestTrap2 : MonoBehaviour
         {
             rows[0].gameObject.SetActive(true);
             rows[3].gameObject.SetActive(true);
-            Debug.Log("Outer Row activated");
         }
         else
         {
@@ -46,7 +45,6 @@ public class TestTrap2 : MonoBehaviour
         {
             rows[0].gameObject.SetActive(false);
             rows[3].gameObject.SetActive(false);
-            Debug.Log("Inner Row retracted");
         }
         else
         {

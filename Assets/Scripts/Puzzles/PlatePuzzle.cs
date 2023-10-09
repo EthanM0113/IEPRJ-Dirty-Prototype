@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlatePuzzle : MonoBehaviour
 {
     [SerializeField] GameObject platOne, platTwo, platThree;
+    [SerializeField] GameObject[] torchGroupOne;
+    [SerializeField] GameObject[] torchGroupTwo;
+    [SerializeField] GameObject[] torchGroupThree;
+    [SerializeField] GameObject[] lightsOne, lightsTwo, lightsThree;
 
     private int numOne, numTwo, numThree;
     private int prevOne, prevTwo, prevThree;
@@ -54,7 +58,7 @@ public class PlatePuzzle : MonoBehaviour
             numThree++;
 
             if (numOne >= 4)
-                numTwo = 0;
+                numOne = 0;
             if(numThree >= 4) 
                 numThree = 0;
             
@@ -75,6 +79,9 @@ public class PlatePuzzle : MonoBehaviour
             sentinel = false;
         }
 
+        if (!solved)
+            MatchTorches();
+
         if (numOne == numTwo && numTwo == numThree && !solved) {
             solved = true;
         }
@@ -83,11 +90,53 @@ public class PlatePuzzle : MonoBehaviour
         prevTwo = numTwo;
         prevThree = numThree;
 
-        Debug.Log(numOne + " - " + numTwo + " - " + numThree + " - " + solved);
-
         if(solved && !rewardIsGranted) {
-            PlayerMoneyManager.Instance.AddCoins(10);
+            //PlayerMoneyManager.Instance.AddCoins(10);
+            Invoke("SolvedTorches", 2);
             rewardIsGranted = true;
+        }
+    }
+
+    void MatchTorches()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            torchGroupOne[i].GetComponent<PuzzleIndicator>().SetActivation(false);
+            torchGroupTwo[i].GetComponent<PuzzleIndicator>().SetActivation(false);
+            torchGroupThree[i].GetComponent<PuzzleIndicator>().SetActivation(false);
+        }
+
+        for(int i = 0; i < numOne; i++)
+        {
+            torchGroupOne[i].GetComponent<PuzzleIndicator>().SetActivation(true);
+        }
+
+        for (int i = 0; i < numTwo; i++)
+        {
+            torchGroupTwo[i].GetComponent<PuzzleIndicator>().SetActivation(true);
+        }
+
+        for (int i = 0; i < numThree; i++)
+        {
+            torchGroupThree[i].GetComponent<PuzzleIndicator>().SetActivation(true);
+        }
+    }
+
+    void SolvedTorches()
+    {
+        for (int i = 0; i < numOne; i++)
+        {
+            lightsOne[i].GetComponent<Light>().color = Color.blue;
+        }
+
+        for (int i = 0; i < numTwo; i++)
+        {
+            lightsTwo[i].GetComponent<Light>().color = Color.blue;
+        }
+
+        for (int i = 0; i < numThree; i++)
+        {
+            lightsThree[i].GetComponent<Light>().color = Color.blue;
         }
     }
 }
