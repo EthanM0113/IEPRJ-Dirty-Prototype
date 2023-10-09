@@ -5,6 +5,7 @@ using UnityEngine;
 public class RoomOptimization : MonoBehaviour
 {
     [SerializeField] GameObject MapNode;
+    
     [SerializeField] bool NeedsIcon = false;
     [SerializeField] private bool HasPlayer = false;
     [SerializeField] private bool IsActive = false;
@@ -88,6 +89,10 @@ public class RoomOptimization : MonoBehaviour
                     }
                 }
             }
+        }
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameObject.FindGameObjectWithTag("RespawnNode").transform.position = collision.gameObject.transform.position;
         }
 
     }
