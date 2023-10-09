@@ -13,8 +13,6 @@ public class PlatePuzzle : MonoBehaviour
     private int numOne, numTwo, numThree;
     private int prevOne, prevTwo, prevThree;
     private bool solved = false;
-    private int timer = 800;
-    private bool sentinel = true;
     private bool rewardIsGranted = false;
 
     void Awake() {
@@ -35,24 +33,15 @@ public class PlatePuzzle : MonoBehaviour
             numThree = platThree.GetComponent<PlateScript>().GetNum();
         }
 
-        if (timer < 800) {
-            timer++;
-            return;
-        }
-        else
-            sentinel = true;
-
-        if(numOne - prevOne != 0 && sentinel) {
+        if(numOne - prevOne != 0) {
             numTwo++;
 
             if (numTwo >= 4)
                 numTwo = 0;
 
             platTwo.GetComponent<PlateScript>().SetNum(numTwo);
-            timer = 0;
-            sentinel = false;
         }
-        if (numTwo - prevTwo != 0 && sentinel)
+        else if (numTwo - prevTwo != 0)
         {
             numOne++;
             numThree++;
@@ -64,10 +53,8 @@ public class PlatePuzzle : MonoBehaviour
             
             platOne.GetComponent<PlateScript>().SetNum(numOne);
             platThree.GetComponent<PlateScript>().SetNum(numThree);
-            timer = 0;
-            sentinel = false;
         }
-        if (numThree - prevThree != 0 && sentinel)
+        else if (numThree - prevThree != 0)
         {
             numTwo++;
 
@@ -75,15 +62,14 @@ public class PlatePuzzle : MonoBehaviour
                 numTwo = 0;
 
             platTwo.GetComponent<PlateScript>().SetNum(numTwo);
-            timer = 0;
-            sentinel = false;
         }
 
         if (!solved)
             MatchTorches();
 
-        if (numOne == numTwo && numTwo == numThree && !solved) {
+        if (numOne == 3 && numTwo == 3 && numThree == 3 && !solved) {
             solved = true;
+            Invoke("SolvedTorches", 2);
         }
 
         prevOne = numOne;
@@ -92,7 +78,6 @@ public class PlatePuzzle : MonoBehaviour
 
         if(solved && !rewardIsGranted) {
             //PlayerMoneyManager.Instance.AddCoins(10);
-            Invoke("SolvedTorches", 2);
             rewardIsGranted = true;
         }
     }
