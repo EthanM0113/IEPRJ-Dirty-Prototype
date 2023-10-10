@@ -48,7 +48,8 @@ public class ShopManager : MonoBehaviour
         playerHearts = FindAnyObjectByType<PlayerHearts>();
         fuelBarHandler = FindAnyObjectByType<FuelBarHandler>(); 
         playerController = FindAnyObjectByType<PlayerController>(); 
-        playerInputHandler = FindAnyObjectByType<PlayerInputHandler>(); 
+        playerInputHandler = FindAnyObjectByType<PlayerInputHandler>();
+        playerUI = GameObject.FindGameObjectWithTag("PlayerUI");
 
         isPlayerInteractingWithShop = false;
         finishedPurchase = false;
