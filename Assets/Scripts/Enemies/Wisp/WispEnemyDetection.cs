@@ -13,7 +13,7 @@ public class WispEnemyDetection : MonoBehaviour
     [SerializeField] Color undetectedColor;
     [SerializeField] Color detectedColor;
 
-    [SerializeField] float detectionTime = 1f;
+    [SerializeField] float detectionTime = 0.7f; // testing
     float detectionTimer;
 
     bool startDetectionTimer = false;
@@ -129,6 +129,11 @@ public class WispEnemyDetection : MonoBehaviour
                         detectionTimer = detectionTime;
                         startDetectionTimer = false;
                     }
+                    else
+                    {
+                        detectionTimer -= Time.deltaTime;
+                        //Debug.Log(detectionTimer);
+                    }
                 }
             }
         }
@@ -149,12 +154,11 @@ public class WispEnemyDetection : MonoBehaviour
 
     private IEnumerator TriggerImpactFrame()
     {
+        Debug.Log("Player Spotted. Trigger Impact Frame.");
         playerAnimator.SetTrigger("Hit");
-        yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
-        //Time.timeScale = 0;
-        yield return new WaitForSecondsRealtime(2);
-        //playerController.PlayDeathParticles();
-        //playerAnimator.SetTrigger("Idle");
+        playerController.PlayDeathParticles();
+        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
+        playerAnimator.SetTrigger("Idle");
         Time.timeScale = 1;
     }
 

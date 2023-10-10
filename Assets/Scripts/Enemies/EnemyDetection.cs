@@ -147,13 +147,10 @@ public class EnemyDetection : MonoBehaviour
     public IEnumerator TriggerImpactFrame()
     {
         playerAnimator.SetTrigger("Hit");
-        yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
-        //Time.timeScale = 0;
-        //yield return new WaitForSecondsRealtime(2);
-        //playerController.PlayDeathParticles();
+        playerController.PlayDeathParticles();
+        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
         playerAnimator.SetTrigger("Idle");
         Time.timeScale = 1;
-  
     }
     private void OnCollisionStay(Collision collision)
     {
