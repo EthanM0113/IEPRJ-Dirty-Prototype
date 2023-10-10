@@ -281,13 +281,19 @@ public class PlayerController : MonoBehaviour
             //        }
             //    }
             //}
-
             if (!startAbilityTimer) // if the ability is not activated 
             {
                 if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                 {
                     abilityLevel = playerAbility.GetAbilityLevel();
                     UseAbility();
+                }
+            }
+            else
+            {
+                if (inputHandler.IsAbility())
+                {
+                    uISkillHandler.PlayNotReady();
                 }
             }
 
@@ -497,7 +503,7 @@ public class PlayerController : MonoBehaviour
     void CheckAbility()
     {
         if (startAbilityTimer)
-         {
+        {
             if (abilityTimer <= 0f)
             {
                 abilityTimer = abilityDuration;
@@ -510,7 +516,6 @@ public class PlayerController : MonoBehaviour
                     mainCameraManager.ToggleGargoyleFX(false);
                     isPlayerDetectable = true;
                 }
-
             }
             else
             {

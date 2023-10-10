@@ -65,4 +65,10 @@ public class UISkillHandler : MonoBehaviour
             m_skillIconRef.material.SetTexture("_Texture", m_skillIcon2);
         }
     }
+
+    public void PlayNotReady()
+    {
+        m_anim.SetTrigger("NotReady");
+
+    }
 }

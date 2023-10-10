@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
 
 public class FuelBarHandler : MonoBehaviour
@@ -13,15 +14,21 @@ public class FuelBarHandler : MonoBehaviour
 
     [SerializeField] private GameObject flameHandle;
 
+    Vector3 originalFlameScale;
+
+    [SerializeField] Animator flameAnim;
+
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
         maxFuel = playerController.GetMaxFuel();
+        originalFlameScale = flameHandle.transform.localScale;
     }
 
     void Update()
     {
         updateFuel();
+        updateFlameHandle();
     }
 
     void updateFuel()
@@ -35,6 +42,12 @@ public class FuelBarHandler : MonoBehaviour
         {
             flameHandle.SetActive(true);
         }
+    }
+
+    void updateFlameHandle()
+    {
+        flameHandle.transform.localScale = (fuelMeter.value/ maxFuel)* 2 * originalFlameScale ;
+        flameAnim.speed = (fuelMeter.value / maxFuel);
     }
 
     public void ResetFuel(float amt)
