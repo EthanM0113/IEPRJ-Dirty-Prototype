@@ -608,11 +608,11 @@ public class PlayerController : MonoBehaviour
             shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
             if (isFacingRight)
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce);
+                shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
             }
             else
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
+                shotFlareRB.AddForce(playerCenter.transform.right * flareForce );
             }
             didShootFlare = true;
         }
