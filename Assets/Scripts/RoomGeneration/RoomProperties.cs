@@ -86,6 +86,26 @@ public class RoomProperties : MonoBehaviour
             }
         }
     }
+
+    public void CloseWalls(int ClosingDirection)
+    {
+        switch (ClosingDirection)
+        {
+            case 1:
+                BD.GetComponent<ToggleOpening>().CloseWall();
+                break;
+            case 2:
+                TD.GetComponent<ToggleOpening>().CloseWall();
+                break;
+            case 3:
+                LD.GetComponent<ToggleOpening>().CloseWall();
+                break;
+            case 4:
+                RD.GetComponent<ToggleOpening>().CloseWall();
+                break;
+
+        }
+    }
 }
 
 

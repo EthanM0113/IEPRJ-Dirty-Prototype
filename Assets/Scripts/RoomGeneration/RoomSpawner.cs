@@ -41,12 +41,12 @@ public class RoomSpawner : MonoBehaviour
                 else //Even if there are still excess rooms, try to spawn a dead end
                 {
                     rand = Random.Range(0, 101);
-                    if (rand > 74)
+                    if (rand > 74) //spawns dead end
                     {
                         isClosed = true;
                         templates.GetComponent<RoomTemplates>().ResetCD();
                     }
-                    else
+                    else 
                     {
                         isClosed = false;
                         templates.GetComponent<RoomTemplates>().DecrementMaxRooms();
