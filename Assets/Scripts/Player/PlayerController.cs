@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
 
     bool isSneaking; // used for sneaking
-    bool isFacingRight = true;
+    bool isFacingRight = false;
 
     int abilityLevel = 0;
 
@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
     // Death Variables
     [SerializeField] private ParticleSystem deathParticles;
     private bool canInput = true;
+    private bool canMove = true;
 
     // Pause Screen
     [SerializeField] private GameObject pauseScreen;
@@ -195,6 +196,13 @@ public class PlayerController : MonoBehaviour
                 CheckAbility();
             }
         }
+        else
+        {
+            animator.SetTrigger("Dead");
+            //deathParticles.Play();
+            loseScreen.SetActive(true);
+            canMove = false;
+        }
     }
 
     // Update is called once per frame
@@ -210,6 +218,12 @@ public class PlayerController : MonoBehaviour
     
     void InputHandler() {
 
+        if (!canMove)
+        {
+            moveInput.x = 0;
+            moveInput.y = 0;
+        }
+
         if (/*Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume()) // Consume
         {
             playerAbility.Consume();
@@ -219,8 +233,6 @@ public class PlayerController : MonoBehaviour
             moveInput.x = 0;
             moveInput.y = 0;
         }
-
-
         else if (/*!Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume() == false) // Not Consuming, can move
         {
             animator.SetBool("IsConsuming", false);
@@ -247,26 +259,35 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("Attack");
             }
 
-            if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
-            {
-                isSneaking = true;
-                animator.SetBool("IsCrouching", true);
-            }
-            else if (/*!Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak() == false)
-            {
-                isSneaking = false;
-                animator.SetBool("IsCrouching", false);
-            }
+            //if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
+            //{
+            //    isSneaking = true;
+            //    animator.SetBool("IsCrouching", true);
+            //}
+            //else if (/*!Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak() == false)
+            //{
+            //    isSneaking = false;
+            //    animator.SetBool("IsCrouching", false);
+            //}
 
-            if (!isSneaking) // if the player is not sneaking then accept ability input
+            //if (!isSneaking) // if the player is not sneaking then accept ability input
+            //{
+            //    if (!startAbilityTimer) // if the ability is not activated 
+            //    {
+            //        if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
+            //        {
+            //            abilityLevel = playerAbility.GetAbilityLevel();
+            //            UseAbility();
+            //        }
+            //    }
+            //}
+
+            if (!startAbilityTimer) // if the ability is not activated 
             {
-                if (!startAbilityTimer) // if the ability is not activated 
+                if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                 {
-                    if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
-                    {
-                        abilityLevel = playerAbility.GetAbilityLevel();
-                        UseAbility();
-                    }
+                    abilityLevel = playerAbility.GetAbilityLevel();
+                    UseAbility();
                 }
             }
 
@@ -296,15 +317,15 @@ public class PlayerController : MonoBehaviour
 
     void SneakCheck()
     {
-        if (isSneaking)
+        //if (isSneaking)
+        //{
+        //    actualSpeed = sneakSpeed;
+        //    playerLight.intensity = minLight;
+        //    playerLight.spotAngle = minLight;
+        //}
+        if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
-            actualSpeed = sneakSpeed;
-            playerLight.intensity = minLight;
-            playerLight.spotAngle = minLight;
-        }
-        else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
-        {
-            Debug.Log("Ability " + playerAbility.GetCurrentAbility() + " is Speed Boost.");
+            //Debug.Log("Ability " + playerAbility.GetCurrentAbility() + " is Speed Boost.");
 
             if (abilityLevel > 0)
             {
@@ -322,7 +343,7 @@ public class PlayerController : MonoBehaviour
             // should be slower than speed boost abiltiy, right not 70% of speed boost speed
             if (abilityLevel > 0)
             {
-                actualSpeed = (abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant))) * 0.7f; 
+                actualSpeed = (abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant))) * 0.7f;
                 actualSpeed = 20.0f;
             }
             else
@@ -338,11 +359,12 @@ public class PlayerController : MonoBehaviour
             playerLight.intensity = maxLight;
             playerLight.spotAngle = maxLight;
         }
-        
+
     }
 
     private void Move() 
     {
+        if (!canMove) return;
         rb.velocity = new Vector3
             (
                moveInput.normalized.x * actualSpeed * Time.deltaTime,
@@ -350,12 +372,12 @@ public class PlayerController : MonoBehaviour
                moveInput.normalized.y * actualSpeed * Time.deltaTime
             );
 
-        if (!isFacingRight && moveInput.x > 0) // flip to the right 
+        if (!isFacingRight && moveInput.x < 0) // flip to the right 
         {
             Flip();
             attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
         }
-        else if(isFacingRight && moveInput.x < 0) // flip to the left 
+        else if(isFacingRight && moveInput.x > 0) // flip to the left 
         {
             Flip();
             attackPosition.transform.localPosition = new Vector3(-attackDistance, 0, 0);
@@ -371,17 +393,23 @@ public class PlayerController : MonoBehaviour
     void FuelManager()
     {
         fuelTicks += Time.deltaTime;
-        if(fuelTicks > fuelDecrementInterval)
-        {
-            if (isSneaking)
-            {
-                fuelAmt -= fuelSneakDecrementAmt;
+        //if(fuelTicks > fuelDecrementInterval)
+        //{
+        //    if (isSneaking)
+        //    {
+        //        fuelAmt -= fuelSneakDecrementAmt;
 
-            }
-            else
-            {
-                fuelAmt -= fuelDecrementAmt;
-            } 
+        //    }
+        //    else
+        //    {
+        //        fuelAmt -= fuelDecrementAmt;
+        //    } 
+        //    fuelTicks = 0.0f;
+        //}
+
+        if (fuelTicks > fuelDecrementInterval)
+        {
+            fuelAmt -= fuelDecrementAmt;
             fuelTicks = 0.0f;
         }
         //Debug.Log("Fuel: " + fuelAmt);
@@ -428,7 +456,7 @@ public class PlayerController : MonoBehaviour
     
     public bool GetFaceDirection()
     {
-        return isFacingRight;
+        return !isFacingRight;
     }
 
     private IEnumerator Dash()
@@ -526,9 +554,8 @@ public class PlayerController : MonoBehaviour
             if (!loseMusic.GetComponent<AudioSource>().isPlaying)       // start game over music, if it isn't already playing
                 loseMusic.GetComponent<AudioSource>().Play();
 
-            animator.SetTrigger("Dead");
-            Time.timeScale = 0;
-            loseScreen.SetActive(true);
+
+            //Time.timeScale = 1;
             return false;
         }
         else
@@ -605,6 +632,11 @@ public class PlayerController : MonoBehaviour
     public void SetCanInput(bool flag)
     {
         canInput = flag;
+    }
+
+    public void CanMove()
+    {
+        canMove = !canMove;
     }
 }
  

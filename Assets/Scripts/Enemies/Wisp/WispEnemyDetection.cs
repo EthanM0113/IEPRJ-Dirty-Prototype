@@ -149,12 +149,12 @@ public class WispEnemyDetection : MonoBehaviour
 
     private IEnumerator TriggerImpactFrame()
     {
-        playerAnimator.SetTrigger("Dead");
+        playerAnimator.SetTrigger("Hit");
         yield return new WaitForSecondsRealtime(0.40f); // Fine tune to fill in the animation
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(2);
-        playerController.PlayDeathParticles();
-        playerAnimator.SetTrigger("Idle");
+        //playerController.PlayDeathParticles();
+        //playerAnimator.SetTrigger("Idle");
         Time.timeScale = 1;
     }
 
