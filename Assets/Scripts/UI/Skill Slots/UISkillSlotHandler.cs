@@ -7,12 +7,14 @@ public class UISkillSlotHandler : MonoBehaviour
     [SerializeField] private GameObject m_skillSlotUI;
     [SerializeField] private GameObject m_consumedSkillHolder;
     private PlayerInputHandler m_InputHandler;
+    PlayerController m_player;
 
     bool isUIActive = false;
     // Start is called before the first frame update
     void Awake()
     {
         m_InputHandler = FindObjectOfType<PlayerInputHandler>();
+        m_player = FindObjectOfType<PlayerController>();
         m_skillSlotUI.SetActive(isUIActive);
     }
 
@@ -22,6 +24,7 @@ public class UISkillSlotHandler : MonoBehaviour
         if (m_InputHandler.IsSkillSlotMenuActive())
         {
             isUIActive = !isUIActive;
+            m_player.CanMove();
         }
 
         m_skillSlotUI.SetActive(isUIActive);
