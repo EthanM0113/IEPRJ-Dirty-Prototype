@@ -8,6 +8,7 @@ public class FirstBossUIManager : MonoBehaviour
     [SerializeField] private GameObject bossUI;
     [SerializeField] private bool playerWithinRange;
     [SerializeField] private bool bossMusicPlayed;
+    private bool isBossDead = false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,20 +25,24 @@ public class FirstBossUIManager : MonoBehaviour
 
     private void DisplayBossUI()
     {
-        if(playerWithinRange)
+        if(!isBossDead)
         {
-            if(!bossMusicPlayed)
+            if (playerWithinRange)
             {
-                SoundManager.Instance.Torchbearer(); // play music as well
-                bossMusicPlayed = true;
+                if (!bossMusicPlayed)
+                {
+                    SoundManager.Instance.Torchbearer(); // play music as well
+                    bossMusicPlayed = true;
+                }
+
+                bossUI.SetActive(true);
             }
-            
-            bossUI.SetActive(true);
+            else
+            {
+                bossUI.SetActive(false);
+            }
         }
-        else
-        {
-            bossUI.SetActive(false);
-        }
+       
     }
 
     private void OnTriggerEnter(Collider other)
@@ -62,5 +67,11 @@ public class FirstBossUIManager : MonoBehaviour
     public bool GetPlayerWithinRange()
     {
         return playerWithinRange;
+    }
+
+    public void DisableBossUI()
+    {
+        isBossDead = true;
+        bossUI.SetActive(false);    
     }
 }

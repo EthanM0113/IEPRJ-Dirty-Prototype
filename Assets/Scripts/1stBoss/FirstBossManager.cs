@@ -22,6 +22,12 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private FirstBossUIManager firstBossUIManager;
     private int bossMaxHp;
     private float bossMaxSpeed;
+    private bool isCutscenePlaying = false;
+    [SerializeField] private Animator firstBossAnimator;
+    [SerializeField] private GameObject attackCircle;
+    [SerializeField] private GameObject attackAura;
+    [SerializeField] private GameObject flameEffect;
+    [SerializeField] private ParticleSystem deathParticles;
 
     // Start is called before the first frame update
     void Start()
@@ -63,10 +69,30 @@ public class FirstBossManager : MonoBehaviour
             }
             else
             {
-                DisplayWinScreen();
+                // Boss Killed
+                if(!isCutscenePlaying)
+                    StartCoroutine(PlayBossDeathCutscene());
+                //DisplayWinScreen();
             }
         }
         
+    }
+
+    private IEnumerator PlayBossDeathCutscene()
+    {
+        isCutscenePlaying = true;
+
+        attackCircle.SetActive(false);  
+        attackAura.SetActive(false);    
+        firstBossMovement.DisableMovement();
+        firstBossUIManager.DisableBossUI();
+        flameEffect.SetActive(false);
+
+        yield return new WaitForSeconds(5.0f);
+        deathParticles.Play();
+        firstBossAnimator.SetTrigger("isDead");
+        yield return new WaitForSeconds(2.0f); // finish death animation
+        firstBossMovement.gameObject.SetActive(false);
     }
 
     private bool CheckTwoTorchesLit()

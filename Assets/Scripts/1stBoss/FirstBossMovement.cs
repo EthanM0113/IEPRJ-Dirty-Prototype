@@ -9,6 +9,7 @@ public class FirstBossMovement : MonoBehaviour
     [SerializeField] private FirstBossUIManager firstBossUIManager;
     private int pathNodeCount;
     private int chosenPath;
+    private bool isMoving = true;
 
     // Start is called before the first frame update
     void Start()
@@ -26,19 +27,23 @@ public class FirstBossMovement : MonoBehaviour
 
     public void MoveBoss()
     {
-        //Debug.Log("Chosen Path " + chosenPath);
-        float distanceBetween = Vector3.Distance(transform.position, pathNode[chosenPath].transform.position);
-        //Debug.Log("Distance between: " + distanceBetween);
-        if (distanceBetween >= 0.5)
+        if(isMoving)
         {
-            Debug.Log("MOVING");
-            transform.position = Vector3.MoveTowards(transform.position, pathNode[chosenPath].transform.position, speed * Time.deltaTime);
+            //Debug.Log("Chosen Path " + chosenPath);
+            float distanceBetween = Vector3.Distance(transform.position, pathNode[chosenPath].transform.position);
+            //Debug.Log("Distance between: " + distanceBetween);
+            if (distanceBetween >= 0.5)
+            {
+                Debug.Log("MOVING");
+                transform.position = Vector3.MoveTowards(transform.position, pathNode[chosenPath].transform.position, speed * Time.deltaTime);
+            }
+            else if (distanceBetween < 0.5) // if boss reaches destination
+            {
+                Debug.Log("REACHED!");
+                ChooseRandomPath();
+            }
         }
-        else if (distanceBetween < 0.5) // if boss reaches destination
-        {
-            Debug.Log("REACHED!");
-            ChooseRandomPath();
-        }
+        
     }
 
     public void ChooseRandomPath()
@@ -59,5 +64,10 @@ public class FirstBossMovement : MonoBehaviour
     public float GetSpeed()
     {
         return speed;
+    }
+
+    public void DisableMovement()
+    {
+        isMoving = false;
     }
 }
