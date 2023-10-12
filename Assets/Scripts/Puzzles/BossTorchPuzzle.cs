@@ -11,6 +11,8 @@ public class BossTorchPuzzle : MonoBehaviour
     private bool solved = false;
     private bool rewardIsGranted = false;
     private int number = 0;
+    private int fadeNumber = 50;
+    private int intensifyNum = 5;
 
     void Start()
     {
@@ -26,10 +28,7 @@ public class BossTorchPuzzle : MonoBehaviour
 
         if (solved && !rewardIsGranted)
         {
-            for (int i = 0; i < torches.Length; i++)
-                torches[i].GetComponent<HpTorchHandler>().SetFlameLight(true);
-
-            Invoke("PuzzleSolved", 2);
+            Invoke("PuzzleSolved", 0.7f);
 
             //PlayerMoneyManager.Instance.AddCoins(10);
             rewardIsGranted = true;
@@ -53,24 +52,63 @@ public class BossTorchPuzzle : MonoBehaviour
 
     void PuzzleSolved()
     {
-        if (number > 5)
+        if (number > 3)
         {
-            Invoke("FinalColor", 0.5f);
+            Invoke("IntensifyLight", 0.2f);
             return;
         }
         else
         {
+            torches[number].GetComponent<HpTorchHandler>().SetFlameLight(true);
             lights[number].GetComponent<Light>().color = Color.gray;
             number++;
-            Invoke("PuzzleSolved", 0.1f);
+            Invoke("PuzzleSolved", 0.5f);
         }
     }
 
     void FinalColor()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 4; i++)
         {
-            lights[i].GetComponent<Light>().color = Color.red;
+            lights[i].GetComponent<Light>().color = Color.red; 
+            lights[i].GetComponent<Light>().intensity = 50;
+        }
+
+        FadeLight();
+    }
+
+    void FadeLight()
+    {
+        if(fadeNumber < 13)
+        {
+            return;
+        }
+        else
+        {
+            fadeNumber -= 2;
+
+            for(int i = 0; i < 4; i++)
+                lights[i].GetComponent<Light>().intensity = fadeNumber;
+
+            Invoke("FadeLight", 0.1f);
+        }
+    }
+
+    void IntensifyLight()
+    {
+        if (intensifyNum > 43)
+        {
+            FinalColor();
+            return;
+        }
+        else
+        {
+            intensifyNum += 4;
+
+            for (int i = 0; i < 4; i++)
+                lights[i].GetComponent<Light>().intensity = intensifyNum;
+
+            Invoke("IntensifyLight", 0.1f);
         }
     }
 }
