@@ -46,6 +46,7 @@ public class TestEnemy : BaseEnemy
 
     private void Move()
     {
+        
         if (currentState == State.STATIONARY) // If the enemy is stationary
         {
             if (waitTimer <= 0)

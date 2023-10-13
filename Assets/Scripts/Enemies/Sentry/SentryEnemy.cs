@@ -51,7 +51,11 @@ public class SentryEnemy : BaseEnemy
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+       if(!isActivated)
+        {
+            return;
+        }
+       if (isAlive)
         {
             if (intervalTime <= Time.time)
             {

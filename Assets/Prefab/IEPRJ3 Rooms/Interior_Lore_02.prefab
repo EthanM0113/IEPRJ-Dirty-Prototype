@@ -316,8 +316,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7174710523871897244}
   - {fileID: 2377577866923095536}
+  - {fileID: 7174710523871897244}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4920163352666911525
@@ -381,9 +381,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 6467136799919715602}
   NeedsIcon: 1
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1001 &4952316498225066511
 PrefabInstance:
   m_ObjectHideFlags: 0

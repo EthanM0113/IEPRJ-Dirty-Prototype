@@ -10293,6 +10293,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!1 &7015298476877551162
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8426739558949711114}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8426739558949711114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015298476877551162}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9206435877229717134}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7222476162852260337
 GameObject:
   m_ObjectHideFlags: 0
@@ -11501,6 +11532,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8426739558949711114}
+  - {fileID: 4335336657271799393}
   - {fileID: 5130872292145762132}
   - {fileID: 5530086222575284464}
   - {fileID: 5673977654523633037}
@@ -11530,7 +11563,6 @@ Transform:
   - {fileID: 5387125496018924561}
   - {fileID: 2830702282350119755}
   - {fileID: 214125952283296139}
-  - {fileID: 4335336657271799393}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &573226102168101087
@@ -11580,6 +11612,7 @@ MonoBehaviour:
   EnemyKey: TestEnemy
   RouteList: []
   StationaryList: []
+  EnemyContainer: {fileID: 7015298476877551162}
   SpawnInterval: 1.5
 --- !u!114 &5333637972331041545
 MonoBehaviour:
@@ -11606,9 +11639,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapNode: {fileID: 1751224481865437918}
-  HasPlayer: 0
+  NeedsIcon: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 1
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!65 &-4407238250135842883
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12057,6 +12093,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1773081230867081298, guid: 9554e33e948e1854484290210c68f96f, type: 3}
+      propertyPath: EnemyContainer
+      value: 
+      objectReference: {fileID: 7015298476877551162}
     - target: {fileID: 1773081230867081299, guid: 9554e33e948e1854484290210c68f96f, type: 3}
       propertyPath: m_Name
       value: WispArea (1)
@@ -12230,6 +12270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1773081230867081298, guid: 9554e33e948e1854484290210c68f96f, type: 3}
+      propertyPath: EnemyContainer
+      value: 
+      objectReference: {fileID: 7015298476877551162}
     - target: {fileID: 1773081230867081299, guid: 9554e33e948e1854484290210c68f96f, type: 3}
       propertyPath: m_Name
       value: WispArea

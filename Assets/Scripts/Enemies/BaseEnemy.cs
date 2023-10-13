@@ -17,11 +17,25 @@ public class BaseEnemy : MonoBehaviour
     [SerializeField] GameObject deadVersion;
     protected Transform baseRouteNode;
     // determines if the enemy is activated
-    protected bool isActivated = false;
+    [SerializeField] protected bool isActivated = false;
     protected bool isAlive = true;
     public virtual void Activate() // when the enemy is spawned
     {
 
+    }
+
+    public void PauseEnemy()
+    {
+        isActivated = false;
+    }
+
+    public void ResumeEnemy()
+    {
+        isActivated = true;
+    }
+    public bool GetBehaviour()
+    {
+        return isActivated;
     }
 
     // Spawns a dead version of the enemy

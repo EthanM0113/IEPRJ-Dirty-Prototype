@@ -2897,6 +2897,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1969492097632201466}
+  - {fileID: 3250831291750116235}
   - {fileID: 2733161754480860887}
   - {fileID: 6012452906172970205}
   - {fileID: 63308413453757868}
@@ -2932,7 +2934,6 @@ Transform:
   - {fileID: 3358553636562031912}
   - {fileID: 1286690767518417215}
   - {fileID: 7466322833159480124}
-  - {fileID: 3250831291750116235}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6950294791035829714
@@ -2983,6 +2984,7 @@ MonoBehaviour:
   EnemyKey: TestEnemy
   RouteList: []
   StationaryList: []
+  EnemyContainer: {fileID: 8970304158747714287}
   SpawnInterval: 1.5
 --- !u!114 &7853766771460913853
 MonoBehaviour:
@@ -3030,9 +3032,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapNode: {fileID: 683114535621084980}
-  HasPlayer: 0
+  NeedsIcon: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 1
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &4047474304288002487
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4232,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &8970304158747714287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1969492097632201466}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1969492097632201466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970304158747714287}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7803153885569558183}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9131725223791840195
 GameObject:
   m_ObjectHideFlags: 0
@@ -4586,6 +4622,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1773081230867081298, guid: 9554e33e948e1854484290210c68f96f, type: 3}
+      propertyPath: EnemyContainer
+      value: 
+      objectReference: {fileID: 8970304158747714287}
     - target: {fileID: 1773081230867081299, guid: 9554e33e948e1854484290210c68f96f, type: 3}
       propertyPath: m_Name
       value: WispArea (1)
@@ -5492,6 +5532,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1773081230867081298, guid: 9554e33e948e1854484290210c68f96f, type: 3}
+      propertyPath: EnemyContainer
+      value: 
+      objectReference: {fileID: 8970304158747714287}
     - target: {fileID: 1773081230867081299, guid: 9554e33e948e1854484290210c68f96f, type: 3}
       propertyPath: m_Name
       value: WispArea

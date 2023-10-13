@@ -4020,6 +4020,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &3930135233077215209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 653301948484830579}
+  m_Layer: 0
+  m_Name: EnemyContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &653301948484830579
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3930135233077215209}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 67012323889098032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4098964929755775323
 GameObject:
   m_ObjectHideFlags: 0
@@ -4083,6 +4114,7 @@ Transform:
   - {fileID: 806330834704021016}
   - {fileID: 5757930280539289269}
   - {fileID: 8130282342700962289}
+  - {fileID: 653301948484830579}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4829659039075156847
@@ -4134,6 +4166,7 @@ MonoBehaviour:
   EnemyKey: TestEnemy
   RouteList: []
   StationaryList: []
+  EnemyContainer: {fileID: 3930135233077215209}
   SpawnInterval: 1.5
 --- !u!114 &-8469519558045626567
 MonoBehaviour:
@@ -4182,9 +4215,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 2322150133505965573}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 1
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &4168705927426029737
 GameObject:
   m_ObjectHideFlags: 0

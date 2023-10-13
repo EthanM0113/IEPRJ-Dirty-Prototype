@@ -25,15 +25,19 @@ public class WispBehaviour : BaseEnemy
     // Update is called once per frame
     void Update()
     {
-        faceTicks += Time.deltaTime;
-        if (faceTicks >= FACE_INTERVAL)
+        if (isActivated)
         {
-            faceDirection.Flip(!faceRight);
-            faceRight = !faceRight;
-            //Random.InitState(Random.Range(int.MinValue, int.MaxValue));
-            //FACE_INTERVAL = Random.Range(minFaceInterval, maxFaceInterval);
-            faceTicks = 0.0f;  
+            faceTicks += Time.deltaTime;
+            if (faceTicks >= FACE_INTERVAL)
+            {
+                faceDirection.Flip(!faceRight);
+                faceRight = !faceRight;
+                //Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+                //FACE_INTERVAL = Random.Range(minFaceInterval, maxFaceInterval);
+                faceTicks = 0.0f;
+            }
         }
+       
     }
 
     public void PlayTpParticles(Vector3 pos)

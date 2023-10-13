@@ -5,14 +5,16 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
-    ObjectPooler objPooler;
+    //ObjectPooler objPooler;
     EnemyTemplates templates;
     [SerializeField] List<GameObject> EnemyList;
     [SerializeField] string EnemyKey = "TestEnemy";
-
+    
     // Parent Route Node
     [SerializeField] List<Transform> RouteList;
     [SerializeField] List<Transform> StationaryList;
+
+    [SerializeField] GameObject EnemyContainer;
 
     [SerializeField] float SpawnInterval = 1.5f;
     private float Timer;
@@ -21,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     void Start()
     {
-        objPooler = ObjectPooler.Instance;
+        //objPooler = ObjectPooler.Instance;
         Timer = SpawnInterval;
         EnemyList = new List<GameObject>();
     }
@@ -40,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
 
             /* Creates a new enemy based on each route then adds them to a list*/
-            GameObject newEnemy = Instantiate(templates.EnemyList[0], RouteList[i].GetComponentsInChildren<Transform>()[1].position, Quaternion.identity, this.gameObject.transform);
+            GameObject newEnemy = Instantiate(templates.EnemyList[0], RouteList[i].GetComponentsInChildren<Transform>()[1].position, Quaternion.identity, EnemyContainer.transform);
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
             EnemyList.Add(newEnemy);
             enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node

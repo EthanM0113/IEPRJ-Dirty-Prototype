@@ -17,6 +17,7 @@ public class WispAreaManager : MonoBehaviour
     [SerializeField] private float TP_INTERVAL = 0.1f;
     [SerializeField] private Animator wispAnimator;
     [SerializeField] private WispAnimationManager wispAnimationManager;
+    [SerializeField] GameObject EnemyContainer;
     private Light wispSelfLight;
 
     // Start is called before the first frame update
@@ -41,7 +42,7 @@ public class WispAreaManager : MonoBehaviour
             float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
             Vector3 newPos = new Vector3(newX, tlBoundsPos.y, newZ);
 
-            assignedWisp = GameObject.Instantiate(wispPrefab, newPos, wispPrefab.transform.rotation);
+            assignedWisp = GameObject.Instantiate(wispPrefab, newPos, wispPrefab.transform.rotation, EnemyContainer.transform);
             wispAnimator = assignedWisp.GetComponentInChildren<Animator>();
             wispAnimationManager = assignedWisp.GetComponentInChildren<WispAnimationManager>();
             assignedWisp.GetComponent<WispEnemyDetection>().SetAreaManager(this);
@@ -51,7 +52,11 @@ public class WispAreaManager : MonoBehaviour
         else
         {
             // Increment only after spawning for the first time
-            ticks += Time.deltaTime;
+            if (assignedWisp.GetComponent<WispBehaviour>().GetBehaviour())
+            {
+                ticks += Time.deltaTime;
+
+            }
             
         }
 
