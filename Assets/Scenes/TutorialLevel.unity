@@ -12203,9 +12203,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 1421452396}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &600626635
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17640,9 +17642,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 860690001}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &758073501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18206,9 +18210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 1160837280}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &794396145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18840,9 +18846,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 1526058916}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &853600270
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -32826,9 +32834,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 1616761837}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &1524900954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38714,9 +38724,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 407056484}
   NeedsIcon: 0
-  HasPlayer: 0
   IsActive: 0
-  AdjRoomsA: []
+  HasEnemy: 0
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!65 &2013681360
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -50898,7 +50910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &7251066195639745459
 MonoBehaviour:
   m_ObjectHideFlags: 0

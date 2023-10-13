@@ -5144,12 +5144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapNode: {fileID: 4714501201195074727}
   NeedsIcon: 1
-  HasPlayer: 0
   IsActive: 0
+  HasEnemy: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 1024
-  AdjRoomsA: []
 --- !u!1 &2196725452254255405
 GameObject:
   m_ObjectHideFlags: 0
@@ -17314,7 +17313,7 @@ MonoBehaviour:
   - {fileID: 696523467589063398}
   litTorches: 
   bossHpText: {fileID: 4836543855318073176}
-  bossHp: 1
+  bossHp: 3
   firstBossMovement: {fileID: 5391916426554375268}
   speedIncrementOnHit: 0.5
   winScreen: {fileID: 3759442023630823822}
