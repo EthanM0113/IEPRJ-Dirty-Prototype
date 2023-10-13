@@ -30,7 +30,7 @@ public class BossTorchPuzzle : MonoBehaviour
         {
             Invoke("PuzzleSolved", 0.7f);
 
-            //PlayerMoneyManager.Instance.AddCoins(10);
+            PlayerMoneyManager.Instance.AddCoins(10);
             rewardIsGranted = true;
         }
 

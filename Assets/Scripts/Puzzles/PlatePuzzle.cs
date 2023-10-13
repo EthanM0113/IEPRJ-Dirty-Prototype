@@ -77,7 +77,7 @@ public class PlatePuzzle : MonoBehaviour
         prevThree = numThree;
 
         if(solved && !rewardIsGranted) {
-            //PlayerMoneyManager.Instance.AddCoins(10);
+            PlayerMoneyManager.Instance.AddCoins(10);
             rewardIsGranted = true;
         }
     }
