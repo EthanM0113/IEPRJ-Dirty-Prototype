@@ -36,7 +36,7 @@ public class RoomOptimization : MonoBehaviour
         }
         else if (!HasEnemy)
         {
-            childList = gameObject.GetComponentsInChildren<Transform>(true);
+            childList = gameObject.GetComponentsInChildren<Transform>();
 
         }
         Collider[] Player = Physics.OverlapSphere(transform.position, DetectionRadius, PlayerLayer);
@@ -50,13 +50,13 @@ public class RoomOptimization : MonoBehaviour
                 }
 
             }
-            else if (!HasEnemy)
-            {
-                for (int i = 3; i < childList.Length; i++)
-                {
-                    childList[i].gameObject.SetActive(false);
-                }
-            }
+            //else if (!HasEnemy)
+            //{
+            //    for (int i = 3; i < childList.Length; i++)
+            //    {
+            //        childList[i].gameObject.SetActive(false);
+            //    }
+            //}
             
             IsActive = false;
             return;
@@ -70,13 +70,13 @@ public class RoomOptimization : MonoBehaviour
             }
 
         }
-        else if (!HasEnemy)
-        {
-            for (int i = 3; i < childList.Length; i++)
-            {
-                childList[i].gameObject.SetActive(true);
-            }
-        }
+        //else if (!HasEnemy)
+        //{
+        //    for (int i = 3; i < childList.Length; i++)
+        //    {
+        //        childList[i].gameObject.SetActive(true);
+        //    }
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
