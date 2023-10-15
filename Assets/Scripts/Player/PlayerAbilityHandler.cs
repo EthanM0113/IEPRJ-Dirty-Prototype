@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 [System.Serializable]
 public class PlayerAbilityHandler : MonoBehaviour
@@ -13,6 +14,10 @@ public class PlayerAbilityHandler : MonoBehaviour
         public Ability.Type ability;
         public int level = 0;
     }
+
+    [SerializeField] ParticleSystem levelUpParticles;
+    [SerializeField] ParticleSystem newAbilityParticles;
+    [SerializeField] Animator cameraAnim;
 
     Transform attackPoint;
     float consumeRange;
@@ -97,6 +102,11 @@ public class PlayerAbilityHandler : MonoBehaviour
                     if (flag != -1)
                     {
                         consumedAbilities[flag].level++;
+                        if (levelUpParticles != null)
+                        {
+                            levelUpParticles.Play();
+                            //cameraAnim.SetTrigger("isQuickZoom");
+                        }
                     }
                     else
                     {
@@ -105,6 +115,11 @@ public class PlayerAbilityHandler : MonoBehaviour
                             currentAbility[skillSlotIndex] = consumedAbility;
                         }
                         consumedAbilities.Add(new AbilityStats(consumedAbility, 0));
+                        if (newAbilityParticles != null) 
+                        { 
+                            newAbilityParticles.Play();
+                            cameraAnim.SetTrigger("isQuickZoom");
+                        }
                     }
                     //previousAbility = currentAbility;
 

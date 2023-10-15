@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class BaseDeadEnemy : MonoBehaviour
 {
@@ -16,11 +17,12 @@ public class BaseDeadEnemy : MonoBehaviour
 
     [SerializeField] protected ParticleSystem consumeParticle;
     [SerializeField] protected Ability.Type consumedAbility;
-
+    Animator anim;
 
     // Called on the start
     public void Initialize()
     {
+        anim = GetComponent<Animator>();
         lifeTimer = lifetime;
         consumeTimer = consumeTime;
         consumeParticle.Play();
@@ -40,6 +42,7 @@ public class BaseDeadEnemy : MonoBehaviour
             {
                 lifeTimer -= Time.deltaTime;
             }
+            anim.speed = 1.0f - (lifeTimer / lifetime);
         }
         else
         {
