@@ -121,6 +121,7 @@ public class PlayerController : MonoBehaviour
     float abilityTimer;
     bool startAbilityTimer = false;
     private UISkillHandler uISkillHandler;
+    private FuelBarHandler fuelBarHandler;
 
     // Flare Ability variables
     [SerializeField] private GameObject flarePrefab;
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour
         playerAbility = GetComponent<PlayerAbilityHandler>();
         inputHandler = GetComponent<PlayerInputHandler>();
         uISkillHandler = FindAnyObjectByType<UISkillHandler>();
+        fuelBarHandler = FindObjectOfType<FuelBarHandler>();
         abilityTimer = abilityDuration;
 
         // for flare
@@ -256,7 +258,16 @@ public class PlayerController : MonoBehaviour
 
             if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
             {
-                animator.SetTrigger("Attack");
+                if (playerCombat.CheckRadius())
+                {
+                    animator.SetTrigger("Attack");
+
+                }
+                else
+                {
+                    animator.SetTrigger("AttackMiss");
+                }
+
             }
 
             //if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
@@ -300,6 +311,11 @@ public class PlayerController : MonoBehaviour
             if (/*Input.GetKeyDown(KeyCode.Space)*/inputHandler.IsDash() && canDash && CheckFuel(dashFuelCost))
             {
                 StartCoroutine(Dash());
+                animator.SetTrigger("Dash");
+            }
+            else if (inputHandler.IsDash() && canDash && !CheckFuel(dashFuelCost))
+            {
+                fuelBarHandler.PlayNoFuel();
             }
 
             if(Input.GetKeyDown(KeyCode.Escape))

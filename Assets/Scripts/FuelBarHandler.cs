@@ -17,10 +17,12 @@ public class FuelBarHandler : MonoBehaviour
     Vector3 originalFlameScale;
 
     [SerializeField] Animator flameAnim;
+    Animator borderAnim;
 
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        borderAnim = GetComponent<Animator>();
         maxFuel = playerController.GetMaxFuel();
         originalFlameScale = flameHandle.transform.localScale;
     }
@@ -68,5 +70,8 @@ public class FuelBarHandler : MonoBehaviour
         playerController.SetMaxFuel(maxFuel);
     }
 
-    
+    public void PlayNoFuel()
+    {
+        borderAnim.SetTrigger("NoFuel");
+    }
 }

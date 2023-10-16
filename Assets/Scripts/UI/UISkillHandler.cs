@@ -21,8 +21,9 @@ public class UISkillHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_skillIconRef.material.SetColor("_Color", Color.white * 0f);
+        m_skillIconRef.material.SetColor("_Color", Color.white);
         m_skillIconRef.material.SetTexture("_Texture", m_blank);
+        m_skillIconRef.fillAmount = 1.0f;
         m_anim = GetComponent<Animator>();
     }
 
@@ -31,8 +32,8 @@ public class UISkillHandler : MonoBehaviour
     {
         if (skillMeter <= 0.9f)
         {
-            float output = 1f - skillMeter;
-            m_skillIconRef.material.SetColor("_Color", Color.white * output);
+            //float output = 1f - skillMeter;
+            //m_skillIconRef.material.SetColor("_Color", Color.white * output);
             m_isFilled = false;
         }
         if (skillMeter <= 0f)  
@@ -43,6 +44,7 @@ public class UISkillHandler : MonoBehaviour
             }
         }
         m_anim.SetBool("IsReady", m_isFilled);
+        m_skillIconRef.fillAmount = 1.0f - skillMeter;
     }
 
     public void SetSkillMeter(float value) 

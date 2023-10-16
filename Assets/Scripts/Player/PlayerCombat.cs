@@ -33,6 +33,20 @@ public class PlayerCombat : MonoBehaviour
         mainCameraAnimator = mainCamera.GetComponent<Animator>();
     }
 
+    public bool CheckRadius()
+    {
+        // Gets all of the enemies within the hit Collider
+        Collider[] hitEnemies = Physics.OverlapSphere(
+            attackPoint.position,
+            attackRange,
+            enemyLayers
+            );
+
+        if (hitEnemies.Length == 0) return false;
+        else return true;
+        
+    }
+
     public void Attack()
     {
         // Gets all of the enemies within the hit Collider
