@@ -1337,10 +1337,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 61317609923779711, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 112672430668485829, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: playerMoneyUIHandler
       value: 
       objectReference: {fileID: 670446065}
+    - target: {fileID: 8241532356470082223, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8557472063509523471, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: currentAbility.Array.size
       value: 0
@@ -5439,6 +5447,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1235805227331281019, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 69.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1235805227331281019, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1517372780855888286, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -6.9
+      objectReference: {fileID: 0}
     - target: {fileID: 2163602291185303849, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5450,6 +5470,10 @@ PrefabInstance:
     - target: {fileID: 2163602291895216784, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: m_Name
       value: Player_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163602291895216784, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2163602291895216784, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: m_TagString
@@ -5554,6 +5578,18 @@ PrefabInstance:
     - target: {fileID: 4682384093659547474, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879578758880300017, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8879578758880300017, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 284e1ae646d0c584ea04bbea0714da7e, type: 3}
+    - target: {fileID: 8879578758880300017, guid: 2ba16b2b0ce2552448a4d06a0556c9c7, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
