@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
-    public GameObject[] Templates;
+    public GameObject[] SneakTemplates; //Enemy Rooms
+    public GameObject[] PuzzleTemplates; //Puzzle Rooms
+    public GameObject[] ExtraTemplates; //Lore and Rest Rooms
     public GameObject BaseRoom;
     public GameObject ClosedRoom;
-    [SerializeField] protected int MaxRooms = 0;
+    [SerializeField] protected int MaxRooms;
+    [SerializeField] protected int TotalRooms; //Does not decrement
     [SerializeField] public List<GameObject> interiors;
     protected int DeadEndCD = 3;
 
     public float waitTime;
     private bool spawnedBoss = false;
-    public GameObject BossTemplate;
+    private bool spawnedPuzzle = false;
+    private bool spawnedExtra = false;
+    private bool isLastSpawnedExtra = false;
 
+    public GameObject EndRoomTemplate;
+
+    public void OnAwake()
+    {
+        
+    }
     public int GetDeadEnds()
     {
         return DeadEndCD;
@@ -38,6 +49,40 @@ public class RoomTemplates : MonoBehaviour
     {
         return MaxRooms;
     }
+    public int GetTotalRooms()
+    {
+        return TotalRooms;
+    }
+
+    public bool GetPity(int type)
+    {
+        if (type == 1)
+        {
+            return spawnedPuzzle;
+        }
+        return spawnedExtra;
+    }
+
+    public void TogglePity(int type, bool isActive)
+    {
+        if (type == 1)
+        {
+            spawnedPuzzle = isActive;
+        }
+        else if (type == 2)
+        {
+            spawnedExtra = isActive;
+        }
+        else
+        {
+            isLastSpawnedExtra = isActive;
+        }
+    }
+
+    public bool GetLastSpawned()
+    {
+        return isLastSpawnedExtra;
+    }
 
     private void Update()
     {
@@ -47,8 +92,10 @@ public class RoomTemplates : MonoBehaviour
             {
                 if (i == interiors.Count - 1)
                 {
-                    Instantiate(BossTemplate, interiors[i].transform.position, Quaternion.identity, interiors[i].transform.parent);
+                    GameObject BossRoom = Instantiate(EndRoomTemplate, interiors[i].transform.position, Quaternion.identity, interiors[i].transform.parent);
                     Destroy(interiors[i]);
+                    interiors.RemoveAt(i);
+                    interiors.Add(BossRoom);
                     spawnedBoss = true;
                 }
             }

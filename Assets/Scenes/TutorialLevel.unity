@@ -11444,19 +11444,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc804c8f95cee684c8e6f13388cf090d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Templates:
-  - {fileID: 4098964929755775323, guid: 2ec97165a6d26ee4ab7ebe595e9ef7a7, type: 3}
-  - {fileID: 3953036741730854305, guid: 85fba4f2b638e7543bce9377492c4fb6, type: 3}
-  - {fileID: 7297421213118128543, guid: 91a955fff4e02ae4eb38306be3b4ed00, type: 3}
-  - {fileID: 4353010703669984245, guid: 094b7e580a4aade4fb519c77ab79006b, type: 3}
-  - {fileID: 8954995276283633543, guid: 28ac87bb8686e164793c7ac3f80eb4ca, type: 3}
-  - {fileID: 291891088569303671, guid: c36bed4d4b36e2f44a53af84635e8a26, type: 3}
+  SneakTemplates: []
+  PuzzleTemplates: []
+  ExtraTemplates: []
   BaseRoom: {fileID: 5720925616247223006, guid: 74bfd958a8611e0489cf2253257c6476, type: 3}
   ClosedRoom: {fileID: 8669452624814417393, guid: ba34d67776670564e8249348bafcd9ca, type: 3}
   MaxRooms: 10
   interiors: []
   waitTime: 2
-  BossTemplate: {fileID: 1990150157206721117, guid: ce509c5ee6449a747833f788de3d7967, type: 3}
+  EndRoomTemplate: {fileID: 0}
 --- !u!4 &499666953
 Transform:
   m_ObjectHideFlags: 0
@@ -15752,6 +15748,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6237416856894754178, guid: 369e5ddcf176cfb43869b6efd0d31b67, type: 3}
       insertIndex: -1
       addedObject: {fileID: 642312285}
+    - targetCorrespondingSourceObject: {fileID: 2546741695200614653, guid: 369e5ddcf176cfb43869b6efd0d31b67, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 642312287}
   m_SourcePrefab: {fileID: 100100000, guid: 369e5ddcf176cfb43869b6efd0d31b67, type: 3}
 --- !u!1 &642312283 stripped
 GameObject:
@@ -15784,6 +15783,24 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20, y: 0, z: 20}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &642312286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2546741695200614653, guid: 369e5ddcf176cfb43869b6efd0d31b67, type: 3}
+  m_PrefabInstance: {fileID: 642312282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &642312287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642312286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edbea6431df4944f96680bdb33c8b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelName: Tutorial
 --- !u!43 &645851037
 Mesh:
   m_ObjectHideFlags: 0

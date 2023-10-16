@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
@@ -59,11 +60,65 @@ public class RoomSpawner : MonoBehaviour
             {
                 isClosed = true;
             }
+            GameObject[] templateList = templates.SneakTemplates;
+            int current = templates.GetTotalRooms() - templates.GetMaxRooms(); //Used to get what number the room is
+            Debug.Log("Current: " + current + " MaxRooms: " + templates.GetMaxRooms() + " TotalRooms: " + templates.GetTotalRooms());
+            
+            if (current < templates.GetTotalRooms()) //if the room number is less than the max
+            {
+                if (current % 3 == 0 && templates.GetPity(1) == false && templates.GetPity(2) == false) //If pity hasn't been hit and it's the 3rd room room in sequence
+                {
+                    if (templates.GetLastSpawned() == true)  //if last spawned room is an extra room
+                    {
+                        templates.TogglePity(1, true); //guarantee puzzle
+                        templates.TogglePity(3, false);
+                    }
+                    else //guarantee an extra room
+                    {
+                        templates.TogglePity(2, true);
+                        templates.TogglePity(3, false);
+                    }
+                }
 
+                rand = Random.Range(0, 101);
+                if (rand < 70 && templates.GetPity(1) == false && templates.GetPity(2) == false) //Anything below 70 and if the pity isn't hit
+                {
+                    templateList = templates.SneakTemplates;
+                }
+                else //Hitting that 30% chance or guarantee
+                {
+                    if (templates.GetPity(1) == true) //guarantees puzzle
+                    {
+                        templateList = templates.PuzzleTemplates;
+                        Debug.Log("guarantee" + current);
+                    }
+                    else if (templates.GetPity(2) == true) //guarantees extra
+                    {
+                        templateList = templates.ExtraTemplates;
+                        Debug.Log("guarantee" + current);
+                    }
+                    else
+                    {
+                        rand = Random.Range(0, 101); //choose between puzzle or extra
+                        if (rand < 50)
+                        {
+                            templateList = templates.PuzzleTemplates;
+                        }
+                        else
+                        {
+                            templateList = templates.ExtraTemplates;
+                        }
+                        Debug.Log("random" + current);
+                    }
+                    templates.TogglePity(1, false);
+                    templates.TogglePity(2, false);
 
-            rand = Random.Range(0, templates.Templates.Length); //Selects a random interior
+                }
+            }
+            //If past the max, everything else is converted into a sneak room
+            rand = Random.Range(0, templateList.Length); //Selects a random interior
             room = Instantiate(templates.BaseRoom, transform.position, Quaternion.identity, GameObject.FindGameObjectWithTag("RoomList").transform); //Spawns the base room then sets parent to Roomlist
-            Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room                                                                                                                                          //Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room
+            Instantiate(templateList[rand], transform.position, templateList[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room                                                                                                                                          //Instantiate(templates.Templates[rand], transform.position, templates.Templates[rand].transform.rotation, room.transform); //Spawns interior inside base room then sets parent to base room
             room.GetComponent<RoomProperties>().RoomSetup(OpeningDirection, isClosed); //Sets up the room
             isSpawned = true;
         }
