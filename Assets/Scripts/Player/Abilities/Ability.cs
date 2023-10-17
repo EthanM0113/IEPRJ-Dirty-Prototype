@@ -10,6 +10,7 @@ public class Ability
         NONE = 0,
         TEST,
         FLARE,
-        SENTRY
+        SENTRY,
+        TREE
     };
 }

@@ -71,13 +71,13 @@ public class SoundManager : MonoBehaviour
 
     public void BackstabMiss()
     {
-        effectsSource.volume = 0.3f;
+        effectsSource.volume = 0.8f;
         effectsSource.PlayOneShot(backstabMiss);
     }
 
     public void BackstabHit()
     {
-        effectsSource.volume = 0.3f;
+        effectsSource.volume = 0.8f;
         effectsSource.PlayOneShot(backstabHit);
     }
 
@@ -90,6 +90,12 @@ public class SoundManager : MonoBehaviour
     public void PurchaseFail()
     {
         effectsSource.volume = 1.0f;
+        effectsSource.PlayOneShot(purchaseFail);
+    }
+
+    public void StaggeredShiv()
+    {
+        effectsSource.volume = 0.7f;
         effectsSource.PlayOneShot(purchaseFail);
     }
 

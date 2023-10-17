@@ -35,7 +35,7 @@ public class WispAreaManager : MonoBehaviour
     void Update()
     {
         // First time spawning
-        if (firstSpawn) 
+        if (firstSpawn)
         {
             Random.InitState(Random.Range(int.MinValue, int.MaxValue));
             float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
@@ -51,44 +51,48 @@ public class WispAreaManager : MonoBehaviour
         }
         else
         {
-            // Increment only after spawning for the first time
-            if (assignedWisp.GetComponent<WispBehaviour>().GetBehaviour())
+            if(!assignedWisp.GetComponent<WispBehaviour>().GetIsRooted())
             {
-                ticks += Time.deltaTime;
+                // Increment only after spawning for the first time
+                if (assignedWisp.GetComponent<WispBehaviour>().GetBehaviour())
+                {
+                    ticks += Time.deltaTime;
 
-            }
-            
+                }
+            }         
         }
 
-        if (ticks >= TP_INTERVAL)
+        if(!assignedWisp.GetComponent<WispBehaviour>().GetIsRooted())
         {
-            if (!isTPing)
+            if (ticks >= TP_INTERVAL)
             {
-                Random.InitState(Random.Range(int.MinValue, int.MaxValue));
-                float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
-                float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
-                newPos = new Vector3(newX, tlBoundsPos.y, newZ);
-                isTPing = true;
-                wispAnimator.SetBool("didTP", true);
-                wispAnimationManager.NotFinishedTP();
-                assignedWisp.GetComponent<WispBehaviour>().PlayPreTPParticles();
-                Debug.Log("Teleporting!");
-                wispSelfLight.intensity = 140.0f;
-            }
+                if (!isTPing)
+                {
+                    Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+                    float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
+                    float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
+                    newPos = new Vector3(newX, tlBoundsPos.y, newZ);
+                    isTPing = true;
+                    wispAnimator.SetBool("didTP", true);
+                    wispAnimationManager.NotFinishedTP();
+                    assignedWisp.GetComponent<WispBehaviour>().PlayPreTPParticles();
+                    Debug.Log("Teleporting!");
+                    wispSelfLight.intensity = 140.0f;
+                }
 
-            if (wispAnimationManager.GetFinishedTP())
-            {
-                wispSelfLight.intensity = 1.0f;
-                Debug.Log("Finished Teleport!");
-                isTPing = false;
-                wispAnimator.SetBool("didTP", false);
-                wispAnimationManager.FinishedTP();
-                assignedWisp.transform.position = newPos;
-                wispPrefab.GetComponent<WispBehaviour>().PlayTpParticles(newPos);
-                ticks = 0.0f;
+                if (wispAnimationManager.GetFinishedTP())
+                {
+                    wispSelfLight.intensity = 1.0f;
+                    Debug.Log("Finished Teleport!");
+                    isTPing = false;
+                    wispAnimator.SetBool("didTP", false);
+                    wispAnimationManager.FinishedTP();
+                    assignedWisp.transform.position = newPos;
+                    wispPrefab.GetComponent<WispBehaviour>().PlayTpParticles(newPos);
+                    ticks = 0.0f;
+                }
             }
-        }
-
+        }  
     }
 
     public bool GetIsTeleporting()

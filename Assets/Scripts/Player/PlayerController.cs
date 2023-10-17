@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -132,12 +133,22 @@ public class PlayerController : MonoBehaviour
     // Gargoyle Ability variables
     private MainCameraManager mainCameraManager;
     private bool isPlayerDetectable;
+
+    // Tree Ability variables
+    [SerializeField] private GameObject shivPrefab;
+    [SerializeField] private float shivForce;
+    [SerializeField] private float shivAbilityIncrement = 0.6f;
+    private bool didShootShiv;
     #endregion
 
     // Death Variables
     [SerializeField] private ParticleSystem deathParticles;
+    
+    
+    // Input Variables
     //private bool canInput = true;
     private bool preventMovementInput = false;
+    private bool preventAttackInput = false;
     private bool canMove = true;
 
     // Pause Screen
@@ -177,6 +188,9 @@ public class PlayerController : MonoBehaviour
         // for gargoyle
         mainCameraManager = FindAnyObjectByType<MainCameraManager>();
         isPlayerDetectable = true;
+
+        // for tree
+        didShootShiv = false;   
     }
 
     private void Update()
@@ -257,21 +271,24 @@ public class PlayerController : MonoBehaviour
                     GetComponent<AudioSource>().Stop();
                 }
             }
-               
-            if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
+            
+            if(!preventAttackInput)
             {
-                if (playerCombat.CheckRadius())
+                if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
                 {
-                    animator.SetTrigger("Attack");
+                    if (playerCombat.CheckRadius())
+                    {
+                        animator.SetTrigger("Attack");
+
+                    }
+                    else
+                    {
+                        animator.SetTrigger("AttackMiss");
+                    }
 
                 }
-                else
-                {
-                    animator.SetTrigger("AttackMiss");
-                }
-
             }
-
+        
             //if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
             //{
             //    isSneaking = true;
@@ -530,13 +547,16 @@ public class PlayerController : MonoBehaviour
                 abilityTimer = abilityDuration;
                 startAbilityTimer = false;
                 didShootFlare = false;
+                didShootShiv = false;
 
                 // Check for gargoyle ability
                 if(playerAbility.GetCurrentAbility() == Ability.Type.SENTRY)
                 {
+                    preventAttackInput = false;
                     mainCameraManager.ToggleGargoyleFX(false);
                     isPlayerDetectable = true;
                 }
+
             }
             else
             {
@@ -556,12 +576,91 @@ public class PlayerController : MonoBehaviour
                 else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY) 
                 {
                     GargoyleAbility();
-
+                }
+                else if (playerAbility.GetCurrentAbility() == Ability.Type.TREE)
+                {
+                    TreeAbility();
                 }
 
                 abilityTimer -= Time.deltaTime;
                 uISkillHandler.SetSkillMeter(abilityTimer/abilityDuration);
             }
+        }
+    }
+
+    private void TreeAbility()
+    {
+        // Shoot wooden shiv in 4/8 directions
+        if (!didShootShiv)
+        {
+            SoundManager.Instance.StaggeredShiv(); // SFX inside method is not final!
+            
+            for(int i = 0; i < 8; i++)
+            {
+                GameObject stagShiv = Instantiate(shivPrefab, playerCenter.transform);
+                Rigidbody stagShivRB = stagShiv.GetComponent<Rigidbody>();
+                // Just affecting x and y scale
+                stagShiv.transform.localScale = new Vector3(stagShiv.transform.localScale.x + (shivAbilityIncrement * abilityLevel), stagShiv.transform.localScale.y + (shivAbilityIncrement * abilityLevel), 1);
+
+                #region Rotate Each Shiv
+                if (i == 0) 
+                {
+                    stagShivRB.AddForce(playerCenter.transform.right * shivForce * -1.0f);
+                }
+                else if (i == 1)
+                {
+                    stagShivRB.AddForce(playerCenter.transform.right * shivForce);
+                }
+                else if (i == 2)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = 90;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce * -1.0f);
+                }
+                else if (i == 3)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = 90;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce);
+                }
+                else if (i == 4)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = 45;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    Vector3 halfDirection = Quaternion.Euler(0, 45, 0) * transform.forward;
+                    stagShivRB.AddForce(halfDirection * shivForce);
+                }
+                else if (i == 5)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = -45;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    Vector3 halfDirection = Quaternion.Euler(0, 135, 0) * transform.forward;
+                    stagShivRB.AddForce(halfDirection * shivForce);
+                }
+                else if (i == 6)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = 45;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    Vector3 halfDirection = Quaternion.Euler(0, 225, 0) * transform.forward;
+                    stagShivRB.AddForce(halfDirection * shivForce);
+                }
+                else if (i == 7)
+                {
+                    Vector3 shivRotation = stagShiv.transform.localEulerAngles;
+                    shivRotation.z = -45;
+                    stagShiv.transform.localEulerAngles = shivRotation;
+                    Vector3 halfDirection = Quaternion.Euler(0, 315, 0) * transform.forward;
+                    stagShivRB.AddForce(halfDirection * shivForce);
+                }
+                #endregion
+            }
+
+            didShootShiv = true;
         }
     }
 
@@ -641,6 +740,7 @@ public class PlayerController : MonoBehaviour
 
     public void GargoyleAbility()
     {
+        preventAttackInput = true;
         mainCameraManager.ToggleGargoyleFX(true);
         isPlayerDetectable = false;
     }
@@ -658,6 +758,11 @@ public class PlayerController : MonoBehaviour
     public void SetPreventMovementInput(bool flag)
     {
         preventMovementInput = flag;
+    }
+
+    public void SetPreventAttackInput(bool flag)
+    {
+        preventAttackInput = flag;
     }
 
     public void CanMove()
