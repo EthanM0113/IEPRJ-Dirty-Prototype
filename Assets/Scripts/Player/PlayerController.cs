@@ -136,7 +136,8 @@ public class PlayerController : MonoBehaviour
 
     // Death Variables
     [SerializeField] private ParticleSystem deathParticles;
-    private bool canInput = true;
+    //private bool canInput = true;
+    private bool preventMovementInput = false;
     private bool canMove = true;
 
     // Pause Screen
@@ -185,18 +186,15 @@ public class PlayerController : MonoBehaviour
         isAlive = CheckAlive();
         if (isAlive)
         {
-            if(canInput)
+            if (isDashing)
             {
-                if (isDashing)
-                {
-                    return;
-                }
-
-                InputHandler();
-                SneakCheck();
-                FuelManager();
-                CheckAbility();
+                return;
             }
+
+            InputHandler();
+            SneakCheck();
+            FuelManager();
+            CheckAbility();           
         }
         else
         {
@@ -226,6 +224,7 @@ public class PlayerController : MonoBehaviour
             moveInput.y = 0;
         }
 
+       
         if (/*Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume()) // Consume
         {
             playerAbility.Consume();
@@ -240,22 +239,25 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("IsConsuming", false);
             playerAbility.Unconsume();
 
-            moveInput.x = Input.GetAxisRaw("Horizontal");
-            moveInput.y = Input.GetAxisRaw("Vertical");
-
-            if (Mathf.Abs(moveInput.x) > 0 ||
-                Mathf.Abs(moveInput.y) > 0) // if there is a movement input
+            if (!preventMovementInput)
             {
-                animator.SetBool("IsMoving", true);
-                if(!GetComponent<AudioSource>().isPlaying)
-                    GetComponent<AudioSource>().Play();
-            }
-            else // not moving
-            {
-                animator.SetBool("IsMoving", false);
-                GetComponent<AudioSource>().Stop();
-            }
+                moveInput.x = Input.GetAxisRaw("Horizontal");
+                moveInput.y = Input.GetAxisRaw("Vertical");
 
+                if (Mathf.Abs(moveInput.x) > 0 ||
+                    Mathf.Abs(moveInput.y) > 0) // if there is a movement input
+                {
+                    animator.SetBool("IsMoving", true);
+                    if (!GetComponent<AudioSource>().isPlaying)
+                        GetComponent<AudioSource>().Play();
+                }
+                else // not moving
+                {
+                    animator.SetBool("IsMoving", false);
+                    GetComponent<AudioSource>().Stop();
+                }
+            }
+               
             if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
             {
                 if (playerCombat.CheckRadius())
@@ -310,8 +312,11 @@ public class PlayerController : MonoBehaviour
 
             if (/*Input.GetKeyDown(KeyCode.Space)*/inputHandler.IsDash() && canDash && CheckFuel(dashFuelCost))
             {
-                StartCoroutine(Dash());
-                animator.SetTrigger("Dash");
+                if (!preventMovementInput)
+                {
+                    StartCoroutine(Dash());
+                    animator.SetTrigger("Dash");
+                }       
             }
             else if (inputHandler.IsDash() && canDash && !CheckFuel(dashFuelCost))
             {
@@ -650,9 +655,9 @@ public class PlayerController : MonoBehaviour
         deathParticles.Play();
     }
 
-    public void SetCanInput(bool flag)
+    public void SetPreventMovementInput(bool flag)
     {
-        canInput = flag;
+        preventMovementInput = flag;
     }
 
     public void CanMove()

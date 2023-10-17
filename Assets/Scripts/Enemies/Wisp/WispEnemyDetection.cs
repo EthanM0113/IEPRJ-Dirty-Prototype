@@ -121,10 +121,10 @@ public class WispEnemyDetection : MonoBehaviour
                     {
                         isPlayerDetected = false;
                         playerInputHandler.SetCanInput(false);
-                        playerController.SetCanInput(false);
+                        playerController.SetPreventMovementInput(true);
                         DamagePlayer();
                         playerInputHandler.SetCanInput(true);
-                        playerController.SetCanInput(true);
+                        playerController.SetPreventMovementInput(false);
                         //spawnerRef = null;
                         detectionTimer = detectionTime;
                         startDetectionTimer = false;

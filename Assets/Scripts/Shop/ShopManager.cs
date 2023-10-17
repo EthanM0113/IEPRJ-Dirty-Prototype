@@ -41,6 +41,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI fuelCostText;
     [SerializeField] private int hpIncreasePrice;
     [SerializeField] private int fuelIncreasePrice;
+    [SerializeField] private Animator hpCardAnimator;
+    private bool hpCardFlipTriggered = false;
+    [SerializeField] private Animator fuelCardAnimator;
+    private bool fuelCardFlipTriggered = false;
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +82,7 @@ public class ShopManager : MonoBehaviour
         {
             if (!isShopCameraActive)
             {
-                //playerController.SetCanInput(false);
+                playerController.SetPreventMovementInput(true);
                 //playerInputHandler.SetCanInput(false);
 
                 // Stop Movement Keys Here
@@ -88,7 +92,7 @@ public class ShopManager : MonoBehaviour
                 
             else
             {
-               // playerController.SetCanInput(true);
+                playerController.SetPreventMovementInput(false);
                 //playerInputHandler.SetCanInput(true);
                 ChangeToOriginalView();
             }
@@ -114,6 +118,10 @@ public class ShopManager : MonoBehaviour
 
                     //ChangeToOriginalView();
                     isCamearaTransitioning = true;
+
+                    // Reset Flip Triggers
+                    hpCardFlipTriggered = false;
+                    fuelCardFlipTriggered = false;
                 }
                 else
                 {
@@ -137,6 +145,10 @@ public class ShopManager : MonoBehaviour
 
                     //ChangeToOriginalView();
                     isCamearaTransitioning = true;
+
+                    // Reset Flip Triggers
+                    hpCardFlipTriggered = false;
+                    fuelCardFlipTriggered = false;
                 }
                 else
                 {
@@ -150,6 +162,10 @@ public class ShopManager : MonoBehaviour
 
                 ChangeToOriginalView();
                 isCamearaTransitioning = true;
+
+                // Reset Flip Triggers
+                hpCardFlipTriggered = false;
+                fuelCardFlipTriggered = false;
             }
         }
     }
@@ -211,6 +227,19 @@ public class ShopManager : MonoBehaviour
     private void ChangeToShopView()
     {
         mainCameraManager.ToggleBlackBars(true);
+
+        if(!hpCardFlipTriggered)
+        {
+            hpCardAnimator.SetTrigger("canFlip");
+            hpCardFlipTriggered = true;
+        }
+
+        if(!fuelCardFlipTriggered)
+        {
+            fuelCardAnimator.SetTrigger("canFlip");
+            fuelCardFlipTriggered = true;
+        }
+        
 
         mainCamera.transform.eulerAngles = shopCameraTransformObject.transform.eulerAngles;
         mainCamera.transform.position = Vector3.SmoothDamp(mainCamera.transform.position, shopCameraTransformObject.transform.position, ref velocity, transitionSpeed);
