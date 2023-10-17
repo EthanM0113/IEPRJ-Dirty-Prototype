@@ -10,11 +10,17 @@ public class Interactable : MonoBehaviour
     // Fuel Varaibles
     [SerializeField] private float fuelCost = 0.001f;
 
+    [SerializeField] private float showEnemiesCooldown = 10f;
+    [SerializeField] private float showEnemiesRadius = 20f;
+    [SerializeField] private LayerMask enemyLayer;
+    private float showEnemiesTimer = 10f;
+
     // Start is called before the first frame update
     void Start()
     {
         lightSource.SetActive(false);
         isInteractable = false;
+        showEnemiesTimer = showEnemiesCooldown;
     }
 
     // Update is called once per frame
@@ -35,7 +41,17 @@ public class Interactable : MonoBehaviour
                 playerController.fuelAmt -= fuelCost;
                 isInteractable = true;
             }
-            
+            if (showEnemiesTimer < Time.time)
+            {
+                Collider[] enemies = Physics.OverlapSphere(transform.position, showEnemiesRadius, enemyLayer);
+
+                foreach (Collider enemy in enemies)
+                {
+                    enemy.GetComponent<BaseEnemy>().ShowLocation();
+                }   
+
+                showEnemiesTimer = Time.time + showEnemiesCooldown;
+            }
         }
     }
 

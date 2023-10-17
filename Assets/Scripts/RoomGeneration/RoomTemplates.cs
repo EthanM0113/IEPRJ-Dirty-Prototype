@@ -9,7 +9,7 @@ public class RoomTemplates : MonoBehaviour
     public GameObject[] ExtraTemplates; //Lore and Rest Rooms
     public GameObject BaseRoom;
     public GameObject ClosedRoom;
-    [SerializeField] protected int MaxRooms;
+    protected int MaxRooms;
     [SerializeField] protected int TotalRooms; //Does not decrement
     [SerializeField] public List<GameObject> interiors;
     protected int DeadEndCD = 3;
@@ -22,9 +22,9 @@ public class RoomTemplates : MonoBehaviour
 
     public GameObject EndRoomTemplate;
 
-    public void OnAwake()
+    void Start()
     {
-        
+        MaxRooms = TotalRooms;
     }
     public int GetDeadEnds()
     {

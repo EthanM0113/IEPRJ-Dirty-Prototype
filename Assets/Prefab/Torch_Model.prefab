@@ -125,6 +125,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightSource: {fileID: 526753871534341098}
   fuelCost: 1
+  showEnemiesCooldown: 10
+  showEnemiesRadius: 20
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!65 &526753870571513848
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -156,7 +161,6 @@ GameObject:
   m_Component:
   - component: {fileID: 526753871534341096}
   - component: {fileID: 526753871534341097}
-  - component: {fileID: 8147549001836574337}
   - component: {fileID: 5065617898634588370}
   m_Layer: 0
   m_Name: point
@@ -243,18 +247,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &8147549001836574337
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526753871534341098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20e0ed4c108dbf418734c30d50b3871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5065617898634588370
 MonoBehaviour:
   m_ObjectHideFlags: 0

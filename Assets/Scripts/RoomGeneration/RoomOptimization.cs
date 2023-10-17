@@ -16,15 +16,23 @@ public class RoomOptimization : MonoBehaviour
     private Transform[] childList;
     private float DetectionRadius = 25.0f;
     private bool HasExplored = false;
-    
 
+    [SerializeField] private GameObject EnteredRoomSprite;
 
     // Start is called before the first frame update
     void Start()
     {
         //Invoke("GetChildrenList", 0.2f);
-        
 
+        if (EnteredRoomSprite == null)
+        {
+            Debug.Log($"{this.gameObject.name} doesn't have a Room Sprite!");
+        }
+        else
+        {
+            EnteredRoomSprite.SetActive(false);
+
+        }
     }
 
     
@@ -88,8 +96,11 @@ public class RoomOptimization : MonoBehaviour
             {
                 MapNode.transform.GetChild(0).gameObject.SetActive(true);
             }
-        
-        } 
+
+            if (EnteredRoomSprite != null)
+                EnteredRoomSprite.SetActive(true);
+
+        }
     }
 
 
