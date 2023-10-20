@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Interactable : MonoBehaviour
@@ -47,8 +48,21 @@ public class Interactable : MonoBehaviour
 
                 foreach (Collider enemy in enemies)
                 {
-                    enemy.GetComponent<BaseEnemy>().ShowLocation();
-                }   
+                    if (enemy.gameObject.activeInHierarchy) { 
+                        enemy.GetComponent<BaseEnemy>().ShowLocation();
+                    }
+                }
+
+                // Detect final room
+                if (other.GetComponent<PlayerController>().IncrementTorchCount())
+                {
+                    GameObject roomHolder = GameObject.FindGameObjectWithTag("RoomList");
+                    RoomProperties[] rooms = roomHolder.GetComponentsInChildren<RoomProperties>();
+
+                    if(FindObjectOfType<LastRoomUI>()) 
+                        FindObjectOfType<LastRoomUI>().Detect(rooms[rooms.Count()-1].transform.position);
+
+                }
 
                 showEnemiesTimer = Time.time + showEnemiesCooldown;
             }

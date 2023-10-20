@@ -83,9 +83,10 @@ public class BaseEnemy : MonoBehaviour
             Debug.Log($"Enemy \"{gameObject.name}\" does not have a miniMapSprite!");
             return;
         }
-
-        ShowIconForSeconds(showSpriteDuration);
-
+        if (!miniMapSprite.activeInHierarchy)
+        {
+            ShowIconForSeconds(showSpriteDuration);
+        }
     }
 
     private async void ShowIconForSeconds(float duration)

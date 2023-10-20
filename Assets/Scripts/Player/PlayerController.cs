@@ -72,6 +72,8 @@ public class PlayerController : MonoBehaviour
 
     int abilityLevel = 0;
 
+    int activatedTorchCount = 0;
+    [SerializeField] int torchInterval = 3; // every set number of torches activated hint the final room
     Vector2 moveInput; // vector2 containing the players x and y movement
 
 
@@ -331,8 +333,12 @@ public class PlayerController : MonoBehaviour
             {
                 if (!preventMovementInput)
                 {
-                    StartCoroutine(Dash());
-                    animator.SetTrigger("Dash");
+                    if (moveInput != Vector2.zero)
+                    {
+                        StartCoroutine(Dash());
+                        animator.SetTrigger("Dash");
+                    }
+                    
                 }       
             }
             else if (inputHandler.IsDash() && canDash && !CheckFuel(dashFuelCost))
@@ -768,6 +774,16 @@ public class PlayerController : MonoBehaviour
     public void CanMove()
     {
         canMove = !canMove;
+    }
+
+    public bool IncrementTorchCount()
+    {
+        activatedTorchCount++;
+        if (activatedTorchCount % torchInterval == 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
  
