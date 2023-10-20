@@ -8,10 +8,14 @@ public class StaggeredShivManager : MonoBehaviour
     private SpriteRenderer enemySpriteRenderer;
     private WispBehaviour enemyWispBehavior;
     [SerializeField] private float rootDuration;
+    [SerializeField] private GameObject rootOverlay;
+    private GameObject srObject;
+    private GameObject rootObject;
 
     private bool didRoot = false;
     private bool canRoot = true; // should only be able to root once
     private bool isWisp = false;
+    private bool didSpawnRootOverlay = false;
 
     private bool waitingForRoot = false;
 
@@ -32,8 +36,7 @@ public class StaggeredShivManager : MonoBehaviour
             }
             else 
             {
-                StartCoroutine(TriggerRootEffect());
-         
+                StartCoroutine(TriggerRootEffect());        
             }
         }
     }
@@ -58,6 +61,7 @@ public class StaggeredShivManager : MonoBehaviour
 
                 enemyWispBehavior = other.GetComponent<WispBehaviour>();    
                 enemySpriteRenderer = other.GetComponentInChildren<SpriteRenderer>();
+                srObject = enemySpriteRenderer.gameObject;
 
                 Debug.Log("Triggering Root Wisp.");
                 //mainCameraAnimator.SetTrigger("isQuickZoom");
@@ -71,6 +75,7 @@ public class StaggeredShivManager : MonoBehaviour
             else // Check if other enemy w/ path based movement
             {
                 enemySpriteRenderer = other.GetComponentInChildren<SpriteRenderer>();
+                srObject = enemySpriteRenderer.gameObject;
 
                 Debug.Log("Triggering Root Enemy.");
                 //mainCameraAnimator.SetTrigger("isQuickZoom");
@@ -87,8 +92,14 @@ public class StaggeredShivManager : MonoBehaviour
 
     public IEnumerator TriggerRootEffect()
     {
-
-        enemySpriteRenderer.color = new Color(1f, 0.561f, 0f, 1f); // Brown color
+        if(!didSpawnRootOverlay)
+        {
+            rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
+            Destroy(rootObject, rootDuration);
+            didSpawnRootOverlay = true;
+        }
+ 
+        enemySpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
         enemyRB.constraints = RigidbodyConstraints.FreezeAll;
         yield return new WaitForSeconds(rootDuration);
         enemyRB.constraints = RigidbodyConstraints.None;
@@ -96,13 +107,20 @@ public class StaggeredShivManager : MonoBehaviour
         enemySpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
 
         didRoot = false;
+
         gameObject.SetActive(false);
     }
 
     public IEnumerator TriggerWispRootEffect()
     {
+        if(!didSpawnRootOverlay)
+        {
+            rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
+            Destroy(rootObject, rootDuration);
+            didSpawnRootOverlay = true;
+        }
 
-        enemySpriteRenderer.color = new Color(1f, 0.561f, 0f, 1f); // Brown color
+        enemySpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
         //enemyRB.constraints = RigidbodyConstraints.FreezeAll;
         enemyWispBehavior.SetIsRooted(true);
         yield return new WaitForSeconds(rootDuration);
@@ -110,6 +128,7 @@ public class StaggeredShivManager : MonoBehaviour
         enemySpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
 
         didRoot = false;
+
         gameObject.SetActive(false);
     }
 
