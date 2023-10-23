@@ -6,13 +6,15 @@ public class RuneSealedSafe : MonoBehaviour
 {
     [SerializeField] private GameObject colorPuzzleMaster;
     [SerializeField] private GameObject sealedSafe;
-
+    [SerializeField] private GameObject playerInventory;
+    
     void Update()
     {
         if (CheckSolved())
         {
-            // TODO: give player gear.
-            // TOD: give player money.
+            // TODO: palce text of get gear.
+            playerInventory.GetComponent<PlayerInventory>().SetGear(true);
+            // TODO: give player money.
             sealedSafe.GetComponent<Renderer>().material.color = Color.yellow;
         }
     }
