@@ -25,7 +25,11 @@ public class PlayerInventory : MonoBehaviour
 
     public void SetWater(bool hasWater) { water = hasWater; }
 
+    public bool GetWater() { return water; }
+
     public void SetChalice(bool hasChalice) {  chalice = hasChalice; }
+
+    public bool GetChalice() { return chalice; }
 
     public void SetKey(bool hasKey) { rustedKey  = hasKey; }
 

@@ -115,9 +115,37 @@ public class PlayerCombat : MonoBehaviour
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
             return true;
         }
-        else
+        else if(enemy.CompareTag("ColorTorch"))
         {
-            return false;
+            enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(false);
+            return true;
         }
+        else if (enemy.CompareTag("MysticStone"))
+        {
+            enemy.gameObject.GetComponent<MysticStone>().ChangeColor();
+            return true;
+        }
+        else if (enemy.CompareTag("LockedCloset"))
+        {
+            enemy.gameObject.GetComponent<LockedCloset>().OpenCloset();
+            return true;
+        }
+        else if (enemy.CompareTag("BreadBox"))
+        {
+            enemy.gameObject.GetComponent<BreadBox>().TakeBread();
+            return true;
+        }
+        else if (enemy.CompareTag("HelpfulChair"))
+        {
+            enemy.gameObject.GetComponent<HelpfulChair>().TakeScroll();
+            return true;
+        }
+        else if (enemy.CompareTag("WaterFountain"))
+        {
+            enemy.gameObject.GetComponent<WaterFountain>().TakeWater();
+            return true;
+        }
+        else
+            return false;
     }
-}
+}   

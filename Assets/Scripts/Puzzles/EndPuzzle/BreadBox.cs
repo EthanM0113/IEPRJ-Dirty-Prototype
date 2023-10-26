@@ -5,6 +5,7 @@ using UnityEngine;
 public class BreadBox : MonoBehaviour
 {
     [SerializeField] private GameObject playerInv;
+    [SerializeField] private GameObject box;
 
     private int breadNum;
 
@@ -13,23 +14,33 @@ public class BreadBox : MonoBehaviour
         breadNum = 0;
     }
 
-    void Update()
+    public void TakeBread()
     {
         if (breadNum >= 4)
         {
-            // TODO: put text of get key
             playerInv.GetComponent<PlayerInventory>().SetKey(true);
+            box.GetComponent<LoreObject>().UpdateText("Obtained a rusty key!");
         }
         else
         {
-            // TODO: put text of get bread
-            TakeBread();
+            box.GetComponent<LoreObject>().UpdateText("Got some moldy bread!");
+            breadNum++;
             playerInv.GetComponent<PlayerInventory>().SetBread(breadNum);
         }
     }
 
-    void TakeBread()
+    void OnTriggerExit(Collider other)
     {
-        breadNum++;
+        if (other.gameObject.tag == "Player")
+        {
+            if (breadNum >= 4)
+            {
+                box.GetComponent<LoreObject>().UpdateText("There's something rusty amidst the bread.");
+            }
+            else
+            {
+                box.GetComponent<LoreObject>().UpdateText("A box full of moldy bread. . .");
+            }
+        }
     }
 }

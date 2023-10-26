@@ -5,17 +5,40 @@ using UnityEngine;
 public class LockedCloset : MonoBehaviour
 {
     [SerializeField] private GameObject playerInventory;
+    [SerializeField] private GameObject closet;
+    private bool unlocked = false;
+    private bool obtained = false;
 
     public void OpenCloset()
     {
-        if (playerInventory.GetComponent<PlayerInventory>().GetKey())
+        if (!unlocked)
         {
-            // TODO: display got chalice text
-            playerInventory.GetComponent<PlayerInventory>().SetChalice(true);
+            if (playerInventory.GetComponent<PlayerInventory>().GetKey())
+            {
+                closet.GetComponent<LoreObject>().UpdateText("The rusted key fit right in! There's a chalice inside.");
+                unlocked = true;
+            }
+            else
+            {
+                closet.GetComponent<LoreObject>().UpdateText("It's shut real tight.");
+            }
         }
-        else
+        else if (unlocked && !obtained)
         {
-            // TODO: display need key text
+            playerInventory.GetComponent<PlayerInventory>().SetChalice(true);
+            closet.GetComponent<LoreObject>().UpdateText("Obtained the chalice!");
+            obtained = true;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (playerInventory.GetComponent<PlayerInventory>().GetChalice())
+        {
+            if(other.gameObject.tag == "Player")
+            {
+                closet.GetComponent<LoreObject>().SetText("I already got the chalice from here. It's empty now.");
+            }
         }
     }
 }
