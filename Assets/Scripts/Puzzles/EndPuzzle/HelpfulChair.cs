@@ -23,6 +23,6 @@ public class HelpfulChair : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
-            chair.GetComponent<LoreObject>().UpdateText("It's just a regular chair now, like the rest.");
+            chair.GetComponent<LoreObject>().SetText("It's just a regular chair now, like the rest.");
     }
 }

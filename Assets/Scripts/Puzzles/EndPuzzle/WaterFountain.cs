@@ -27,6 +27,6 @@ public class WaterFountain : MonoBehaviour
     void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == "Player")
-            fountain.GetComponent<LoreObject>().UpdateText("A fountain, miraculously still trickling some water.");
+            fountain.GetComponent<LoreObject>().SetText("A fountain, miraculously still trickling some water.");
     }
 }

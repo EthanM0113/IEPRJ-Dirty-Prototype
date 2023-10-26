@@ -35,11 +35,11 @@ public class BreadBox : MonoBehaviour
         {
             if (breadNum >= 4)
             {
-                box.GetComponent<LoreObject>().UpdateText("There's something rusty amidst the bread.");
+                box.GetComponent<LoreObject>().SetText("There's something rusty amidst the bread.");
             }
             else
             {
-                box.GetComponent<LoreObject>().UpdateText("A box full of moldy bread. . .");
+                box.GetComponent<LoreObject>().SetText("A box full of moldy bread. . .");
             }
         }
     }

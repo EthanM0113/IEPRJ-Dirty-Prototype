@@ -10,7 +10,7 @@ public class TorchPuzzle : MonoBehaviour
     [SerializeField] bool one, two, three, four, five, six;
     private bool solved = false;
     private bool rewardIsGranted = false;
-    private int number = 0;
+    private int iteration = 0;
 
 
     void Awake()
@@ -96,15 +96,15 @@ public class TorchPuzzle : MonoBehaviour
 
     void SolvedTorches()
     {
-        if (number > 5)
+        if (iteration > 5)
         {
             Invoke("FinalColor", 0.5f);
             return;
         }
         else
         {
-            lights[number].GetComponent<Light>().color = Color.yellow;
-            number++;
+            lights[iteration].GetComponent<Light>().color = Color.yellow;
+            iteration++;
             Invoke("SolvedTorches", 0.1f);
         }
     }

@@ -36,7 +36,7 @@ public class LoreObject : MonoBehaviour
     {
         textInput = text;
         TextFade();
-        Invoke("TextAppear", 1.5f);
+        Invoke("TextAppear", 0.2f);
     }
 
     private void TextFade()

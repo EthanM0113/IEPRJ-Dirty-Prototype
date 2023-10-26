@@ -23,23 +23,29 @@ public class PlayerInventory : MonoBehaviour
         grandDoorGear = false;
     }
 
-    public void SetWater(bool hasWater) { water = hasWater; }
+    public void SetWater(bool hasWater) { water = hasWater; Debug.Log("Got water!"); }
 
     public bool GetWater() { return water; }
 
-    public void SetChalice(bool hasChalice) {  chalice = hasChalice; }
+    public void SetChalice(bool hasChalice) {  chalice = hasChalice; Debug.Log("Got chalice!"); }
 
     public bool GetChalice() { return chalice; }
 
-    public void SetKey(bool hasKey) { rustedKey  = hasKey; }
+    public void SetKey(bool hasKey) { rustedKey  = hasKey; Debug.Log("Got rusted key!"); }
 
     public bool GetKey() { return rustedKey; }
 
-    public void SetBread(int currBread) { moldyBread = currBread; }
+    public void SetBread(int currBread) { moldyBread = currBread; Debug.Log("Got " + moldyBread + " bread!"); }
 
-    public void SetIceChunks(bool hasIceChunks) {  iceChunks = hasIceChunks; }
+    public void SetIceChunks(bool hasIceChunks) {  iceChunks = hasIceChunks; Debug.Log("Got ice chunks!"); }
 
-    public void SetFreezingScroll(bool hasFreezingScroll) { freezingScroll = hasFreezingScroll; }
+    public bool GetIceChunks() { return iceChunks; }
 
-    public void SetGear(bool hasGear) { grandDoorGear = hasGear; }
+    public void SetFreezingScroll(bool hasFreezingScroll) { freezingScroll = hasFreezingScroll; Debug.Log("Got freezing scroll!"); }
+
+    public bool GetScroll() {  return freezingScroll; }
+
+    public void SetGear(bool hasGear) { grandDoorGear = hasGear; Debug.Log("Got gear!"); }
+
+    public bool GetGear() {  return grandDoorGear; }
 }

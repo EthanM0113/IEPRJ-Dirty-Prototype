@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] float attackRange;
     [Tooltip("The layers that are considered as enemies")]
     [SerializeField] LayerMask enemyLayers;
+    [Tooltip("The layers that are considered as puzzle elements")]
+    [SerializeField] LayerMask puzzleElementLayer;
     PlayerController playerController;
 
     [SerializeField] private Camera mainCamera;
@@ -42,8 +44,19 @@ public class PlayerCombat : MonoBehaviour
             enemyLayers
             );
 
-        if (hitEnemies.Length == 0) return false;
-        else return true;
+        if (hitEnemies.Length == 0)
+        {
+            hitEnemies = Physics.OverlapSphere(
+            attackPoint.position,
+            attackRange,
+            puzzleElementLayer
+            );
+        }
+
+        if (hitEnemies.Length == 0)
+            return false;
+        else 
+            return true;
         
     }
 
@@ -55,6 +68,15 @@ public class PlayerCombat : MonoBehaviour
             attackRange, 
             enemyLayers
             );
+
+        if (hitEnemies.Length == 0)
+        {
+            hitEnemies = Physics.OverlapSphere(
+            attackPoint.position,
+            attackRange,
+            puzzleElementLayer
+            );
+        }
 
         // inflict dmg/kill
         if (hitEnemies.Length != 0)
@@ -115,34 +137,59 @@ public class PlayerCombat : MonoBehaviour
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
             return true;
         }
-        else if(enemy.CompareTag("ColorTorch"))
+        else if(enemy.gameObject.tag == "ColorTorch")
         {
-            enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(false);
+            enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(true);
             return true;
         }
-        else if (enemy.CompareTag("MysticStone"))
+        else if (enemy.gameObject.tag == "MysticStone")
         {
             enemy.gameObject.GetComponent<MysticStone>().ChangeColor();
             return true;
         }
-        else if (enemy.CompareTag("LockedCloset"))
+        else if (enemy.gameObject.tag == "LockedCloset")
         {
             enemy.gameObject.GetComponent<LockedCloset>().OpenCloset();
             return true;
         }
-        else if (enemy.CompareTag("BreadBox"))
+        else if (enemy.gameObject.tag == "BreadBox")
         {
             enemy.gameObject.GetComponent<BreadBox>().TakeBread();
             return true;
         }
-        else if (enemy.CompareTag("HelpfulChair"))
+        else if (enemy.gameObject.tag == "HelpfulChair")
         {
             enemy.gameObject.GetComponent<HelpfulChair>().TakeScroll();
             return true;
         }
-        else if (enemy.CompareTag("WaterFountain"))
+        else if (enemy.gameObject.tag == "WaterFountain")
         {
             enemy.gameObject.GetComponent<WaterFountain>().TakeWater();
+            return true;
+        }
+        else if (enemy.gameObject.tag == "HotRock")
+        {
+            enemy.gameObject.GetComponent<HotRock>().Interact();
+            return true;
+        }
+        else if (enemy.gameObject.tag == "WetRock")
+        {
+            enemy.gameObject.GetComponent<WetRock>().Interact();
+            return true;
+        }
+        else if (enemy.gameObject.tag == "Barrel")
+        {
+            enemy.gameObject.GetComponent<Barrel>().Interact();
+            return true;
+        }
+        else if (enemy.gameObject.tag == "GrandDoor")
+        {
+            enemy.gameObject.GetComponent<GrandDoor>().Interact();
+            return true;
+        }
+        else if (enemy.gameObject.tag == "RuneSealedSafe")
+        {
+            enemy.gameObject.GetComponent<RuneSealedSafe>().Interact();
             return true;
         }
         else

@@ -17,7 +17,7 @@ public class ColorTorchPuzzle : MonoBehaviour
     void Start()
     {
         for (int i = 0; i < torches.Length; i++)
-            torches[i].GetComponent<HpTorchHandler>().SetFlameLight(true);
+            torches[i].GetComponent<ColorTorch>().SetFlameLight(true);
     }
 
     // Update is called once per frame
@@ -29,8 +29,6 @@ public class ColorTorchPuzzle : MonoBehaviour
         if (solved && !rewardIsGranted)
         {
             Invoke("PuzzleSolved", 0.7f);
-
-            PlayerMoneyManager.Instance.AddCoins(10);
             rewardIsGranted = true;
         }
 
@@ -60,7 +58,7 @@ public class ColorTorchPuzzle : MonoBehaviour
         else
         {
             torches[number].GetComponent<HpTorchHandler>().SetFlameLight(true);
-            lights[number].GetComponent<Light>().color = Color.gray;
+            lights[number].GetComponent<Light>().color = Color.white;
             number++;
             Invoke("PuzzleSolved", 0.5f);
         }
@@ -70,7 +68,7 @@ public class ColorTorchPuzzle : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-            lights[i].GetComponent<Light>().color = Color.red;
+            lights[i].GetComponent<Light>().color = Color.black;
             lights[i].GetComponent<Light>().intensity = 50;
         }
 
