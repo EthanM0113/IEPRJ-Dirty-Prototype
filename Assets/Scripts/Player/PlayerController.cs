@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Animations;
 [System.Serializable]
@@ -363,6 +364,18 @@ public class PlayerController : MonoBehaviour
         {
             playerAbility.CycleSkills();
         }
+    }
+
+    public async void SlowDebuff(float duration, float slowSpeed)
+    {
+        float end = Time.time + duration;
+        Debug.Log("Working");
+        while (end > Time.time)
+        {
+            actualSpeed = slowSpeed;
+            await Task.Yield();
+        }
+        actualSpeed = speed;
     }
 
     void SneakCheck()
