@@ -67,7 +67,7 @@ public class StaggeredBehaviour : BaseEnemy
         }
         else if (currentState == State.MOVING)
         {
-            if (Vector3.Distance(transform.position, route[currentNode].position) < 0.2) // if the transform is near the target node go to next node
+            if (Vector3.Distance(transform.position, route[currentNode].position) < 0.8) // if the transform is near the target node go to next node
             {
                 currentState = State.STATIONARY;
                 if (currentNode == route.Length - 1)// checks if the agent has reached the end node
