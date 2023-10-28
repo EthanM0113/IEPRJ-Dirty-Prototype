@@ -8,7 +8,8 @@ public class MainCameraManager : MonoBehaviour
     [SerializeField] private GameObject blackBar1;
     [SerializeField] private GameObject blackBar2;
     [SerializeField] private GameObject gargoyleFX;
-
+    [SerializeField] private Animator animator;
+    private bool pulseTriggered = false;
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +41,14 @@ public class MainCameraManager : MonoBehaviour
     public void ToggleGargoyleFX(bool flag)
     {
         gargoyleFX.SetActive(flag);
+        if(flag == true && !pulseTriggered)
+        {
+            animator.SetTrigger("isGargoylePulsing");
+            pulseTriggered = true;
+        }
+        else if(flag == false && pulseTriggered)
+        {
+            pulseTriggered = false;
+        }
     }
 }
