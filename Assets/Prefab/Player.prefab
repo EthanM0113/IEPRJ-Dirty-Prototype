@@ -30852,7 +30852,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2007
+    m_Bits: 4055
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -31360,6 +31360,7 @@ MonoBehaviour:
   playerSprite: {fileID: 8600752381282501281}
   attackPosition: {fileID: 4692066118449418193}
   attackDistance: -0.58
+  torchInterval: 3
   loseScreen: {fileID: 0}
   MAX_FUEL: 50
   fuelAmt: 50
@@ -31372,6 +31373,9 @@ MonoBehaviour:
   flarePrefab: {fileID: 6853446679586094968, guid: fab4022969fbf8344b38e01ef5009927, type: 3}
   flareForce: 200
   flareAbilityIncrement: 0.07
+  shivPrefab: {fileID: 0}
+  shivForce: 0
+  shivAbilityIncrement: 0.6
   deathParticles: {fileID: 1647237900830563994}
   pauseScreen: {fileID: 0}
   levelMusic: {fileID: 0}
@@ -31394,6 +31398,9 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
+  puzzleElementLayer:
+    serializedVersion: 2
+    m_Bits: 0
   mainCamera: {fileID: 8600752380185307727}
   playerMoneyUIHandler: {fileID: 0}
   hpTorchTag: HpTorch
