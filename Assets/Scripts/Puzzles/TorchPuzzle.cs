@@ -43,45 +43,33 @@ public class TorchPuzzle : MonoBehaviour
         switch(torchNum)
         {
             case 1:
-                six = !six;
                 one = !one;
                 two = !two;
-                torchSix.GetComponent<TorchScript>().SetState(six);
                 torchTwo.GetComponent<TorchScript>().SetState(two);
                 break;
             case 2:
-                one = !one;
                 two = !two;
                 three = !three;
-                torchOne.GetComponent<TorchScript>().SetState(one);
                 torchThree.GetComponent<TorchScript>().SetState(three);
                 break;
             case 3:
-                two = !two;
                 three = !three;
                 four = !four;
-                torchTwo.GetComponent<TorchScript>().SetState(two);
                 torchFour.GetComponent<TorchScript>().SetState(four);
                 break;
             case 4:
-                three = !three;
                 four = !four;
                 five = !five;
-                torchThree.GetComponent<TorchScript>().SetState(three);
                 torchFive.GetComponent<TorchScript>().SetState(five);
                 break;
             case 5:
-                four = !four;
                 five = !five;
                 six = !six;
-                torchFour.GetComponent<TorchScript>().SetState(four);
                 torchSix.GetComponent<TorchScript>().SetState(six);
                 break;
             case 6:
-                five = !five;
                 six = !six;
                 one = !one;
-                torchFive.GetComponent<TorchScript>().SetState(five);
                 torchOne.GetComponent<TorchScript>().SetState(one);
                 break;
             default:
