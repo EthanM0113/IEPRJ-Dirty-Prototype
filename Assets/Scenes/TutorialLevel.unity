@@ -8293,6 +8293,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1608050181}
+    - target: {fileID: 4318822608151346157, guid: bbcc944c9fe9dcf42a018e76eaafb432, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6df1c3630d4fa4c4da3ceaa7396da4fb, type: 2}
     - target: {fileID: 4318822608151346159, guid: bbcc944c9fe9dcf42a018e76eaafb432, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -11449,7 +11453,7 @@ MonoBehaviour:
   ExtraTemplates: []
   BaseRoom: {fileID: 5720925616247223006, guid: 74bfd958a8611e0489cf2253257c6476, type: 3}
   ClosedRoom: {fileID: 8669452624814417393, guid: ba34d67776670564e8249348bafcd9ca, type: 3}
-  MaxRooms: 10
+  TotalRooms: 0
   interiors: []
   waitTime: 2
   EndRoomTemplate: {fileID: 0}
@@ -12204,6 +12208,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &600626635
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17664,6 +17669,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &758073501
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18232,6 +18238,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &794396145
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18868,6 +18875,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &853600270
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -22618,6 +22626,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 906996728}
+    - target: {fileID: 8946719149924485079, guid: 14e40c4d4f955ce498690a0e122081c8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6df1c3630d4fa4c4da3ceaa7396da4fb, type: 2}
     - target: {fileID: 8946719149924485097, guid: 14e40c4d4f955ce498690a0e122081c8, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -32856,6 +32868,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &1524900954
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38746,6 +38759,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  EnteredRoomSprite: {fileID: 0}
 --- !u!65 &2013681360
 BoxCollider:
   m_ObjectHideFlags: 0
