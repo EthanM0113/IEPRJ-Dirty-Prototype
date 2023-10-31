@@ -19,5 +19,14 @@ public class SceneSelector : MonoBehaviour
         {
             SceneManager.LoadScene("LevelTwo");
         }
+        else if (LevelName == "LevelTwo")
+        {
+            SceneManager.LoadScene("LevelThree");
+        }
+        else
+        {
+            SceneManager.LoadScene("LevelFour");
+        }
     }
+
 }

@@ -1503,7 +1503,6 @@ Transform:
   - {fileID: 8478163202822694841}
   - {fileID: 1465395662695421911}
   - {fileID: 6691298103950333730}
-  - {fileID: 3016142255529180824}
   - {fileID: 8071965436802553582}
   - {fileID: 8121115252033482072}
   - {fileID: 7820124000291787329}
@@ -1519,13 +1518,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076371334267006328}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e8848f3f496df545a38984b511f129c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   RouteList:
   - {fileID: 8195930207546313989}
+  - {fileID: 905313566046214943}
   - {fileID: 6768499123654332863}
 --- !u!114 &6716725389821563093
 MonoBehaviour:
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6076371334267006328}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5dcf17dbcec0b01459e433a8ec0869af, type: 3}
   m_Name: 
@@ -1560,6 +1560,7 @@ MonoBehaviour:
   EnemyList: []
   EnemyKey: TestEnemy
   RouteList: []
+  MobList: 000000000000000001000000
   StationaryList: []
   EnemyContainer: {fileID: 9206908489723094749}
   SpawnInterval: 1.5
@@ -2982,70 +2983,4 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4545399234474712798, guid: 73fee0ed4966cdc48989ba4212db17e5, type: 3}
   m_PrefabInstance: {fileID: 7190213035242736124}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &8695440422777468137
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 7722191838050103619}
-    m_Modifications:
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6230498312067168612, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_Name
-      value: Room_Base_02
-      objectReference: {fileID: 0}
-    - target: {fileID: 6230498312067168612, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: d672a9c45a25115448d237413bf62c00, type: 3}
---- !u!4 &3016142255529180824 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5870184385267206769, guid: d672a9c45a25115448d237413bf62c00, type: 3}
-  m_PrefabInstance: {fileID: 8695440422777468137}
   m_PrefabAsset: {fileID: 0}
