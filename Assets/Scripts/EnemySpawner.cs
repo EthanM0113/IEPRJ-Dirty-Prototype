@@ -12,6 +12,7 @@ public class EnemySpawner : MonoBehaviour
     
     // Parent Route Node
     [SerializeField] List<Transform> RouteList;
+    [SerializeField] List<int> MobList;
     [SerializeField] List<Transform> StationaryList;
 
     [SerializeField] GameObject EnemyContainer;
@@ -42,7 +43,9 @@ public class EnemySpawner : MonoBehaviour
 
 
             /* Creates a new enemy based on each route then adds them to a list*/
-            GameObject newEnemy = Instantiate(templates.EnemyList[0], RouteList[i].GetComponentsInChildren<Transform>()[1].position, Quaternion.identity, EnemyContainer.transform);
+            
+            
+            GameObject newEnemy = Instantiate(templates.EnemyList[MobList[i]], RouteList[i].GetComponentsInChildren<Transform>()[1].position, Quaternion.identity, EnemyContainer.transform);
             BaseEnemy enemyRef = newEnemy.GetComponent<BaseEnemy>();
             EnemyList.Add(newEnemy);
             enemyRef.SetRouteNode(RouteList[i]); // Get the Parent Route Node
