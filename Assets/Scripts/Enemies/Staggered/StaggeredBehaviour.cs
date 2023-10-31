@@ -1,3 +1,4 @@
+using OpenCover.Framework.Model;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,8 +17,12 @@ public class StaggeredBehaviour : BaseEnemy
     [SerializeField] float slowSpeed = 60f; // Speed of the player when slowed
     [SerializeField] LayerMask playerLayer; 
 
+    [SerializeField] float minFlipTime = 3f; // Minimum time it takes for the enemy to turn
+    [SerializeField] float maxFlipTime = 6f; // Maximum time it takes for the enemy to turn
+    float flipTimer;
     float waitTimer; // the actual timer/ cooldown
-
+    FaceDirection faceRef;
+    bool faceRight = false;
     // the node to traverse to. The node that the enemy needs to be at
     int currentNode = 2;
 
@@ -29,6 +34,7 @@ public class StaggeredBehaviour : BaseEnemy
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        faceRef = GetComponent<FaceDirection>();
     }
 
     public override void Activate() // Everytime the enemy is spawned
@@ -51,6 +57,13 @@ public class StaggeredBehaviour : BaseEnemy
 
     private void Move()
     {
+        if (flipTimer < Time.time)
+        {
+            faceRef.Flip(faceRight);
+            faceRight = !faceRight;
+            flipTimer = Time.time + Random.Range(minFlipTime, maxFlipTime);
+        }
+
 
         if (currentState == State.STATIONARY) // If the enemy is stationary
         {
