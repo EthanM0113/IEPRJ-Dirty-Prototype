@@ -15,9 +15,10 @@ public class FirstBossAttack : MonoBehaviour
     FuelBarHandler fuelBarHandler;
     private Animator playerAnimator;
     private PlayerController playerController;
-
-    // attacking
-    private bool attacking = false;
+    private float attackdelayTicks = 0f;
+    private float attackdelayInterval = 2.5f;
+    private bool didAttack = false;
+    private bool canAttack = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,20 +29,33 @@ public class FirstBossAttack : MonoBehaviour
         fuelBarHandler = GameObject.FindObjectOfType<FuelBarHandler>();
         playerAnimator = player.GetComponent<Animator>();
         playerController = player.GetComponent<PlayerController>(); 
+
+
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if(attacking)
+    { 
+        if (didAttack)
         {
-            if (firstBossAnimationHandler.isAttacking)
+            attackdelayTicks += Time.deltaTime;
+            if(attackdelayTicks > attackdelayInterval) 
             {
-                Debug.Log("Attacking!");
+                canAttack = true;
+                didAttack = false;
+                attackdelayTicks = 0f;
             }
         }
+
+
+        if (firstBossAnimationHandler.isAttacking)
+        {
+            Debug.Log("Attacking!");
+        }
+    
     }
 
+    /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -53,15 +67,26 @@ public class FirstBossAttack : MonoBehaviour
             }
         }
     }
+    */
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            if(canAttack)
+                StartCoroutine(BossAttack());       
+        }
+    }
 
     public IEnumerator BossAttack()
     {
+        canAttack = false;
+        didAttack = true;
         bossAnimator.SetTrigger("isAttacking");
         yield return new WaitForSecondsRealtime(0.80f); // Fine tune to fill in the animation 
         Debug.Log("Player Hit!");
         // Damage Player
         DamagePlayer();
-        attacking = true;
     }
 
     private void DamagePlayer()

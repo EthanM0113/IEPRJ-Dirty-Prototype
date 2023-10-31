@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FirstBossManager : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class FirstBossManager : MonoBehaviour
 
     // Boss 
     [SerializeField] private TextMeshProUGUI bossHpText;
-    [SerializeField] private int bossHp;
     [SerializeField] private FirstBossMovement firstBossMovement;
     [SerializeField] private float speedIncrementOnHit;
     private bool isBossDead = false;
@@ -20,7 +20,8 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private GameObject bossUI;
     [SerializeField] private float diplayDistance = 10.0f;
     [SerializeField] private FirstBossUIManager firstBossUIManager;
-    private int bossMaxHp;
+    private float bossMaxHp = 1f;
+    private float bossHp = 1f;
     private float bossMaxSpeed;
     private bool isCutscenePlaying = false;
     [SerializeField] private Animator firstBossAnimator;
@@ -29,6 +30,9 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private GameObject flameEffect;
     [SerializeField] private ParticleSystem deathParticles;
 
+    // Boss Hp Bar Variables
+    [SerializeField] private Image healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +40,7 @@ public class FirstBossManager : MonoBehaviour
         bossMaxHp = bossHp;
         bossMaxSpeed = firstBossMovement.GetSpeed();
 
-        bossHpText.text = bossHp.ToString();
+        //bossHpText.text = bossHp.ToString();
 
         for (int i = 0; i < hpTorches.Count; i++)
         {
@@ -62,7 +66,7 @@ public class FirstBossManager : MonoBehaviour
                     //Debug.Log("TAKE DAMAGE!!");
                     DealDamageToBoss();
                     isBossDead = CheckBossDead();
-                    bossHpText.text = bossHp.ToString();
+                    //bossHpText.text = bossHp.ToString();
                     if (!isBossDead)
                         LigtTwoTorches();
                 }
@@ -80,6 +84,8 @@ public class FirstBossManager : MonoBehaviour
 
     private IEnumerator PlayBossDeathCutscene()
     {
+        Debug.Log("PLAYING BOSS DEATH CUTSCENE");
+
         isCutscenePlaying = true;
 
         attackCircle.SetActive(false);  
@@ -148,13 +154,14 @@ public class FirstBossManager : MonoBehaviour
 
     public void DealDamageToBoss()
     {
-        bossHp--;
+        bossHp -= 0.34f; // 3 hits to die
+        healthBar.fillAmount = bossHp;
         firstBossMovement.IncreaseSpeed(speedIncrementOnHit);
     }
 
     public bool CheckBossDead()
     {
-        if (bossHp <= 0)
+        if (bossHp <= 0f)
         {
             return true;
         }
