@@ -25,7 +25,10 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] PlayerMoneyUIHandler playerMoneyUIHandler; 
 
     // 1st boss stuff
-    [SerializeField] private string hpTorchTag; 
+    [SerializeField] private string hpTorchTag;
+
+    // Final boss stuff
+    [SerializeField] private string finalBossTag;
 
     // Start is called before the first frame update
     void Start()
@@ -83,8 +86,11 @@ public class PlayerCombat : MonoBehaviour
         {
             foreach (Collider enemy in hitEnemies)
             {
-                // 1st Boss Stuff
-                if (FirstBoss(enemy))
+                if (FirstBoss(enemy)) // 1st Boss Stuff
+                {
+                    return;
+                }
+                else if(FinalBoss(enemy))
                 {
                     return;
                 }
@@ -190,6 +196,22 @@ public class PlayerCombat : MonoBehaviour
         else if (enemy.gameObject.tag == "RuneSealedSafe")
         {
             enemy.gameObject.GetComponent<RuneSealedSafe>().Interact();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    public bool FinalBoss(Collider enemy)
+    {
+        if (enemy.CompareTag(finalBossTag))
+        {
+            FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
+            if(finalBossManager != null) 
+            {
+                finalBossManager.DamageBoss(0.1f);
+            }
+          
             return true;
         }
         else
