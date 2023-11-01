@@ -24,7 +24,7 @@ public class FinalBossManager : MonoBehaviour
     // Shadow Hand
     [SerializeField] private GameObject shadowHandPrefab;
 
-    // Teleproting
+    // Teleporting
     [SerializeField] private GameObject TLBounds;
     [SerializeField] private GameObject BRBounds;
     private Vector3 tlBoundsPos;
@@ -44,6 +44,15 @@ public class FinalBossManager : MonoBehaviour
     private float actionDelay = 2f;
     [SerializeField] private GameObject endScreen;
 
+    // Phase 2 
+    private bool isHunting = false;
+    private float randomAttackTicks = 0f;
+    private float randomAttackInterval = 2f;
+    [SerializeField] private float huntSpeed;
+    private float originalHuntSpeed;
+    [SerializeField] private GameObject meleeAreaPrefab;
+    private bool isMelee = false;
+
     // Debugging 
     [SerializeField] private bool skip1stPhase = false;
 
@@ -61,6 +70,8 @@ public class FinalBossManager : MonoBehaviour
 
         // Set how many actions to be done before teleporting
         actionsToTeleport = Random.Range(minTPActions, maxTPActions + 1);
+
+        originalHuntSpeed = huntSpeed;
     }
 
     // Update is called once per frame
@@ -96,7 +107,76 @@ public class FinalBossManager : MonoBehaviour
                     StartCoroutine(SpawnShadowHands());
             }
         }
+        else if(state == BOSS_STATE.PHASE_TWO)
+        {
+            StartCoroutine(CheckMeleeAttack());
+            RandomBossAttack();
 
+            if (isHunting)
+            {
+                HuntPlayer();
+            }
+        }
+
+        
+
+    }
+
+    private IEnumerator CheckMeleeAttack()
+    {
+        // Find Player Location
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); 
+
+        // Check Distance to Player
+        float distance = Vector3.Distance(finalBoss.transform.position, player.transform.position);     
+        
+        // Melee if Close enough
+        if(distance < 1f && !isMelee)
+        {
+            isMelee = true;
+            isHunting = false;
+            GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
+            meleeArea.transform.parent = null;
+            meleeArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            yield return new WaitForSeconds(2f); // Wait a sec for vulnerable
+            isHunting = true;
+            isMelee = false;
+        }
+    }
+
+    private void RandomBossAttack()
+    {
+        randomAttackTicks += Time.deltaTime;
+        if(randomAttackTicks > randomAttackInterval)
+        {
+            int chosenAttack = Random.Range(0, 2);
+            if(chosenAttack == 0)
+            {
+                if (!doingAction)
+                {
+                    StartCoroutine(SpawnShadowHands());
+                }
+                    
+            }
+            if (chosenAttack == 1)
+            {
+                if (!doingAction)
+                {
+                    StartCoroutine(ShootMediumProjectiles());
+                }
+            }
+
+            randomAttackTicks = 0f;
+            randomAttackInterval = Random.Range(1f, 3f);
+        }
+    }
+
+    private void HuntPlayer()
+    {
+        // Find Player Location
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, player.transform.position, huntSpeed * Time.deltaTime);
     }
 
     private IEnumerator CheckTransitionPhase()
@@ -108,6 +188,9 @@ public class FinalBossManager : MonoBehaviour
             currentHP = 1f; // Fill HP Again
             hpBar.fillAmount = currentHP;
             state = BOSS_STATE.PHASE_TWO;
+
+            // Set Phase 2 Variables
+            isHunting = true;
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
@@ -138,6 +221,10 @@ public class FinalBossManager : MonoBehaviour
 
     private IEnumerator SpawnShadowHands()
     {
+        // Change speed
+        if (state == BOSS_STATE.PHASE_TWO)
+            huntSpeed = originalHuntSpeed * 2;
+
         doingAction = true;
 
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
@@ -197,6 +284,10 @@ public class FinalBossManager : MonoBehaviour
 
     private IEnumerator ShootMediumProjectiles()
     {
+        // Change speed
+        if (state == BOSS_STATE.PHASE_TWO)
+            huntSpeed = originalHuntSpeed;
+
         doingAction = true;
 
         // Set projectile speed
