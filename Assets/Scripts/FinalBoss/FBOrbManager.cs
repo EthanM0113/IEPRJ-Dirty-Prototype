@@ -5,7 +5,7 @@ using UnityEngine;
 public class FBOrbManager : MonoBehaviour
 {
     private float ticks = 0f;
-    private float lifetime = 3f;
+    private float lifetime = 4f;
 
     // Start is called before the first frame update
     void Start()

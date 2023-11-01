@@ -209,7 +209,7 @@ public class PlayerCombat : MonoBehaviour
             FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
             if(finalBossManager != null) 
             {
-                finalBossManager.DamageBoss(0.1f);
+                finalBossManager.DamageBoss();
             }
           
             return true;
