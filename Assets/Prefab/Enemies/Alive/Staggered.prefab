@@ -570,7 +570,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
-  deathTimeOffset: 0
+  deathTimeOffset: 0.8
   deadVersion: {fileID: 842155344775980075, guid: cb259ccafdbaa8347b593a5e2c121fea, type: 3}
   miniMapSprite: {fileID: 4725269271643044434}
   isActivated: 1
@@ -582,6 +582,8 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 2048
+  minFlipTime: 3
+  maxFlipTime: 6
   route: []
 --- !u!95 &5121157217153941018
 Animator:

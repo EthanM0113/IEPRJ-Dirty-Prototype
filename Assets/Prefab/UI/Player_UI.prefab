@@ -2061,6 +2061,8 @@ MonoBehaviour:
   m_blank: {fileID: 2800000, guid: 2064cb941b41239479346dc31de7fd48, type: 3}
   m_skillIcon1: {fileID: 2800000, guid: f295aaa16e1e2a3478cd378fbdd9779d, type: 3}
   m_skillIcon2: {fileID: 2800000, guid: d83f5d5eea3bfb2478e2f4682dccc8b8, type: 3}
+  m_skillIcon3: {fileID: 2800000, guid: dcd84b4dbd2e77442944ba866ec16f21, type: 3}
+  m_skillIcon4: {fileID: 2800000, guid: 18c33519d8302c94199c6286be84242b, type: 3}
   m_skillIconRef: {fileID: 2358069836363999854}
 --- !u!95 &6491089373981509033
 Animator:
@@ -2505,6 +2507,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4963729870503275554}
     m_Modifications:
+    - target: {fileID: 3651269364911472359, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
+      propertyPath: m_iconList.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651269364911472359, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
+      propertyPath: m_iconList.Array.data[4].name
+      value: Snare
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651269364911472359, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
+      propertyPath: m_iconList.Array.data[3].texture
+      value: 
+      objectReference: {fileID: 21300000, guid: 18c33519d8302c94199c6286be84242b, type: 3}
+    - target: {fileID: 3651269364911472359, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
+      propertyPath: m_iconList.Array.data[4].ability
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3651269364911472359, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
+      propertyPath: m_iconList.Array.data[4].texture
+      value: 
+      objectReference: {fileID: 21300000, guid: dcd84b4dbd2e77442944ba866ec16f21, type: 3}
     - target: {fileID: 3892769709292748098, guid: 33e9a25e50d703a41ac567b5db6b93ba, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

@@ -48,9 +48,7 @@ public class Interactable : MonoBehaviour
 
                 foreach (Collider enemy in enemies)
                 {
-                    if (enemy.gameObject.activeInHierarchy) { 
-                        enemy.GetComponent<BaseEnemy>().ShowLocation();
-                    }
+                    enemy.GetComponent<BaseEnemy>().ShowLocation();
                 }
 
                 // Detect final room

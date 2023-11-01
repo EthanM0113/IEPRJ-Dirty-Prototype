@@ -126,4 +126,10 @@ public class StaggeredBehaviour : BaseEnemy
         // Moves the rigidbody
         rb.AddForce(direction.normalized * speed, ForceMode.Impulse);
     }
+
+    public override void EnemyDeath()
+    {
+        anim.SetTrigger("Dead");
+        base.EnemyDeath();
+    }
 }

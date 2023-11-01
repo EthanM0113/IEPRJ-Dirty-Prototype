@@ -10,6 +10,8 @@ public class UISkillHandler : MonoBehaviour
     [SerializeField] private Texture2D m_blank;
     [SerializeField] private Texture2D m_skillIcon1;
     [SerializeField] private Texture2D m_skillIcon2;
+    [SerializeField] private Texture2D m_skillIcon3;
+    [SerializeField] private Texture2D m_skillIcon4;
 
     [SerializeField] private Image m_skillIconRef;
 
@@ -54,18 +56,31 @@ public class UISkillHandler : MonoBehaviour
 
     public void SetAbility(Ability.Type value) 
     {
-        if (value == Ability.Type.NONE)
+        switch (value)
         {
-            m_skillIconRef.material.SetTexture("_Texture", m_blank);
+            case Ability.Type.NONE:
+            {
+                m_skillIconRef.material.SetTexture("_Texture", m_blank); break;
+            }
+            case Ability.Type.TEST:
+            {
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon1); break;
+            }
+            case Ability.Type.FLARE:
+            {
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon2); break;
+            }
+            case Ability.Type.TREE:
+            {
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon3); break;
+            }
+            case Ability.Type.SENTRY:
+            {
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon4); break;
+            }
         }
-        else if (value == Ability.Type.TEST)
-        {
-            m_skillIconRef.material.SetTexture("_Texture", m_skillIcon1);
-        }
-        else if (value == Ability.Type.FLARE)
-        {
-            m_skillIconRef.material.SetTexture("_Texture", m_skillIcon2);
-        }
+
+        
     }
 
     public void PlayNotReady()

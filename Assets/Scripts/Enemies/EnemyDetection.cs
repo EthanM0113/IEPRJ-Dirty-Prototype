@@ -18,7 +18,7 @@ public class EnemyDetection : MonoBehaviour
     float detectionTimer;
 
     bool startDetectionTimer = false;
-
+    [SerializeField] bool isGargoyle = false;
     [SerializeField] LayerMask playerLayer;
     PlayerHearts playerHealth;
     FuelBarHandler fuelBarHandler;
@@ -110,7 +110,10 @@ public class EnemyDetection : MonoBehaviour
                     isPlayerDetected = false;
                     playerInputHandler.SetCanInput(false);
                     playerController.SetPreventMovementInput(true);
-                    DamagePlayer();
+                    if(!isGargoyle)
+                        anim.SetTrigger("ATK");
+                    else
+                        DamagePlayer();
                     playerInputHandler.SetCanInput(true);
                     playerController.SetPreventMovementInput(false);
                     spawnerRef = null;

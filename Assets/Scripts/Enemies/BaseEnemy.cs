@@ -100,4 +100,6 @@ public class BaseEnemy : MonoBehaviour
         miniMapSprite.SetActive(false);
 
     }
+
+    public bool IsAlive() { return isAlive; }
 }
