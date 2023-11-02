@@ -46,6 +46,7 @@ public class FinalBossManager : MonoBehaviour
     [SerializeField] private GameObject endScreen;
     private bool isInvincible = false;
     private FinalBossUIManager finalBossUIManager;
+    [SerializeField] private Animator finalBossAnimator;
 
     // Phase 2 
     private bool isHunting = false;
@@ -253,7 +254,12 @@ public class FinalBossManager : MonoBehaviour
     {
         if(currentHP <= 0f && state == BOSS_STATE.PHASE_ONE)
         {
-            yield return new WaitForSeconds(2f); // Wait a sec for suspense
+            doingAction = true;
+            // Play Death Animation
+            finalBossAnimator.SetBool("isPhase1Done", true);
+            yield return new WaitForSeconds(4.1f); // Let full animation finish
+            finalBossAnimator.SetBool("isPhase1Done", false);
+
             Debug.Log("1st Phase Done");
             currentHP = 1f; // Fill HP Again
             hpBar.fillAmount = currentHP;
@@ -262,6 +268,7 @@ public class FinalBossManager : MonoBehaviour
             // Set Phase 2 Variables
             isHunting = true;
             isRoaming = false;
+            doingAction = false;
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
@@ -275,11 +282,14 @@ public class FinalBossManager : MonoBehaviour
     {
         doingAction = true;
 
+        finalBossAnimator.SetBool("isTeleporting", true);
+        yield return new WaitForSeconds(0.5f); // Wait a sec for animation
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
         float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
         float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
         newPos = new Vector3(newX, finalBoss.transform.position.y, newZ);
         finalBoss.transform.position = newPos;
+        finalBossAnimator.SetBool("isTeleporting", false);
 
         // Reset actions
         actionsToTeleport = Random.Range(minTPActions, maxTPActions + 1);
@@ -297,6 +307,11 @@ public class FinalBossManager : MonoBehaviour
             huntSpeed = originalHuntSpeed * 2;
 
         doingAction = true;
+
+        // Play cast animation
+        finalBossAnimator.SetBool("isCasting", true);
+        yield return new WaitForSeconds(0.6f); // Wait for animation
+        finalBossAnimator.SetBool("isCasting", false);
 
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
 
@@ -324,6 +339,11 @@ public class FinalBossManager : MonoBehaviour
     private IEnumerator ShootSmallProjectiles()
     {
         doingAction = true;
+
+        // Play cast animation
+        finalBossAnimator.SetBool("isCasting", true);
+        yield return new WaitForSeconds(0.5f); // Wait for animation
+        finalBossAnimator.SetBool("isCasting", false);
 
         // Set projectile speed
         orbForce = 100;
@@ -366,6 +386,11 @@ public class FinalBossManager : MonoBehaviour
 
         for (int i = 0; i < 5; i++)
         {
+            // Play cast animation
+            finalBossAnimator.SetBool("isCasting", true);
+            yield return new WaitForSeconds(0.6f); // Wait for animation
+            finalBossAnimator.SetBool("isCasting", false);
+
             for (int j = 0; j < 4; j++)
             {
                 GameObject orb = Instantiate(orbPrefab, finalBoss.transform);
@@ -418,6 +443,11 @@ public class FinalBossManager : MonoBehaviour
     {
         doingAction = true;
 
+        // Play cast animation
+        finalBossAnimator.SetBool("isCasting", true);
+        yield return new WaitForSeconds(1.0f); // Longer animation on purpose
+        finalBossAnimator.SetBool("isCasting", false);
+
         // Set projectile speed
         orbForce = 600f;
 
@@ -440,10 +470,15 @@ public class FinalBossManager : MonoBehaviour
         actionsDone++;
     }
 
-    public void DamageBoss()
+    public IEnumerator DamageBoss()
     {
         if(state == BOSS_STATE.PHASE_ONE && !isInvincible)
         {
+            // Play hit animation
+            finalBossAnimator.SetBool("isHit", true);
+            yield return new WaitForSeconds(0.1f); 
+            finalBossAnimator.SetBool("isHit", false);
+
             currentHP -= 0.13f; // 8 hits to die
         }
         else if (state == BOSS_STATE.PHASE_TWO && !isInvincible)

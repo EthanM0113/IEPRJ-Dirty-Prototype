@@ -252,8 +252,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.79, y: 1, z: 0.73}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.94, y: 1.14, z: 0.46}
+  m_Center: {x: 0, y: 0.052501142, z: 0}
 --- !u!1 &99426836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,6 +1016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 405428317}
   - component: {fileID: 405428318}
+  - component: {fileID: 405428319}
   m_Layer: 6
   m_Name: 'FinalBossSprite '
   m_TagString: Untagged
@@ -1032,7 +1033,7 @@ Transform:
   m_GameObject: {fileID: 405428316}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1079,7 +1080,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -1452062203, guid: 8eb75dd1881fde9478bfee900b9acb2f, type: 3}
+  m_Sprite: {fileID: -589522578, guid: 9c09f917c0fb15049ad0d73d9eae1748, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1090,6 +1091,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &405428319
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405428316}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 58fc2e13a67fe9543b6d94b5a1b6b33e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &420695208
 GameObject:
   m_ObjectHideFlags: 0
@@ -9666,6 +9688,7 @@ MonoBehaviour:
   doingAction: 0
   finalBoss: {fileID: 81710160}
   endScreen: {fileID: 1941396654}
+  finalBossAnimator: {fileID: 405428319}
   huntSpeed: 1
   meleeAreaPrefab: {fileID: 8668698519758437846, guid: efc9bbe28bcf7b84abda5d45b1f568d9, type: 3}
   roamDuration: 8
