@@ -47,7 +47,7 @@ public class RoomConditions : MonoBehaviour
             }
             else
             {
-                Instantiate(obj, list[i]);
+                Instantiate(obj, list[i].transform.position, Quaternion.identity);
                 Debug.Log("Created Item");
             }
         }
@@ -123,16 +123,16 @@ public class RoomConditions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RoomGen = FindObjectOfType<RoomGeneration>().GetRoomsGenerated();
+        //RoomGen = FindObjectOfType<RoomGeneration>().GetRoomsGenerated();
 
-        if (totalEnemies == totalDead)
-        {
-            DeadEnemies();
-        }
-        if (isFinished && !FinGenerated && RoomGen <= 15)
-        {
-            detectWalls();
-        }
+        //if (totalEnemies == totalDead)
+        //{
+        //    DeadEnemies();
+        //}
+        //if (isFinished && !FinGenerated && RoomGen <= 15)
+        //{
+        //    detectWalls();
+        //}
     }
 
     public void detectWalls()
