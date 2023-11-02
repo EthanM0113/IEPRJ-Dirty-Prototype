@@ -3817,6 +3817,63 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1001 &519297998
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 558673315089773613, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7600237018765984346, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
+      propertyPath: m_Name
+      value: Player Data Holder
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 43ef6dbad75ccd145b172dbed92fa390, type: 3}
 --- !u!43 &523357551
 Mesh:
   m_ObjectHideFlags: 0
@@ -16807,3 +16864,4 @@ SceneRoots:
   - {fileID: 1421252909}
   - {fileID: 1429658622}
   - {fileID: 8697728274311270055}
+  - {fileID: 519297998}

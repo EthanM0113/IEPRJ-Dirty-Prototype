@@ -11,7 +11,8 @@ public class PlayerMoneyUIHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        int coins = PlayerMoneyManager.Instance.GetCoins();
+        coinText.SetText(coins.ToString());
     }
 
     // Update is called once per frame

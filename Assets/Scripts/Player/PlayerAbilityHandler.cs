@@ -51,7 +51,9 @@ public class PlayerAbilityHandler : MonoBehaviour
         attackPoint = GetComponent<PlayerCombat>().GetAttackTransform();
         consumeRange = GetComponent<PlayerCombat>().GetAttackRange();
         uISkillHandler = FindAnyObjectByType<UISkillHandler>();
-        currentAbility.Add(Ability.Type.NONE);
+        //currentAbility.Add(Ability.Type.NONE);
+        consumedAbilities = new List<AbilityStats>(PlayerDataHolder.Instance.GetAbilitiesReference());
+        currentAbility = new List<Ability.Type>(PlayerDataHolder.Instance.GetCurrentAbilities());
     }
 
     private void Update()
@@ -152,6 +154,11 @@ public class PlayerAbilityHandler : MonoBehaviour
     public Ability.Type GetCurrentAbility()
     {
         return currentAbility[skillSlotIndex];
+    }
+
+    public List<Ability.Type> GetCurrentAbilities()
+    {
+        return currentAbility;
     }
 
     public int GetAbilityLevel()

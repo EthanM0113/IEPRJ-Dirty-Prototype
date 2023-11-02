@@ -22,6 +22,9 @@ public class PlayerHearts : MonoBehaviour
     void Start()
     {
         currentHp = maxHp;
+
+        maxHp = PlayerDataHolder.Instance.GetMaxHealth();
+        currentHp = PlayerDataHolder.Instance.GetCurrentHealth();
         UpdateMaxHealth();
     }
 
