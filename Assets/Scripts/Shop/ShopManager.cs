@@ -9,7 +9,6 @@ public class ShopManager : MonoBehaviour
 {
     // Future fixes - turn off player movement while interacting, turn off player audio (stabbing and stuff) if we decide to keep U as both attack and interact button
 
-    [SerializeField] ShopInteractColliderHandler shopInteractColliderHandler;
     [SerializeField] private GameObject shopInteractPopup;
     [SerializeField] private GameObject shopUI;
     [SerializeField] private Animator shopKeeperAnimator;
@@ -25,7 +24,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject playerUI;
     [SerializeField] private GameObject minimapCamera;
     private MainCameraManager mainCameraManager;
-    private bool isCamearaTransitioning;
+    private bool isCameraTransitioning;
     private bool isShopCameraActive; 
     [SerializeField] private float transitionSpeed = 1.0f;
     [SerializeField] private Vector3 velocity = Vector3.zero;
@@ -46,9 +45,15 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private Animator fuelCardAnimator;
     private bool fuelCardFlipTriggered = false;
 
+    // Shop Manager Sprite
+    [SerializeField] private GameObject shopKeeper;
+    private float distanceToPlayer;
+
     // Start is called before the first frame update
     void Start()
     {
+        shopKeeper = gameObject;
+
         playerHearts = FindAnyObjectByType<PlayerHearts>();
         fuelBarHandler = FindAnyObjectByType<FuelBarHandler>(); 
         playerController = FindAnyObjectByType<PlayerController>(); 
@@ -64,14 +69,16 @@ public class ShopManager : MonoBehaviour
         originalCameraRotation = new Vector3(mainCamera.transform.eulerAngles.x, mainCamera.transform.eulerAngles.y, mainCamera.transform.eulerAngles.z);
 
         mainCameraManager = FindAnyObjectByType<MainCameraManager>();
-        isCamearaTransitioning = false;
+        isCameraTransitioning = false;
         isShopCameraActive = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isCamearaTransitioning)
+        distanceToPlayer = Vector3.Distance(shopKeeper.transform.position, playerController.transform.position);
+
+        if (!isCameraTransitioning)
         {
             UpdatePrices();
             ShopInteratction();
@@ -117,7 +124,7 @@ public class ShopManager : MonoBehaviour
                     finishedPurchase = true;
 
                     //ChangeToOriginalView();
-                    isCamearaTransitioning = true;
+                    isCameraTransitioning = true;
 
                     // Reset Flip Triggers
                     hpCardFlipTriggered = false;
@@ -144,7 +151,7 @@ public class ShopManager : MonoBehaviour
                     isPlayerInteractingWithShop = false;
 
                     //ChangeToOriginalView();
-                    isCamearaTransitioning = true;
+                    isCameraTransitioning = true;
 
                     // Reset Flip Triggers
                     hpCardFlipTriggered = false;
@@ -161,7 +168,7 @@ public class ShopManager : MonoBehaviour
                 isPlayerInteractingWithShop = false;
 
                 ChangeToOriginalView();
-                isCamearaTransitioning = true;
+                isCameraTransitioning = true;
 
                 // Reset Flip Triggers
                 hpCardFlipTriggered = false;
@@ -187,18 +194,19 @@ public class ShopManager : MonoBehaviour
 
     private void DisplayShopUI()
     {
-        if (shopInteractColliderHandler.GetIsPlayerWithinRange() && !isPlayerInteractingWithShop && !finishedPurchase)
+ 
+        if (distanceToPlayer <= 1f && !isPlayerInteractingWithShop && !finishedPurchase)
         {
             if(Input.GetKeyDown(KeyCode.U))
             {
-                isCamearaTransitioning = true;
+                isCameraTransitioning = true;
 
                 shopInteractPopup.SetActive(false);
                 shopUI.SetActive(true);
                 isPlayerInteractingWithShop = true;
             }
         }
-        else if(!shopInteractColliderHandler.GetIsPlayerWithinRange())
+        else if(distanceToPlayer > 1f)
         {
             shopUI.SetActive(false);
             isPlayerInteractingWithShop = false;
@@ -207,7 +215,7 @@ public class ShopManager : MonoBehaviour
 
     private void DisplayShopPopup()
     {
-        if(shopInteractColliderHandler.GetIsPlayerWithinRange() && !isPlayerInteractingWithShop)
+        if(distanceToPlayer <= 1f && !isPlayerInteractingWithShop)
         {
             finishedPurchase = false;
             shopInteractPopup.SetActive(true);
@@ -254,13 +262,14 @@ public class ShopManager : MonoBehaviour
 
         if (Vector3.Distance(mainCamera.transform.position, shopCameraTransformObject.transform.position) <= 0.1f)
         {
-            isCamearaTransitioning = false;
+            isCameraTransitioning = false;
             isShopCameraActive = true;         
         }    
     }
 
     private void ChangeToOriginalView()
     {
+        shopInteractPopup.SetActive(false);
         mainCameraManager.ToggleBlackBars(false);
 
         mainCamera.transform.eulerAngles = originalCameraRotation;
@@ -276,7 +285,7 @@ public class ShopManager : MonoBehaviour
        
         if (Vector3.Distance(mainCamera.transform.localPosition, originalCameraPos) <= 0.1f)
         {
-            isCamearaTransitioning = false;
+            isCameraTransitioning = false;
             isShopCameraActive = false;
         }
     }

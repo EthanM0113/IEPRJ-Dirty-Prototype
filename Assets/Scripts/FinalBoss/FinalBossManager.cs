@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,6 +44,8 @@ public class FinalBossManager : MonoBehaviour
     private int actionsDone = 0;
     private float actionDelay = 2f;
     [SerializeField] private GameObject endScreen;
+    private bool isInvincible = false;
+    private FinalBossUIManager finalBossUIManager;
 
     // Phase 2 
     private bool isHunting = false;
@@ -52,6 +55,14 @@ public class FinalBossManager : MonoBehaviour
     private float originalHuntSpeed;
     [SerializeField] private GameObject meleeAreaPrefab;
     private bool isMelee = false;
+    private int meleesDone = 0;
+    private int meleesRequired = 1; // at first do 1 melee before switching to shadow form
+
+    // Roaming 
+    private Vector3 roamPosition = Vector3.zero;
+    private bool isRoaming;
+    private float roamTicks = 0f;
+    [SerializeField] private float roamDuration;
 
     // Debugging 
     [SerializeField] private bool skip1stPhase = false;
@@ -72,76 +83,135 @@ public class FinalBossManager : MonoBehaviour
         actionsToTeleport = Random.Range(minTPActions, maxTPActions + 1);
 
         originalHuntSpeed = huntSpeed;
+
+        finalBossUIManager = FindObjectOfType<FinalBossUIManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(CheckTransitionPhase());
-        
-        if(state == BOSS_STATE.PHASE_ONE && !skip1stPhase)
+        if(finalBossUIManager.GetPlayerWithinRange())
         {
-            if(actionsDone == actionsToTeleport)
+            StartCoroutine(CheckTransitionPhase());
+
+            if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase)
             {
-                if (!doingAction)
-                    StartCoroutine(RandomTeleport());
+                if (actionsDone == actionsToTeleport)
+                {
+                    if (!doingAction)
+                        StartCoroutine(RandomTeleport());
+                }
+                else if (chosenAction == 0)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootSmallProjectiles());
+                }
+                else if (chosenAction == 1)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootMediumProjectiles());
+                }
+                else if (chosenAction == 2)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootLargeProjectile());
+                }
+                else if (chosenAction == 3)
+                {
+                    if (!doingAction)
+                        StartCoroutine(SpawnShadowHands());
+                }
             }
-            else if(chosenAction == 0)
+            else if (state == BOSS_STATE.PHASE_TWO)
             {
-                if (!doingAction)
-                    StartCoroutine(ShootSmallProjectiles());
+                RandomBossAttack();
+
+                if (isHunting)
+                {
+                    StartCoroutine(CheckMeleeAttack());
+                    HuntPlayer();
+                }
+                else if (!isHunting)
+                {
+                    // Transform into shadow and roam around room
+                    StartCoroutine(TriggerShadowForm());
+                }
             }
-            else if(chosenAction == 1) 
-            {
-                if (!doingAction)
-                    StartCoroutine(ShootMediumProjectiles());
-            }
-            else if(chosenAction == 2)
-            {
-                if (!doingAction)
-                    StartCoroutine(ShootLargeProjectile());
-            }
-            else if (chosenAction == 3)
-            {
-                if (!doingAction)
-                    StartCoroutine(SpawnShadowHands());
-            }
+
         }
-        else if(state == BOSS_STATE.PHASE_TWO)
+    }
+
+    private IEnumerator TriggerShadowForm()
+    {
+        // Track time passed while roaming, after x time go back to hunting
+        roamTicks += Time.deltaTime;
+        if (roamTicks >= roamDuration)
         {
-            StartCoroutine(CheckMeleeAttack());
-            RandomBossAttack();
-
-            if (isHunting)
-            {
-                HuntPlayer();
-            }
+            isInvincible = false; // make vulnerable already as soon as reaching target duration
+            yield return new WaitForSeconds(3f); // Wait a sec for VERY vulnerable
+            roamTicks = 0f;
+            isHunting = true;
         }
 
-        
+        if(!isHunting)
+        {
+            // Find new roam position
+            if (!isRoaming)
+            {
+                Random.InitState(Random.Range(int.MinValue, int.MaxValue));
+                float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
+                float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
+                roamPosition = new Vector3(newX, finalBoss.transform.position.y, newZ);
+                isRoaming = true;
+                isInvincible = true;
+            }
 
+            // Move towards roam position
+            finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, roamPosition, originalHuntSpeed * Time.deltaTime * 6);
+
+            // Check distance to roam position
+            float distance = Vector3.Distance(finalBoss.transform.position, roamPosition);
+
+            // Find new roam position upon reaching or after certain time passes
+            if (distance <= 0.01f)
+            {
+                isRoaming = false;
+            }
+        }  
     }
 
     private IEnumerator CheckMeleeAttack()
     {
+   
         // Find Player Location
-        GameObject player = GameObject.FindGameObjectWithTag("Player"); 
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         // Check Distance to Player
-        float distance = Vector3.Distance(finalBoss.transform.position, player.transform.position);     
-        
+        float distance = Vector3.Distance(finalBoss.transform.position, player.transform.position);
+
         // Melee if Close enough
-        if(distance < 1f && !isMelee)
+        if (distance < 1f && !isMelee)
         {
             isMelee = true;
-            isHunting = false;
+            huntSpeed = 0; // stop movement
             GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
             meleeArea.transform.parent = null;
             meleeArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             yield return new WaitForSeconds(2f); // Wait a sec for vulnerable
-            isHunting = true;
+            huntSpeed = originalHuntSpeed;
             isMelee = false;
+
+            meleesDone++;
+            // Roam or turn into shadow form after certain melee attacks
+            if (meleesDone == meleesRequired)
+            {
+                isHunting = false;
+                meleesRequired = Random.Range(1, 4);
+                meleesDone = 0;
+                roamTicks = 0f;
+            }
         }
+        
     }
 
     private void RandomBossAttack()
@@ -191,6 +261,7 @@ public class FinalBossManager : MonoBehaviour
 
             // Set Phase 2 Variables
             isHunting = true;
+            isRoaming = false;
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
@@ -222,7 +293,7 @@ public class FinalBossManager : MonoBehaviour
     private IEnumerator SpawnShadowHands()
     {
         // Change speed
-        if (state == BOSS_STATE.PHASE_TWO)
+        if (state == BOSS_STATE.PHASE_TWO && !isMelee)
             huntSpeed = originalHuntSpeed * 2;
 
         doingAction = true;
@@ -285,7 +356,7 @@ public class FinalBossManager : MonoBehaviour
     private IEnumerator ShootMediumProjectiles()
     {
         // Change speed
-        if (state == BOSS_STATE.PHASE_TWO)
+        if (state == BOSS_STATE.PHASE_TWO && !isMelee)
             huntSpeed = originalHuntSpeed;
 
         doingAction = true;
@@ -371,11 +442,11 @@ public class FinalBossManager : MonoBehaviour
 
     public void DamageBoss()
     {
-        if(state == BOSS_STATE.PHASE_ONE)
+        if(state == BOSS_STATE.PHASE_ONE && !isInvincible)
         {
             currentHP -= 0.13f; // 8 hits to die
         }
-        else if (state == BOSS_STATE.PHASE_TWO)
+        else if (state == BOSS_STATE.PHASE_TWO && !isInvincible)
         {
             currentHP -= 0.09f; // 12 hits to die
         }
