@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using static PlayerAbilityHandler;
 
@@ -9,6 +10,9 @@ public class PlayerDataHolder : MonoBehaviour
     PlayerAbilityHandler abilityHandler;
     PlayerHearts heartHandler;
     PlayerController fuelHandler;
+
+    [SerializeField] int defaultMaxHP = 3;
+    float defaultMaxFuel = 50;
 
     int currentHP = 3,
         maxHP = 3;
@@ -20,9 +24,8 @@ public class PlayerDataHolder : MonoBehaviour
     List<AbilityStats> consumedAbilities = new List<AbilityStats>();
     List<Ability.Type> currentAbility = new List<Ability.Type>();
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
         if (Instance == null)
         {
             Instance = this;
@@ -32,15 +35,29 @@ public class PlayerDataHolder : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
+
+        maxHP = defaultMaxHP; 
+        maxFuel = defaultMaxFuel;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
-    }
+        if (scene.name == "MainMenu")
+        {
+            maxHP = defaultMaxHP;
+            maxFuel = defaultMaxFuel;
+            //Debug.Log("On Main Menu");
+        }
+        else if (scene.name == "LevelOne")
+        {
+            maxHP = defaultMaxHP;
+            //maxFuel = defaultMaxFuel;
+            //Debug.Log("On Level 1");
 
+        }
+    }
+    
     public void SetAbilitiesReference(List<AbilityStats> abilities, List<Ability.Type> current)
     {
         consumedAbilities.Clear();

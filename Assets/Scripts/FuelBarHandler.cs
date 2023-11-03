@@ -23,7 +23,8 @@ public class FuelBarHandler : MonoBehaviour
     {
         playerController = FindObjectOfType<PlayerController>();
         borderAnim = GetComponent<Animator>();
-        maxFuel = playerController.GetMaxFuel();
+        //maxFuel = playerController.GetMaxFuel();
+        maxFuel = PlayerDataHolder.Instance.GetMaxFuel();
         originalFlameScale = flameHandle.transform.localScale;
     }
 
