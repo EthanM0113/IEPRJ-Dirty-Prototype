@@ -111,6 +111,12 @@ public class SoundManager : MonoBehaviour
         effectsSource.PlayOneShot(backstabHit);
     }
 
+    public void EnemyPerish(AudioClip baseEnemyPerish)
+    {
+        effectsSource.volume = 0.2f * sfxMultiplier;
+        effectsSource.PlayOneShot(baseEnemyPerish);
+    }
+
     public void PurchaseSuccess()
     {
         effectsSource.volume = 1.0f * sfxMultiplier;

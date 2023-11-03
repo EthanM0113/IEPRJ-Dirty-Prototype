@@ -37,12 +37,12 @@ public class BaseEnemy : MonoBehaviour
     }
 
 
-    public void PauseEnemy()
+    virtual public void PauseEnemy()
     {
         isActivated = false;
     }
 
-    public void ResumeEnemy()
+    virtual public void ResumeEnemy()
     {
         isActivated = true;
     }

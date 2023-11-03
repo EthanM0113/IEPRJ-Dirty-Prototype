@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.AI;
+using Unity.VisualScripting;
+using static Unity.VisualScripting.Member;
 
 public class TestEnemy : BaseEnemy
 {
@@ -19,12 +21,15 @@ public class TestEnemy : BaseEnemy
 
     [SerializeField] Transform[] route;
 
-    
+    AudioSource sfxSource;
+    [SerializeField] AudioClip perishSFX;
+    [SerializeField] AudioClip idleSFX;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        sfxSource = GetComponent<AudioSource>();
     }
 
     public override void Activate() // Everytime the enemy is spawned
@@ -33,6 +38,9 @@ public class TestEnemy : BaseEnemy
         isActivated = true;
         currentState = State.STATIONARY;
         waitTimer = Random.Range(startWaitTime, endWaitTime);
+        sfxSource.clip = idleSFX;
+        sfxSource.volume = 0.8f * SoundManager.Instance.GetSFXMultiplier();
+        sfxSource.Play();
     }
 
     // Update is called once per frame
@@ -41,7 +49,10 @@ public class TestEnemy : BaseEnemy
         if (isActivated)
         {
             Move();
+            sfxSource.volume = 0.8f * SoundManager.Instance.GetSFXMultiplier();
+            Debug.Log("Volume " + SoundManager.Instance.GetSFXMultiplier());
         }
+
     }
 
     private void Move()
@@ -96,5 +107,20 @@ public class TestEnemy : BaseEnemy
         }
     }
 
+    public override void EnemyDeath()
+    {
+        SoundManager.Instance.EnemyPerish(perishSFX);
+        base.EnemyDeath();
+    }
+    public override void PauseEnemy()
+    {
+        sfxSource.mute = true;
+        isActivated = false;
+    }
 
+    public override void ResumeEnemy()
+    {
+        sfxSource.mute = false;
+        isActivated = true;
+    }
 }

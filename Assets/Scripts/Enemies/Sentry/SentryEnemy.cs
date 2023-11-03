@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Sprites;
 using UnityEngine.Animations;
+using static Unity.VisualScripting.Member;
 
 public class SentryEnemy : BaseEnemy
 {
@@ -32,6 +33,10 @@ public class SentryEnemy : BaseEnemy
 
     Animator anim;
 
+    AudioSource source;
+    [SerializeField] AudioClip perishSFX;
+    float volumeOffset = 0.8f;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -46,6 +51,12 @@ public class SentryEnemy : BaseEnemy
         }
         spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
         spriteIndex++;
+
+        source = GetComponent<AudioSource>();
+        source.volume = volumeOffset * SoundManager.Instance.GetSFXMultiplier();
+
+        source.Play();
+
     }
 
     // Update is called once per frame
@@ -83,15 +94,30 @@ public class SentryEnemy : BaseEnemy
 
                 spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
                 spriteIndex++;
-
+                source.volume = volumeOffset * SoundManager.Instance.GetSFXMultiplier();
             }
         }
     }
 
     public override void EnemyDeath()
     {
+        SoundManager.Instance.EnemyPerish(perishSFX);
         anim.enabled = true;
         anim.SetTrigger("OnDeath");
         base.EnemyDeath();
+    }
+
+    public override void PauseEnemy()
+    {
+        isActivated = false;
+        source.mute = true;
+
+    }
+
+    public override void ResumeEnemy()
+    {
+        isActivated = true;
+        source.mute = false;
+
     }
 }

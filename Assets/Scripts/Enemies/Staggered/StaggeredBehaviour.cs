@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class StaggeredBehaviour : BaseEnemy
 {
@@ -27,13 +28,20 @@ public class StaggeredBehaviour : BaseEnemy
 
     [SerializeField] Transform[] route;
 
+    [SerializeField] AudioClip perishSFX;
+    [SerializeField] AudioClip moveSFX;
+    [SerializeField] AudioClip attackSFX;
+    [SerializeField] AudioClip attackVOX;
 
+    AudioSource source;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         faceRef = GetComponent<FaceDirection>();
+        source = GetComponent<AudioSource>();
+        source.volume = SoundManager.Instance.GetSFXMultiplier();
     }
 
     public override void Activate() // Everytime the enemy is spawned
@@ -128,7 +136,25 @@ public class StaggeredBehaviour : BaseEnemy
 
     public override void EnemyDeath()
     {
+        SoundManager.Instance.EnemyPerish(perishSFX);
         anim.SetTrigger("Dead");
         base.EnemyDeath();
     }
+
+    public void PlayMoveSFX()
+    {
+        source.volume = 1.5f * SoundManager.Instance.GetSFXMultiplier();
+
+        source.PlayOneShot(moveSFX);
+    }
+
+    public void PlayAttackSFX()
+    {
+        source.volume = SoundManager.Instance.GetSFXMultiplier();
+
+        source.PlayOneShot(attackSFX);
+        source.PlayOneShot(attackVOX);
+
+    }
+
 }
