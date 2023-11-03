@@ -23,6 +23,13 @@ public class SoundManager : MonoBehaviour
         //else
             //Destroy(gameObject);
     }
+
+    public void editVolume(float music, float effect)
+    {
+        musicSource.volume = music;
+        effectsSource.volume = effect;
+
+    }
     
     public void Torchbearer() {
         musicSource.volume = 0.3f;

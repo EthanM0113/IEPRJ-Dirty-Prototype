@@ -9,6 +9,10 @@ public class SceneSelector : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && LevelName == "Tutorial")
         {
+
+            PlayerDataHolder playerDataHolder = PlayerDataHolder.Instance;
+
+            playerDataHolder.SetSettingsData(FindObjectOfType<UIHandler>());
             SceneManager.LoadScene("LevelOne");
         }
     }

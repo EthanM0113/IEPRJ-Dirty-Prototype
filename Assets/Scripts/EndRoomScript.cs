@@ -23,6 +23,7 @@ public class EndRoomScript : MonoBehaviour
                 );
             playerDataHolder.SetHealthReference(FindObjectOfType<PlayerHearts>());
             playerDataHolder.SetPlayerReference(FindObjectOfType<PlayerController>());
+            playerDataHolder.SetSettingsData(FindObjectOfType<UIHandler>());
 
             SceneSelector sceneSelector = GetComponent<SceneSelector>();
             sceneSelector.ChangeLevels();

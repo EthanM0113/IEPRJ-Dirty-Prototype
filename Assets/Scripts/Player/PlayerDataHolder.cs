@@ -20,6 +20,8 @@ public class PlayerDataHolder : MonoBehaviour
 
     public static PlayerDataHolder Instance;
 
+    float currentMusicVolume = 0.3f, currentColor = 0.5f, currentSFXVolume = 0.3f;
+
 
     List<AbilityStats> consumedAbilities = new List<AbilityStats>();
     List<Ability.Type> currentAbility = new List<Ability.Type>();
@@ -113,5 +115,26 @@ public class PlayerDataHolder : MonoBehaviour
     public float GetMaxFuel()
     {
         return maxFuel;
+    }
+
+    public void SetSettingsData(UIHandler handler)
+    {
+        currentColor = handler.brightnessSlider.value;
+        currentMusicVolume = handler.musicSlider.value;
+        currentSFXVolume = handler.sfxSlider.value;
+    }
+
+    public float GetCurrentSFXVolume()
+    {
+        return currentSFXVolume;
+    }
+    public float GetCurrentMusicVolume()
+    {
+        return currentMusicVolume;
+    }
+
+    public float GetCurrentColor()
+    {
+        return currentColor;
     }
 }
