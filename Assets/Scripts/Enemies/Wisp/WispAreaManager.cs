@@ -76,8 +76,9 @@ public class WispAreaManager : MonoBehaviour
                     wispAnimator.SetBool("didTP", true);
                     wispAnimationManager.NotFinishedTP();
                     assignedWisp.GetComponent<WispBehaviour>().PlayPreTPParticles();
-                    Debug.Log("Teleporting!");
+                    Debug.Log("Teleporting!");  
                     wispSelfLight.intensity = 140.0f;
+                    SoundManager.Instance.WispTP();
                 }
 
                 if (wispAnimationManager.GetFinishedTP())

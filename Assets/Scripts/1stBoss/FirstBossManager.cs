@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +34,10 @@ public class FirstBossManager : MonoBehaviour
     // Boss Hp Bar Variables
     [SerializeField] private Image healthBar;
 
+    // Groan 
+    private float groanTicks = 0f;
+    private float groanInterval = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +60,11 @@ public class FirstBossManager : MonoBehaviour
     {
         if (firstBossUIManager.GetPlayerWithinRange()) // should offload some memory
         {
+
             if (!isBossDead)
             {
+                PlayRandomGroans();
+
                 if (areBothTorchesLit = CheckTwoTorchesLit())
                 {
                     //Debug.Log("Torches remain lit");
@@ -82,9 +90,28 @@ public class FirstBossManager : MonoBehaviour
         
     }
 
+    private void PlayRandomGroans()
+    {
+        groanTicks += Time.deltaTime;   
+        if(groanTicks > groanInterval) 
+        {
+            int chosenGroan = UnityEngine.Random.Range(0, 2);
+            if (chosenGroan == 0)
+                SoundManager.Instance.TB_GruntA();
+            else if (chosenGroan == 1)
+                SoundManager.Instance.TB_GruntB();
+
+            groanTicks = 0;
+
+            groanInterval = UnityEngine.Random.Range(1f, 7f);
+        }
+    }
+
     private IEnumerator PlayBossDeathCutscene()
     {
         Debug.Log("PLAYING BOSS DEATH CUTSCENE");
+
+
 
         isCutscenePlaying = true;
 
@@ -96,6 +123,7 @@ public class FirstBossManager : MonoBehaviour
 
         yield return new WaitForSeconds(5.0f);
         deathParticles.Play();
+        SoundManager.Instance.TB_Slay();
         firstBossAnimator.SetTrigger("isDead");
         yield return new WaitForSeconds(2.0f); // finish death animation
         firstBossMovement.gameObject.SetActive(false);
@@ -120,7 +148,7 @@ public class FirstBossManager : MonoBehaviour
 
         while (!isDoneSettingTorches)
         {
-            int pickedTorch = Random.Range(0, 4);
+            int pickedTorch = UnityEngine.Random.Range(0, 4);
             //Debug.Log("Picked Torch " + pickedTorch);
 
             if (litTorches.Count == 0)
@@ -145,6 +173,7 @@ public class FirstBossManager : MonoBehaviour
         //Debug.Log("Selected Torch " + litTorches[0] + " and Torch " + litTorches[1]);
 
         // Light 2 Selected Torches
+        SoundManager.Instance.TB_LightTorch();
         hpTorches[litTorches[0]].GetComponent<HpTorchHandler>().SetFlameLight(true);
         hpTorches[litTorches[1]].GetComponent<HpTorchHandler>().SetFlameLight(true);
 
@@ -154,6 +183,7 @@ public class FirstBossManager : MonoBehaviour
 
     public void DealDamageToBoss()
     {
+        SoundManager.Instance.TB_Damage();
         bossHp -= 0.34f; // 3 hits to die
         healthBar.fillAmount = bossHp;
         firstBossMovement.IncreaseSpeed(speedIncrementOnHit);

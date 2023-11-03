@@ -140,6 +140,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if(enemy.CompareTag(hpTorchTag))
         {
+            SoundManager.Instance.TB_ExtinguishTorch();
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
             return true;
         }

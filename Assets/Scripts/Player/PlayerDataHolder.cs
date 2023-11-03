@@ -20,7 +20,7 @@ public class PlayerDataHolder : MonoBehaviour
 
     public static PlayerDataHolder Instance;
 
-    float currentMusicVolume = 0.3f, currentColor = 0.5f, currentSFXVolume = 0.3f;
+    float currentMusicVolume = 1f, currentColor = 0.5f, currentSFXVolume = 1f;
 
 
     List<AbilityStats> consumedAbilities = new List<AbilityStats>();

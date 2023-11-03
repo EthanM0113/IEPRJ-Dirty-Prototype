@@ -239,6 +239,7 @@ public class PlayerController : MonoBehaviour
 
         if (!canMove)
         {
+            GetComponent<AudioSource>().Stop();
             moveInput.x = 0;
             moveInput.y = 0;
         }
@@ -246,6 +247,7 @@ public class PlayerController : MonoBehaviour
        
         if (/*Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume()) // Consume
         {
+            GetComponent<AudioSource>().Stop(); // Stops walking animation from overlapping
             playerAbility.Consume();
             animator.SetBool("IsConsuming", true);
 
@@ -267,8 +269,6 @@ public class PlayerController : MonoBehaviour
                     Mathf.Abs(moveInput.y) > 0) // if there is a movement input
                 {
                     animator.SetBool("IsMoving", true);
-                    if (!GetComponent<AudioSource>().isPlaying)
-                        GetComponent<AudioSource>().Play();
                 }
                 else // not moving
                 {
@@ -283,11 +283,13 @@ public class PlayerController : MonoBehaviour
                 {
                     if (playerCombat.CheckRadius())
                     {
+                        GetComponent<AudioSource>().Stop(); // Stops walking animation from overlapping
                         animator.SetTrigger("Attack");
 
                     }
                     else
                     {
+                        GetComponent<AudioSource>().Stop(); // Stops walking animation from overlapping
                         animator.SetTrigger("AttackMiss");
                     }
 
@@ -339,6 +341,7 @@ public class PlayerController : MonoBehaviour
                     if (moveInput != Vector2.zero)
                     {
                         StartCoroutine(Dash());
+                        GetComponent<AudioSource>().Stop(); // Stops walking animation from overlapping
                         animator.SetTrigger("Dash");
                     }
                     
@@ -430,6 +433,14 @@ public class PlayerController : MonoBehaviour
     private void Move() 
     {
         if (!canMove) return;
+
+        // Play footsteps only during motion
+        if (!GetComponent<AudioSource>().isPlaying)
+        {
+            GetComponent<AudioSource>().volume = 1.0f * SoundManager.Instance.GetSFXMultiplier();
+            GetComponent<AudioSource>().Play();
+        }
+
         rb.velocity = new Vector3
             (
                moveInput.normalized.x * actualSpeed * Time.deltaTime,

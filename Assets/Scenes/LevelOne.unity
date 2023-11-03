@@ -1634,6 +1634,10 @@ PrefabInstance:
       propertyPath: playerMoneyUIHandler
       value: 
       objectReference: {fileID: 670446065}
+    - target: {fileID: 2694273800079875613, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8600752381076193321, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.18
@@ -1702,7 +1706,8 @@ PrefabInstance:
       propertyPath: playerHearts
       value: 
       objectReference: {fileID: 2105604280}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2694273800079875613, guid: f17f9ffa883063045ada6bcdd685d33a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2244,11 +2249,21 @@ MonoBehaviour:
   bigTorch: {fileID: 8300000, guid: 8ce5ba5114ba19d489a5d64c3373f6e7, type: 3}
   purchaseSuccess: {fileID: 8300000, guid: ac9fdf0c2cecf414992444a0f04c8e9a, type: 3}
   purchaseFail: {fileID: 8300000, guid: d2ed70c7e9d5d574ba260a5d71a4481e, type: 3}
+  bossSlay: {fileID: 8300000, guid: 09c679c51d73f2f4f9b8ec2b7a2fb02f, type: 3}
+  tb_litTorch: {fileID: 8300000, guid: 342414fbe5019cf4c882c29eeb357ee0, type: 3}
+  tb_extinguishTorch: {fileID: 8300000, guid: 6ec0274882a0ce04ba380a4828074941, type: 3}
+  tb_gruntA: {fileID: 8300000, guid: 230c7ac838cea1740b41654a97560a13, type: 3}
+  tb_gruntB: {fileID: 8300000, guid: f538e48fb7ca1004aabca672e5e21663, type: 3}
+  tb_damage: {fileID: 8300000, guid: 1f43fd0d045783148ae63aacdb469a5d, type: 3}
+  tb_defeat: {fileID: 8300000, guid: 918620c5373fba340be1dc08b8f1759c, type: 3}
   darkerTheme: {fileID: 8300000, guid: 6fd550998f6c9a4408c54edd464feac7, type: 3}
   gameOver: {fileID: 8300000, guid: 05e36ecc680085e468472aa7cd73bd93, type: 3}
   levelMusic: {fileID: 8300000, guid: a83b2218e5a83e5489fb0784b80c522c, type: 3}
   mainMenu: {fileID: 8300000, guid: bb2169c1eb6b0c24298af030beed41c6, type: 3}
   torchbearer: {fileID: 8300000, guid: 9832cb116884db94d9b140d2aeb947b0, type: 3}
+  musicMultiplier: 1
+  sfxMultiplier: 1
+  walkSFXMultiplier: 1
 --- !u!4 &400099803
 Transform:
   m_ObjectHideFlags: 0
@@ -5931,6 +5946,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: UIHandler, Assembly-CSharp
       objectReference: {fileID: 0}
+    - target: {fileID: 225099944918990057, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 225099944918990057, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
+      propertyPath: m_MaxValue
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4625612951826085654, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
       propertyPath: m_Name
       value: Game Phase GUI
@@ -5982,6 +6005,14 @@ PrefabInstance:
     - target: {fileID: 7425358116929820546, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 117
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860359778684971415, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
+      propertyPath: m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860359778684971415, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
+      propertyPath: m_MaxValue
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8061847381439789359, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
       propertyPath: buttonSound
@@ -8555,7 +8586,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -11053,6 +11084,7 @@ MonoBehaviour:
   NeedsIcon: 0
   IsActive: 0
   HasEnemy: 0
+  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
