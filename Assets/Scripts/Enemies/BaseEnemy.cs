@@ -22,6 +22,10 @@ public class BaseEnemy : MonoBehaviour
     // determines if the enemy is activated
     [SerializeField] protected bool isActivated = false;
     protected bool isAlive = true;
+
+    // For muting
+    private bool isMute = false;
+
     private void Start()
     {
         miniMapSprite.SetActive(false);
@@ -45,6 +49,17 @@ public class BaseEnemy : MonoBehaviour
     public bool GetBehaviour()
     {
         return isActivated;
+    }
+
+    public void SetIsMute(bool flag)
+    {
+        isMute = flag;
+    }
+
+
+    public bool GetIsMute()
+    {
+        return isMute;
     }
 
     // Spawns a dead version of the enemy

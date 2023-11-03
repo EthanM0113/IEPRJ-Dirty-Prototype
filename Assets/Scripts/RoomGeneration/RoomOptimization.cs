@@ -33,7 +33,6 @@ public class RoomOptimization : MonoBehaviour
         else
         {
             EnteredRoomSprite.SetActive(false);
-
         }
 
     }
@@ -58,6 +57,7 @@ public class RoomOptimization : MonoBehaviour
                 for (int i = 0; i < EnemyContainer.Length; i++)
                 {
                     EnemyContainer[i].PauseEnemy();
+                    EnemyContainer[i].SetIsMute(true);
                 }
 
             }
@@ -78,6 +78,7 @@ public class RoomOptimization : MonoBehaviour
             for (int i = 0; i < EnemyContainer.Length; i++)
             {
                 EnemyContainer[i].ResumeEnemy();
+                EnemyContainer[i].SetIsMute(false);
             }
 
         }

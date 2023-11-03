@@ -36,7 +36,7 @@ public class FirstBossManager : MonoBehaviour
 
     // Groan 
     private float groanTicks = 0f;
-    private float groanInterval = 1f;
+    private float groanInterval = 7f;
 
     // Start is called before the first frame update
     void Start()
@@ -103,7 +103,7 @@ public class FirstBossManager : MonoBehaviour
 
             groanTicks = 0;
 
-            groanInterval = UnityEngine.Random.Range(1f, 7f);
+            groanInterval = UnityEngine.Random.Range(5f, 10f);
         }
     }
 
