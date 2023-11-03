@@ -75,7 +75,7 @@ public class UIHandler : MonoBehaviour
     {
         SoundManager.Instance.PlaySound(buttonSound);
         SettingsPanel.SetActive(false);
-        PausePanel.SetActive(false);
+        PausePanel.SetActive(true);
     }
     
 }
