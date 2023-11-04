@@ -18,6 +18,7 @@ public class HelpfulChair : MonoBehaviour
 
         playerInventory.GetComponent<PlayerInventory>().SetFreezingScroll(true);
         chair.GetComponent<LoreObject>().UpdateText("Obtained a Scroll of Freezing!");
+        obtained = true;
     }
 
     void OnTriggerExit(Collider other)

@@ -6,6 +6,7 @@ public class GrandDoor : MonoBehaviour
 {
     [SerializeField] private GameObject grandDoor;
     [SerializeField] private GameObject playerInventory;
+    [SerializeField] private Animator grandDoorAnimator;
 
     private bool doorFixed = false;
 
@@ -13,14 +14,20 @@ public class GrandDoor : MonoBehaviour
     {
         if (playerInventory.GetComponent<PlayerInventory>().GetGear())
         {
+            if (doorFixed)
+                return;
+
             playerInventory.GetComponent<PlayerInventory>().SetGear(false);
             grandDoor.GetComponent<LoreObject>().UpdateText("The gear slides perfectly into place. The grand door is fixed!");
             doorFixed = true;
-            // TODO: script to transport player to the next level.
+            grandDoorAnimator.SetBool("isSolved", true);
             return;
         }
         else
         {
+            if(doorFixed) 
+                return;
+
             grandDoor.GetComponent<LoreObject>().UpdateText("It needs some kind of gear to crank open.");
         }
     }
@@ -31,6 +38,15 @@ public class GrandDoor : MonoBehaviour
         {
             if (!doorFixed)
                 grandDoor.GetComponent<LoreObject>().SetText("This is definitely the door to the next floor up.");
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (!doorFixed && playerInventory.GetComponent<PlayerInventory>().GetGear())
+                grandDoor.GetComponent<LoreObject>().UpdateText("Looks like the gear can fit in this door's mechanism.");
         }
     }
 }

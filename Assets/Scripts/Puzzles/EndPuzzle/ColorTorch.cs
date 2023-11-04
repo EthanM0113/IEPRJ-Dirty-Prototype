@@ -42,8 +42,8 @@ public class ColorTorch : MonoBehaviour
                     torchPrism.GetComponent<Renderer>().material.color = Color.yellow;
                     break;
                 case 3:
-                    flameLight.GetComponent<Light>().color = Color.gray;
-                    torchPrism.GetComponent<Renderer>().material.color = Color.gray;
+                    flameLight.GetComponent<Light>().color = Color.green;
+                    torchPrism.GetComponent<Renderer>().material.color = Color.green;
                     break;
                 default:
                     Debug.Log("error in Color Torch");
