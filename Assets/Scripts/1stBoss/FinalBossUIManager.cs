@@ -8,6 +8,8 @@ public class FinalBossUIManager : MonoBehaviour
     [SerializeField] private bool playerWithinRange;
     [SerializeField] private bool bossMusicPlayed;
     private bool isBossDead = false;
+    [SerializeField] private GameObject hpTextUI;
+    [SerializeField] private GameObject hpBarUI;
 
     // Start is called before the first frame update
     void Start()
@@ -68,9 +70,10 @@ public class FinalBossUIManager : MonoBehaviour
         return playerWithinRange;
     }
 
-    public void DisableBossUI()
+    public void DisableHPUI()
     {
         isBossDead = true;
-        bossUI.SetActive(false);    
+        hpTextUI.SetActive(false);
+        hpBarUI.SetActive(false);
     }
 }

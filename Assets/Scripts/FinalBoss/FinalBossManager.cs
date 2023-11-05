@@ -47,8 +47,11 @@ public class FinalBossManager : MonoBehaviour
     private bool isInvincible = false;
     private FinalBossUIManager finalBossUIManager;
     [SerializeField] private Animator finalBossAnimator;
+    private bool isFacingLeft = true;
+    private SpriteRenderer finalBossSpriteRenderer;
 
     // Phase 2 
+    private bool isTransitioning = false;
     private bool isHunting = false;
     private float randomAttackTicks = 0f;
     private float randomAttackInterval = 2f;
@@ -86,13 +89,21 @@ public class FinalBossManager : MonoBehaviour
         originalHuntSpeed = huntSpeed;
 
         finalBossUIManager = FindObjectOfType<FinalBossUIManager>();
+
+        // Get Sprite Renderer
+        finalBossSpriteRenderer = finalBoss.GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(finalBossUIManager.GetPlayerWithinRange())
+ 
+
+        if (finalBossUIManager.GetPlayerWithinRange())
         {
+            if(currentHP > 0f)
+            FlipBoss();
+
             StartCoroutine(CheckTransitionPhase());
 
             if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase)
@@ -123,7 +134,7 @@ public class FinalBossManager : MonoBehaviour
                         StartCoroutine(SpawnShadowHands());
                 }
             }
-            else if (state == BOSS_STATE.PHASE_TWO)
+            else if (state == BOSS_STATE.PHASE_TWO && currentHP > 0f && !isTransitioning) 
             {
                 RandomBossAttack();
 
@@ -142,13 +153,43 @@ public class FinalBossManager : MonoBehaviour
         }
     }
 
+    private void FlipBoss()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        Vector3 difference = finalBoss.transform.position - player.transform.position;
+        Debug.Log("A - B: " + difference);
+
+        if(difference.x < 0f) // Face Right
+        {
+            if(isFacingLeft)
+            {
+                finalBossSpriteRenderer.flipX = true;
+                isFacingLeft = false;
+            }
+        }
+        else if(difference.x >= 0f) // Face Left
+        {
+            if (!isFacingLeft)
+            {
+                finalBossSpriteRenderer.flipX = false;
+                isFacingLeft = true;
+            }
+        }
+    }
+
     private IEnumerator TriggerShadowForm()
     {
         // Track time passed while roaming, after x time go back to hunting
         roamTicks += Time.deltaTime;
         if (roamTicks >= roamDuration)
         {
-            isInvincible = false; // make vulnerable already as soon as reaching target duration
+            // Transform back to Idle from Puddle
+            finalBossAnimator.SetBool("isPuddle", false);
+            finalBossAnimator.SetBool("isPuddleToIdle", true);
+            yield return new WaitForSeconds(0.8f); // Finish Animation
+            finalBossAnimator.SetBool("isPuddleToIdle", false);
+
+            isInvincible = false; // make vulnerable already as soon as reaching target duration and animation finished
             yield return new WaitForSeconds(3f); // Wait a sec for VERY vulnerable
             roamTicks = 0f;
             isHunting = true;
@@ -193,24 +234,36 @@ public class FinalBossManager : MonoBehaviour
         // Melee if Close enough
         if (distance < 1f && !isMelee)
         {
+            finalBossAnimator.SetBool("isHunting", false);
+            finalBossAnimator.SetBool("isMelee", true);
             isMelee = true;
             huntSpeed = 0; // stop movement
             GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
             meleeArea.transform.parent = null;
             meleeArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            yield return new WaitForSeconds(0.8f); // Finish Animation
+            
+            finalBossAnimator.SetBool("isMelee", false);
             yield return new WaitForSeconds(2f); // Wait a sec for vulnerable
             huntSpeed = originalHuntSpeed;
-            isMelee = false;
 
             meleesDone++;
             // Roam or turn into shadow form after certain melee attacks
             if (meleesDone == meleesRequired)
             {
-                isHunting = false;
                 meleesRequired = Random.Range(1, 4);
                 meleesDone = 0;
                 roamTicks = 0f;
+
+                // Transition to shadow form
+                finalBossAnimator.SetBool("isIdleToPuddle", true);
+                yield return new WaitForSeconds(0.9f); // Finish Animation
+                finalBossAnimator.SetBool("isIdleToPuddle", false);
+                finalBossAnimator.SetBool("isPuddle", true);
+
+                isHunting = false;
             }
+            isMelee = false;
         }
         
     }
@@ -245,15 +298,22 @@ public class FinalBossManager : MonoBehaviour
     private void HuntPlayer()
     {
         // Find Player Location
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(!isMelee && isHunting)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, player.transform.position, huntSpeed * Time.deltaTime);
+            finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, player.transform.position, huntSpeed * Time.deltaTime);
+            finalBossAnimator.SetBool("isHunting", true);
+        }
     }
 
     private IEnumerator CheckTransitionPhase()
     {
-        if(currentHP <= 0f && state == BOSS_STATE.PHASE_ONE)
+        if(currentHP <= 0f && state == BOSS_STATE.PHASE_ONE && !isTransitioning)
         {
+            isTransitioning = true;
+            isInvincible = true;
+
             doingAction = true;
             // Play Death Animation
             finalBossAnimator.SetBool("isPhase1Done", true);
@@ -263,16 +323,25 @@ public class FinalBossManager : MonoBehaviour
             Debug.Log("1st Phase Done");
             currentHP = 1f; // Fill HP Again
             hpBar.fillAmount = currentHP;
-            state = BOSS_STATE.PHASE_TWO;
+
+            // Switch to Phase 2 Animation
+            finalBossAnimator.SetBool("isPhase2", true);
 
             // Set Phase 2 Variables
+            doingAction = false;
+            isInvincible = false;
+            isTransitioning = false;
             isHunting = true;
             isRoaming = false;
-            doingAction = false;
+            state = BOSS_STATE.PHASE_TWO;
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
+            finalBossUIManager.DisableHPUI();
+            TurnOffAllPhase2Animations();
             yield return new WaitForSeconds(2f); // Wait a sec for suspense
+            finalBossAnimator.SetBool("isDead", true);
+            yield return new WaitForSeconds(3f); // Finsh Animation + a bit more
             Debug.Log("Beat Final Boss, Congratulations.");
             endScreen.SetActive(true);
         }
@@ -483,10 +552,24 @@ public class FinalBossManager : MonoBehaviour
         }
         else if (state == BOSS_STATE.PHASE_TWO && !isInvincible)
         {
+            // Play hit animation
+            finalBossAnimator.SetBool("isPhase2Hit", true);
+            yield return new WaitForSeconds(0.1f);
+            finalBossAnimator.SetBool("isPhase2Hit", false);
+
             currentHP -= 0.09f; // 12 hits to die
         }
         
         hpBar.fillAmount = currentHP;
+    }
+
+    private void TurnOffAllPhase2Animations()
+    {
+        finalBossAnimator.SetBool("isIdleToPuddle", false);
+        finalBossAnimator.SetBool("isPuddle", false);
+        finalBossAnimator.SetBool("isPuddleToIdle", false);
+        finalBossAnimator.SetBool("isHunting", false);
+        finalBossAnimator.SetBool("isMelee", false);
     }
 
 
