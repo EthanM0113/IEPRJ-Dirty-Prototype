@@ -15,16 +15,6 @@ public class EndRoomScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.U))
         {
-            PlayerDataHolder playerDataHolder = PlayerDataHolder.Instance;
-
-            playerDataHolder.SetAbilitiesReference(
-                FindObjectOfType<PlayerAbilityHandler>().GetConsumedAbilities(), 
-                FindObjectOfType<PlayerAbilityHandler>().GetCurrentAbilities()
-                );
-            playerDataHolder.SetHealthReference(FindObjectOfType<PlayerHearts>());
-            playerDataHolder.SetPlayerReference(FindObjectOfType<PlayerController>());
-            playerDataHolder.SetSettingsData(FindObjectOfType<UIHandler>());
-
             SceneSelector sceneSelector = GetComponent<SceneSelector>();
             sceneSelector.ChangeLevels();
         }

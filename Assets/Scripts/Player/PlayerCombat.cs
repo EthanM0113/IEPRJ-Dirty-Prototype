@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [System.Serializable]
 public class PlayerCombat : MonoBehaviour
@@ -58,8 +59,10 @@ public class PlayerCombat : MonoBehaviour
 
         if (hitEnemies.Length == 0)
             return false;
-        else 
+        else
+        {
             return true;
+        }
         
     }
 

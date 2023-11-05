@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
         isSneaking = false;
         actualSpeed = speed;
         fuelTicks = 0.0f;
-        MAX_FUEL = 10;// PlayerDataHolder.Instance.GetMaxFuel();
+        MAX_FUEL = PlayerDataHolder.Instance.GetMaxFuel();
         fuelAmt = MAX_FUEL;
         attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
         tr = GetComponent<TrailRenderer>();
@@ -804,6 +804,7 @@ public class PlayerController : MonoBehaviour
 
     public bool IncrementTorchCount()
     {
+        if (fuelAmt < 0) return false;
         activatedTorchCount++;
         if (activatedTorchCount % torchInterval == 0)
         {

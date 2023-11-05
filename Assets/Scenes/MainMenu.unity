@@ -528,11 +528,22 @@ MonoBehaviour:
   bigTorch: {fileID: 0}
   purchaseSuccess: {fileID: 0}
   purchaseFail: {fileID: 0}
+  bossSlay: {fileID: 0}
+  wispTP: {fileID: 0}
+  tb_litTorch: {fileID: 0}
+  tb_extinguishTorch: {fileID: 0}
+  tb_gruntA: {fileID: 0}
+  tb_gruntB: {fileID: 0}
+  tb_damage: {fileID: 0}
+  tb_defeat: {fileID: 0}
   darkerTheme: {fileID: 0}
   gameOver: {fileID: 0}
   levelMusic: {fileID: 0}
   mainMenu: {fileID: 0}
   torchbearer: {fileID: 0}
+  musicMultiplier: 1
+  sfxMultiplier: 1
+  walkSFXMultiplier: 1
 --- !u!4 &312909960
 Transform:
   m_ObjectHideFlags: 0
@@ -749,8 +760,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4292598747
+  m_fontColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1111,9 +1122,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -1130,7 +1141,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1028420895}
+  m_TargetGraphic: {fileID: 1434852563}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1461,7 +1472,7 @@ GameObject:
   - component: {fileID: 1434852564}
   - component: {fileID: 1434852563}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Yes Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1515,8 +1526,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289565073
+  m_fontColor: {r: 0.5671057, g: 0.56881535, b: 0.6792453, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2471,9 +2482,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.6132076, g: 0.6132076, b: 0.6132076, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_PressedColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2490,7 +2501,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1864863088}
+  m_TargetGraphic: {fileID: 1966064940}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -2690,7 +2701,7 @@ GameObject:
   - component: {fileID: 1966064941}
   - component: {fileID: 1966064940}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: No Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2744,8 +2755,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4289565073
+  m_fontColor: {r: 0.5671057, g: 0.56881535, b: 0.6792453, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

@@ -41,28 +41,34 @@ public class Interactable : MonoBehaviour
                 PlayerController playerController = other.GetComponent<PlayerController>();
                 playerController.fuelAmt -= fuelCost;
                 isInteractable = true;
+
+                if (showEnemiesTimer < Time.time)
+                {
+                    Collider[] enemies = Physics.OverlapSphere(transform.position, showEnemiesRadius, enemyLayer);
+
+                    foreach (Collider enemy in enemies)
+                    {
+                        if (enemy.GetComponent<BaseEnemy>())
+                        {
+                            enemy.GetComponent<BaseEnemy>().ShowLocation();
+                        }
+                    }
+                }
             }
             if (showEnemiesTimer < Time.time)
             {
-                Collider[] enemies = Physics.OverlapSphere(transform.position, showEnemiesRadius, enemyLayer);
-
-                foreach (Collider enemy in enemies)
-                {
-                    enemy.GetComponent<BaseEnemy>().ShowLocation();
-                }
-
                 // Detect final room
                 if (other.GetComponent<PlayerController>().IncrementTorchCount())
                 {
                     GameObject roomHolder = GameObject.FindGameObjectWithTag("RoomList");
-                    RoomProperties[] rooms = roomHolder.GetComponentsInChildren<RoomProperties>();
+                    Transform[] rooms = roomHolder.GetComponentsInChildren<Transform>();
 
                     if(FindObjectOfType<LastRoomUI>()) 
                         FindObjectOfType<LastRoomUI>().Detect(rooms[rooms.Count()-1].transform.position);
 
                 }
-
                 showEnemiesTimer = Time.time + showEnemiesCooldown;
+
             }
         }
     }

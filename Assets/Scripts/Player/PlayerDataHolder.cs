@@ -12,7 +12,7 @@ public class PlayerDataHolder : MonoBehaviour
     PlayerController fuelHandler;
 
     [SerializeField] int defaultMaxHP = 3;
-    float defaultMaxFuel = 50;
+    float defaultMaxFuel = 50.0f;
 
     int currentHP = 3,
         maxHP = 3;

@@ -50,7 +50,7 @@ public class TestEnemy : BaseEnemy
         {
             Move();
             sfxSource.volume = 0.8f * SoundManager.Instance.GetSFXMultiplier();
-            Debug.Log("Volume " + SoundManager.Instance.GetSFXMultiplier());
+            //Debug.Log("Volume " + SoundManager.Instance.GetSFXMultiplier());
         }
 
     }

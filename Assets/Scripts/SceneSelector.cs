@@ -19,6 +19,16 @@ public class SceneSelector : MonoBehaviour
 
     public void ChangeLevels()
     {
+        PlayerDataHolder playerDataHolder = PlayerDataHolder.Instance;
+
+        playerDataHolder.SetAbilitiesReference(
+            FindObjectOfType<PlayerAbilityHandler>().GetConsumedAbilities(),
+            FindObjectOfType<PlayerAbilityHandler>().GetCurrentAbilities()
+            );
+        playerDataHolder.SetHealthReference(FindObjectOfType<PlayerHearts>());
+        playerDataHolder.SetPlayerReference(FindObjectOfType<PlayerController>());
+        playerDataHolder.SetSettingsData(FindObjectOfType<UIHandler>());
+
         if (LevelName == "LevelOne")
         {
             SceneManager.LoadScene("LevelTwo");
