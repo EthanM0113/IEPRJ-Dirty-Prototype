@@ -122,7 +122,7 @@ public class WispEnemyDetection : MonoBehaviour
                         isPlayerDetected = false;
                         playerInputHandler.SetCanInput(false);
                         playerController.SetPreventMovementInput(true);
-                        DamagePlayer();
+                        playerHealth.DamagePlayer(1);
                         playerInputHandler.SetCanInput(true);
                         playerController.SetPreventMovementInput(false);
                         //spawnerRef = null;
@@ -141,25 +141,6 @@ public class WispEnemyDetection : MonoBehaviour
         {
             cone.enabled = false;
         }
-    }
-
-    private void DamagePlayer()
-    {
-        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
-
-        // Nerf player fuel and deal dmg
-        fuelBarHandler.ResetFuel(1.0f);
-        playerHealth.DamagePlayer(1);
-    }
-
-    private IEnumerator TriggerImpactFrame()
-    {
-        Debug.Log("Player Spotted. Trigger Impact Frame.");
-        playerAnimator.SetTrigger("Hit");
-        playerController.PlayDeathParticles();
-        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
-        playerAnimator.SetTrigger("Idle");
-        Time.timeScale = 1;
     }
 
     public bool IsPlayerDetected()

@@ -22,4 +22,13 @@ public class FBOrbManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            PlayerHearts playerHearts = FindObjectOfType<PlayerHearts>();
+            playerHearts.DamagePlayer(1);
+        }
+    }
 }

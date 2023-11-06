@@ -49,6 +49,7 @@ public class FinalBossManager : MonoBehaviour
     [SerializeField] private Animator finalBossAnimator;
     private bool isFacingLeft = true;
     private SpriteRenderer finalBossSpriteRenderer;
+    [SerializeField] private GameObject puddleCollider;
 
     // Phase 2 
     private bool isTransitioning = false;
@@ -71,6 +72,9 @@ public class FinalBossManager : MonoBehaviour
     // Debugging 
     [SerializeField] private bool skip1stPhase = false;
 
+    // Player Variables
+    private PlayerHearts playerHearts;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -82,6 +86,7 @@ public class FinalBossManager : MonoBehaviour
         tlBoundsPos = TLBounds.gameObject.transform.position;
         brBoundsPos = BRBounds.gameObject.transform.position;
         endScreen.SetActive(false);
+        puddleCollider.SetActive(false);
 
         // Set how many actions to be done before teleporting
         actionsToTeleport = Random.Range(minTPActions, maxTPActions + 1);
@@ -92,6 +97,9 @@ public class FinalBossManager : MonoBehaviour
 
         // Get Sprite Renderer
         finalBossSpriteRenderer = finalBoss.GetComponentInChildren<SpriteRenderer>();
+
+        //  Find Player Variables
+        playerHearts = GameObject.FindObjectOfType<PlayerHearts>();
     }
 
     // Update is called once per frame
@@ -186,12 +194,14 @@ public class FinalBossManager : MonoBehaviour
             // Transform back to Idle from Puddle
             finalBossAnimator.SetBool("isPuddle", false);
             finalBossAnimator.SetBool("isPuddleToIdle", true);
-            yield return new WaitForSeconds(0.8f); // Finish Animation
+            yield return new WaitForSeconds(0.8f); // Finish Animation  
+            puddleCollider.SetActive(false);
             finalBossAnimator.SetBool("isPuddleToIdle", false);
 
             isInvincible = false; // make vulnerable already as soon as reaching target duration and animation finished
             yield return new WaitForSeconds(3f); // Wait a sec for VERY vulnerable
             roamTicks = 0f;
+            isRoaming = false;
             isHunting = true;
         }
 
@@ -240,7 +250,7 @@ public class FinalBossManager : MonoBehaviour
             huntSpeed = 0; // stop movement
             GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
             meleeArea.transform.parent = null;
-            meleeArea.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+            meleeArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
             yield return new WaitForSeconds(0.8f); // Finish Animation
             
             finalBossAnimator.SetBool("isMelee", false);
@@ -256,6 +266,8 @@ public class FinalBossManager : MonoBehaviour
                 roamTicks = 0f;
 
                 // Transition to shadow form
+                isInvincible = true;
+                puddleCollider.SetActive(true);
                 finalBossAnimator.SetBool("isIdleToPuddle", true);
                 yield return new WaitForSeconds(0.9f); // Finish Animation
                 finalBossAnimator.SetBool("isIdleToPuddle", false);
@@ -571,6 +583,4 @@ public class FinalBossManager : MonoBehaviour
         finalBossAnimator.SetBool("isHunting", false);
         finalBossAnimator.SetBool("isMelee", false);
     }
-
-
 }

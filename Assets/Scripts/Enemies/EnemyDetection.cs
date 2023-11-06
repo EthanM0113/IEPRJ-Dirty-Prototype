@@ -113,7 +113,7 @@ public class EnemyDetection : MonoBehaviour
                     if(!isGargoyle)
                         anim.SetTrigger("ATK");
                     else
-                        DamagePlayer();
+                        playerHealth.DamagePlayer(1);
                     playerInputHandler.SetCanInput(true);
                     playerController.SetPreventMovementInput(false);
                     spawnerRef = null;
@@ -138,23 +138,6 @@ public class EnemyDetection : MonoBehaviour
         this.spawnerRef = spawnerRef;
     }
 
-    public void DamagePlayer()
-    {
-        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
-        
-        // Nerf player fuel and deal dmg
-        fuelBarHandler.ResetFuel(1.0f);
-        playerHealth.DamagePlayer(1);
-    }
-
-    public IEnumerator TriggerImpactFrame()
-    {
-        playerAnimator.SetTrigger("Hit");
-        playerController.PlayDeathParticles();
-        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
-        playerAnimator.SetTrigger("Idle");
-        Time.timeScale = 1;
-    }
     private void OnCollisionStay(Collision collision)
     {
 

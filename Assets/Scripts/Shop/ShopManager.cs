@@ -49,6 +49,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject shopKeeper;
     private float distanceToPlayer;
 
+    // Debug
+    [SerializeField] private bool quickBuyHealth;
+    [SerializeField] private bool quickBuyFuel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +80,9 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // For DEBUG PLEASE DELETE BEFORE FINAL BUILD
+        QuickBuyItems();
+
         distanceToPlayer = Vector3.Distance(shopKeeper.transform.position, playerController.transform.position);
 
         if (!isCameraTransitioning)
@@ -104,6 +111,21 @@ public class ShopManager : MonoBehaviour
                 ChangeToOriginalView();
             }
                 
+        }
+    }
+
+    private void QuickBuyItems()
+    {
+        if(quickBuyHealth)
+        {
+            playerHearts.IncreaseMaxHealth(1);
+            quickBuyHealth = false;
+        }
+
+        if(quickBuyFuel)
+        {
+            fuelBarHandler.IncreaseMaxFuel(1);
+            quickBuyFuel = false;
         }
     }
 

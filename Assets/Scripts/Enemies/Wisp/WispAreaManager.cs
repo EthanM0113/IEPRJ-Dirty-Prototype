@@ -21,7 +21,7 @@ public class WispAreaManager : MonoBehaviour
     private Light wispSelfLight;
     private AudioSource sfxSource;
     private float sfxVolume = 0.1f;
-    private float defautlSFXVolume = 0.1f;
+    [SerializeField] private float defautlSFXVolume;
 
     // Start is called before the first frame update
     void Start()

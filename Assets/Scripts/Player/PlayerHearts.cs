@@ -18,6 +18,10 @@ public class PlayerHearts : MonoBehaviour
 
     [SerializeField] private AudioClip damageSound;
 
+    private FuelBarHandler fuelBarHandler;
+    private Animator playerAnimator;
+    private PlayerController playerController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -99,9 +103,28 @@ public class PlayerHearts : MonoBehaviour
     }
 
     public void DamagePlayer(int dmg)
-    {
+    {     
+        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+
+        // Nerf player fuel and deal dmg
+        fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+        fuelBarHandler.ResetFuel(1.0f);
+
+        // Reduce Player HP
         SoundManager.Instance.PlaySound(damageSound);
         currentHp -= dmg;
+    }
+
+    public IEnumerator TriggerImpactFrame()
+    {
+        playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
+        playerController = FindObjectOfType<PlayerController>();
+
+        playerAnimator.SetTrigger("Hit");
+        playerController.PlayDeathParticles();
+        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
+        playerAnimator.SetTrigger("Idle");
+        Time.timeScale = 1;
     }
 
     public int GetCurrentHp()

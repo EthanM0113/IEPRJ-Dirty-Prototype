@@ -86,25 +86,8 @@ public class FirstBossAttack : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.80f); // Fine tune to fill in the animation 
         Debug.Log("Player Hit!");
         // Damage Player
-        DamagePlayer();
-    }
-
-    private void DamagePlayer()
-    {
-        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
-
-        // Nerf player fuel and deal dmg
-        fuelBarHandler.ResetFuel(1.0f);
+        //DamagePlayer();
         playerHearts.DamagePlayer(2);
-    }
-
-    private IEnumerator TriggerImpactFrame()
-    {
-        playerAnimator.SetTrigger("Hit");
-        playerController.PlayDeathParticles();
-        yield return new WaitForSecondsRealtime(0.30f); // Fine tune to fill in the animation
-        playerAnimator.SetTrigger("Idle");
-        Time.timeScale = 1;
     }
 
     /*

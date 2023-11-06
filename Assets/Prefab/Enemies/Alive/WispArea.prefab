@@ -159,6 +159,7 @@ MonoBehaviour:
   wispAnimator: {fileID: 0}
   wispAnimationManager: {fileID: 0}
   EnemyContainer: {fileID: 0}
+  defautlSFXVolume: 1
 --- !u!82 &3314554992597322591
 AudioSource:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: c195d8dca2bbc4d4795dffb702155222, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
