@@ -1224,11 +1224,22 @@ MonoBehaviour:
   bigTorch: {fileID: 8300000, guid: 8ce5ba5114ba19d489a5d64c3373f6e7, type: 3}
   purchaseSuccess: {fileID: 8300000, guid: ac9fdf0c2cecf414992444a0f04c8e9a, type: 3}
   purchaseFail: {fileID: 8300000, guid: d2ed70c7e9d5d574ba260a5d71a4481e, type: 3}
+  bossSlay: {fileID: 0}
+  wispTP: {fileID: 0}
+  tb_litTorch: {fileID: 0}
+  tb_extinguishTorch: {fileID: 0}
+  tb_gruntA: {fileID: 0}
+  tb_gruntB: {fileID: 0}
+  tb_damage: {fileID: 0}
+  tb_defeat: {fileID: 0}
   darkerTheme: {fileID: 8300000, guid: 6fd550998f6c9a4408c54edd464feac7, type: 3}
   gameOver: {fileID: 8300000, guid: 05e36ecc680085e468472aa7cd73bd93, type: 3}
   levelMusic: {fileID: 8300000, guid: a83b2218e5a83e5489fb0784b80c522c, type: 3}
   mainMenu: {fileID: 8300000, guid: bb2169c1eb6b0c24298af030beed41c6, type: 3}
   torchbearer: {fileID: 8300000, guid: 9832cb116884db94d9b140d2aeb947b0, type: 3}
+  musicMultiplier: 1
+  sfxMultiplier: 1
+  walkSFXMultiplier: 1
 --- !u!4 &400099803
 Transform:
   m_ObjectHideFlags: 0
@@ -2029,7 +2040,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
