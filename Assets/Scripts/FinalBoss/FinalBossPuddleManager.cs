@@ -27,7 +27,6 @@ public class FinalBossPuddleManager : MonoBehaviour
             {
                 playerHearts.DamagePlayer(2); // 2 Damage
                 didDamage = true;
-                Debug.Log("PUDDLE DAMAGED PLAYER");
             }
         }
     }

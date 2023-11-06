@@ -127,6 +127,11 @@ public class FirstBossManager : MonoBehaviour
         firstBossAnimator.SetTrigger("isDead");
         yield return new WaitForSeconds(2.0f); // finish death animation
         firstBossMovement.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2.0f); // Wait for suspense
+
+        // Transition to next Level
+        SceneSelector sceneSelector = GetComponent<SceneSelector>();
+        sceneSelector.ChangeLevels();
     }
 
     private bool CheckTwoTorchesLit()
