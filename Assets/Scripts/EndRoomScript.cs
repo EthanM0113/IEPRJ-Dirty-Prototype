@@ -5,6 +5,7 @@ using UnityEngine;
 public class EndRoomScript : MonoBehaviour
 {
     Collider collider;
+    [SerializeField] GameObject uPopup;
     private void Start()
     {
         collider = GetComponent<Collider>();
@@ -17,6 +18,18 @@ public class EndRoomScript : MonoBehaviour
         {
             SceneSelector sceneSelector = GetComponent<SceneSelector>();
             sceneSelector.ChangeLevels();
+        }
+        if (other.gameObject.CompareTag("Player") )
+        {
+            uPopup.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            uPopup.SetActive(false);
         }
     }
 }
