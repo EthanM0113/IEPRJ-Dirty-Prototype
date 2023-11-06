@@ -49,12 +49,10 @@ public class PlayerHearts : MonoBehaviour
         {
             if (i < currentHp)
             {
-                Debug.Log("Heart " + i + " is full.");
                 heartsList[i].GetComponent<Image>().sprite = fullHeart;
             }
             else
             {
-                Debug.Log("Heart " + i + " is empty.");
                 heartsList[i].GetComponent<Image>().sprite = emptyHeart;
             }
 

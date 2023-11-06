@@ -20,13 +20,14 @@ public class FinalBossPuddleManager : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {  
+    {
         if (other.gameObject.CompareTag("Player"))
         {
             if (!didDamage)
             {
                 playerHearts.DamagePlayer(2); // 2 Damage
                 didDamage = true;
+                Debug.Log("PUDDLE DAMAGED PLAYER");
             }
         }
     }

@@ -941,7 +941,7 @@ GameObject:
   - component: {fileID: 330268352}
   - component: {fileID: 330268354}
   - component: {fileID: 330268353}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: 'FinalBossSprite '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1494,10 +1494,10 @@ RectTransform:
   - {fileID: 621608798}
   m_Father: {fileID: 109156786}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -955}
-  m_SizeDelta: {x: 746.946, y: 77.72528}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 125}
+  m_SizeDelta: {x: 746.94604, y: 77.72528}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!43 &523357551
 Mesh:
@@ -5027,6 +5027,10 @@ PrefabInstance:
     - target: {fileID: 2090087205762272627, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
       propertyPath: m_Name
       value: Shop Keeper
+      objectReference: {fileID: 0}
+    - target: {fileID: 2090087205762272627, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3831071603514349479, guid: 97f7ecb99ee8e2341aa9957d1e00198a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11186,7 +11190,7 @@ GameObject:
   - component: {fileID: 1702907955}
   - component: {fileID: 1702907957}
   - component: {fileID: 1702907956}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: PuddleCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11239,8 +11243,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.6398864, y: 1, z: 0.11830595}
-  m_Center: {x: -0.032244205, y: 0, z: -0.44084704}
+  m_Size: {x: 1.5684853, y: 1, z: 0.12299156}
+  m_Center: {x: -0.052585393, y: 0, z: -0.4651382}
 --- !u!114 &1705019093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13156,12 +13160,14 @@ MonoBehaviour:
   shadowHandPrefab: {fileID: 8668698519758437846, guid: 47818c17fffc0fd48b2335227178d5a0, type: 3}
   TLBounds: {fileID: 1601247908}
   BRBounds: {fileID: 85769968}
+  actionsToTeleport: 0
   doingAction: 0
   finalBoss: {fileID: 1931786500}
+  actionsDone: 0
   endScreen: {fileID: 1144342530}
   finalBossAnimator: {fileID: 330268353}
   puddleCollider: {fileID: 1702907954}
-  huntSpeed: 1
+  huntSpeed: 0
   meleeAreaPrefab: {fileID: 8668698519758437846, guid: efc9bbe28bcf7b84abda5d45b1f568d9, type: 3}
   roamDuration: 8
   skip1stPhase: 0
@@ -27833,10 +27839,6 @@ PrefabInstance:
     - target: {fileID: 8454247787138744960, guid: 7484034dfd780684996c9c4f89bc88ce, type: 3}
       propertyPath: m_Name
       value: Interior_End_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 8454247787138744960, guid: 7484034dfd780684996c9c4f89bc88ce, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

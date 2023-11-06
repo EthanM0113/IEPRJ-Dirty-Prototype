@@ -24,6 +24,7 @@ public class FinalBossManager : MonoBehaviour
 
     // Shadow Hand
     [SerializeField] private GameObject shadowHandPrefab;
+    int numberOfHands = 20;
 
     // Teleporting
     [SerializeField] private GameObject TLBounds;
@@ -31,18 +32,15 @@ public class FinalBossManager : MonoBehaviour
     private Vector3 tlBoundsPos;
     private Vector3 brBoundsPos;
     private Vector3 newPos;
-    private int actionsToTeleport;
+    [SerializeField] private int actionsToTeleport;
     private int minTPActions = 2;
     private int maxTPActions = 4;
 
     // General 
     [SerializeField] private bool doingAction;
-    private float actionTicks = 0f;
-    private float actionInterval = 1f;
     [SerializeField] private GameObject finalBoss;
     private int chosenAction = 1; // Start with medium projectile attack
-    private int actionsDone = 0;
-    private float actionDelay = 2f;
+    [SerializeField] private int actionsDone = 0;
     [SerializeField] private GameObject endScreen;
     private bool isInvincible = false;
     private FinalBossUIManager finalBossUIManager;
@@ -57,7 +55,7 @@ public class FinalBossManager : MonoBehaviour
     private float randomAttackTicks = 0f;
     private float randomAttackInterval = 2f;
     [SerializeField] private float huntSpeed;
-    private float originalHuntSpeed;
+    private float originalHuntSpeed = 2f;
     [SerializeField] private GameObject meleeAreaPrefab;
     private bool isMelee = false;
     private int meleesDone = 0;
@@ -91,9 +89,9 @@ public class FinalBossManager : MonoBehaviour
         // Set how many actions to be done before teleporting
         actionsToTeleport = Random.Range(minTPActions, maxTPActions + 1);
 
-        originalHuntSpeed = huntSpeed;
-
         finalBossUIManager = FindObjectOfType<FinalBossUIManager>();
+
+        huntSpeed = originalHuntSpeed;
 
         // Get Sprite Renderer
         finalBossSpriteRenderer = finalBoss.GetComponentInChildren<SpriteRenderer>();
@@ -105,8 +103,6 @@ public class FinalBossManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
-
         if (finalBossUIManager.GetPlayerWithinRange())
         {
             if(currentHP > 0f)
@@ -114,9 +110,9 @@ public class FinalBossManager : MonoBehaviour
 
             StartCoroutine(CheckTransitionPhase());
 
-            if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase)
+            if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase && !isTransitioning)
             {
-                if (actionsDone == actionsToTeleport)
+                if (actionsDone >= actionsToTeleport)
                 {
                     if (!doingAction)
                         StartCoroutine(RandomTeleport());
@@ -165,7 +161,6 @@ public class FinalBossManager : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector3 difference = finalBoss.transform.position - player.transform.position;
-        Debug.Log("A - B: " + difference);
 
         if(difference.x < 0f) // Face Right
         {
@@ -192,6 +187,7 @@ public class FinalBossManager : MonoBehaviour
         if (roamTicks >= roamDuration)
         {
             // Transform back to Idle from Puddle
+            huntSpeed = originalHuntSpeed;
             finalBossAnimator.SetBool("isPuddle", false);
             finalBossAnimator.SetBool("isPuddleToIdle", true);
             yield return new WaitForSeconds(0.8f); // Finish Animation  
@@ -219,7 +215,8 @@ public class FinalBossManager : MonoBehaviour
             }
 
             // Move towards roam position
-            finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, roamPosition, originalHuntSpeed * Time.deltaTime * 6);
+            huntSpeed = originalHuntSpeed + 3.5f;
+            finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, roamPosition, huntSpeed * Time.deltaTime);
 
             // Check distance to roam position
             float distance = Vector3.Distance(finalBoss.transform.position, roamPosition);
@@ -244,6 +241,7 @@ public class FinalBossManager : MonoBehaviour
         // Melee if Close enough
         if (distance < 1f && !isMelee)
         {
+            finalBossAnimator.SetBool("isPuddleToIdle", false);
             finalBossAnimator.SetBool("isHunting", false);
             finalBossAnimator.SetBool("isMelee", true);
             isMelee = true;
@@ -303,7 +301,7 @@ public class FinalBossManager : MonoBehaviour
             }
 
             randomAttackTicks = 0f;
-            randomAttackInterval = Random.Range(1f, 3f);
+            randomAttackInterval = Random.Range(2f, 4f);
         }
     }
 
@@ -385,7 +383,7 @@ public class FinalBossManager : MonoBehaviour
     {
         // Change speed
         if (state == BOSS_STATE.PHASE_TWO && !isMelee)
-            huntSpeed = originalHuntSpeed * 2;
+            huntSpeed = originalHuntSpeed + 0.5f;
 
         doingAction = true;
 
@@ -396,13 +394,24 @@ public class FinalBossManager : MonoBehaviour
 
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
 
-        for(int i = 0; i < 10; i++)
+        if (state == BOSS_STATE.PHASE_ONE)
+        {
+            numberOfHands = 10;
+        }
+        else if (state == BOSS_STATE.PHASE_TWO)
+        {
+            numberOfHands = 20;
+        }
+
+        for (int i = 0; i < numberOfHands; i++)
         {
             float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
             float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
             newPos = new Vector3(newX, shadowHandPrefab.transform.position.y, newZ);
 
             GameObject shadowHand = Instantiate(shadowHandPrefab, finalBoss.transform);
+            float randScale = Random.Range(1f, 3f);
+            shadowHand.transform.localScale = new Vector3(randScale, randScale, 1);
             shadowHand.transform.parent = null;
 
             shadowHand.transform.position = newPos;
@@ -458,7 +467,7 @@ public class FinalBossManager : MonoBehaviour
     {
         // Change speed
         if (state == BOSS_STATE.PHASE_TWO && !isMelee)
-            huntSpeed = originalHuntSpeed;
+            huntSpeed = originalHuntSpeed - 0.5f;
 
         doingAction = true;
 
@@ -561,6 +570,9 @@ public class FinalBossManager : MonoBehaviour
             finalBossAnimator.SetBool("isHit", false);
 
             currentHP -= 0.13f; // 8 hits to die
+
+            // Insta TP First Boss on hit
+            actionsDone = actionsToTeleport;
         }
         else if (state == BOSS_STATE.PHASE_TWO && !isInvincible)
         {
