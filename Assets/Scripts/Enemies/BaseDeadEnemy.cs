@@ -53,6 +53,15 @@ public class BaseDeadEnemy : MonoBehaviour
         }
     }
 
+    public void TutorialTick()
+    {
+        if (!gettingConsumed) return;
+        if (consumeTimer > 0)
+        {
+            consumeTimer -= Time.deltaTime;
+        }
+    }
+
     virtual public void SetConsumed(bool isConsuming)
     {
         gettingConsumed = isConsuming;
