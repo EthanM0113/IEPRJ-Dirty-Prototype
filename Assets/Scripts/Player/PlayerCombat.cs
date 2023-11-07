@@ -76,7 +76,7 @@ public class PlayerCombat : MonoBehaviour
             );
 
         if (hitEnemies.Length == 0)
-        {
+        { 
             hitEnemies = Physics.OverlapSphere(
             attackPoint.position,
             attackRange,
@@ -91,14 +91,19 @@ public class PlayerCombat : MonoBehaviour
             {
                 if (FirstBoss(enemy)) // 1st Boss Stuff
                 {
+                    Debug.Log("Enemy 1");
                     return;
                 }
+                
                 else if(FinalBoss(enemy))
                 {
+                    Debug.Log("Enemy 2");
                     return;
                 }
                 else // Normal enemy stuff
                 {
+
+                    Debug.Log("Enemy 3");
                     if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
                         mainCameraAnimator.SetTrigger("isQuickZoom");
@@ -141,6 +146,7 @@ public class PlayerCombat : MonoBehaviour
 
     public bool FirstBoss(Collider enemy)
     {
+        Debug.Log("enemy: " + enemy.gameObject.tag);
         if(enemy.CompareTag(hpTorchTag))
         {
             SoundManager.Instance.TB_ExtinguishTorch();
@@ -150,6 +156,7 @@ public class PlayerCombat : MonoBehaviour
         else if(enemy.gameObject.tag == "ColorTorch")
         {
             enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(true);
+            Debug.Log("change color");
             return true;
         }
         else if (enemy.gameObject.tag == "MysticStone")
