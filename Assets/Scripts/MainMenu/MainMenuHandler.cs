@@ -9,9 +9,11 @@ public class MainMenuHandler : MonoBehaviour
     private Animator anim;
     private string sceneToGoTo;
     [SerializeField] private float loadTime = 10.0f;
+    [SerializeField] private GameObject exitBtn;
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        exitBtn.SetActive(false);
     }
     [SerializeField] private AudioClip buttonSound;
     public void PlayGame() {
@@ -52,5 +54,10 @@ public class MainMenuHandler : MonoBehaviour
     void Play()
     {
         SceneManager.LoadScene(sceneToGoTo);
+    }
+
+    public void ActivateExitBTN()
+    {
+        exitBtn.SetActive(true);
     }
 }

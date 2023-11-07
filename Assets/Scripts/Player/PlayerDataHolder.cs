@@ -22,6 +22,7 @@ public class PlayerDataHolder : MonoBehaviour
 
     float currentMusicVolume = 1f, currentColor = 0.5f, currentSFXVolume = 1f;
 
+    int timesAtMainMenu = 0;
 
     List<AbilityStats> consumedAbilities = new List<AbilityStats>();
     List<Ability.Type> currentAbility = new List<Ability.Type>();
@@ -53,6 +54,14 @@ public class PlayerDataHolder : MonoBehaviour
             consumedAbilities.Clear();
             currentAbility.Clear();
             skillSlotCount = 1;
+            timesAtMainMenu++;
+            if (timesAtMainMenu > 1)
+            {
+                if (FindObjectOfType<MainMenuHandler>())
+                {
+                    FindObjectOfType<MainMenuHandler>().ActivateExitBTN();
+                }
+            }
         }
         else if (scene.name == "LevelOne")
         {
