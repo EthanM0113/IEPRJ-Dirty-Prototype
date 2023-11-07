@@ -133,9 +133,9 @@ public class FirstBossManager : MonoBehaviour
         FindObjectOfType<PlayerAbilityHandler>().AddSkillSlot();
 
         // Play Particle
-        firstBossAnimator.gameObject.GetComponent<FirstBossMovement>().PlayParticle();
+        firstBossMovement.PlayParticle(GameObject.FindGameObjectWithTag("Player").transform.position);
 
-        Invoke("ChangeLevel", 2f);
+        Invoke("ChangeLevel", 3f);
         
     }
     

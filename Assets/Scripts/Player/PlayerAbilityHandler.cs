@@ -54,6 +54,7 @@ public class PlayerAbilityHandler : MonoBehaviour
         //currentAbility.Add(Ability.Type.NONE);
         consumedAbilities = new List<AbilityStats>(PlayerDataHolder.Instance.GetAbilitiesReference());
         currentAbility = new List<Ability.Type>(PlayerDataHolder.Instance.GetCurrentAbilities());
+        skillSlotCount = PlayerDataHolder.Instance.GetSkillSlotCount();
     }
 
     private void Update()
@@ -222,6 +223,11 @@ public class PlayerAbilityHandler : MonoBehaviour
     {
         skillSlotCount++;
         currentAbility.Add(Ability.Type.NONE);
+    }
+
+    public int GetSkillSlotCount()
+    {
+        return skillSlotCount;
     }
 
     public void SelectSkillSlot(int index)

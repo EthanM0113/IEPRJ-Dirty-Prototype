@@ -28,6 +28,7 @@ public class SceneSelector : MonoBehaviour
         playerDataHolder.SetHealthReference(FindObjectOfType<PlayerHearts>());
         playerDataHolder.SetPlayerReference(FindObjectOfType<PlayerController>());
         playerDataHolder.SetSettingsData(FindObjectOfType<UIHandler>());
+        playerDataHolder.SetSkillSlotCount(FindObjectOfType<PlayerAbilityHandler>().GetSkillSlotCount());
 
         if (LevelName == "LevelOne")
         {

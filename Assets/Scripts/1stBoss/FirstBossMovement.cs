@@ -72,8 +72,9 @@ public class FirstBossMovement : MonoBehaviour
         isMoving = false;
     }
 
-    public void PlayParticle()
+    public void PlayParticle(Vector3 location)
     {
+        particle.transform.position = location;
         particle.Play();
     }
 }

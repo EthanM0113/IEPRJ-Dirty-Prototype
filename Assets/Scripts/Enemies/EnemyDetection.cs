@@ -155,5 +155,10 @@ public class EnemyDetection : MonoBehaviour
             faceDirection.RotateOnCollision(collision);
     }
 
+    public void DamagePlayer()
+    {
+        playerHealth.DamagePlayer(1);
+    }
+
 }
 

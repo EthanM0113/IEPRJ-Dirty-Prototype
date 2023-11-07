@@ -17,7 +17,7 @@ public class PlayerDataHolder : MonoBehaviour
     int currentHP = 3,
         maxHP = 3;
     float maxFuel = 50.0f;
-
+    int skillSlotCount = 1;
     public static PlayerDataHolder Instance;
 
     float currentMusicVolume = 1f, currentColor = 0.5f, currentSFXVolume = 1f;
@@ -50,13 +50,18 @@ public class PlayerDataHolder : MonoBehaviour
             maxHP = defaultMaxHP;
             maxFuel = defaultMaxFuel;
             //Debug.Log("On Main Menu");
+            consumedAbilities.Clear();
+            currentAbility.Clear();
+            skillSlotCount = 1;
         }
         else if (scene.name == "LevelOne")
         {
             maxHP = defaultMaxHP;
             //maxFuel = defaultMaxFuel;
             //Debug.Log("On Level 1");
-
+            consumedAbilities.Clear();
+            currentAbility.Clear();
+            skillSlotCount = 1;
         }
     }
     
@@ -136,5 +141,14 @@ public class PlayerDataHolder : MonoBehaviour
     public float GetCurrentColor()
     {
         return currentColor;
+    }
+    public void SetSkillSlotCount(int slotCountVal)
+    {
+        skillSlotCount = slotCountVal;
+    }
+
+    public int GetSkillSlotCount()
+    {
+        return skillSlotCount;
     }
 }
