@@ -106,13 +106,14 @@ public class BaseEnemy : MonoBehaviour
 
     private async void ShowIconForSeconds(float duration)
     {
-        var end = Time.time + duration;
-        while (Time.time < end)
-        {
-            miniMapSprite.SetActive(true);
-            await Task.Yield();
-        }
-        miniMapSprite.SetActive(false);
+        //var end = Time.time + duration;
+        //while (Time.time < end)
+        //{
+        //    miniMapSprite.SetActive(true);
+        //    await Task.Yield();
+        //}
+        //miniMapSprite.SetActive(false);
+        miniMapSprite.SetActive(true);
 
     }
 

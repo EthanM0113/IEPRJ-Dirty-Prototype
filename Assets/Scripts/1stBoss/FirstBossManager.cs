@@ -129,6 +129,18 @@ public class FirstBossManager : MonoBehaviour
         firstBossMovement.gameObject.SetActive(false);
         yield return new WaitForSeconds(2.0f); // Wait for suspense
 
+        // Add skill slot
+        FindObjectOfType<PlayerAbilityHandler>().AddSkillSlot();
+
+        // Play Particle
+        firstBossAnimator.gameObject.GetComponent<FirstBossMovement>().PlayParticle();
+
+        Invoke("ChangeLevel", 2f);
+        
+    }
+    
+    private void ChangeLevel()
+    {
         // Transition to next Level
         SceneSelector sceneSelector = GetComponent<SceneSelector>();
         sceneSelector.ChangeLevels();

@@ -7,6 +7,7 @@ public class FirstBossMovement : MonoBehaviour
     [SerializeField] private List<GameObject> pathNode;
     [SerializeField] private float speed;
     [SerializeField] private FirstBossUIManager firstBossUIManager;
+    [SerializeField] private ParticleSystem particle;
     private int pathNodeCount;
     private int chosenPath;
     private bool isMoving = true;
@@ -69,5 +70,10 @@ public class FirstBossMovement : MonoBehaviour
     public void DisableMovement()
     {
         isMoving = false;
+    }
+
+    public void PlayParticle()
+    {
+        particle.Play();
     }
 }
