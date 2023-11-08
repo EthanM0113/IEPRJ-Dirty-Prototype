@@ -403,8 +403,6 @@ public class PlayerController : MonoBehaviour
             {
                 actualSpeed = abilitySpeed;
             }
-            playerLight.intensity = maxLight;
-            playerLight.spotAngle = maxLight;
         }
         else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY && startAbilityTimer)
         {
@@ -418,14 +416,10 @@ public class PlayerController : MonoBehaviour
             {
                 actualSpeed = abilitySpeed * 0.7f;
             }
-            playerLight.intensity = maxLight;
-            playerLight.spotAngle = maxLight;
         }
         else if (!isSneaking)
         {
             actualSpeed = speed;
-            playerLight.intensity = maxLight;
-            playerLight.spotAngle = maxLight;
         }
 
     }
@@ -487,11 +481,12 @@ public class PlayerController : MonoBehaviour
         {
             fuelAmt -= fuelDecrementAmt;
             fuelTicks = 0.0f;
+
         }
-        //Debug.Log("Fuel: " + fuelAmt);
+
         playerLight.spotAngle = fuelAmt;
 
-        if(fuelAmt < 25.0f && isAlive)
+        if (fuelAmt < 25.0f && isAlive)
         {
             if (levelMusic.GetComponent<AudioSource>().isPlaying)
                 levelMusic.GetComponent<AudioSource>().Stop();

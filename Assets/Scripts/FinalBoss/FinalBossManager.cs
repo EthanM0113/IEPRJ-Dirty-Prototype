@@ -61,6 +61,7 @@ public class FinalBossManager : MonoBehaviour
     private int meleesDone = 0;
     private int meleesRequired = 1; // at first do 1 melee before switching to shadow form
 
+
     // Roaming 
     private Vector3 roamPosition = Vector3.zero;
     private bool isRoaming;
@@ -72,6 +73,22 @@ public class FinalBossManager : MonoBehaviour
 
     // Player Variables
     private PlayerHearts playerHearts;
+
+    // Audio
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip SFX_Phase1Cast;
+    [SerializeField] private AudioClip SFX_Phase1Channel;
+    [SerializeField] private AudioClip SFX_Phase1Defeat;
+    [SerializeField] private AudioClip SFX_Phase1Idle;
+    [SerializeField] private AudioClip SFX_ShadowHand;
+
+    [SerializeField] private AudioClip SFX_Phase2TransitionRoar;
+    [SerializeField] private AudioClip SFX_Phase2Melee;
+    [SerializeField] private AudioClip SFX_Phase2Move;
+    [SerializeField] private AudioClip SFX_Phase2Puddle;
+    private bool isPuddleSFXPlayed = false;
+    [SerializeField] private AudioClip SFX_Phase2DeathRoar;
+    private bool isDeathRoarSFXPlayed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,6 +129,7 @@ public class FinalBossManager : MonoBehaviour
 
             if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase && !isTransitioning)
             {
+  
                 if (actionsDone >= actionsToTeleport)
                 {
                     if (!doingAction)
@@ -190,6 +208,14 @@ public class FinalBossManager : MonoBehaviour
             huntSpeed = originalHuntSpeed;
             finalBossAnimator.SetBool("isPuddle", false);
             finalBossAnimator.SetBool("isPuddleToIdle", true);
+
+            // Play Puddle SFX
+            if(!isPuddleSFXPlayed)
+            {
+                sfxSource.PlayOneShot(SFX_Phase2Puddle);
+                isPuddleSFXPlayed = true;
+            }
+
             yield return new WaitForSeconds(0.8f); // Finish Animation  
             puddleCollider.SetActive(false);
             finalBossAnimator.SetBool("isPuddleToIdle", false);
@@ -199,6 +225,7 @@ public class FinalBossManager : MonoBehaviour
             roamTicks = 0f;
             isRoaming = false;
             isHunting = true;
+            isPuddleSFXPlayed = false;
         }
 
         if(!isHunting)
@@ -246,10 +273,15 @@ public class FinalBossManager : MonoBehaviour
             finalBossAnimator.SetBool("isMelee", true);
             isMelee = true;
             huntSpeed = 0; // stop movement
+
             GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
             meleeArea.transform.parent = null;
             meleeArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
-            yield return new WaitForSeconds(0.8f); // Finish Animation
+
+            yield return new WaitForSeconds(0.4f); // Play Melee SFX on Slam
+            sfxSource.PlayOneShot(SFX_Phase2Melee);
+
+            yield return new WaitForSeconds(0.4f); // Finish Animation
             
             finalBossAnimator.SetBool("isMelee", false);
             yield return new WaitForSeconds(2f); // Wait a sec for vulnerable
@@ -267,6 +299,10 @@ public class FinalBossManager : MonoBehaviour
                 isInvincible = true;
                 puddleCollider.SetActive(true);
                 finalBossAnimator.SetBool("isIdleToPuddle", true);
+
+                // Play Puddle SFX
+                sfxSource.PlayOneShot(SFX_Phase2Puddle);
+
                 yield return new WaitForSeconds(0.9f); // Finish Animation
                 finalBossAnimator.SetBool("isIdleToPuddle", false);
                 finalBossAnimator.SetBool("isPuddle", true);
@@ -314,6 +350,8 @@ public class FinalBossManager : MonoBehaviour
 
             finalBoss.transform.position = Vector3.MoveTowards(finalBoss.transform.position, player.transform.position, huntSpeed * Time.deltaTime);
             finalBossAnimator.SetBool("isHunting", true);
+            // Play Move SFX
+            //sfxSource.PlayOneShot(SFX_Phase2Move);
         }
     }
 
@@ -321,13 +359,22 @@ public class FinalBossManager : MonoBehaviour
     {
         if(currentHP <= 0f && state == BOSS_STATE.PHASE_ONE && !isTransitioning)
         {
+            TurnOffAllPhase1Animations();
+
             isTransitioning = true;
             isInvincible = true;
 
             doingAction = true;
+
+            // Play Phase 1 Death Sounds Sounds
+            //sfxSource.PlayOneShot(SFX_Phase1Defeat);
+
             // Play Death Animation
             finalBossAnimator.SetBool("isPhase1Done", true);
-            yield return new WaitForSeconds(4.1f); // Let full animation finish
+            yield return new WaitForSeconds(3f); // Play Roar SFX at certain point
+            // Play Roar SFX
+            sfxSource.PlayOneShot(SFX_Phase2TransitionRoar);
+            yield return new WaitForSeconds(1.4f); // Let full animation finish
             finalBossAnimator.SetBool("isPhase1Done", false);
 
             Debug.Log("1st Phase Done");
@@ -335,6 +382,7 @@ public class FinalBossManager : MonoBehaviour
             hpBar.fillAmount = currentHP;
 
             // Switch to Phase 2 Animation
+         
             finalBossAnimator.SetBool("isPhase2", true);
 
             // Set Phase 2 Variables
@@ -349,8 +397,18 @@ public class FinalBossManager : MonoBehaviour
         {
             finalBossUIManager.DisableHPUI();
             TurnOffAllPhase2Animations();
-            yield return new WaitForSeconds(2f); // Wait a sec for suspense
+            yield return new WaitForSeconds(1f); // Wait a sec for suspense
+            // Play Death SFX
+            if (!isDeathRoarSFXPlayed)
+            {
+                sfxSource.PlayOneShot(SFX_Phase2DeathRoar);
+                isDeathRoarSFXPlayed = true;
+            }
+            yield return new WaitForSeconds(1f); // Wait a sec for suspense
             finalBossAnimator.SetBool("isDead", true);
+
+   
+
             yield return new WaitForSeconds(3f); // Finsh Animation + a bit more
             Debug.Log("Beat Final Boss, Congratulations.");
             endScreen.SetActive(true);
@@ -361,6 +419,8 @@ public class FinalBossManager : MonoBehaviour
     {
         doingAction = true;
 
+        // Play IDLE / TP Sounds
+        sfxSource.PlayOneShot(SFX_Phase1Idle);
         finalBossAnimator.SetBool("isTeleporting", true);
         yield return new WaitForSeconds(0.5f); // Wait a sec for animation
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
@@ -414,6 +474,8 @@ public class FinalBossManager : MonoBehaviour
             shadowHand.transform.localScale = new Vector3(randScale, randScale, 1);
             shadowHand.transform.parent = null;
 
+            // Play Shadow Hands SFX
+            sfxSource.PlayOneShot(SFX_ShadowHand);
             shadowHand.transform.position = newPos;
             yield return new WaitForSeconds(0.1f); // Wait a sec before spawning next
         }
@@ -440,6 +502,10 @@ public class FinalBossManager : MonoBehaviour
         float gapDuration = Random.Range(0f, 0.1f);
 
         float randomAngle = 0f;
+
+        // Play Cast SFX
+        sfxSource.PlayOneShot(SFX_Phase1Cast);
+
         for (int i = 0; i < 36; i++)
         {
                 GameObject orb = Instantiate(orbPrefab, finalBoss.transform);
@@ -448,9 +514,9 @@ public class FinalBossManager : MonoBehaviour
                 // Just affecting x and y scale
                 orb.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
 
-
                 Vector3 rightDirection = finalBoss.transform.right;
                 Vector3 newDirection = Quaternion.AngleAxis(randomAngle, Vector3.up) * rightDirection;
+               
                 orbRB.AddForce(newDirection * orbForce);
             
                 yield return new WaitForSeconds(gapDuration); // Enumerator to create gap
@@ -481,6 +547,9 @@ public class FinalBossManager : MonoBehaviour
             yield return new WaitForSeconds(0.6f); // Wait for animation
             finalBossAnimator.SetBool("isCasting", false);
 
+            // Play Cast SFX
+            sfxSource.PlayOneShot(SFX_Phase1Cast);
+
             for (int j = 0; j < 4; j++)
             {
                 GameObject orb = Instantiate(orbPrefab, finalBoss.transform);
@@ -488,7 +557,7 @@ public class FinalBossManager : MonoBehaviour
                 Rigidbody orbRB = orb.GetComponent<Rigidbody>();
                 // Just affecting x and y scale
                 orb.transform.localScale = new Vector3(0.5f ,0.5f, 0.5f);
-
+            
                 #region Rotate Each Orb
                 if (j == 0)
                 {
@@ -535,7 +604,12 @@ public class FinalBossManager : MonoBehaviour
 
         // Play cast animation
         finalBossAnimator.SetBool("isCasting", true);
-        yield return new WaitForSeconds(1.0f); // Longer animation on purpose
+        // Play channel animation
+        finalBossAnimator.SetBool("isChanneling", true);
+        // Play Channel SFX
+        sfxSource.PlayOneShot(SFX_Phase1Channel);
+        yield return new WaitForSeconds(4f); // Longer animation on purpose, accomodating SFX
+        finalBossAnimator.SetBool("isChanneling", false);
         finalBossAnimator.SetBool("isCasting", false);
 
         // Set projectile speed
@@ -551,6 +625,8 @@ public class FinalBossManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         Vector3 directionToPlayer = player.transform.position - finalBoss.transform.position;
         directionToPlayer = directionToPlayer.normalized;
+        // Play Cast SFX
+        sfxSource.PlayOneShot(SFX_Phase1Cast);
         orbRB.AddForce(directionToPlayer * orbForce);
 
 
@@ -594,5 +670,13 @@ public class FinalBossManager : MonoBehaviour
         finalBossAnimator.SetBool("isPuddleToIdle", false);
         finalBossAnimator.SetBool("isHunting", false);
         finalBossAnimator.SetBool("isMelee", false);
+    }
+
+    private void TurnOffAllPhase1Animations()
+    {
+        finalBossAnimator.SetBool("isHit", false);
+        finalBossAnimator.SetBool("isChanneling", false);
+        finalBossAnimator.SetBool("isTeleporting", false);
+        finalBossAnimator.SetBool("isCasting", false);
     }
 }
