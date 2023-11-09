@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Used for Player Sneaking Speed")]
     [SerializeField] float sneakSpeed;
     [Tooltip("Used for Player Test Ability Speed")]
-    [SerializeField] float abilitySpeed;
+    [SerializeField] float beholderSpeed = 200;
     [Tooltip("Used for Player Test Ability Speed Increase per level")]
-    [SerializeField] float abilityConstant = 0.3f;
+    [SerializeField] float beholderIncrement = 10f;
     [SerializeField] private float actualSpeed = 0;
+
+
 
     [Space(10)]
     #endregion
@@ -136,6 +138,9 @@ public class PlayerController : MonoBehaviour
     // Gargoyle Ability variables
     private MainCameraManager mainCameraManager;
     private bool isPlayerDetectable;
+    private float gargoyleSpeed = 140;
+    private float gargoyleSpeedIncrement = 20;
+
 
     // Tree Ability variables
     [SerializeField] private GameObject shivPrefab;
@@ -385,36 +390,37 @@ public class PlayerController : MonoBehaviour
 
     void SneakCheck()
     {
-        //if (isSneaking)
-        //{
-        //    actualSpeed = sneakSpeed;
-        //    playerLight.intensity = minLight;
-        //    playerLight.spotAngle = minLight;
-        //}
+
+        // Faster intial speed than sentry but scales worse, HOWEVER can reach level 15
         if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
-            //Debug.Log("Ability " + playerAbility.GetCurrentAbility() + " is Speed Boost.");
-
+           
             if (abilityLevel > 0)
             {
-                actualSpeed = abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant));
+                if(abilityLevel > 15)
+                    abilityLevel = 15;
+
+                actualSpeed = beholderSpeed + (beholderIncrement * abilityLevel);
             }
             else
             {
-                actualSpeed = abilitySpeed;
+                actualSpeed = beholderSpeed;
             }
         }
+        // Slower initial speed than beholder ability, but scales better, HOWEVER only reaches level 10
         else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY && startAbilityTimer)
         {
-            // should be slower than speed boost abiltiy, right not 70% of speed boost speed
+           
             if (abilityLevel > 0)
             {
-                actualSpeed = (abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant))) * 0.7f;
-                actualSpeed = 20.0f;
+                if (abilityLevel > 10)
+                    abilityLevel = 10;
+
+                actualSpeed = gargoyleSpeed + (gargoyleSpeedIncrement * abilityLevel);
             }
             else
             {
-                actualSpeed = abilitySpeed * 0.7f;
+                actualSpeed = gargoyleSpeed;
             }
         }
         else if (!isSneaking)
@@ -422,6 +428,25 @@ public class PlayerController : MonoBehaviour
             actualSpeed = speed;
         }
 
+        /* Speed Breakdown at each Level
+        Beholder	Sentry
+        200			140
+        210			160
+        220			180	
+        230			200						
+        240			220
+        250			240
+        260			260	
+        270			280
+        280			300
+        290
+        300
+        310
+        320
+        330
+        340
+        350
+         */
     }
 
     private void Move() 
