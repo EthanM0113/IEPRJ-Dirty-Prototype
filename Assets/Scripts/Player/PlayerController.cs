@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     bool isSneaking; // used for sneaking
     bool isFacingRight = false;
 
-    int abilityLevel = 0;
+    [SerializeField] private int abilityLevel = 0;
 
     int activatedTorchCount = 0;
     [SerializeField] int torchInterval = 3; // every set number of torches activated hint the final room
@@ -146,6 +146,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject shivPrefab;
     [SerializeField] private float shivForce;
     [SerializeField] private float shivAbilityIncrement = 0.6f;
+    private float shivIncrement = 20f;
     private bool didShootShiv;
     #endregion
 
@@ -327,7 +328,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                 {
-                    abilityLevel = playerAbility.GetAbilityLevel();
+                    //abilityLevel = playerAbility.GetAbilityLevel();
                     UseAbility();
                 }
             }
@@ -646,8 +647,11 @@ public class PlayerController : MonoBehaviour
         if (!didShootShiv)
         {
             SoundManager.Instance.StaggeredShiv(); // SFX inside method is not final!
-            
-            for(int i = 0; i < 8; i++)
+
+            if (abilityLevel > 10)
+                abilityLevel = 10;
+
+            for (int i = 0; i < 8; i++)
             {
                 GameObject stagShiv = Instantiate(shivPrefab, playerCenter.transform);
                 Rigidbody stagShivRB = stagShiv.GetComponent<Rigidbody>();
@@ -657,25 +661,25 @@ public class PlayerController : MonoBehaviour
                 #region Rotate Each Shiv
                 if (i == 0) 
                 {
-                    stagShivRB.AddForce(playerCenter.transform.right * shivForce * -1.0f);
+                    stagShivRB.AddForce(playerCenter.transform.right * (shivForce + shivIncrement * abilityLevel) * -1.0f);
                 }
                 else if (i == 1)
                 {
-                    stagShivRB.AddForce(playerCenter.transform.right * shivForce);
+                    stagShivRB.AddForce(playerCenter.transform.right * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 2)
                 {
                     Vector3 shivRotation = stagShiv.transform.localEulerAngles;
                     shivRotation.z = 90;
                     stagShiv.transform.localEulerAngles = shivRotation;
-                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce * -1.0f);
+                    stagShivRB.AddForce(playerCenter.transform.forward * (shivForce + shivIncrement * abilityLevel) * -1.0f);
                 }
                 else if (i == 3)
                 {
                     Vector3 shivRotation = stagShiv.transform.localEulerAngles;
                     shivRotation.z = 90;
                     stagShiv.transform.localEulerAngles = shivRotation;
-                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce);
+                    stagShivRB.AddForce(playerCenter.transform.forward * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 4)
                 {
@@ -683,7 +687,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = 45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 45, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 5)
                 {
@@ -691,7 +695,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = -45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 135, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 6)
                 {
@@ -699,7 +703,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = 45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 225, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 7)
                 {
@@ -707,7 +711,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = -45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 315, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 #endregion
             }
@@ -774,19 +778,50 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.Fireball();
             GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
             Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
+
+            if(abilityLevel > 10)
+                abilityLevel = 10;
+
             shotFlareLight.range += flareAbilityIncrement * abilityLevel;
             Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
-            // Just affecting x and y scale
-            shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
+            // Affect Scale
+            shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+
+            // Update children
+            foreach (Transform child in shotFlare.transform)
+            {
+                Debug.Log("Name Of Child " + child.transform.name);
+                child.transform.localScale = new Vector3(child.transform.localScale.x + (flareAbilityIncrement * abilityLevel), child.transform.localScale.y + (flareAbilityIncrement * abilityLevel), child.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+                foreach (Transform child2 in child.transform)
+                {
+                    Debug.Log("Name Of Child 2 " + child2.transform.name);
+                    child2.transform.localScale = new Vector3(child2.transform.localScale.x + (flareAbilityIncrement * abilityLevel), child2.transform.localScale.y + (flareAbilityIncrement * abilityLevel), child2.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+                }
+            }
+            
             if (isFacingRight)
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
+                shotFlareRB.AddForce(playerCenter.transform.right * (flareForce + 10 * abilityLevel) * -1.0f);
             }
             else
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce );
+                shotFlareRB.AddForce(playerCenter.transform.right * (flareForce + 10 * abilityLevel));
             }
+
             didShootFlare = true;
+
+            /*  Speed Breakdown
+                220
+                240
+                260
+                280
+                300
+                320
+                340
+                360
+                380
+                400
+             */
         }
     }
 
@@ -831,6 +866,11 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int GetAbilityLevel()
+    {
+        return abilityLevel;    
     }
 }
  

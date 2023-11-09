@@ -66,8 +66,8 @@ public class SentryEnemy : BaseEnemy
         {
             return;
         }
-       if (isAlive)
-        {
+       else if (isAlive && isActivated)
+       {
             if (intervalTime <= Time.time)
             {
                 lightSource.RotateAround(lightSource.position, Vector3.up, rotationPerInterval * dirMultiplier);
