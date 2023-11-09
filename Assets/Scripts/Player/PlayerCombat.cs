@@ -220,7 +220,7 @@ public class PlayerCombat : MonoBehaviour
             FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
             if(finalBossManager != null) 
             {
-                StartCoroutine(finalBossManager.DamageBoss());
+                finalBossManager.DamageBoss();
             }
           
             return true;
