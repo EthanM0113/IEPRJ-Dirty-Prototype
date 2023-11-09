@@ -127,9 +127,14 @@ public class PlayerCombat : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.BackstabMiss();
+            
         }
         
+    }
+
+    public void PlayMissSound()
+    {
+        SoundManager.Instance.BackstabMiss();
     }
 
     private void OnDrawGizmos()

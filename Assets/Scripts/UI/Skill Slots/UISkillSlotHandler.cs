@@ -15,6 +15,8 @@ public class UISkillSlotHandler : MonoBehaviour
     [SerializeField] private GameObject slot3;
     PlayerController m_player;
 
+    [SerializeField] private GameObject levelUI;
+
     bool isUIActive = false;
     // Start is called before the first frame update
     void Awake()
@@ -22,7 +24,7 @@ public class UISkillSlotHandler : MonoBehaviour
         m_playerData = PlayerDataHolder.Instance;
         m_InputHandler = FindObjectOfType<PlayerInputHandler>();
         m_player = FindObjectOfType<PlayerController>();
-
+        levelUI.SetActive(true);
     }
 
     private void Start()
