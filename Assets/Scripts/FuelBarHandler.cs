@@ -74,5 +74,8 @@ public class FuelBarHandler : MonoBehaviour
     public void PlayNoFuel()
     {
         borderAnim.SetTrigger("NoFuel");
+        SoundManager.Instance.EmptySFX();
+
     }
+
 }

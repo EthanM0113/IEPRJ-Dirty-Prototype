@@ -36,7 +36,10 @@ public class EnemyDetection : MonoBehaviour
 
     private PlayerController playerController;
     private Animator playerAnimator;
-    private PlayerInputHandler playerInputHandler;  
+    private PlayerInputHandler playerInputHandler;
+
+    private bool playOnce = false;
+    [SerializeField] private ParticleSystem detectedVFX;
 
     // Start is called before the first frame update
     void Awake()
@@ -80,6 +83,13 @@ public class EnemyDetection : MonoBehaviour
                         isPlayerDetected = true;
                         startDetectionTimer = true;
 
+                        if (!playOnce)
+                        {
+                            SoundManager.Instance.PlayDetected();
+                            detectedVFX.Play();
+                            playOnce = true;
+                        }
+
                         Debug.DrawRay(transform.position, dir, Color.red);
                     }
                     else
@@ -89,6 +99,7 @@ public class EnemyDetection : MonoBehaviour
                         isPlayerDetected = false;
                         startDetectionTimer = false;
                         detectionTimer = detectionTime;
+                        playOnce = false;
 
                         Debug.DrawRay(transform.position, dir, Color.green);
                     }
@@ -101,6 +112,7 @@ public class EnemyDetection : MonoBehaviour
                 isPlayerDetected = false;
                 startDetectionTimer = false;
                 detectionTimer = detectionTime;
+                playOnce = false;
             }
 
             if (startDetectionTimer)
@@ -122,6 +134,7 @@ public class EnemyDetection : MonoBehaviour
                 }
                 else
                 {
+                    
                     detectionTimer -= Time.deltaTime;
                     //Debug.Log(detectionTimer);
                 }

@@ -40,7 +40,8 @@ public class WispEnemyDetection : MonoBehaviour
     private PlayerController playerController;
     private Animator playerAnimator;
     private PlayerInputHandler playerInputHandler;
-
+    private bool playOnce = false;
+    [SerializeField] private ParticleSystem detectedVFX;
 
     // Start is called before the first frame update
     void Awake()
@@ -90,6 +91,13 @@ public class WispEnemyDetection : MonoBehaviour
                             isPlayerDetected = true;
                             startDetectionTimer = true;
 
+                            if (!playOnce)
+                            {
+                                SoundManager.Instance.PlayDetected();
+                                detectedVFX.Play();
+                                playOnce = true;
+                            }
+
                             Debug.DrawRay(transform.position, dir, Color.red);
 
                         }
@@ -100,6 +108,7 @@ public class WispEnemyDetection : MonoBehaviour
                             isPlayerDetected = false;
                             startDetectionTimer = false;
                             detectionTimer = detectionTime;
+                            playOnce = false;
 
                             Debug.DrawRay(transform.position, dir, Color.green);
 
@@ -113,6 +122,7 @@ public class WispEnemyDetection : MonoBehaviour
                     isPlayerDetected = false;
                     startDetectionTimer = false;
                     detectionTimer = detectionTime;
+                    playOnce = false;
                 }
 
                 if (startDetectionTimer)

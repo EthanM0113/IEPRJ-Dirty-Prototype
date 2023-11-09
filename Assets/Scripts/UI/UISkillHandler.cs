@@ -86,6 +86,7 @@ public class UISkillHandler : MonoBehaviour
     public void PlayNotReady()
     {
         m_anim.SetTrigger("NotReady");
-
+        SoundManager.Instance.EmptySFX();
     }
+
 }

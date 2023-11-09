@@ -38,7 +38,7 @@ public class TestEnemy : BaseEnemy
         isActivated = true;
         currentState = State.STATIONARY;
         waitTimer = Random.Range(startWaitTime, endWaitTime);
-        sfxSource.clip = idleSFX;
+        //sfxSource.clip = idleSFX;
         sfxSource.volume = 0.8f * SoundManager.Instance.GetSFXMultiplier();
         sfxSource.Play();
     }

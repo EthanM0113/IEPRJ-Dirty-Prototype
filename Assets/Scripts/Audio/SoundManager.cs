@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource, effectsSource, walkingSource;
 
     //sound effects
-    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, purchaseSuccess, purchaseFail, bossSlay, wispTP;
+    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, purchaseSuccess, purchaseFail, bossSlay, wispTP, emptyFeedback, detected;
 
     // Torchbearer SFX
     [SerializeField] private AudioClip tb_litTorch, tb_extinguishTorch, tb_gruntA, tb_gruntB, tb_damage, tb_defeat;
@@ -97,6 +97,18 @@ public class SoundManager : MonoBehaviour
     public void Fireball() {
         effectsSource.volume = 0.8f * sfxMultiplier; 
         effectsSource.PlayOneShot(fireball);
+    }
+
+    public void EmptySFX()
+    {
+        effectsSource.volume = 0.4f * sfxMultiplier;
+        effectsSource.PlayOneShot(emptyFeedback);
+    }
+
+    public void PlayDetected()
+    {
+        effectsSource.volume = 0.3f * sfxMultiplier;
+        effectsSource.PlayOneShot(detected);
     }
 
     public void BackstabMiss()
