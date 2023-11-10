@@ -21,8 +21,6 @@ public class StaggeredShivManager : MonoBehaviour
     private bool isGargoyle = false;
     private bool didSpawnRootOverlay = false;
 
-    private bool waitingForRoot = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -151,9 +149,9 @@ public class StaggeredShivManager : MonoBehaviour
 
         enemySpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
         //enemyRB.constraints = RigidbodyConstraints.FreezeAll;
-        enemyWispBehavior.SetIsRooted(false);
-        yield return new WaitForSeconds(rootDuration);
         enemyWispBehavior.SetIsRooted(true);
+        yield return new WaitForSeconds(rootDuration);
+        enemyWispBehavior.SetIsRooted(false);
         enemySpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
 
         didRoot = false;
@@ -172,9 +170,9 @@ public class StaggeredShivManager : MonoBehaviour
 
         enemySpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
         //enemyRB.constraints = RigidbodyConstraints.FreezeAll;
-        enemySentryBehavior.SetIsAlive(false);
+        enemySentryBehavior.SetIsRooted(true);
         yield return new WaitForSeconds(rootDuration);
-        enemySentryBehavior.SetIsAlive(true);
+        enemySentryBehavior.SetIsRooted(false);
         enemySpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
 
         didRoot = false;
