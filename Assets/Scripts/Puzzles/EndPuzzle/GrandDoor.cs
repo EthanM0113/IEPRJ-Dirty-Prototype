@@ -25,6 +25,7 @@ public class GrandDoor : MonoBehaviour
             // Reward with money
             SoundManager.Instance.BackstabHit();
             PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+            playerMoneyUIHandler.SpinCoinImage();
             playerMoneyUIHandler.PulseCointText();
             PlayerMoneyManager.Instance.AddCoins(60); // enough for three upgrades to incentivize completing the puzzle        
 

@@ -32,6 +32,7 @@ public class BossTorchPuzzle : MonoBehaviour
 
             SoundManager.Instance.BackstabHit();
             PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+            playerMoneyUIHandler.SpinCoinImage();
             playerMoneyUIHandler.PulseCointText();
             PlayerMoneyManager.Instance.AddCoins(20); // enough for one upgrade to incentivize completing the puzzle        
             rewardIsGranted = true;

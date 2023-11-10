@@ -127,6 +127,8 @@ public class PlayerCombat : MonoBehaviour
                         {
                             killReward = UnityEngine.Random.Range(5, 7);
                         }
+
+                        playerMoneyUIHandler.SpinCoinImage();
                         playerMoneyUIHandler.PulseCointText();
                         PlayerMoneyManager.Instance.AddCoins(killReward);
                     }

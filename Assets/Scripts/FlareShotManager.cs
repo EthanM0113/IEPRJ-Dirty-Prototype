@@ -81,6 +81,8 @@ public class FlareShotManager : MonoBehaviour
             {
                 killReward = Random.Range(6, 8);
             }
+
+            playerMoneyUIHandler.SpinCoinImage();
             playerMoneyUIHandler.PulseCointText();
             PlayerMoneyManager.Instance.AddCoins(killReward);
         }

@@ -132,6 +132,7 @@ public class FirstBossManager : MonoBehaviour
         // Reward with money
         SoundManager.Instance.BackstabHit();
         PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+        playerMoneyUIHandler.SpinCoinImage();
         playerMoneyUIHandler.PulseCointText();
         PlayerMoneyManager.Instance.AddCoins(40); // enough for two upgrades to incentivize completing the puzzle        
 
