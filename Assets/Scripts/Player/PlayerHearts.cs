@@ -95,7 +95,9 @@ public class PlayerHearts : MonoBehaviour
 
     public void IncreaseMaxHealth(int amount)
     {
-        maxHp += amount;
+        if(maxHp < 17) // Capped at 17 hearts
+            maxHp += amount;
+
         currentHp = maxHp;
         UpdateMaxHealth();
     }

@@ -113,11 +113,19 @@ public class PlayerCombat : MonoBehaviour
                         // Add coins
                         if (enemy.name.Contains("TestEnemy")) // Beholder
                         {
-                            killReward = UnityEngine.Random.Range(3, 5);
+                            killReward = UnityEngine.Random.Range(2, 3);
+                        }
+                        else if (enemy.name.Contains("Gargoyle")) // Gargoyle
+                        {
+                            killReward = UnityEngine.Random.Range(4, 4);
+                        }
+                        else if (enemy.name.Contains("Staggered")) // Staggered
+                        {
+                            killReward = UnityEngine.Random.Range(4, 6);
                         }
                         else if (enemy.name.Contains("SampleWisp")) // Wisp
                         {
-                            killReward = UnityEngine.Random.Range(6, 8);
+                            killReward = UnityEngine.Random.Range(5, 7);
                         }
                         playerMoneyUIHandler.PulseCointText();
                         PlayerMoneyManager.Instance.AddCoins(killReward);

@@ -113,13 +113,13 @@ public class SoundManager : MonoBehaviour
 
     public void BackstabMiss()
     {
-        effectsSource.volume = 0.8f * sfxMultiplier;
+        effectsSource.volume = 0.3f * sfxMultiplier;
         effectsSource.PlayOneShot(backstabMiss);
     }
 
     public void BackstabHit()
     {
-        effectsSource.volume = 0.8f * sfxMultiplier;
+        effectsSource.volume = 0.85f * sfxMultiplier;
         effectsSource.PlayOneShot(backstabHit);
     }
 
