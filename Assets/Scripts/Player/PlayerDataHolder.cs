@@ -71,6 +71,7 @@ public class PlayerDataHolder : MonoBehaviour
             consumedAbilities.Clear();
             currentAbility.Clear();
             skillSlotCount = 1;
+            PlayerMoneyManager.Instance.ResetCoins();
         }
     }
     

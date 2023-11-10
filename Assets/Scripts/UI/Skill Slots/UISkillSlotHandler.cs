@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UISkillSlotHandler : MonoBehaviour
 {
@@ -24,7 +25,14 @@ public class UISkillSlotHandler : MonoBehaviour
         m_playerData = PlayerDataHolder.Instance;
         m_InputHandler = FindObjectOfType<PlayerInputHandler>();
         m_player = FindObjectOfType<PlayerController>();
-        levelUI.SetActive(true);
+
+        if(SceneManager.GetActiveScene().name != "TutorialLevel")
+            levelUI.SetActive(true);
+        else
+        {
+            levelUI.SetActive(false);
+            Time.timeScale = 1.0f;
+        }
     }
 
     private void Start()

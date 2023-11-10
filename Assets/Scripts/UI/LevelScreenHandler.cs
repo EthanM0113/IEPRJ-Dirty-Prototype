@@ -31,6 +31,10 @@ public class LevelScreenHandler : MonoBehaviour
         {
             anim.SetTrigger("LevelFour");
         }
+        else if (SceneManager.GetActiveScene().name == "TutorialLevel")
+        {
+            anim.SetTrigger("TutorialLevel");
+        }
 
     }
 
