@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviour
     // Gargoyle Ability variables
     private MainCameraManager mainCameraManager;
     private bool isPlayerDetectable;
+    private bool isPlayerVulnerable;
     private float gargoyleSpeed = 140;
     private float gargoyleSpeedIncrement = 20;
 
@@ -169,6 +170,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject loseMusic;
     [SerializeField] private GameObject darkerMusic;
 
+    // Shadow Hand
+    [SerializeField] private GameObject shadowHandPrefab;
+    [SerializeField] private AudioSource shadowHandSFXSource;
+    [SerializeField] private AudioClip SFX_ShadowHand;
+    private bool didGraspPlayer = false;
+    private GameObject shadowHand;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -198,6 +206,7 @@ public class PlayerController : MonoBehaviour
         // for gargoyle
         mainCameraManager = FindAnyObjectByType<MainCameraManager>();
         isPlayerDetectable = true;
+        isPlayerVulnerable = true;
 
         // for tree
         didShootShiv = false;   
@@ -529,6 +538,31 @@ public class PlayerController : MonoBehaviour
             if (!levelMusic.GetComponent<AudioSource>().isPlaying)
                 levelMusic.GetComponent<AudioSource>().Play();
         }
+
+        // Damage player on low fuel
+        if(fuelAmt <= 0f)
+        {
+            // Track player
+            if(shadowHand != null)
+                shadowHand.transform.position = shadowHandSFXSource.transform.position;
+
+            if (!didGraspPlayer)
+            {
+                didGraspPlayer = true;  
+                shadowHand = Instantiate(shadowHandPrefab);
+                
+
+                // Play Shadow Hands SFX
+                shadowHandSFXSource.PlayOneShot(SFX_ShadowHand);
+                shadowHand.transform.position = shadowHandSFXSource.transform.position;
+                //shadowHand.transform.parent = shadowHandSFXSource.transform;
+            }
+        }
+        if(fuelAmt > 0f)
+        {
+            if(didGraspPlayer)
+                didGraspPlayer = false;
+        }
     }
 
     public void UseFuel(float amount)
@@ -608,6 +642,7 @@ public class PlayerController : MonoBehaviour
                     preventAttackInput = false;
                     mainCameraManager.ToggleGargoyleFX(false);
                     isPlayerDetectable = true;
+                    isPlayerVulnerable = true;
                 }
 
             }
@@ -830,11 +865,17 @@ public class PlayerController : MonoBehaviour
         preventAttackInput = true;
         mainCameraManager.ToggleGargoyleFX(true);
         isPlayerDetectable = false;
+        isPlayerVulnerable = false;
     }
 
     public bool GetIsPlayerDetectable()
     {
         return isPlayerDetectable;
+    }
+
+    public bool GetIsPlayerVulnerable()
+    {
+        return isPlayerVulnerable;
     }
 
     public void PlayDeathParticles()

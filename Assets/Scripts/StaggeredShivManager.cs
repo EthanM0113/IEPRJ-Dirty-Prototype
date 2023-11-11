@@ -9,6 +9,8 @@ public class StaggeredShivManager : MonoBehaviour
     private SpriteRenderer enemySpriteRenderer;
     private WispBehaviour enemyWispBehavior;
     private SentryEnemy enemySentryBehavior;
+    private FinalBossManager enemyFinalBossManager;
+    private FirstBossMovement enemyFirstBossMovement;
     [SerializeField] private float rootDuration;
     [SerializeField] private GameObject rootOverlay;
     private GameObject srObject;
@@ -19,6 +21,8 @@ public class StaggeredShivManager : MonoBehaviour
     private bool canRoot = true; // should only be able to root once
     private bool isWisp = false;
     private bool isGargoyle = false;
+    private bool isFirstBoss = false;
+    private bool isFinalBoss = false;
     private bool didSpawnRootOverlay = false;
 
     // Start is called before the first frame update
@@ -43,14 +47,20 @@ public class StaggeredShivManager : MonoBehaviour
             {
                 StartCoroutine(TriggerGargoyleRootEffect());
             }
+            else if (isFirstBoss)
+            {
+                StartCoroutine(TriggerFirstBossRootEffect());
+            }
+            else if(isFinalBoss)
+            {
+                StartCoroutine(TriggerFinalBossRootEffect());
+            }
             else 
             {
                 StartCoroutine(TriggerRootEffect());        
             }
         }
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -62,6 +72,35 @@ public class StaggeredShivManager : MonoBehaviour
                 gameObject.SetActive(false);
         }
 
+
+        if (other.name.Contains("1stBoss") && canRoot)
+        {
+            isFirstBoss = true;
+            enemyFirstBossMovement = FindObjectOfType<FirstBossMovement>();
+            enemySpriteRenderer = enemyFirstBossMovement.GetSpriteRenderer();   
+            srObject = enemySpriteRenderer.gameObject;
+
+            Debug.Log("Triggering Root FirstBoss.");
+            SoundManager.Instance.StaggeredShiv();
+
+            // Get contacted enemy's rigidbody
+            enemyRB = other.gameObject.GetComponent<Rigidbody>();
+            didRoot = true;
+        }
+        else if (other.CompareTag("FinalBoss") && canRoot)
+        {
+            isFinalBoss = true;
+            enemyFinalBossManager = FindObjectOfType<FinalBossManager>();
+            enemySpriteRenderer = other.GetComponentInChildren<SpriteRenderer>();
+            srObject = enemySpriteRenderer.gameObject;
+
+            Debug.Log("Triggering Root FinalBoss.");
+            SoundManager.Instance.StaggeredShiv();
+
+            // Get contacted enemy's rigidbody
+            enemyRB = other.gameObject.GetComponent<Rigidbody>();
+            didRoot = true;
+        }
         if (other.CompareTag("TestEnemy") && canRoot)
         {
             canRoot = false;
@@ -177,6 +216,35 @@ public class StaggeredShivManager : MonoBehaviour
 
         didRoot = false;
 
+        gameObject.SetActive(false);
+    }
+
+    public IEnumerator TriggerFinalBossRootEffect()
+    {
+        if (!didSpawnRootOverlay)
+        {
+            rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
+            Destroy(rootObject, rootDuration);
+            didSpawnRootOverlay = true;
+        }
+        StartCoroutine(enemyFinalBossManager.RootBoss(rootDuration));
+        yield return new WaitForSeconds(rootDuration);
+        didRoot = false;
+        gameObject.SetActive(false);
+    }
+
+    public IEnumerator TriggerFirstBossRootEffect()
+    {
+        if (!didSpawnRootOverlay)
+        {
+            rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
+            Destroy(rootObject, rootDuration);
+            didSpawnRootOverlay = true;
+        }
+
+        StartCoroutine(enemyFirstBossMovement.RootMovement(rootDuration));
+        yield return new WaitForSeconds(rootDuration);
+        didRoot = false;
         gameObject.SetActive(false);
     }
 

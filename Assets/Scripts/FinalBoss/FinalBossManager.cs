@@ -49,7 +49,7 @@ public class FinalBossManager : MonoBehaviour
     private SpriteRenderer finalBossSpriteRenderer;
     [SerializeField] private GameObject puddleCollider;
     [SerializeField] private ParticleSystem hitParticles;
-
+    private bool isRooted = false;
 
     // Phase 2 
     private bool isTransitioning = false;
@@ -131,41 +131,49 @@ public class FinalBossManager : MonoBehaviour
 
             if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase && !isTransitioning)
             {
-  
-                if (actionsDone >= actionsToTeleport)
+                if(!isRooted)
                 {
-                    if (!doingAction)
-                        StartCoroutine(RandomTeleport());
-                }
-                else if (chosenAction == 0)
-                {
-                    if (!doingAction)
-                        StartCoroutine(ShootSmallProjectiles());
-                }
-                else if (chosenAction == 1)
-                {
-                    if (!doingAction)
-                        StartCoroutine(ShootMediumProjectiles());
-                }
-                else if (chosenAction == 2)
-                {
-                    if (!doingAction)
-                        StartCoroutine(ShootLargeProjectile());
-                }
-                else if (chosenAction == 3)
-                {
-                    if (!doingAction)
-                        StartCoroutine(SpawnShadowHands());
-                }
+                    if (actionsDone >= actionsToTeleport)
+                    {
+                        if (!doingAction)
+                            StartCoroutine(RandomTeleport());
+                    }
+                    else if (chosenAction == 0)
+                    {
+                        if (!doingAction)
+                            StartCoroutine(ShootSmallProjectiles());
+                    }
+                    else if (chosenAction == 1)
+                    {
+                        if (!doingAction)
+                            StartCoroutine(ShootMediumProjectiles());
+                    }
+                    else if (chosenAction == 2)
+                    {
+                        if (!doingAction)
+                            StartCoroutine(ShootLargeProjectile());
+                    }
+                    else if (chosenAction == 3)
+                    {
+                        if (!doingAction)
+                            StartCoroutine(SpawnShadowHands());
+                    }
+                }           
             }
-            else if (state == BOSS_STATE.PHASE_TWO && currentHP > 0f && !isTransitioning) 
+            else if (state == BOSS_STATE.PHASE_TWO && currentHP > 0f && !isTransitioning)
             {
-                RandomBossAttack();
-
+                if(!isRooted) 
+                {
+                    RandomBossAttack();
+                }
+                
                 if (isHunting)
                 {
-                    StartCoroutine(CheckMeleeAttack());
-                    HuntPlayer();
+                    if (!isRooted)
+                    {
+                        StartCoroutine(CheckMeleeAttack());
+                        HuntPlayer();
+                    }  
                 }
                 else if (!isHunting)
                 {
@@ -173,7 +181,7 @@ public class FinalBossManager : MonoBehaviour
                     StartCoroutine(TriggerShadowForm());
                 }
             }
-
+            
         }
     }
 
@@ -688,5 +696,19 @@ public class FinalBossManager : MonoBehaviour
         finalBossAnimator.SetBool("isChanneling", false);
         finalBossAnimator.SetBool("isTeleporting", false);
         finalBossAnimator.SetBool("isCasting", false);
+    }
+
+    public void SetIsRooted(bool flag)
+    {
+        isRooted = flag;
+    }
+
+    public IEnumerator RootBoss(float rootDuration)
+    {  
+        isRooted = true;
+        finalBossSpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
+        yield return new WaitForSeconds(rootDuration);
+        finalBossSpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
+        isRooted = false;
     }
 }

@@ -42,8 +42,18 @@ public class FlareShotManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // Burn normal enemies on hit
-        if (other.CompareTag("TestEnemy"))
+
+        if(other.CompareTag("FinalBoss"))
+        {
+            FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
+            finalBossManager.DamageBoss();
+
+            // Add Burn Particles
+            GameObject burnParticlesObject = Instantiate(burnParticles);
+            burnParticlesObject.transform.position = other.transform.position;
+            Destroy(burnParticlesObject, 3); // should linger a bit more than corpse
+        }
+        else if (other.CompareTag("TestEnemy")) // Burn normal enemies on hit
         {
             if(inTutorial)
             {
@@ -86,5 +96,6 @@ public class FlareShotManager : MonoBehaviour
             playerMoneyUIHandler.PulseCointText();
             PlayerMoneyManager.Instance.AddCoins(killReward);
         }
+
     }
 }

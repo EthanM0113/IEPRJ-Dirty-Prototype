@@ -103,18 +103,23 @@ public class PlayerHearts : MonoBehaviour
     }
 
     public void DamagePlayer(int dmg)
-    {     
-        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+    {
+        playerController = FindObjectOfType<PlayerController>();
 
-        // Nerf player fuel and deal dmg
-        fuelBarHandler = FindObjectOfType<FuelBarHandler>();
-        fuelBarHandler.ResetFuel(1.0f);
+        if (playerController.GetIsPlayerVulnerable())
+        {
+            StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
 
-        // Reduce Player HP
-        SoundManager.Instance.PlaySound(damageSound);
-        currentHp -= dmg;
+            // Nerf player fuel and deal dmg
+            fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+            fuelBarHandler.ResetFuel(1.0f);
+
+            // Reduce Player HP
+            SoundManager.Instance.PlaySound(damageSound);
+            currentHp -= dmg;
+        }
     }
-
+        
     public IEnumerator TriggerImpactFrame()
     {
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();
