@@ -12,7 +12,6 @@ public class RoomOptimization : MonoBehaviour
     [SerializeField] bool NeedsIcon = false;
     [SerializeField] private bool IsActive = false;
     [SerializeField] private bool HasEnemy = false;
-    [SerializeField] public bool IsEndRoom = false;
     [SerializeField] private LayerMask PlayerLayer;
     private BaseEnemy[] EnemyContainer;
     private Transform[] childList;
@@ -112,11 +111,7 @@ public class RoomOptimization : MonoBehaviour
 
             if (EnteredRoomSprite != null)
                 EnteredRoomSprite.SetActive(true);
-
-            if (IsEndRoom)
-            {
-                gameObject.GetComponentInParent<RoomProperties>().EndWalls();
-            }
+           
             if (IsLevel4)
             {
                 SoundManager.Instance.PlayMusic(BossMusic);
