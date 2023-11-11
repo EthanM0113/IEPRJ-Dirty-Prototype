@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
         walkSFXMultiplier = newSfxMultiplier;
 
         // For any currently playing music
-        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.volume = 10.0f * musicMultiplier;
     }
     
     // OST and Music
@@ -60,13 +60,13 @@ public class SoundManager : MonoBehaviour
     }
 
     public void LevelMusic() {
-        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.volume = musicMultiplier;
         musicSource.PlayOneShot(levelMusic);
         musicSource.loop = true;
     }
 
     public void GameOver() {
-        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.volume = 0.1f;
         musicSource.PlayOneShot(gameOver);
         musicSource.loop = true;
     }
@@ -213,7 +213,8 @@ public class SoundManager : MonoBehaviour
 
     public void PlayMusic(AudioClip music) {
         musicSource.volume = 0.1f * musicMultiplier;
-        musicSource.PlayOneShot(music);
+        musicSource.clip = music;
+        musicSource.Play();
         musicSource.loop = true;
     }
 

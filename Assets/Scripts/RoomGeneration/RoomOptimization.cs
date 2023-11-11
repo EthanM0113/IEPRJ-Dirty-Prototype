@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.SceneManagement;
 
 public class RoomOptimization : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class RoomOptimization : MonoBehaviour
     private Transform[] childList;
     private float DetectionRadius = 25.0f;
     private bool HasExplored = false;
+
+    private bool IsLevel4 = false;
+
+    [SerializeField] private AudioClip BossMusic;
     
 
     [SerializeField] private GameObject EnteredRoomSprite;
@@ -35,6 +40,10 @@ public class RoomOptimization : MonoBehaviour
             EnteredRoomSprite.SetActive(false);
         }
 
+        if (SceneManager.GetActiveScene().name == "LevelFour")
+        {
+            IsLevel4 = true;
+        }
     }
 
     
@@ -108,7 +117,10 @@ public class RoomOptimization : MonoBehaviour
             {
                 gameObject.GetComponentInParent<RoomProperties>().EndWalls();
             }
-
+            if (IsLevel4)
+            {
+                SoundManager.Instance.PlayMusic(BossMusic);
+            }
         }
     }
 

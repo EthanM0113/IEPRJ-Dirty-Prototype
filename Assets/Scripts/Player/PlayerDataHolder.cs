@@ -20,7 +20,7 @@ public class PlayerDataHolder : MonoBehaviour
     int skillSlotCount = 1;
     public static PlayerDataHolder Instance;
 
-    float currentMusicVolume = 1f, currentColor = 0.5f, currentSFXVolume = 1f;
+    float currentMusicVolume = 10f, currentColor = 0.5f, currentSFXVolume = 1f;
 
     int timesAtMainMenu = 0;
 
