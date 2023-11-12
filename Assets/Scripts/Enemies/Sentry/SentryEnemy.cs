@@ -106,7 +106,7 @@ public class SentryEnemy : BaseEnemy
 
     public override void EnemyDeath()
     {
-        SoundManager.Instance.EnemyPerish(perishSFX);
+        SoundManager.Instance.EnemyPerish(perishSFX, 0.6f);
         anim.enabled = true;
         anim.SetTrigger("OnDeath");
         base.EnemyDeath();

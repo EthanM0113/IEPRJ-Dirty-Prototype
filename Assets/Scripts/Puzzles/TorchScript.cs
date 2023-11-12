@@ -26,6 +26,7 @@ public class TorchScript : MonoBehaviour
         {
             if (other.gameObject.tag == "Player")
             {
+                SoundManager.Instance.PlayInteract();
                 state = !state;
                 isActivated = state;
                 puzzleBrain.GetComponent<TorchPuzzle>().TorchActivated(torchNum);

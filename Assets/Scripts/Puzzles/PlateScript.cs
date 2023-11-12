@@ -8,6 +8,7 @@ public class PlateScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         if(other.gameObject.tag == "Player") {
+            SoundManager.Instance.PlayInteract();
             num++;
             if (num >= 4)
                 num = 0;

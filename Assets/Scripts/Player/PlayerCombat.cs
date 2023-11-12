@@ -108,7 +108,6 @@ public class PlayerCombat : MonoBehaviour
                         if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                         {
                             mainCameraAnimator.SetTrigger("isQuickZoom");
-                            SoundManager.Instance.BackstabHit();
                             enemy.GetComponent<BaseEnemy>().EnemyDeath();
 
                             // Add coins
@@ -170,57 +169,68 @@ public class PlayerCombat : MonoBehaviour
         }
         else if(enemy.gameObject.tag == "ColorTorch")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(true);
             Debug.Log("change color");
             return true;
         }
         else if (enemy.gameObject.tag == "MysticStone")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<MysticStone>().ChangeColor();
             return true;
         }
         else if (enemy.gameObject.tag == "LockedCloset")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<LockedCloset>().OpenCloset();
             return true;
         }
         else if (enemy.gameObject.tag == "BreadBox")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<BreadBox>().TakeBread();
             return true;
         }
         else if (enemy.gameObject.tag == "HelpfulChair")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<HelpfulChair>().TakeScroll();
             return true;
         }
         else if (enemy.gameObject.tag == "WaterFountain")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<WaterFountain>().TakeWater();
             return true;
         }
         else if (enemy.gameObject.tag == "HotRock")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<HotRock>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "WetRock")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<WetRock>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "Barrel")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<Barrel>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "GrandDoor")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<GrandDoor>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "RuneSealedSafe")
         {
+            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<RuneSealedSafe>().Interact();
             return true;
         }

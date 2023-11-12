@@ -2306,6 +2306,7 @@ MonoBehaviour:
   wispTP: {fileID: 8300000, guid: c195d8dca2bbc4d4795dffb702155222, type: 3}
   emptyFeedback: {fileID: 8300000, guid: d2ed70c7e9d5d574ba260a5d71a4481e, type: 3}
   detected: {fileID: 8300000, guid: 688c7aa129b49bf4c9ecba20b4149a1f, type: 3}
+  interact: {fileID: 0}
   tb_litTorch: {fileID: 8300000, guid: 342414fbe5019cf4c882c29eeb357ee0, type: 3}
   tb_extinguishTorch: {fileID: 8300000, guid: 6ec0274882a0ce04ba380a4828074941, type: 3}
   tb_gruntA: {fileID: 8300000, guid: 230c7ac838cea1740b41654a97560a13, type: 3}
@@ -2316,7 +2317,7 @@ MonoBehaviour:
   gameOver: {fileID: 8300000, guid: 05e36ecc680085e468472aa7cd73bd93, type: 3}
   levelMusic: {fileID: 8300000, guid: a83b2218e5a83e5489fb0784b80c522c, type: 3}
   mainMenu: {fileID: 8300000, guid: bb2169c1eb6b0c24298af030beed41c6, type: 3}
-  torchbearer: {fileID: 8300000, guid: 9832cb116884db94d9b140d2aeb947b0, type: 3}
+  torchbearer: {fileID: 8300000, guid: fb105530572727f4b9e5dc73592a7493, type: 3}
   musicMultiplier: 1
   sfxMultiplier: 1
   walkSFXMultiplier: 1
@@ -11298,6 +11299,7 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  IsBossRoom: 0
   BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 0}
 --- !u!43 &1746430868

@@ -17,6 +17,7 @@ public class WispBehaviour : BaseEnemy
     [SerializeField] private ParticleSystem tpParticleHolder;
     [SerializeField] private Light selfLight;
     private bool isRooted = false;
+    [SerializeField] private AudioClip perishSFX;
 
     // Start is called before the first frame update
     void Awake()
@@ -68,5 +69,11 @@ public class WispBehaviour : BaseEnemy
     public bool GetIsRooted()
     {
         return isRooted; 
+    }
+
+    public override void EnemyDeath()
+    {
+        SoundManager.Instance.EnemyPerish(perishSFX, 0.6f);
+        base.EnemyDeath();
     }
 }

@@ -343,6 +343,11 @@ public class PlayerController : MonoBehaviour
                     //abilityLevel = playerAbility.GetAbilityLevel();
                     UseAbility();
                 }
+
+                if (inputHandler.IsCycle())
+                {
+                    playerAbility.CycleSkills();
+                }
             }
             else
             {
@@ -382,10 +387,6 @@ public class PlayerController : MonoBehaviour
                     UnpauseGame();
                 }
             }
-        }
-        if(inputHandler.IsCycle())
-        {
-            playerAbility.CycleSkills();
         }
     }
 
