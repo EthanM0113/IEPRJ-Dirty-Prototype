@@ -19,6 +19,7 @@ public class RoomOptimization : MonoBehaviour
     private bool HasExplored = false;
 
     private bool IsBossLevel = false;
+    [SerializeField] private bool IsBossRoom = false;
 
     [SerializeField] private AudioClip BossMusic;
     
@@ -115,8 +116,11 @@ public class RoomOptimization : MonoBehaviour
            
             if (IsBossLevel)
             {
-                SoundManager.Instance.DisableDarkerTheme();
-                SoundManager.Instance.PlayMusic(BossMusic);
+                if (IsBossRoom)
+                {
+                    SoundManager.Instance.DisableDarkerTheme();
+                    SoundManager.Instance.PlayMusic(BossMusic);
+                }
             }
         }
     }

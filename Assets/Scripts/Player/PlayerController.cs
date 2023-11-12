@@ -392,7 +392,6 @@ public class PlayerController : MonoBehaviour
     public async void SlowDebuff(float duration, float slowSpeed)
     {
         float end = Time.time + duration;
-        Debug.Log("Working");
         while (end > Time.time)
         {
             actualSpeed = slowSpeed;
