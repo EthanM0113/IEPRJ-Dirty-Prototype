@@ -18,7 +18,7 @@ public class RoomOptimization : MonoBehaviour
     private float DetectionRadius = 25.0f;
     private bool HasExplored = false;
 
-    private bool IsLevel4 = false;
+    private bool IsBossLevel = false;
 
     [SerializeField] private AudioClip BossMusic;
     
@@ -39,9 +39,10 @@ public class RoomOptimization : MonoBehaviour
             EnteredRoomSprite.SetActive(false);
         }
 
-        if (SceneManager.GetActiveScene().name == "LevelFour")
+        if (SceneManager.GetActiveScene().name == "LevelFour" ||
+            SceneManager.GetActiveScene().name == "LevelTwo")
         {
-            IsLevel4 = true;
+            IsBossLevel = true;
         }
     }
 
@@ -112,8 +113,9 @@ public class RoomOptimization : MonoBehaviour
             if (EnteredRoomSprite != null)
                 EnteredRoomSprite.SetActive(true);
            
-            if (IsLevel4)
+            if (IsBossLevel)
             {
+                SoundManager.Instance.DisableDarkerTheme();
                 SoundManager.Instance.PlayMusic(BossMusic);
             }
         }

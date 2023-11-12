@@ -768,7 +768,12 @@ public class PlayerController : MonoBehaviour
             darkerMusic.GetComponent<AudioSource>().Stop();
 
             if (!loseMusic.GetComponent<AudioSource>().isPlaying)       // start game over music, if it isn't already playing
-                loseMusic.GetComponent<AudioSource>().Play();
+            {
+                SoundManager.Instance.GameOver();
+                //loseMusic.GetComponent<AudioSource>().volume = SoundManager.Instance.GetMusicMultiplier();
+                //loseMusic.GetComponent<AudioSource>().Play();
+
+            }
 
 
             //Time.timeScale = 1;

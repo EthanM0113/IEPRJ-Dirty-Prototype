@@ -161,6 +161,8 @@ public class PlayerCombat : MonoBehaviour
 
     public bool FirstBoss(Collider enemy)
     {
+        SoundManager.Instance.BackstabHit();
+
         Debug.Log("enemy: " + enemy.gameObject.tag);
         if(enemy.CompareTag(hpTorchTag))
         {
@@ -237,7 +239,7 @@ public class PlayerCombat : MonoBehaviour
             {
                 finalBossManager.DamageBoss();
             }
-          
+            SoundManager.Instance.BackstabMiss();
             return true;
         }
         else

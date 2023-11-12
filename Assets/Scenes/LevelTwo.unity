@@ -6217,11 +6217,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: fa9998fda3a4cf04aa39cc4c499a0b18, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -9210,7 +9210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1628352261
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11295,10 +11295,10 @@ MonoBehaviour:
   NeedsIcon: 0
   IsActive: 0
   HasEnemy: 0
-  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 0}
 --- !u!43 &1746430868
 Mesh:
