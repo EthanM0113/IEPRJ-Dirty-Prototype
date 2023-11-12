@@ -135,16 +135,13 @@ public class PlayerCombat : MonoBehaviour
                 } 
             }
         }
-        else
-        {
-            
-        }
-        
     }
 
     public void PlayMissSound()
     {
-        SoundManager.Instance.BackstabMiss();
+        PlayerController playerController = FindObjectOfType<PlayerController>();
+        if(!playerController.GetIsInShop())
+            SoundManager.Instance.BackstabMiss();
     }
 
     private void OnDrawGizmos()
@@ -239,7 +236,6 @@ public class PlayerCombat : MonoBehaviour
             {
                 finalBossManager.DamageBoss();
             }
-            SoundManager.Instance.BackstabMiss();
             return true;
         }
         else

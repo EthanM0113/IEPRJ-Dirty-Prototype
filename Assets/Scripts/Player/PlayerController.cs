@@ -177,6 +177,9 @@ public class PlayerController : MonoBehaviour
     private bool didGraspPlayer = false;
     private GameObject shadowHand;
 
+    // Shop
+    private bool isInShop = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -463,12 +466,16 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove) return;
 
-        // Play footsteps only during motion
-        if (!GetComponent<AudioSource>().isPlaying)
+        if(!isInShop)
         {
-            GetComponent<AudioSource>().volume = 1.0f * SoundManager.Instance.GetSFXMultiplier();
-            GetComponent<AudioSource>().Play();
+            // Play footsteps only during motion
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().volume = 1.0f * SoundManager.Instance.GetSFXMultiplier();
+                GetComponent<AudioSource>().Play();
+            }
         }
+        
 
         rb.velocity = new Vector3
             (
@@ -917,6 +924,16 @@ public class PlayerController : MonoBehaviour
     public int GetAbilityLevel()
     {
         return abilityLevel;    
+    }
+
+    public void SetIsInShop(bool flag)
+    {
+        isInShop = flag;
+    }
+
+    public bool GetIsInShop()
+    {
+        return isInShop;
     }
 }
  
