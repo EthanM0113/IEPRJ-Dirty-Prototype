@@ -102,36 +102,38 @@ public class PlayerCombat : MonoBehaviour
                 }
                 else // Normal enemy stuff
                 {
-
-                    Debug.Log("Enemy 3");
-                    if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                    if(enemy.GetComponent<FaceDirection>() != null)
                     {
-                        mainCameraAnimator.SetTrigger("isQuickZoom");
-                        SoundManager.Instance.BackstabHit();   
-                        enemy.GetComponent<BaseEnemy>().EnemyDeath();
+                        Debug.Log("Enemy 3");
+                        if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                        {
+                            mainCameraAnimator.SetTrigger("isQuickZoom");
+                            SoundManager.Instance.BackstabHit();
+                            enemy.GetComponent<BaseEnemy>().EnemyDeath();
 
-                        // Add coins
-                        if (enemy.name.Contains("TestEnemy")) // Beholder
-                        {
-                            killReward = UnityEngine.Random.Range(2, 3);
-                        }
-                        else if (enemy.name.Contains("Gargoyle")) // Gargoyle
-                        {
-                            killReward = UnityEngine.Random.Range(4, 4);
-                        }
-                        else if (enemy.name.Contains("Staggered")) // Staggered
-                        {
-                            killReward = UnityEngine.Random.Range(4, 6);
-                        }
-                        else if (enemy.name.Contains("SampleWisp")) // Wisp
-                        {
-                            killReward = UnityEngine.Random.Range(5, 7);
-                        }
+                            // Add coins
+                            if (enemy.name.Contains("TestEnemy")) // Beholder
+                            {
+                                killReward = UnityEngine.Random.Range(2, 3);
+                            }
+                            else if (enemy.name.Contains("Gargoyle")) // Gargoyle
+                            {
+                                killReward = UnityEngine.Random.Range(4, 4);
+                            }
+                            else if (enemy.name.Contains("Staggered")) // Staggered
+                            {
+                                killReward = UnityEngine.Random.Range(4, 6);
+                            }
+                            else if (enemy.name.Contains("SampleWisp")) // Wisp
+                            {
+                                killReward = UnityEngine.Random.Range(5, 7);
+                            }
 
-                        playerMoneyUIHandler.SpinCoinImage();
-                        playerMoneyUIHandler.PulseCointText();
-                        PlayerMoneyManager.Instance.AddCoins(killReward);
-                    }
+                            playerMoneyUIHandler.SpinCoinImage();
+                            playerMoneyUIHandler.PulseCointText();
+                            PlayerMoneyManager.Instance.AddCoins(killReward);
+                        }
+                    }  
                 } 
             }
         }
@@ -158,11 +160,10 @@ public class PlayerCombat : MonoBehaviour
 
     public bool FirstBoss(Collider enemy)
     {
-        SoundManager.Instance.BackstabHit();
-
         Debug.Log("enemy: " + enemy.gameObject.tag);
         if(enemy.CompareTag(hpTorchTag))
         {
+            SoundManager.Instance.BackstabHit();
             SoundManager.Instance.TB_ExtinguishTorch();
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
             return true;
