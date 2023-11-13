@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer;
 
     // multiplier for option screen
-    [SerializeField] private float musicMultiplier = .5f;
+    [SerializeField] private float musicMultiplier = 5f;
     [SerializeField] private float sfxMultiplier = 1.0f;
     [SerializeField] private float walkSFXMultiplier = 1.0f;
 
@@ -33,6 +33,14 @@ public class SoundManager : MonoBehaviour
         }
         //else
             //Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        PlayerDataHolder data = PlayerDataHolder.Instance;
+
+        musicMultiplier = data.GetCurrentMusicVolume();
+        sfxMultiplier = data.GetCurrentSFXVolume();
     }
 
     public void editVolume(float newMusicMultiplier, float newSfxMultiplier)
@@ -230,7 +238,6 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayMusic(AudioClip music) {
-        musicSource.volume = musicMultiplier;
         musicSource.clip = music;
         musicSource.Play();
         musicSource.loop = true;

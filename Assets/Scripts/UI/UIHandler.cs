@@ -34,6 +34,9 @@ public class UIHandler : MonoBehaviour
     private void SetSettings() {
         // _volumeMixer.SetFloat("BG_Music", PlayerDataHolder.Instance.GetCurrentVolume());
         SoundManager.Instance.editVolume(PlayerDataHolder.Instance.GetCurrentMusicVolume(), PlayerDataHolder.Instance.GetCurrentSFXVolume());
+        musicSlider.value = SoundManager.Instance.GetMusicMultiplier();
+        sfxSlider.value = SoundManager.Instance.GetSFXMultiplier();
+
         var tempColor = _overLay.color;
         tempColor.a = 1.0f - PlayerDataHolder.Instance.GetCurrentColor();
         _overLay.color = tempColor;
