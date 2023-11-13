@@ -32,7 +32,10 @@ public class TorchPuzzle : MonoBehaviour
 
         if (solved && !rewardIsGranted)
         {
-            PlayerMoneyManager.Instance.AddCoins(10);
+            SoundManager.Instance.BackstabHit();
+            PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+            playerMoneyUIHandler.PulseCointText();
+            PlayerMoneyManager.Instance.AddCoins(20); // enough for one upgrade to incentivize completing the puzzle        
             rewardIsGranted = true;
         }
     }

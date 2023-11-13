@@ -129,6 +129,13 @@ public class FirstBossManager : MonoBehaviour
         firstBossMovement.gameObject.SetActive(false);
         yield return new WaitForSeconds(2.0f); // Wait for suspense
 
+        // Reward with money
+        SoundManager.Instance.BackstabHit();
+        PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+        playerMoneyUIHandler.SpinCoinImage();
+        playerMoneyUIHandler.PulseCointText();
+        PlayerMoneyManager.Instance.AddCoins(40); // enough for two upgrades to incentivize completing the puzzle        
+
         // Add skill slot
         FindObjectOfType<PlayerAbilityHandler>().AddSkillSlot();
 

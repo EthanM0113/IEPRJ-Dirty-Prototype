@@ -7,6 +7,7 @@ public class PlayerMoneyUIHandler : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI coinText;
     [SerializeField] private Animator coinTextAnimator;
+    [SerializeField] private Animator coinImageAnimator;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,11 @@ public class PlayerMoneyUIHandler : MonoBehaviour
     public void PulseCointText()
     {
         coinTextAnimator.SetTrigger("didPulse");
+    }
+
+    public void SpinCoinImage()
+    {
+        coinImageAnimator.SetTrigger("didSpin");
     }
 
 }
