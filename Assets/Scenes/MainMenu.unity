@@ -531,6 +531,8 @@ MonoBehaviour:
   bossSlay: {fileID: 0}
   wispTP: {fileID: 0}
   emptyFeedback: {fileID: 8300000, guid: d2ed70c7e9d5d574ba260a5d71a4481e, type: 3}
+  detected: {fileID: 0}
+  interact: {fileID: 0}
   tb_litTorch: {fileID: 0}
   tb_extinguishTorch: {fileID: 0}
   tb_gruntA: {fileID: 0}
@@ -1034,6 +1036,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 984973824}
+  - component: {fileID: 984973825}
   m_Layer: 5
   m_Name: Main Menu Holder
   m_TagString: Untagged
@@ -1063,6 +1066,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &984973825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984973823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ca4c1912a09ac4988c4575a76e393f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn:
+  - {fileID: 1604168990}
+  - {fileID: 678037133}
+  tint1: {r: 0.8117648, g: 0.5529412, b: 0.37254903, a: 1}
+  tint2: {r: 0.9333334, g: 0.8196079, b: 0.56078434, a: 1}
 --- !u!1 &1028420892
 GameObject:
   m_ObjectHideFlags: 0
@@ -2833,6 +2853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1995638348}
+  - component: {fileID: 1995638349}
   m_Layer: 5
   m_Name: Tutorial Menu
   m_TagString: Untagged
@@ -2863,6 +2884,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1995638349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995638347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ca4c1912a09ac4988c4575a76e393f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  btn:
+  - {fileID: 1028420892}
+  - {fileID: 1864863085}
+  tint1: {r: 0.34901962, g: 0.34901962, b: 0.4156863, a: 1}
+  tint2: {r: 0.8588236, g: 0.8588236, b: 0.8588236, a: 1}
 --- !u!1 &2050285382
 GameObject:
   m_ObjectHideFlags: 0
@@ -2984,6 +3022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadTime: 3
   exitBtn: {fileID: 678037133}
+  mainMenuRef: {fileID: 984973825}
   buttonSound: {fileID: 8300000, guid: b5a911aad43b3ea49883a234ca3584a8, type: 3}
 --- !u!95 &2050285388
 Animator:

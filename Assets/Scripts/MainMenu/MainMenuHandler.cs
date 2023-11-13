@@ -10,6 +10,7 @@ public class MainMenuHandler : MonoBehaviour
     private string sceneToGoTo;
     [SerializeField] private float loadTime = 10.0f;
     [SerializeField] private GameObject exitBtn;
+    [SerializeField] private SpecialBtnManager mainMenuRef;
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -37,6 +38,7 @@ public class MainMenuHandler : MonoBehaviour
 
     public void OpenTutorialMenu()
     {
+        mainMenuRef.enabled = false;
         anim.SetTrigger("OpenTutorial");
     }
 
