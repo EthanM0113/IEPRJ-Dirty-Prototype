@@ -81,5 +81,8 @@ public class UIHandler : MonoBehaviour
         SettingsPanel.SetActive(false);
         PausePanel.SetActive(true);
     }
-    
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 }
