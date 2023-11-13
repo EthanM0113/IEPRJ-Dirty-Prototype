@@ -102,47 +102,34 @@ public class PlayerCombat : MonoBehaviour
                 }
                 else // Normal enemy stuff
                 {
-                    if(enemy.GetComponent<FaceDirection>() != null)
+
+                    Debug.Log("Enemy 3");
+                    if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
                     {
-                        Debug.Log("Enemy 3");
-                        if (enemy.GetComponent<FaceDirection>().GetFaceDirection() == playerController.GetFaceDirection()) // if the enemy is facing the same direction
+                        mainCameraAnimator.SetTrigger("isQuickZoom");
+                        SoundManager.Instance.BackstabHit();   
+                        enemy.GetComponent<BaseEnemy>().EnemyDeath();
+
+                        // Add coins
+                        if (enemy.name.Contains("TestEnemy")) // Beholder
                         {
-                            mainCameraAnimator.SetTrigger("isQuickZoom");
-                            enemy.GetComponent<BaseEnemy>().EnemyDeath();
-
-                            // Add coins
-                            if (enemy.name.Contains("TestEnemy")) // Beholder
-                            {
-                                killReward = UnityEngine.Random.Range(2, 3);
-                            }
-                            else if (enemy.name.Contains("Gargoyle")) // Gargoyle
-                            {
-                                killReward = UnityEngine.Random.Range(4, 4);
-                            }
-                            else if (enemy.name.Contains("Staggered")) // Staggered
-                            {
-                                killReward = UnityEngine.Random.Range(4, 6);
-                            }
-                            else if (enemy.name.Contains("SampleWisp")) // Wisp
-                            {
-                                killReward = UnityEngine.Random.Range(5, 7);
-                            }
-
-                            playerMoneyUIHandler.SpinCoinImage();
-                            playerMoneyUIHandler.PulseCointText();
-                            PlayerMoneyManager.Instance.AddCoins(killReward);
+                            killReward = UnityEngine.Random.Range(3, 5);
                         }
-                    }  
+                        else if (enemy.name.Contains("SampleWisp")) // Wisp
+                        {
+                            killReward = UnityEngine.Random.Range(6, 8);
+                        }
+                        playerMoneyUIHandler.PulseCointText();
+                        PlayerMoneyManager.Instance.AddCoins(killReward);
+                    }
                 } 
             }
         }
-    }
-
-    public void PlayMissSound()
-    {
-        PlayerController playerController = FindObjectOfType<PlayerController>();
-        if(!playerController.GetIsInShop())
+        else
+        {
             SoundManager.Instance.BackstabMiss();
+        }
+        
     }
 
     private void OnDrawGizmos()
@@ -162,75 +149,63 @@ public class PlayerCombat : MonoBehaviour
         Debug.Log("enemy: " + enemy.gameObject.tag);
         if(enemy.CompareTag(hpTorchTag))
         {
-            SoundManager.Instance.BackstabHit();
             SoundManager.Instance.TB_ExtinguishTorch();
             enemy.gameObject.GetComponent<HpTorchHandler>().SetFlameLight(false);
             return true;
         }
         else if(enemy.gameObject.tag == "ColorTorch")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(true);
             Debug.Log("change color");
             return true;
         }
         else if (enemy.gameObject.tag == "MysticStone")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<MysticStone>().ChangeColor();
             return true;
         }
         else if (enemy.gameObject.tag == "LockedCloset")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<LockedCloset>().OpenCloset();
             return true;
         }
         else if (enemy.gameObject.tag == "BreadBox")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<BreadBox>().TakeBread();
             return true;
         }
         else if (enemy.gameObject.tag == "HelpfulChair")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<HelpfulChair>().TakeScroll();
             return true;
         }
         else if (enemy.gameObject.tag == "WaterFountain")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<WaterFountain>().TakeWater();
             return true;
         }
         else if (enemy.gameObject.tag == "HotRock")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<HotRock>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "WetRock")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<WetRock>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "Barrel")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<Barrel>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "GrandDoor")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<GrandDoor>().Interact();
             return true;
         }
         else if (enemy.gameObject.tag == "RuneSealedSafe")
         {
-            SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<RuneSealedSafe>().Interact();
             return true;
         }
@@ -245,8 +220,9 @@ public class PlayerCombat : MonoBehaviour
             FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
             if(finalBossManager != null) 
             {
-                finalBossManager.DamageBoss();
+                StartCoroutine(finalBossManager.DamageBoss());
             }
+          
             return true;
         }
         else

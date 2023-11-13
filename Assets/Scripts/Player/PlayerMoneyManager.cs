@@ -9,7 +9,6 @@ public class PlayerMoneyManager : MonoBehaviour
 
     // Private Variables
     [SerializeField] private int coins = 0;
-    [SerializeField] private int initialCoins = 20;
 
     private void Awake()
     {
@@ -19,7 +18,6 @@ public class PlayerMoneyManager : MonoBehaviour
             Instance = this;
 
         DontDestroyOnLoad(gameObject);
-        coins = initialCoins;
     }
 
     public int GetCoins()
@@ -35,10 +33,5 @@ public class PlayerMoneyManager : MonoBehaviour
     public void SubtractCoins(int amount)
     {
         coins -= amount;
-    }
-
-    public void ResetCoins()
-    {
-        coins = initialCoins;
     }
 }

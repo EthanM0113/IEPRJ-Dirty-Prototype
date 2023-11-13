@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5333011808617859548}
   - component: {fileID: 5333011808617859549}
+  - component: {fileID: 3849018935979715886}
   - component: {fileID: 8425140687433741618}
   m_Layer: 0
   m_Name: BigTorchLight
@@ -155,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 5333011808617859539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.232, z: 0}
+  m_LocalPosition: {x: 0, y: 1.344, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -174,8 +175,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.9019608, g: 0.84131014, b: 0.32156867, a: 1}
-  m_Intensity: 5
-  m_Range: 20
+  m_Intensity: 1
+  m_Range: 2.19
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -211,7 +212,7 @@ Light:
   m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 759
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
@@ -224,6 +225,18 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &3849018935979715886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333011808617859539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d20e0ed4c108dbf418734c30d50b3871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8425140687433741618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,7 +287,7 @@ Transform:
   m_GameObject: {fileID: 5333011808766457196}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -3.17, z: 0}
+  m_LocalPosition: {x: 0, y: -1.245, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5319,10 +5332,6 @@ PrefabInstance:
     - target: {fileID: 7594025671440497608, guid: 76674d488b46eb24b8d08cd68adaec66, type: 3}
       propertyPath: m_Name
       value: BeaconModel
-      objectReference: {fileID: 0}
-    - target: {fileID: 7594025671440497608, guid: 76674d488b46eb24b8d08cd68adaec66, type: 3}
-      propertyPath: m_Layer
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -10,7 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource musicSource, effectsSource, walkingSource;
 
     //sound effects
-    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, purchaseSuccess, purchaseFail, bossSlay, wispTP, emptyFeedback, detected, interact;
+    [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, purchaseSuccess, purchaseFail, bossSlay, wispTP, emptyFeedback, detected;
 
     // Torchbearer SFX
     [SerializeField] private AudioClip tb_litTorch, tb_extinguishTorch, tb_gruntA, tb_gruntB, tb_damage, tb_defeat;
@@ -19,12 +19,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer;
 
     // multiplier for option screen
-    [SerializeField] private float musicMultiplier = .5f;
+    [SerializeField] private float musicMultiplier = 1.0f;
     [SerializeField] private float sfxMultiplier = 1.0f;
     [SerializeField] private float walkSFXMultiplier = 1.0f;
-
-    bool enableDarkerMusic = true;
-    bool playGameOverOnce = false;
 
     void Awake() {
         if(Instance == null) {
@@ -45,7 +42,7 @@ public class SoundManager : MonoBehaviour
         walkSFXMultiplier = newSfxMultiplier;
 
         // For any currently playing music
-        musicSource.volume = 10.0f * musicMultiplier;
+        musicSource.volume = 0.1f * musicMultiplier;
     }
     
     // OST and Music
@@ -63,30 +60,21 @@ public class SoundManager : MonoBehaviour
     }
 
     public void LevelMusic() {
-        musicSource.volume = musicMultiplier;
+        musicSource.volume = 0.1f * musicMultiplier;
         musicSource.PlayOneShot(levelMusic);
         musicSource.loop = true;
     }
 
     public void GameOver() {
-        if(playGameOverOnce) return;
-        musicSource.volume = .05f * musicMultiplier;
-        musicSource.clip = gameOver;
-        musicSource.Play();
+        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.PlayOneShot(gameOver);
         musicSource.loop = true;
-        playGameOverOnce = true;
     }
 
     public void DarkerTheme() {
-        if (!enableDarkerMusic) return;
         musicSource.volume = 0.1f * musicMultiplier;
         musicSource.PlayOneShot(darkerTheme);
         musicSource.loop = true;
-    }
-
-    public void DisableDarkerTheme()
-    {
-        enableDarkerMusic = false;
     }
 
     // SFX
@@ -123,27 +111,21 @@ public class SoundManager : MonoBehaviour
         effectsSource.PlayOneShot(detected);
     }
 
-    public void PlayInteract()
-    {
-        effectsSource.volume = 0.4f * sfxMultiplier;
-        effectsSource.PlayOneShot(interact);
-    }
-
     public void BackstabMiss()
     {
-        effectsSource.volume = 0.3f * sfxMultiplier;
+        effectsSource.volume = 0.8f * sfxMultiplier;
         effectsSource.PlayOneShot(backstabMiss);
     }
 
     public void BackstabHit()
     {
-        effectsSource.volume = sfxMultiplier;
+        effectsSource.volume = 0.8f * sfxMultiplier;
         effectsSource.PlayOneShot(backstabHit);
     }
 
-    public void EnemyPerish(AudioClip baseEnemyPerish, float volume)
+    public void EnemyPerish(AudioClip baseEnemyPerish)
     {
-        effectsSource.volume = volume * sfxMultiplier; // 0.6f default
+        effectsSource.volume = 0.2f * sfxMultiplier;
         effectsSource.PlayOneShot(baseEnemyPerish);
     }
 
@@ -230,9 +212,8 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlayMusic(AudioClip music) {
-        musicSource.volume = musicMultiplier;
-        musicSource.clip = music;
-        musicSource.Play();
+        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.PlayOneShot(music);
         musicSource.loop = true;
     }
 

@@ -118,10 +118,4 @@ public class BaseEnemy : MonoBehaviour
     }
 
     public bool IsAlive() { return isAlive; }
-
-    public void SetIsAlive(bool flag) { isAlive = flag; }
-
-    public bool GetIsActivated() { return isActivated; }
-
-    public void SetIsActivated(bool flag) { isActivated = flag; }
 }

@@ -20,7 +20,7 @@ public class WispAreaManager : MonoBehaviour
     [SerializeField] GameObject EnemyContainer;
     private Light wispSelfLight;
     private AudioSource sfxSource;
-    //private float sfxVolume = 0.1f;
+    private float sfxVolume = 0.1f;
     [SerializeField] private float defautlSFXVolume;
 
     // Start is called before the first frame update
@@ -39,17 +39,17 @@ public class WispAreaManager : MonoBehaviour
     void Update()
     {
         // Constantly update audio
-        //if(assignedWisp != null)
-        //{
-        //    if(!assignedWisp.GetComponent<WispBehaviour>().GetIsMute())
-        //    {
-        //        sfxVolume = defautlSFXVolume;
-        //    }
-        //    else
-        //    {
-        //        sfxVolume = 0f;
-        //    }
-        //}
+        if(assignedWisp != null)
+        {
+            if(!assignedWisp.GetComponent<WispBehaviour>().GetIsMute())
+            {
+                sfxVolume = defautlSFXVolume;
+            }
+            else
+            {
+                sfxVolume = 0f;
+            }
+        }
 
         // First time spawning
         if (firstSpawn)
@@ -95,7 +95,7 @@ public class WispAreaManager : MonoBehaviour
                     assignedWisp.GetComponent<WispBehaviour>().PlayPreTPParticles();
                     Debug.Log("Teleporting!");  
                     wispSelfLight.intensity = 140.0f;
-                    sfxSource.volume = SoundManager.Instance.GetSFXMultiplier();
+                    sfxSource.volume = sfxVolume * SoundManager.Instance.GetSFXMultiplier();
                     sfxSource.Play();
                 }
 

@@ -48,8 +48,6 @@ public class FinalBossManager : MonoBehaviour
     private bool isFacingLeft = true;
     private SpriteRenderer finalBossSpriteRenderer;
     [SerializeField] private GameObject puddleCollider;
-    [SerializeField] private ParticleSystem hitParticles;
-    private bool isRooted = false;
 
     // Phase 2 
     private bool isTransitioning = false;
@@ -131,49 +129,41 @@ public class FinalBossManager : MonoBehaviour
 
             if (state == BOSS_STATE.PHASE_ONE && !skip1stPhase && !isTransitioning)
             {
-                if(!isRooted)
+  
+                if (actionsDone >= actionsToTeleport)
                 {
-                    if (actionsDone >= actionsToTeleport)
-                    {
-                        if (!doingAction)
-                            StartCoroutine(RandomTeleport());
-                    }
-                    else if (chosenAction == 0)
-                    {
-                        if (!doingAction)
-                            StartCoroutine(ShootSmallProjectiles());
-                    }
-                    else if (chosenAction == 1)
-                    {
-                        if (!doingAction)
-                            StartCoroutine(ShootMediumProjectiles());
-                    }
-                    else if (chosenAction == 2)
-                    {
-                        if (!doingAction)
-                            StartCoroutine(ShootLargeProjectile());
-                    }
-                    else if (chosenAction == 3)
-                    {
-                        if (!doingAction)
-                            StartCoroutine(SpawnShadowHands());
-                    }
-                }           
-            }
-            else if (state == BOSS_STATE.PHASE_TWO && currentHP > 0f && !isTransitioning)
-            {
-                if(!isRooted) 
-                {
-                    RandomBossAttack();
+                    if (!doingAction)
+                        StartCoroutine(RandomTeleport());
                 }
-                
+                else if (chosenAction == 0)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootSmallProjectiles());
+                }
+                else if (chosenAction == 1)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootMediumProjectiles());
+                }
+                else if (chosenAction == 2)
+                {
+                    if (!doingAction)
+                        StartCoroutine(ShootLargeProjectile());
+                }
+                else if (chosenAction == 3)
+                {
+                    if (!doingAction)
+                        StartCoroutine(SpawnShadowHands());
+                }
+            }
+            else if (state == BOSS_STATE.PHASE_TWO && currentHP > 0f && !isTransitioning) 
+            {
+                RandomBossAttack();
+
                 if (isHunting)
                 {
-                    if (!isRooted)
-                    {
-                        StartCoroutine(CheckMeleeAttack());
-                        HuntPlayer();
-                    }  
+                    StartCoroutine(CheckMeleeAttack());
+                    HuntPlayer();
                 }
                 else if (!isHunting)
                 {
@@ -181,7 +171,7 @@ public class FinalBossManager : MonoBehaviour
                     StartCoroutine(TriggerShadowForm());
                 }
             }
-            
+
         }
     }
 
@@ -434,21 +424,9 @@ public class FinalBossManager : MonoBehaviour
         finalBossAnimator.SetBool("isTeleporting", true);
         yield return new WaitForSeconds(0.5f); // Wait a sec for animation
         Random.InitState(Random.Range(int.MinValue, int.MaxValue));
-       
         float newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
         float newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
         newPos = new Vector3(newX, finalBoss.transform.position.y, newZ);
-
-        // Make sure new tp location is walkable distance away from old 
-        while (Vector3.Distance(newPos, finalBoss.transform.position) < 5f)
-        {
-            Debug.Log("FINDING NEW SPOT");
-            newX = Random.Range(tlBoundsPos.x, brBoundsPos.x);
-            newZ = Random.Range(tlBoundsPos.z, brBoundsPos.z);
-            newPos = new Vector3(newX, finalBoss.transform.position.y, newZ);
-        }
-
-
         finalBoss.transform.position = newPos;
         finalBossAnimator.SetBool("isTeleporting", false);
 
@@ -628,7 +606,6 @@ public class FinalBossManager : MonoBehaviour
         finalBossAnimator.SetBool("isCasting", true);
         // Play channel animation
         finalBossAnimator.SetBool("isChanneling", true);
-
         // Play Channel SFX
         sfxSource.PlayOneShot(SFX_Phase1Channel);
         yield return new WaitForSeconds(4f); // Longer animation on purpose, accomodating SFX
@@ -659,24 +636,28 @@ public class FinalBossManager : MonoBehaviour
         actionsDone++;
     }
 
-    public void DamageBoss()
+    public IEnumerator DamageBoss()
     {
-        if (state == BOSS_STATE.PHASE_ONE && !isInvincible)
+        if(state == BOSS_STATE.PHASE_ONE && !isInvincible)
         {
-            // Play hit particles
-            hitParticles.Play();
+            // Play hit animation
+            finalBossAnimator.SetBool("isHit", true);
+            yield return new WaitForSeconds(0.1f); 
+            finalBossAnimator.SetBool("isHit", false);
 
-            currentHP -= 0.1f; // 10 hits to die
+            currentHP -= 0.13f; // 8 hits to die
 
             // Insta TP First Boss on hit
             actionsDone = actionsToTeleport;
         }
         else if (state == BOSS_STATE.PHASE_TWO && !isInvincible)
         {
-            // Play hit particles
-            hitParticles.Play();
+            // Play hit animation
+            finalBossAnimator.SetBool("isPhase2Hit", true);
+            yield return new WaitForSeconds(0.1f);
+            finalBossAnimator.SetBool("isPhase2Hit", false);
 
-            currentHP -= 0.066f; // 15 hits to die
+            currentHP -= 0.09f; // 12 hits to die
         }
         
         hpBar.fillAmount = currentHP;
@@ -693,22 +674,9 @@ public class FinalBossManager : MonoBehaviour
 
     private void TurnOffAllPhase1Animations()
     {
+        finalBossAnimator.SetBool("isHit", false);
         finalBossAnimator.SetBool("isChanneling", false);
         finalBossAnimator.SetBool("isTeleporting", false);
         finalBossAnimator.SetBool("isCasting", false);
-    }
-
-    public void SetIsRooted(bool flag)
-    {
-        isRooted = flag;
-    }
-
-    public IEnumerator RootBoss(float rootDuration)
-    {  
-        isRooted = true;
-        finalBossSpriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
-        yield return new WaitForSeconds(rootDuration);
-        finalBossSpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
-        isRooted = false;
     }
 }

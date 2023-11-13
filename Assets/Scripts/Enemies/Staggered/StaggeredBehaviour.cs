@@ -136,7 +136,7 @@ public class StaggeredBehaviour : BaseEnemy
 
     public override void EnemyDeath()
     {
-        SoundManager.Instance.EnemyPerish(perishSFX, 0.8f);
+        SoundManager.Instance.EnemyPerish(perishSFX);
         anim.SetTrigger("Dead");
         base.EnemyDeath();
     }

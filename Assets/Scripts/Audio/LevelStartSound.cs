@@ -6,6 +6,6 @@ public class LevelStartSound : MonoBehaviour
 {
     void Start()
     {
-        //SoundManager.Instance.GameStart();
+        SoundManager.Instance.GameStart();
     }
 }

@@ -10,19 +10,12 @@ public class FlareShotManager : MonoBehaviour
     private int killReward;
     private PlayerMoneyUIHandler playerMoneyUIHandler;
     [SerializeField] private GameObject burnParticles;
-    private bool inTutorial = true;
-    TutorialManager tutorialManager;      
 
     // Start is called before the first frame update
     void Start()
     {
         mainCameraAnimator = Camera.main.GetComponent<Animator>();
         playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
-        TutorialManager tutorialManager = FindObjectOfType<TutorialManager>();  
-        if (tutorialManager == null )
-        {
-            inTutorial = false;
-        }
     }
 
     // Update is called once per frame
@@ -34,42 +27,13 @@ public class FlareShotManager : MonoBehaviour
             gameObject.SetActive(false);
             ticks = 0.0f;
         }
-
-
-  
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if(other.CompareTag("FinalBoss"))
+        // Burn normal enemies on hit
+        if (other.CompareTag("TestEnemy"))
         {
-            FinalBossManager finalBossManager = FindObjectOfType<FinalBossManager>();
-            finalBossManager.DamageBoss();
-
-            // Add Burn Particles
-            GameObject burnParticlesObject = Instantiate(burnParticles);
-            burnParticlesObject.transform.position = other.transform.position;
-            Destroy(burnParticlesObject, 3); // should linger a bit more than corpse
-        }
-        else if (other.CompareTag("TestEnemy")) // Burn normal enemies on hit
-        {
-            if(inTutorial)
-            {
-                if (tutorialManager != null)
-                {
-                    tutorialManager.SetWispBurned(true);
-                    inTutorial = false;
-                }
-                else
-                {
-                    tutorialManager = FindObjectOfType<TutorialManager>();
-                    tutorialManager.SetWispBurned(true);
-                    inTutorial = false;
-                }
-            }
-           
             Debug.Log("Triggering Burn Enemy.");
             mainCameraAnimator.SetTrigger("isQuickZoom");
             SoundManager.Instance.Fireball();
@@ -91,11 +55,8 @@ public class FlareShotManager : MonoBehaviour
             {
                 killReward = Random.Range(6, 8);
             }
-
-            playerMoneyUIHandler.SpinCoinImage();
             playerMoneyUIHandler.PulseCointText();
             PlayerMoneyManager.Instance.AddCoins(killReward);
         }
-
     }
 }

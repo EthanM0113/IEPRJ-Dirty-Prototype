@@ -11,7 +11,6 @@ public class TutorialManager : MonoBehaviour
     private HpTorchHandler hpTorchHandler;
     [SerializeField] private List<GameObject> gateList;
     private GameObject player;
-    private bool wispBurned = false;
 
     // Start is called before the first frame update
     void Start()
@@ -61,20 +60,13 @@ public class TutorialManager : MonoBehaviour
         }
         else if (currentRoom == 5)
         {
-            //player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag("Player");
             // Ability was switched to Wisp Ability
-            //if (player.GetComponent<PlayerAbilityHandler>().GetCurrentAbility() == Ability.Type.FLARE)
-            //{
-            // gateList[currentRoom - 1].GetComponent<Animator>().SetBool("isSolved", true);
-            //currentRoom = 6;
-            //}
-
-            if(wispBurned)
+            if (player.GetComponent<PlayerAbilityHandler>().GetCurrentAbility() == Ability.Type.FLARE)
             {
                 gateList[currentRoom - 1].GetComponent<Animator>().SetBool("isSolved", true);
                 currentRoom = 6;
             }
-
         }
 
     }
@@ -82,10 +74,5 @@ public class TutorialManager : MonoBehaviour
     public int GetCurrentRoom()
     {
         return currentRoom; 
-    }
-
-    public void SetWispBurned(bool flag)
-    {
-        wispBurned = flag;  
     }
 }

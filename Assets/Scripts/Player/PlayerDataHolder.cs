@@ -12,15 +12,15 @@ public class PlayerDataHolder : MonoBehaviour
     PlayerController fuelHandler;
 
     [SerializeField] int defaultMaxHP = 3;
-    float defaultMaxFuel = 100f;
+    float defaultMaxFuel = 50.0f;
 
-        int currentHP = 3,
-            maxHP = 3;
-    float maxFuel = 100f;
+    int currentHP = 3,
+        maxHP = 3;
+    float maxFuel = 50.0f;
     int skillSlotCount = 1;
     public static PlayerDataHolder Instance;
 
-    float currentMusicVolume = 5f, currentColor = 0.5f, currentSFXVolume = 1f;
+    float currentMusicVolume = 1f, currentColor = 0.5f, currentSFXVolume = 1f;
 
     int timesAtMainMenu = 0;
 
@@ -71,7 +71,6 @@ public class PlayerDataHolder : MonoBehaviour
             consumedAbilities.Clear();
             currentAbility.Clear();
             skillSlotCount = 1;
-            PlayerMoneyManager.Instance.ResetCoins();
         }
     }
     

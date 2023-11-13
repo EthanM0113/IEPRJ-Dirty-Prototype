@@ -11,7 +11,6 @@ public class BarrelPlate : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SoundManager.Instance.PlayInteract();
             barrel.GetComponent<Barrel>().SwitchState();
         }
     }

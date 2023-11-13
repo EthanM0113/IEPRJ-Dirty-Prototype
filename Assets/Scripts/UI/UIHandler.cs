@@ -22,7 +22,7 @@ public class UIHandler : MonoBehaviour
 
     private void Start()
     {
-        //_overLay.gameObject.SetActive(true);
+        _overLay.gameObject.SetActive(true);
         SetSettings();
     }
 

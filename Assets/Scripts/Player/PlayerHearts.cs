@@ -95,31 +95,24 @@ public class PlayerHearts : MonoBehaviour
 
     public void IncreaseMaxHealth(int amount)
     {
-        if(maxHp < 17) // Capped at 17 hearts
-            maxHp += amount;
-
+        maxHp += amount;
         currentHp = maxHp;
         UpdateMaxHealth();
     }
 
     public void DamagePlayer(int dmg)
-    {
-        playerController = FindObjectOfType<PlayerController>();
+    {     
+        StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
 
-        if (playerController.GetIsPlayerVulnerable())
-        {
-            StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+        // Nerf player fuel and deal dmg
+        fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+        fuelBarHandler.ResetFuel(1.0f);
 
-            // Nerf player fuel and deal dmg
-            fuelBarHandler = FindObjectOfType<FuelBarHandler>();
-            fuelBarHandler.ResetFuel(1.0f);
-
-            // Reduce Player HP
-            SoundManager.Instance.PlaySound(damageSound);
-            currentHp -= dmg;
-        }
+        // Reduce Player HP
+        SoundManager.Instance.PlaySound(damageSound);
+        currentHp -= dmg;
     }
-        
+
     public IEnumerator TriggerImpactFrame()
     {
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();

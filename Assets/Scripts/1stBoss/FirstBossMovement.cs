@@ -6,11 +6,8 @@ public class FirstBossMovement : MonoBehaviour
 {
     [SerializeField] private List<GameObject> pathNode;
     [SerializeField] private float speed;
-    private float modifiableSpeed;
-    private bool isRooted = false;
     [SerializeField] private FirstBossUIManager firstBossUIManager;
     [SerializeField] private ParticleSystem particle;
-    [SerializeField] private SpriteRenderer spriteRenderer; 
     private int pathNodeCount;
     private int chosenPath;
     private bool isMoving = true;
@@ -18,7 +15,6 @@ public class FirstBossMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        modifiableSpeed = speed;
         pathNodeCount = pathNode.Count;
         ChooseRandomPath();
     }
@@ -40,9 +36,6 @@ public class FirstBossMovement : MonoBehaviour
             if (distanceBetween >= 0.5)
             {
                 Debug.Log("MOVING");
-                speed = modifiableSpeed;
-                if (isRooted)
-                    speed = 0f;
                 transform.position = Vector3.MoveTowards(transform.position, pathNode[chosenPath].transform.position, speed * Time.deltaTime);
             }
             else if (distanceBetween < 0.5) // if boss reaches destination
@@ -61,17 +54,17 @@ public class FirstBossMovement : MonoBehaviour
 
     public void IncreaseSpeed(float num)
     {
-        modifiableSpeed += num;
+        speed += num;
     }
 
     public void SetSpeed(float num)
     {
-        modifiableSpeed = num;
+        speed = num;
     }
 
     public float GetSpeed()
     {
-        return modifiableSpeed;
+        return speed;
     }
 
     public void DisableMovement()
@@ -83,19 +76,5 @@ public class FirstBossMovement : MonoBehaviour
     {
         particle.transform.position = location;
         particle.Play();
-    }
-
-    public IEnumerator RootMovement(float rootDuration)
-    {
-        spriteRenderer.color = new Color(0.753f, 0.933f, 1f, 1f); // Light Blue color
-        isRooted = true;
-        yield return new WaitForSeconds(rootDuration);
-        isRooted = false;
-        spriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
-    }
-
-    public SpriteRenderer GetSpriteRenderer()
-    {
-        return spriteRenderer;  
     }
 }

@@ -109,7 +109,7 @@ public class TestEnemy : BaseEnemy
 
     public override void EnemyDeath()
     {
-        SoundManager.Instance.EnemyPerish(perishSFX, 0.6f);
+        SoundManager.Instance.EnemyPerish(perishSFX);
         base.EnemyDeath();
     }
     public override void PauseEnemy()

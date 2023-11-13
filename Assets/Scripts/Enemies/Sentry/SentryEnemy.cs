@@ -37,8 +37,6 @@ public class SentryEnemy : BaseEnemy
     [SerializeField] AudioClip perishSFX;
     float volumeOffset = 0.8f;
 
-    private bool isRooted = false;
-
     // Start is called before the first frame update
     void Awake()
     {
@@ -68,45 +66,42 @@ public class SentryEnemy : BaseEnemy
         {
             return;
         }
-       if(isAlive)
-       {
-            if(!isRooted)
+       if (isAlive)
+        {
+            if (intervalTime <= Time.time)
             {
-                if (intervalTime <= Time.time)
+                lightSource.RotateAround(lightSource.position, Vector3.up, rotationPerInterval * dirMultiplier);
+                intervalTime = Time.time + interval;
+
+                currentRotation += rotationPerInterval;
+                if (currentRotation >= 360f || currentRotation <= -0.01f)
                 {
-                    lightSource.RotateAround(lightSource.position, Vector3.up, rotationPerInterval * dirMultiplier);
-                    intervalTime = Time.time + interval;
-
-                    currentRotation += rotationPerInterval;
-                    if (currentRotation >= 360f || currentRotation <= -0.01f)
-                    {
-                        currentRotation = 0;
-                    }
-
-                    if (Mathf.Abs(currentRotation) == 90f)
-                    {
-                        facingRight = true;
-
-                        faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
-                    }
-                    else if (Mathf.Abs(currentRotation) == 270f)
-                    {
-                        facingRight = false;
-
-                        faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
-                    }
-
-                    spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
-                    spriteIndex++;
-                    source.volume = volumeOffset * SoundManager.Instance.GetSFXMultiplier();
+                    currentRotation = 0;
                 }
+
+                if (Mathf.Abs(currentRotation) == 90f)
+                {
+                    facingRight = true;
+
+                    faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
+                }
+                else if (Mathf.Abs(currentRotation) == 270f)
+                {
+                    facingRight = false;
+
+                    faceDir.FlipFaceDirection(facingRight); // flip face direction // edit to not change sprite
+                }
+
+                spriteRef.sprite = lookSpriteList[Mathf.Abs(spriteIndex % lookSpriteList.Length)];
+                spriteIndex++;
+                source.volume = volumeOffset * SoundManager.Instance.GetSFXMultiplier();
             }
         }
     }
 
     public override void EnemyDeath()
     {
-        SoundManager.Instance.EnemyPerish(perishSFX, 0.6f);
+        SoundManager.Instance.EnemyPerish(perishSFX);
         anim.enabled = true;
         anim.SetTrigger("OnDeath");
         base.EnemyDeath();
@@ -124,10 +119,5 @@ public class SentryEnemy : BaseEnemy
         isActivated = true;
         source.mute = false;
 
-    }
-
-    public void SetIsRooted(bool flag) 
-    {
-        isRooted = flag;    
     }
 }

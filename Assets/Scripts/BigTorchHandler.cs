@@ -16,7 +16,7 @@ public class BigTorchHandler : MonoBehaviour
         
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         // On collision with player, refill fuel
         if (other.transform.CompareTag("Player"))
