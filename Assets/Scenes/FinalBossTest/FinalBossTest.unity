@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: 20
+  initialCoins: 20
 --- !u!4 &99426838
 Transform:
   m_ObjectHideFlags: 0
@@ -413,10 +414,11 @@ MonoBehaviour:
   NeedsIcon: 1
   IsActive: 0
   HasEnemy: 0
-  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
+  IsBossRoom: 0
+  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 0}
 --- !u!65 &118330059
 BoxCollider:
@@ -958,7 +960,7 @@ Transform:
   m_GameObject: {fileID: 330268351}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0.26, z: 0}
+  m_LocalPosition: {x: 0, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1026,7 +1028,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: -589522578, guid: 9c09f917c0fb15049ad0d73d9eae1748, type: 3}
+  m_Sprite: {fileID: 420052941, guid: bb6b16d7a62210149a51300151641b20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1083,6 +1085,7 @@ MonoBehaviour:
   wispTP: {fileID: 0}
   emptyFeedback: {fileID: 0}
   detected: {fileID: 0}
+  interact: {fileID: 0}
   tb_litTorch: {fileID: 0}
   tb_extinguishTorch: {fileID: 0}
   tb_gruntA: {fileID: 0}
@@ -3410,10 +3413,11 @@ MonoBehaviour:
   NeedsIcon: 0
   IsActive: 0
   HasEnemy: 0
-  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  IsBossRoom: 0
+  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 0}
 --- !u!114 &775557359
 MonoBehaviour:
@@ -9604,7 +9608,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
@@ -16423,8 +16427,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5684853, y: 1, z: 0.12299156}
-  m_Center: {x: -0.052585393, y: 0, z: -0.4651382}
+  m_Size: {x: 5.11, y: 1, z: 0.48561823}
+  m_Center: {x: -0.052585363, y: 0, z: -1.438412}
 --- !u!114 &1705019093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16474,10 +16478,11 @@ MonoBehaviour:
   NeedsIcon: 0
   IsActive: 0
   HasEnemy: 0
-  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 0
+  IsBossRoom: 0
+  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 0}
 --- !u!1 &1706704769
 GameObject:
@@ -18068,8 +18073,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.94, y: 1.14, z: 0.46}
-  m_Center: {x: 0, y: 0.052501142, z: 0}
+  m_Size: {x: 3.6750195, y: 2.12686, z: 1.83501}
+  m_Center: {x: -0.6545104, y: 0.54593074, z: -0.40493906}
 --- !u!850595691 &1990184035
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -18350,6 +18355,7 @@ MonoBehaviour:
   finalBossAnimator: {fileID: 330268353}
   puddleCollider: {fileID: 1702907954}
   hitParticles: {fileID: 1504293612}
+  firstBossCollider: {fileID: 1931786502}
   huntSpeed: 0
   meleeAreaPrefab: {fileID: 8668698519758437846, guid: efc9bbe28bcf7b84abda5d45b1f568d9, type: 3}
   roamDuration: 8
@@ -25277,6 +25283,8 @@ MonoBehaviour:
   slot1: {fileID: 0}
   slot2: {fileID: 0}
   slot3: {fileID: 0}
+  consumedAbilityUI: {fileID: 0}
+  levelUI: {fileID: 0}
 --- !u!224 &1052350444072126800
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60903,8 +60911,8 @@ MonoBehaviour:
   playerCenter: {fileID: 5465825148154178062}
   speed: 120
   sneakSpeed: 70
-  abilitySpeed: 300
-  abilityConstant: 0.07
+  beholderSpeed: 200
+  beholderIncrement: 10
   actualSpeed: 0
   playerHearts: {fileID: 239463218724254756}
   health: 5
@@ -60915,6 +60923,7 @@ MonoBehaviour:
   playerSprite: {fileID: 8600752380966303485}
   attackPosition: {fileID: 4692066118757907341}
   attackDistance: -0.58
+  abilityLevel: 0
   torchInterval: 3
   loseScreen: {fileID: 2486360023579803674}
   MAX_FUEL: 50
@@ -60936,6 +60945,9 @@ MonoBehaviour:
   levelMusic: {fileID: 1628352260}
   loseMusic: {fileID: 862048142}
   darkerMusic: {fileID: 295936560}
+  shadowHandPrefab: {fileID: 0}
+  shadowHandSFXSource: {fileID: 0}
+  SFX_ShadowHand: {fileID: 0}
 --- !u!54 &8600752381304730739
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -61149,6 +61161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinText: {fileID: 4095590010612862261}
   coinTextAnimator: {fileID: 7507703371299330108}
+  coinImageAnimator: {fileID: 0}
 --- !u!64 &8796827700484960321
 MeshCollider:
   m_ObjectHideFlags: 0

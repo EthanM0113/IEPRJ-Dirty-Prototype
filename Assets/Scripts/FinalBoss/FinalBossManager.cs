@@ -50,6 +50,7 @@ public class FinalBossManager : MonoBehaviour
     [SerializeField] private GameObject puddleCollider;
     [SerializeField] private ParticleSystem hitParticles;
     private bool isRooted = false;
+    [SerializeField] private Collider firstBossCollider;
 
     // Phase 2 
     private bool isTransitioning = false;
@@ -286,7 +287,7 @@ public class FinalBossManager : MonoBehaviour
 
             GameObject meleeArea = Instantiate(meleeAreaPrefab, player.transform);
             meleeArea.transform.parent = null;
-            meleeArea.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+            meleeArea.transform.localScale = new Vector3(3f, 3f, 3f);
 
             yield return new WaitForSeconds(0.4f); // Play Melee SFX on Slam
             sfxSource.PlayOneShot(SFX_Phase2Melee);
@@ -395,6 +396,10 @@ public class FinalBossManager : MonoBehaviour
          
             finalBossAnimator.SetBool("isPhase2", true);
 
+            // Modify Phase 2 Collider
+            firstBossCollider.GetComponent<BoxCollider>().center = new Vector3(-0.6545104f, 0.5459307f, -0.4049391f);
+            firstBossCollider.GetComponent<BoxCollider>().size = new Vector3(3.67502f, 2.12686f, 1.83501f);
+
             // Set Phase 2 Variables
             doingAction = false;
             isInvincible = false;
@@ -402,6 +407,7 @@ public class FinalBossManager : MonoBehaviour
             isHunting = true;
             isRoaming = false;
             state = BOSS_STATE.PHASE_TWO;
+            
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
@@ -482,7 +488,7 @@ public class FinalBossManager : MonoBehaviour
         }
         else if (state == BOSS_STATE.PHASE_TWO)
         {
-            numberOfHands = 20;
+            numberOfHands = 14;
         }
 
         for (int i = 0; i < numberOfHands; i++)
