@@ -30,7 +30,11 @@ public class BossTorchPuzzle : MonoBehaviour
         {
             Invoke("PuzzleSolved", 0.7f);
 
-            PlayerMoneyManager.Instance.AddCoins(10);
+            SoundManager.Instance.BackstabHit();
+            PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+            playerMoneyUIHandler.SpinCoinImage();
+            playerMoneyUIHandler.PulseCointText();
+            PlayerMoneyManager.Instance.AddCoins(20); // enough for one upgrade to incentivize completing the puzzle        
             rewardIsGranted = true;
         }
 

@@ -15,6 +15,8 @@ public class PlatePuzzle : MonoBehaviour
     private bool solved = false;
     private bool rewardIsGranted = false;
 
+ 
+
     void Awake() {
         numOne = platOne.GetComponent<PlateScript>().GetNum();
         numTwo = platTwo.GetComponent<PlateScript>().GetNum();
@@ -77,7 +79,11 @@ public class PlatePuzzle : MonoBehaviour
         prevThree = numThree;
 
         if(solved && !rewardIsGranted) {
-            PlayerMoneyManager.Instance.AddCoins(10);
+            SoundManager.Instance.BackstabHit();
+            PlayerMoneyUIHandler playerMoneyUIHandler = FindObjectOfType<PlayerMoneyUIHandler>();
+            playerMoneyUIHandler.SpinCoinImage();
+            playerMoneyUIHandler.PulseCointText();
+            PlayerMoneyManager.Instance.AddCoins(20); // enough for one upgrade to incentivize completing the puzzle         
             rewardIsGranted = true;
         }
     }

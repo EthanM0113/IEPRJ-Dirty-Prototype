@@ -18,10 +18,12 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Used for Player Sneaking Speed")]
     [SerializeField] float sneakSpeed;
     [Tooltip("Used for Player Test Ability Speed")]
-    [SerializeField] float abilitySpeed;
+    [SerializeField] float beholderSpeed = 200;
     [Tooltip("Used for Player Test Ability Speed Increase per level")]
-    [SerializeField] float abilityConstant = 0.3f;
+    [SerializeField] float beholderIncrement = 10f;
     [SerializeField] private float actualSpeed = 0;
+
+
 
     [Space(10)]
     #endregion
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
     bool isSneaking; // used for sneaking
     bool isFacingRight = false;
 
-    int abilityLevel = 0;
+    [SerializeField] private int abilityLevel = 0;
 
     int activatedTorchCount = 0;
     [SerializeField] int torchInterval = 3; // every set number of torches activated hint the final room
@@ -136,11 +138,16 @@ public class PlayerController : MonoBehaviour
     // Gargoyle Ability variables
     private MainCameraManager mainCameraManager;
     private bool isPlayerDetectable;
+    private bool isPlayerVulnerable;
+    private float gargoyleSpeed = 140;
+    private float gargoyleSpeedIncrement = 20;
+
 
     // Tree Ability variables
     [SerializeField] private GameObject shivPrefab;
     [SerializeField] private float shivForce;
     [SerializeField] private float shivAbilityIncrement = 0.6f;
+    private float shivIncrement = 20f;
     private bool didShootShiv;
     #endregion
 
@@ -162,6 +169,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject levelMusic;
     [SerializeField] private GameObject loseMusic;
     [SerializeField] private GameObject darkerMusic;
+
+    // Shadow Hand
+    [SerializeField] private GameObject shadowHandPrefab;
+    [SerializeField] private AudioSource shadowHandSFXSource;
+    [SerializeField] private AudioClip SFX_ShadowHand;
+    private bool didGraspPlayer = false;
+    private GameObject shadowHand;
+
+    // Shop
+    private bool isInShop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -192,6 +209,7 @@ public class PlayerController : MonoBehaviour
         // for gargoyle
         mainCameraManager = FindAnyObjectByType<MainCameraManager>();
         isPlayerDetectable = true;
+        isPlayerVulnerable = true;
 
         // for tree
         didShootShiv = false;   
@@ -322,8 +340,13 @@ public class PlayerController : MonoBehaviour
             {
                 if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
                 {
-                    abilityLevel = playerAbility.GetAbilityLevel();
+                    //abilityLevel = playerAbility.GetAbilityLevel();
                     UseAbility();
+                }
+
+                if (inputHandler.IsCycle())
+                {
+                    playerAbility.CycleSkills();
                 }
             }
             else
@@ -365,16 +388,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if(inputHandler.IsCycle())
-        {
-            playerAbility.CycleSkills();
-        }
     }
 
     public async void SlowDebuff(float duration, float slowSpeed)
     {
         float end = Time.time + duration;
-        Debug.Log("Working");
         while (end > Time.time)
         {
             actualSpeed = slowSpeed;
@@ -385,36 +403,37 @@ public class PlayerController : MonoBehaviour
 
     void SneakCheck()
     {
-        //if (isSneaking)
-        //{
-        //    actualSpeed = sneakSpeed;
-        //    playerLight.intensity = minLight;
-        //    playerLight.spotAngle = minLight;
-        //}
+
+        // Faster intial speed than sentry but scales worse, HOWEVER can reach level 15
         if (playerAbility.GetCurrentAbility() == Ability.Type.TEST && startAbilityTimer)
         {
-            //Debug.Log("Ability " + playerAbility.GetCurrentAbility() + " is Speed Boost.");
-
+           
             if (abilityLevel > 0)
             {
-                actualSpeed = abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant));
+                if(abilityLevel > 15)
+                    abilityLevel = 15;
+
+                actualSpeed = beholderSpeed + (beholderIncrement * abilityLevel);
             }
             else
             {
-                actualSpeed = abilitySpeed;
+                actualSpeed = beholderSpeed;
             }
         }
+        // Slower initial speed than beholder ability, but scales better, HOWEVER only reaches level 10
         else if (playerAbility.GetCurrentAbility() == Ability.Type.SENTRY && startAbilityTimer)
         {
-            // should be slower than speed boost abiltiy, right not 70% of speed boost speed
+           
             if (abilityLevel > 0)
             {
-                actualSpeed = (abilitySpeed + (abilitySpeed * (abilityLevel * abilityConstant))) * 0.7f;
-                actualSpeed = 20.0f;
+                if (abilityLevel > 10)
+                    abilityLevel = 10;
+
+                actualSpeed = gargoyleSpeed + (gargoyleSpeedIncrement * abilityLevel);
             }
             else
             {
-                actualSpeed = abilitySpeed * 0.7f;
+                actualSpeed = gargoyleSpeed;
             }
         }
         else if (!isSneaking)
@@ -422,18 +441,41 @@ public class PlayerController : MonoBehaviour
             actualSpeed = speed;
         }
 
+        /* Speed Breakdown at each Level
+        Beholder	Sentry
+        200			140
+        210			160
+        220			180	
+        230			200						
+        240			220
+        250			240
+        260			260	
+        270			280
+        280			300
+        290
+        300
+        310
+        320
+        330
+        340
+        350
+         */
     }
 
     private void Move() 
     {
         if (!canMove) return;
 
-        // Play footsteps only during motion
-        if (!GetComponent<AudioSource>().isPlaying)
+        if(!isInShop)
         {
-            GetComponent<AudioSource>().volume = 1.0f * SoundManager.Instance.GetSFXMultiplier();
-            GetComponent<AudioSource>().Play();
+            // Play footsteps only during motion
+            if (!GetComponent<AudioSource>().isPlaying)
+            {
+                GetComponent<AudioSource>().volume = 1.0f * SoundManager.Instance.GetSFXMultiplier();
+                GetComponent<AudioSource>().Play();
+            }
         }
+        
 
         rb.velocity = new Vector3
             (
@@ -502,6 +544,31 @@ public class PlayerController : MonoBehaviour
 
             if (!levelMusic.GetComponent<AudioSource>().isPlaying)
                 levelMusic.GetComponent<AudioSource>().Play();
+        }
+
+        // Damage player on low fuel
+        if(fuelAmt <= 0f)
+        {
+            // Track player
+            if(shadowHand != null)
+                shadowHand.transform.position = shadowHandSFXSource.transform.position;
+
+            if (!didGraspPlayer)
+            {
+                didGraspPlayer = true;  
+                shadowHand = Instantiate(shadowHandPrefab);
+                
+
+                // Play Shadow Hands SFX
+                shadowHandSFXSource.PlayOneShot(SFX_ShadowHand);
+                shadowHand.transform.position = shadowHandSFXSource.transform.position;
+                //shadowHand.transform.parent = shadowHandSFXSource.transform;
+            }
+        }
+        if(fuelAmt > 0f)
+        {
+            if(didGraspPlayer)
+                didGraspPlayer = false;
         }
     }
 
@@ -582,6 +649,7 @@ public class PlayerController : MonoBehaviour
                     preventAttackInput = false;
                     mainCameraManager.ToggleGargoyleFX(false);
                     isPlayerDetectable = true;
+                    isPlayerVulnerable = true;
                 }
 
             }
@@ -621,8 +689,11 @@ public class PlayerController : MonoBehaviour
         if (!didShootShiv)
         {
             SoundManager.Instance.StaggeredShiv(); // SFX inside method is not final!
-            
-            for(int i = 0; i < 8; i++)
+
+            if (abilityLevel > 10)
+                abilityLevel = 10;
+
+            for (int i = 0; i < 8; i++)
             {
                 GameObject stagShiv = Instantiate(shivPrefab, playerCenter.transform);
                 Rigidbody stagShivRB = stagShiv.GetComponent<Rigidbody>();
@@ -632,25 +703,25 @@ public class PlayerController : MonoBehaviour
                 #region Rotate Each Shiv
                 if (i == 0) 
                 {
-                    stagShivRB.AddForce(playerCenter.transform.right * shivForce * -1.0f);
+                    stagShivRB.AddForce(playerCenter.transform.right * (shivForce + shivIncrement * abilityLevel) * -1.0f);
                 }
                 else if (i == 1)
                 {
-                    stagShivRB.AddForce(playerCenter.transform.right * shivForce);
+                    stagShivRB.AddForce(playerCenter.transform.right * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 2)
                 {
                     Vector3 shivRotation = stagShiv.transform.localEulerAngles;
                     shivRotation.z = 90;
                     stagShiv.transform.localEulerAngles = shivRotation;
-                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce * -1.0f);
+                    stagShivRB.AddForce(playerCenter.transform.forward * (shivForce + shivIncrement * abilityLevel) * -1.0f);
                 }
                 else if (i == 3)
                 {
                     Vector3 shivRotation = stagShiv.transform.localEulerAngles;
                     shivRotation.z = 90;
                     stagShiv.transform.localEulerAngles = shivRotation;
-                    stagShivRB.AddForce(playerCenter.transform.forward * shivForce);
+                    stagShivRB.AddForce(playerCenter.transform.forward * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 4)
                 {
@@ -658,7 +729,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = 45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 45, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 5)
                 {
@@ -666,7 +737,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = -45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 135, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 6)
                 {
@@ -674,7 +745,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = 45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 225, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 else if (i == 7)
                 {
@@ -682,7 +753,7 @@ public class PlayerController : MonoBehaviour
                     shivRotation.z = -45;
                     stagShiv.transform.localEulerAngles = shivRotation;
                     Vector3 halfDirection = Quaternion.Euler(0, 315, 0) * transform.forward;
-                    stagShivRB.AddForce(halfDirection * shivForce);
+                    stagShivRB.AddForce(halfDirection * (shivForce + shivIncrement * abilityLevel));
                 }
                 #endregion
             }
@@ -704,7 +775,12 @@ public class PlayerController : MonoBehaviour
             darkerMusic.GetComponent<AudioSource>().Stop();
 
             if (!loseMusic.GetComponent<AudioSource>().isPlaying)       // start game over music, if it isn't already playing
-                loseMusic.GetComponent<AudioSource>().Play();
+            {
+                SoundManager.Instance.GameOver();
+                //loseMusic.GetComponent<AudioSource>().volume = SoundManager.Instance.GetMusicMultiplier();
+                //loseMusic.GetComponent<AudioSource>().Play();
+
+            }
 
 
             //Time.timeScale = 1;
@@ -749,19 +825,50 @@ public class PlayerController : MonoBehaviour
             SoundManager.Instance.Fireball();
             GameObject shotFlare = Instantiate(flarePrefab, playerCenter.transform);
             Light shotFlareLight = shotFlare.GetComponentInChildren<Light>();
+
+            if(abilityLevel > 10)
+                abilityLevel = 10;
+
             shotFlareLight.range += flareAbilityIncrement * abilityLevel;
             Rigidbody shotFlareRB = shotFlare.GetComponent<Rigidbody>();
-            // Just affecting x and y scale
-            shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), 1);
+            // Affect Scale
+            shotFlare.transform.localScale = new Vector3(shotFlare.transform.localScale.x + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.y + (flareAbilityIncrement * abilityLevel), shotFlare.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+
+            // Update children
+            foreach (Transform child in shotFlare.transform)
+            {
+                Debug.Log("Name Of Child " + child.transform.name);
+                child.transform.localScale = new Vector3(child.transform.localScale.x + (flareAbilityIncrement * abilityLevel), child.transform.localScale.y + (flareAbilityIncrement * abilityLevel), child.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+                foreach (Transform child2 in child.transform)
+                {
+                    Debug.Log("Name Of Child 2 " + child2.transform.name);
+                    child2.transform.localScale = new Vector3(child2.transform.localScale.x + (flareAbilityIncrement * abilityLevel), child2.transform.localScale.y + (flareAbilityIncrement * abilityLevel), child2.transform.localScale.z + (flareAbilityIncrement * abilityLevel));
+                }
+            }
+            
             if (isFacingRight)
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce * -1.0f);
+                shotFlareRB.AddForce(playerCenter.transform.right * (flareForce + 10 * abilityLevel) * -1.0f);
             }
             else
             {
-                shotFlareRB.AddForce(playerCenter.transform.right * flareForce );
+                shotFlareRB.AddForce(playerCenter.transform.right * (flareForce + 10 * abilityLevel));
             }
+
             didShootFlare = true;
+
+            /*  Speed Breakdown
+                220
+                240
+                260
+                280
+                300
+                320
+                340
+                360
+                380
+                400
+             */
         }
     }
 
@@ -770,11 +877,17 @@ public class PlayerController : MonoBehaviour
         preventAttackInput = true;
         mainCameraManager.ToggleGargoyleFX(true);
         isPlayerDetectable = false;
+        isPlayerVulnerable = false;
     }
 
     public bool GetIsPlayerDetectable()
     {
         return isPlayerDetectable;
+    }
+
+    public bool GetIsPlayerVulnerable()
+    {
+        return isPlayerVulnerable;
     }
 
     public void PlayDeathParticles()
@@ -806,6 +919,21 @@ public class PlayerController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public int GetAbilityLevel()
+    {
+        return abilityLevel;    
+    }
+
+    public void SetIsInShop(bool flag)
+    {
+        isInShop = flag;
+    }
+
+    public bool GetIsInShop()
+    {
+        return isInShop;
     }
 }
  

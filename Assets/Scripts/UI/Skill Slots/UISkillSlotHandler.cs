@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using static PlayerAbilityHandler;
 
 public class UISkillSlotHandler : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class UISkillSlotHandler : MonoBehaviour
     [SerializeField] private GameObject slot3;
     PlayerController m_player;
 
+    private List<AbilityStats> consumedAbilities = new List<AbilityStats>();
+    [SerializeField] private GameObject consumedAbilityUI;
+
+    [SerializeField] private GameObject levelUI;
+
     bool isUIActive = false;
     // Start is called before the first frame update
     void Awake()
@@ -22,7 +29,23 @@ public class UISkillSlotHandler : MonoBehaviour
         m_playerData = PlayerDataHolder.Instance;
         m_InputHandler = FindObjectOfType<PlayerInputHandler>();
         m_player = FindObjectOfType<PlayerController>();
+        consumedAbilities = new List<AbilityStats>(FindObjectOfType<PlayerAbilityHandler>().GetConsumedAbilities());
+        if (consumedAbilities.Count == 0)
+        {
+            consumedAbilityUI.SetActive(false);
+        }
+        else
+        {
+            consumedAbilityUI.SetActive(true);
+        }
 
+        if (SceneManager.GetActiveScene().name != "TutorialLevel")
+            levelUI.SetActive(true);
+        else
+        {
+            levelUI.SetActive(false);
+            Time.timeScale = 1.0f;
+        }
     }
 
     private void Start()
@@ -59,6 +82,19 @@ public class UISkillSlotHandler : MonoBehaviour
         {
             isUIActive = !isUIActive;
             m_player.CanMove();
+        }
+
+        if (isUIActive)
+        {
+            consumedAbilities = new List<AbilityStats>(FindObjectOfType<PlayerAbilityHandler>().GetConsumedAbilities());
+            if (consumedAbilities.Count == 0)
+            {
+                consumedAbilityUI.SetActive(false);
+            }
+            else
+            {
+                consumedAbilityUI.SetActive(true);
+            }
         }
 
         m_skillSlotUI.SetActive(isUIActive);

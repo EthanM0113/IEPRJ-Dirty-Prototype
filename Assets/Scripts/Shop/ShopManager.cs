@@ -178,6 +178,7 @@ public class ShopManager : MonoBehaviour
                     // Reset Flip Triggers
                     hpCardFlipTriggered = false;
                     fuelCardFlipTriggered = false;
+
                 }
                 else
                 {
@@ -186,6 +187,7 @@ public class ShopManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.J))
             {
+                playerController.SetIsInShop(false);
                 shopUI.SetActive(false);
                 isPlayerInteractingWithShop = false;
 
@@ -256,6 +258,8 @@ public class ShopManager : MonoBehaviour
 
     private void ChangeToShopView()
     {
+        playerController.SetIsInShop(true);
+
         mainCameraManager.ToggleBlackBars(true);
 
         if(!hpCardFlipTriggered)
@@ -291,6 +295,8 @@ public class ShopManager : MonoBehaviour
 
     private void ChangeToOriginalView()
     {
+        playerController.SetIsInShop(false);
+
         shopInteractPopup.SetActive(false);
         mainCameraManager.ToggleBlackBars(false);
 
@@ -304,17 +310,11 @@ public class ShopManager : MonoBehaviour
         mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("Player");
         mainCamera.cullingMask |= 1 << LayerMask.NameToLayer("TestEnemy");
 
-       
         if (Vector3.Distance(mainCamera.transform.localPosition, originalCameraPos) <= 0.1f)
         {
             isCameraTransitioning = false;
             isShopCameraActive = false;
         }
     }
-
-
-
-   
-       
 }
 

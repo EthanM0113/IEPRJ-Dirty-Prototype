@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
+using UnityEngine.SceneManagement;
 
 public class RoomOptimization : MonoBehaviour
 {
@@ -11,12 +12,16 @@ public class RoomOptimization : MonoBehaviour
     [SerializeField] bool NeedsIcon = false;
     [SerializeField] private bool IsActive = false;
     [SerializeField] private bool HasEnemy = false;
-    [SerializeField] public bool IsEndRoom = false;
     [SerializeField] private LayerMask PlayerLayer;
     private BaseEnemy[] EnemyContainer;
     private Transform[] childList;
     private float DetectionRadius = 25.0f;
     private bool HasExplored = false;
+
+    private bool IsBossLevel = false;
+    [SerializeField] private bool IsBossRoom = false;
+
+    [SerializeField] private AudioClip BossMusic;
     
 
     [SerializeField] private GameObject EnteredRoomSprite;
@@ -35,6 +40,11 @@ public class RoomOptimization : MonoBehaviour
             EnteredRoomSprite.SetActive(false);
         }
 
+        if (SceneManager.GetActiveScene().name == "LevelFour" ||
+            SceneManager.GetActiveScene().name == "LevelTwo")
+        {
+            IsBossLevel = true;
+        }
     }
 
     
@@ -103,12 +113,15 @@ public class RoomOptimization : MonoBehaviour
 
             if (EnteredRoomSprite != null)
                 EnteredRoomSprite.SetActive(true);
-
-            if (IsEndRoom)
+           
+            if (IsBossLevel)
             {
-                gameObject.GetComponentInParent<RoomProperties>().EndWalls();
+                if (IsBossRoom)
+                {
+                    SoundManager.Instance.DisableDarkerTheme();
+                    SoundManager.Instance.PlayMusic(BossMusic);
+                }
             }
-
         }
     }
 
