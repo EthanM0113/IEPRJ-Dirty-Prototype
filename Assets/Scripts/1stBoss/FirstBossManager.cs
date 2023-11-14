@@ -33,6 +33,8 @@ public class FirstBossManager : MonoBehaviour
 
     // Boss Hp Bar Variables
     [SerializeField] private Image healthBar;
+    [SerializeField] private Image delayedHealthBar;
+    private float lerpSpeed = 0.01f;
 
     // Groan 
     private float groanTicks = 0f;
@@ -61,6 +63,8 @@ public class FirstBossManager : MonoBehaviour
         if (firstBossUIManager.GetPlayerWithinRange()) // should offload some memory
         {
 
+            EaseHealthBar();
+
             if (!isBossDead)
             {
                 PlayRandomGroans();
@@ -88,6 +92,14 @@ public class FirstBossManager : MonoBehaviour
             }
         }
         
+    }
+
+    private void EaseHealthBar()
+    {
+        if(healthBar.fillAmount != delayedHealthBar.fillAmount)
+        {
+            delayedHealthBar.fillAmount = Mathf.Lerp(delayedHealthBar.fillAmount, bossHp, lerpSpeed);
+        }
     }
 
     private void PlayRandomGroans()

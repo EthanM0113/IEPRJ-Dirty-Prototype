@@ -14,6 +14,8 @@ public class FinalBossManager : MonoBehaviour
 {
     // Health Variables
     [SerializeField] private Image hpBar;
+    [SerializeField] private Image delayedHpBar;
+    private float lerpSpeed = 0.01f;
     private float maxHP;
     private float currentHP;
     [SerializeField] private BOSS_STATE state;
@@ -99,6 +101,7 @@ public class FinalBossManager : MonoBehaviour
         maxHP = 1f;
         currentHP = maxHP;
         hpBar.fillAmount = currentHP;
+        delayedHpBar.fillAmount = currentHP;
         state = BOSS_STATE.PHASE_ONE;
         doingAction = false;
         tlBoundsPos = TLBounds.gameObject.transform.position;
@@ -127,6 +130,8 @@ public class FinalBossManager : MonoBehaviour
         {
             if(currentHP > 0f)
             FlipBoss();
+
+            EaseHealthBar();
 
             StartCoroutine(CheckTransitionPhase());
 
@@ -183,6 +188,14 @@ public class FinalBossManager : MonoBehaviour
                 }
             }
             
+        }
+    }
+
+    private void EaseHealthBar()
+    {
+        if(hpBar.fillAmount != delayedHpBar.fillAmount)
+        {
+            delayedHpBar.fillAmount = Mathf.Lerp(delayedHpBar.fillAmount, currentHP, lerpSpeed);
         }
     }
 
@@ -391,9 +404,10 @@ public class FinalBossManager : MonoBehaviour
             Debug.Log("1st Phase Done");
             currentHP = 1f; // Fill HP Again
             hpBar.fillAmount = currentHP;
+            delayedHpBar.fillAmount = currentHP;
 
             // Switch to Phase 2 Animation
-         
+
             finalBossAnimator.SetBool("isPhase2", true);
 
             // Modify Phase 2 Collider
