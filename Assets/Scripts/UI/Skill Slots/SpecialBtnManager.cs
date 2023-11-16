@@ -40,11 +40,21 @@ public class SpecialBtnManager : MonoBehaviour
                 if (a == selected_Button)
                 {
                     btn[a].GetComponent<Button>().Select();
-                    btn[a].GetComponent<Image>().color = tint2;
+                    if (btn[a].GetComponent<UISpecialBTN>().GetHovered())
+                    {
+                        btn[a].GetComponent<Image>().sprite = btn[a].GetComponent<UISpecialBTN>().GetHovered();
+                    }
+                    else
+                    {
+                        btn[a].GetComponent<Image>().color = tint2;
+                    }
                 }
                 else
                 {
-                    btn[a].GetComponent<Image>().color = tint1;
+                    if (btn[a].GetComponent<UISpecialBTN>().GetNormal())
+                        btn[a].GetComponent<Image>().sprite = btn[a].GetComponent<UISpecialBTN>().GetNormal();
+                    else
+                        btn[a].GetComponent<Image>().color = tint1;
                 }
             }
 

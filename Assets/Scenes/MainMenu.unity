@@ -320,7 +320,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 250917406}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 84d8346efe5e0414b9ef49b8c3d557da, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0ef51f3d1ae31be43ab39241a621ea05, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -533,6 +533,7 @@ MonoBehaviour:
   emptyFeedback: {fileID: 8300000, guid: d2ed70c7e9d5d574ba260a5d71a4481e, type: 3}
   detected: {fileID: 0}
   interact: {fileID: 0}
+  doorOpen: {fileID: 0}
   tb_litTorch: {fileID: 0}
   tb_extinguishTorch: {fileID: 0}
   tb_gruntA: {fileID: 0}
@@ -576,6 +577,7 @@ GameObject:
   - component: {fileID: 678037137}
   - component: {fileID: 678037136}
   - component: {fileID: 678037135}
+  - component: {fileID: 678037138}
   m_Layer: 5
   m_Name: ExitBtn
   m_TagString: Untagged
@@ -697,6 +699,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 678037133}
   m_CullTransparentMesh: 1
+--- !u!114 &678037138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 678037133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5eada16ad02d22459310b24720c4b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 21300000, guid: 6006790d8205f934c934cf3df63cde33, type: 3}
+  hovered: {fileID: 21300000, guid: 35a6d0efcb6c81648bb3196096a23524, type: 3}
 --- !u!1 &910287114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,6 +1111,7 @@ GameObject:
   - component: {fileID: 1028420896}
   - component: {fileID: 1028420895}
   - component: {fileID: 1028420894}
+  - component: {fileID: 1028420897}
   m_Layer: 5
   m_Name: Yes
   m_TagString: Untagged
@@ -1216,6 +1233,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1028420892}
   m_CullTransparentMesh: 1
+--- !u!114 &1028420897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028420892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5eada16ad02d22459310b24720c4b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 0}
+  hovered: {fileID: 0}
 --- !u!1 &1058207139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1791,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476292925}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 84d8346efe5e0414b9ef49b8c3d557da, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: 0ef51f3d1ae31be43ab39241a621ea05, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
@@ -2101,6 +2132,7 @@ GameObject:
   - component: {fileID: 1604168994}
   - component: {fileID: 1604168993}
   - component: {fileID: 1604168992}
+  - component: {fileID: 1604168995}
   m_Layer: 5
   m_Name: StartBtn
   m_TagString: Untagged
@@ -2234,6 +2266,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604168990}
   m_CullTransparentMesh: 1
+--- !u!114 &1604168995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604168990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5eada16ad02d22459310b24720c4b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 21300000, guid: 4a4e3b26f658a214faa8b50220527637, type: 3}
+  hovered: {fileID: 21300000, guid: 68b514001ebeff949a1cf89ef1499cf6, type: 3}
 --- !u!1 &1709067850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2455,6 +2501,7 @@ GameObject:
   - component: {fileID: 1864863089}
   - component: {fileID: 1864863088}
   - component: {fileID: 1864863087}
+  - component: {fileID: 1864863090}
   m_Layer: 5
   m_Name: No
   m_TagString: Untagged
@@ -2576,6 +2623,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1864863085}
   m_CullTransparentMesh: 1
+--- !u!114 &1864863090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864863085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5eada16ad02d22459310b24720c4b5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normal: {fileID: 0}
+  hovered: {fileID: 0}
 --- !u!1 &1873479209
 GameObject:
   m_ObjectHideFlags: 0
