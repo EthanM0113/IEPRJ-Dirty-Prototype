@@ -31,6 +31,8 @@ public class PlayerCombat : MonoBehaviour
     // Final boss stuff
     [SerializeField] private string finalBossTag;
 
+    // Breakable Objects
+    [SerializeField] private string breakableTag = "Breakable";
     // Start is called before the first frame update
     void Start()
     {
@@ -160,7 +162,14 @@ public class PlayerCombat : MonoBehaviour
     public bool FirstBoss(Collider enemy)
     {
         Debug.Log("enemy: " + enemy.gameObject.tag);
-        if(enemy.CompareTag(hpTorchTag))
+        if (enemy.CompareTag(breakableTag))
+        {
+            SoundManager.Instance.BackstabMiss();
+            enemy.gameObject.GetComponent<BreakableObject>().Break();
+            return true;
+
+        }
+        else if (enemy.CompareTag(hpTorchTag))
         {
             SoundManager.Instance.BackstabHit();
             SoundManager.Instance.TB_ExtinguishTorch();
@@ -171,7 +180,7 @@ public class PlayerCombat : MonoBehaviour
         {
             SoundManager.Instance.PlayInteract();
             enemy.gameObject.GetComponent<ColorTorch>().SetFlameLight(true);
-            Debug.Log("change color");
+            //Debug.Log("change color");
             return true;
         }
         else if (enemy.gameObject.tag == "MysticStone")

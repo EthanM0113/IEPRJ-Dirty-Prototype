@@ -24,8 +24,7 @@ public class UISkillIcon : MonoBehaviour
     private PlayerAbilityHandler m_playerAbilities;
     private UIConsumedSkillsHandler m_UISkillHandler;
 
-    bool m_highlighted = false;
-    bool m_selected = false;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -38,10 +37,7 @@ public class UISkillIcon : MonoBehaviour
 
     private void Update()
     {
-        if (m_highlighted)
-        {
-            
-        }
+
     }
 
     public void Initialize(Ability.Type ability)

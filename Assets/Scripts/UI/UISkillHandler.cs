@@ -32,6 +32,8 @@ public class UISkillHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (m_setAbility == Ability.Type.NONE) return;
+
         if (skillMeter <= 0.9f)
         {
             //float output = 1f - skillMeter;
@@ -60,23 +62,23 @@ public class UISkillHandler : MonoBehaviour
         {
             case Ability.Type.NONE:
             {
-                m_skillIconRef.material.SetTexture("_Texture", m_blank); break;
+                m_skillIconRef.material.SetTexture("_Texture", m_blank); m_setAbility = Ability.Type.NONE;  break;
             }
             case Ability.Type.TEST:
             {
-                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon1); break;
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon1); m_setAbility = Ability.Type.TEST; break;
             }
             case Ability.Type.FLARE:
             {
-                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon2); break;
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon2); m_setAbility = Ability.Type.FLARE; break;
             }
             case Ability.Type.TREE:
             {
-                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon3); break;
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon3); m_setAbility = Ability.Type.TREE; break;
             }
             case Ability.Type.SENTRY:
             {
-                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon4); break;
+                m_skillIconRef.material.SetTexture("_Texture", m_skillIcon4); m_setAbility = Ability.Type.SENTRY; break;
             }
         }
 
