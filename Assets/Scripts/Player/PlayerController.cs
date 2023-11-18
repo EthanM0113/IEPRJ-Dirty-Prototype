@@ -193,7 +193,7 @@ public class PlayerController : MonoBehaviour
         fuelTicks = 0.0f;
         MAX_FUEL = PlayerDataHolder.Instance.GetMaxFuel();
         fuelAmt = MAX_FUEL;
-        attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
+        attackPosition.transform.localPosition = new Vector3(attackDistance, 0, attackPosition.transform.localPosition.z);
         tr = GetComponent<TrailRenderer>();
         animator = GetComponent<Animator>();
         playerCombat = GetComponent<PlayerCombat>();
@@ -487,12 +487,12 @@ public class PlayerController : MonoBehaviour
         if (!isFacingRight && moveInput.x < 0) // flip to the right 
         {
             Flip();
-            attackPosition.transform.localPosition = new Vector3(attackDistance, 0, 0);
+            attackPosition.transform.localPosition = new Vector3(attackDistance, 0, attackPosition.transform.localPosition.z); 
         }
         else if(isFacingRight && moveInput.x > 0) // flip to the left 
         {
             Flip();
-            attackPosition.transform.localPosition = new Vector3(-attackDistance, 0, 0);
+            attackPosition.transform.localPosition = new Vector3(-attackDistance, 0, attackPosition.transform.localPosition.z); 
         }
     }
 

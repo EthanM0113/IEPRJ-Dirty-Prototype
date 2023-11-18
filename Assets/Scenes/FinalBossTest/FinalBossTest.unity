@@ -1086,6 +1086,7 @@ MonoBehaviour:
   emptyFeedback: {fileID: 0}
   detected: {fileID: 0}
   interact: {fileID: 0}
+  doorOpen: {fileID: 0}
   tb_litTorch: {fileID: 0}
   tb_extinguishTorch: {fileID: 0}
   tb_gruntA: {fileID: 0}
@@ -18194,8 +18195,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.6750195, y: 2.12686, z: 1.83501}
-  m_Center: {x: -0.6545104, y: 0.54593074, z: -0.40493906}
+  m_Size: {x: 0.35, y: 1.4484928, z: 1.0080285}
+  m_Center: {x: 0, y: 0.20674682, z: -0.035985723}
 --- !u!850595691 &1990184035
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -24251,7 +24252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackPoint: {fileID: 1490492768386936260}
-  attackRange: 0.85
+  attackRange: 0.3
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -25797,7 +25798,7 @@ Transform:
   m_GameObject: {fileID: 4692066118757907341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.41, y: 0, z: 0}
+  m_LocalPosition: {x: -0.41, y: 0, z: 0.118}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61044,7 +61045,7 @@ MonoBehaviour:
   playerLight: {fileID: 970940477}
   playerSprite: {fileID: 8600752380966303485}
   attackPosition: {fileID: 4692066118757907341}
-  attackDistance: -0.58
+  attackDistance: -0.2
   abilityLevel: 0
   torchInterval: 3
   loseScreen: {fileID: 2486360023579803674}
