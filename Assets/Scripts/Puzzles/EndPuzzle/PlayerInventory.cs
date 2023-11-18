@@ -24,8 +24,6 @@ public class PlayerInventory : MonoBehaviour
         iceChunks = false;
         freezingScroll = false;
         grandDoorGear = false;
-
-        inventoryText.GetComponent<TextMeshProUGUI>().text = "Inventory: \n";
     }
 
     private void UpdateList()

@@ -16,6 +16,7 @@ public class LockedCloset : MonoBehaviour
             if (playerInventory.GetComponent<PlayerInventory>().GetKey())
             {
                 closet.GetComponent<LoreObject>().UpdateText("The rusted key fit right in! There's a chalice inside.");
+                playerInventory.GetComponent<PlayerInventory>().SetKey(false);
                 unlocked = true;
             }
             else
