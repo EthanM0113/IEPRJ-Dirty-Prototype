@@ -19,17 +19,11 @@ public class RoomOptimization : MonoBehaviour
     private bool HasExplored = false;
 
     private bool IsBossLevel = false;
-    [SerializeField] private bool IsBossRoom = false;
-
-    [SerializeField] private AudioClip BossMusic;
-    
-
     [SerializeField] private GameObject EnteredRoomSprite;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Invoke("GetChildrenList", 0.2f);
 
         if (EnteredRoomSprite == null)
         {
@@ -40,11 +34,6 @@ public class RoomOptimization : MonoBehaviour
             EnteredRoomSprite.SetActive(false);
         }
 
-        if (SceneManager.GetActiveScene().name == "LevelFour" ||
-            SceneManager.GetActiveScene().name == "LevelTwo")
-        {
-            IsBossLevel = true;
-        }
     }
 
     
@@ -71,13 +60,7 @@ public class RoomOptimization : MonoBehaviour
                 }
 
             }
-            //else if (!HasEnemy)
-            //{
-            //    for (int i = 3; i < childList.Length; i++)
-            //    {
-            //        childList[i].gameObject.SetActive(false);
-            //    }
-            //}
+
             
             IsActive = false;
             return;
@@ -92,20 +75,13 @@ public class RoomOptimization : MonoBehaviour
             }
 
         }
-        //else if (!HasEnemy)
-        //{
-        //    for (int i = 3; i < childList.Length; i++)
-        //    {
-        //        childList[i].gameObject.SetActive(true);
-        //    }
-        //}
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameObject.FindGameObjectWithTag("MapNode").transform.position = MapNode.transform.position;
             if (!HasExplored && NeedsIcon)
             {
                 MapNode.transform.GetChild(0).gameObject.SetActive(true);
@@ -113,28 +89,15 @@ public class RoomOptimization : MonoBehaviour
 
             if (EnteredRoomSprite != null)
                 EnteredRoomSprite.SetActive(true);
-           
-            if (IsBossLevel)
-            {
-                if (IsBossRoom)
-                {
-                    SoundManager.Instance.DisableDarkerTheme();
-                    SoundManager.Instance.PlayMusic(BossMusic);
-                }
-            }
         }
     }
 
-
-
-    /*private void OnCollisionExit(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-
         if (collision.gameObject.CompareTag("Player"))
         {
-            GameObject.FindGameObjectWithTag("RespawnNode").transform.position = collision.gameObject.transform.position;
+            GameObject.FindGameObjectWithTag("MapNode").transform.position = MapNode.transform.position;
         }
 
-    }*/
-
+    }
 }

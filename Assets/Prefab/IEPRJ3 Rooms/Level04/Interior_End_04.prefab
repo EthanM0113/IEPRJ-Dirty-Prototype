@@ -180,7 +180,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.887, y: 1, z: 0.887}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6430988270809130671
 MonoBehaviour:
@@ -5449,6 +5449,7 @@ MonoBehaviour:
   doingAction: 0
   finalBoss: {fileID: 8714281705723559135}
   actionsDone: 0
+  uIHandler: {fileID: 0}
   finalBossAnimator: {fileID: 1850448421418349239}
   puddleCollider: {fileID: 5912917007472397853}
   hitParticles: {fileID: 2571405155896334576}
@@ -5782,7 +5783,7 @@ Transform:
   m_GameObject: {fileID: 4258192371065787920}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5803,11 +5804,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 18, y: 0.2, z: 18}
+  m_Size: {x: 17.5, y: 0.2, z: 17.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8958426336091839457
 MonoBehaviour:
@@ -5821,6 +5822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728eff34190100c49a0efd5616a6cb0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BossMusic: {fileID: 8300000, guid: f210afb785212994389bc47bb30704e3, type: 3}
 --- !u!1 &4638701189866765905
 GameObject:
   m_ObjectHideFlags: 0
@@ -6473,8 +6475,6 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
-  IsBossRoom: 1
-  BossMusic: {fileID: 8300000, guid: f210afb785212994389bc47bb30704e3, type: 3}
   EnteredRoomSprite: {fileID: 4602961927405527600}
 --- !u!1 &8501162222297478588
 GameObject:
@@ -6486,7 +6486,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8747761783342340526}
   - component: {fileID: 3392847585900982188}
-  - component: {fileID: 8453787829402600144}
   m_Layer: 0
   m_Name: 'Interior_Final_Boss  '
   m_TagString: Untagged
@@ -6536,28 +6535,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 20.5, y: 0.2, z: 20.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8453787829402600144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501162222297478588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5f34440e8f46b24b8bcd9b6f440ee57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MapNode: {fileID: 0}
-  NeedsIcon: 1
-  IsActive: 0
-  HasEnemy: 0
-  PlayerLayer:
-    serializedVersion: 2
-    m_Bits: 2048
-  IsBossRoom: 0
-  BossMusic: {fileID: 0}
-  EnteredRoomSprite: {fileID: 0}
 --- !u!1 &8714281705723559135
 GameObject:
   m_ObjectHideFlags: 0
