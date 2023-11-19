@@ -39,7 +39,7 @@ public class MeleeAreaManager : MonoBehaviour
         // Damage Player
         if (isPlayerColliding)
         {
-            playerHearts.DamagePlayer(3);
+            playerHearts.DamagePlayer(3, false);
         }
 
         Destroy(gameObject);

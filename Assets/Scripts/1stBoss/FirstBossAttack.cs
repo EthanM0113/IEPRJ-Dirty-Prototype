@@ -87,7 +87,7 @@ public class FirstBossAttack : MonoBehaviour
         Debug.Log("Player Hit!");
         // Damage Player
         //DamagePlayer();
-        playerHearts.DamagePlayer(2);
+        playerHearts.DamagePlayer(2, false);
     }
 
     /*

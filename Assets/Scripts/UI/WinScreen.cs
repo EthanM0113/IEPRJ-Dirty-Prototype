@@ -25,6 +25,10 @@ public class WinScreen : MonoBehaviour
         }
 
         if (canClick)
-            if (Input.anyKeyDown) SceneManager.LoadScene("MainMenu");
+            if (Input.anyKeyDown)
+            {
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("MainMenu");
+            }
     }
 }

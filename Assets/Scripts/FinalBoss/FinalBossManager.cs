@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -43,7 +44,7 @@ public class FinalBossManager : MonoBehaviour
     [SerializeField] private GameObject finalBoss;
     private int chosenAction = 1; // Start with medium projectile attack
     [SerializeField] private int actionsDone = 0;
-    [SerializeField] private GameObject endScreen;
+    [SerializeField] private UIHandler uIHandler;
     private bool isInvincible = false;
     private FinalBossUIManager finalBossUIManager;
     [SerializeField] private Animator finalBossAnimator;
@@ -105,8 +106,7 @@ public class FinalBossManager : MonoBehaviour
         state = BOSS_STATE.PHASE_ONE;
         doingAction = false;
         tlBoundsPos = TLBounds.gameObject.transform.position;
-        brBoundsPos = BRBounds.gameObject.transform.position;
-        endScreen.SetActive(false);
+        brBoundsPos = BRBounds.gameObject.transform.position;   
         puddleCollider.SetActive(false);
 
         // Set how many actions to be done before teleporting
@@ -425,6 +425,8 @@ public class FinalBossManager : MonoBehaviour
         }
         else if (currentHP <= 0f && state == BOSS_STATE.PHASE_TWO)
         {
+            uIHandler = FindObjectOfType<UIHandler>();
+
             finalBossUIManager.DisableHPUI();
             TurnOffAllPhase2Animations();
             yield return new WaitForSeconds(1f); // Wait a sec for suspense
@@ -441,7 +443,10 @@ public class FinalBossManager : MonoBehaviour
 
             yield return new WaitForSeconds(3f); // Finsh Animation + a bit more
             Debug.Log("Beat Final Boss, Congratulations.");
-            endScreen.SetActive(true);
+
+            // Find Win Screen
+            uIHandler.SetWinScreenEnabled(true);
+            Time.timeScale = 0f;
         }
     }
 

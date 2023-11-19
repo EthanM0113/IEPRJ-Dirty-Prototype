@@ -25,7 +25,7 @@ public class FinalBossPuddleManager : MonoBehaviour
         {
             if (!didDamage)
             {
-                playerHearts.DamagePlayer(2); // 2 Damage
+                playerHearts.DamagePlayer(2, true); // 2 Damage
                 didDamage = true;
             }
         }

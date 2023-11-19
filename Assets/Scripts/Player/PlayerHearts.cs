@@ -102,11 +102,26 @@ public class PlayerHearts : MonoBehaviour
         UpdateMaxHealth();
     }
 
-    public void DamagePlayer(int dmg)
+    public void DamagePlayer(int dmg, bool ignoreInvincibility)
     {
         playerController = FindObjectOfType<PlayerController>();
 
-        if (playerController.GetIsPlayerVulnerable())
+        if(!ignoreInvincibility)
+        {
+            if (playerController.GetIsPlayerVulnerable())
+            {
+                StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
+
+                // Nerf player fuel and deal dmg
+                fuelBarHandler = FindObjectOfType<FuelBarHandler>();
+                fuelBarHandler.ResetFuel(1.0f);
+
+                // Reduce Player HP
+                SoundManager.Instance.PlaySound(damageSound);
+                currentHp -= dmg;
+            }
+        }
+        else
         {
             StartCoroutine(TriggerImpactFrame()); // Hollow Knight Damage Implementation
 
@@ -119,7 +134,7 @@ public class PlayerHearts : MonoBehaviour
             currentHp -= dmg;
         }
     }
-        
+    
     public IEnumerator TriggerImpactFrame()
     {
         playerAnimator = GameObject.FindGameObjectWithTag("Player").GetComponent<Animator>();

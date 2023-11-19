@@ -28,7 +28,7 @@ public class FBOrbManager : MonoBehaviour
         if(other.gameObject.CompareTag("Player"))
         {
             PlayerHearts playerHearts = FindObjectOfType<PlayerHearts>();
-            playerHearts.DamagePlayer(1);
+            playerHearts.DamagePlayer(1, false);
         }
     }
 }

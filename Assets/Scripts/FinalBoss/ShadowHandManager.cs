@@ -41,7 +41,7 @@ public class ShadowHandManager : MonoBehaviour
             // Damage Player
             if (isPlayerColliding)
             {
-                playerHearts.DamagePlayer(1);
+                playerHearts.DamagePlayer(1, true);
             }
 
             didDamage = true;

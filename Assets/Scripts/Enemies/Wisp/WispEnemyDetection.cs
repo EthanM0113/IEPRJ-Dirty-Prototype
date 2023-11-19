@@ -132,7 +132,7 @@ public class WispEnemyDetection : MonoBehaviour
                         isPlayerDetected = false;
                         playerInputHandler.SetCanInput(false);
                         playerController.SetPreventMovementInput(true);
-                        playerHealth.DamagePlayer(1);
+                        playerHealth.DamagePlayer(1, false);
                         playerInputHandler.SetCanInput(true);
                         playerController.SetPreventMovementInput(false);
                         //spawnerRef = null;

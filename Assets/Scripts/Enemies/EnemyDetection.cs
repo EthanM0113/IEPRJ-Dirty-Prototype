@@ -125,7 +125,7 @@ public class EnemyDetection : MonoBehaviour
                     if(!isGargoyle)
                         anim.SetTrigger("ATK");
                     else
-                        playerHealth.DamagePlayer(1);
+                        playerHealth.DamagePlayer(1, false);
                     playerInputHandler.SetCanInput(true);
                     playerController.SetPreventMovementInput(false);
                     spawnerRef = null;
@@ -170,7 +170,7 @@ public class EnemyDetection : MonoBehaviour
 
     public void DamagePlayer()
     {
-        playerHealth.DamagePlayer(1);
+        playerHealth.DamagePlayer(1, false);
     }
 
 }

@@ -19,11 +19,14 @@ public class UIHandler : MonoBehaviour
     [SerializeField] private AudioMixer _volumeMixer;
     [SerializeField] private Image _overLay;
 
+    [SerializeField] GameObject winScreen;
+
 
     private void Start()
     {
         //_overLay.gameObject.SetActive(true);
         SetSettings();
+        winScreen.SetActive(false);
     }
 
     private void Update()
@@ -84,5 +87,10 @@ public class UIHandler : MonoBehaviour
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void SetWinScreenEnabled(bool flag)
+    {
+        winScreen.SetActive(flag);
     }
 }
