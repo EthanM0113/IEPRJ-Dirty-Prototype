@@ -313,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
                 }
             }
-        
+
             //if (/*Input.GetKey(KeyCode.LeftShift)*/ inputHandler.IsSneak()) // Checks if it's sneaking
             //{
             //    isSneaking = true;
@@ -336,6 +336,10 @@ public class PlayerController : MonoBehaviour
             //        }
             //    }
             //}
+            if (inputHandler.IsCycle())
+            {
+                playerAbility.CycleSkills();
+            }
             if (!startAbilityTimer) // if the ability is not activated 
             {
                 if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility())
@@ -344,10 +348,7 @@ public class PlayerController : MonoBehaviour
                     UseAbility();
                 }
 
-                if (inputHandler.IsCycle())
-                {
-                    playerAbility.CycleSkills();
-                }
+               
             }
             else
             {
@@ -659,6 +660,7 @@ public class PlayerController : MonoBehaviour
                 {
                     abilityTimer = abilityDuration;
                     startAbilityTimer = false;
+                    uISkillHandler.SetSkillMeter(abilityTimer);
                 }
                 else if (playerAbility.GetCurrentAbility() == Ability.Type.TEST)
                 {
@@ -680,6 +682,13 @@ public class PlayerController : MonoBehaviour
                 abilityTimer -= Time.deltaTime;
                 uISkillHandler.SetSkillMeter(abilityTimer/abilityDuration);
             }
+        }
+        else
+        {
+            preventAttackInput = false;
+            mainCameraManager.ToggleGargoyleFX(false);
+            isPlayerDetectable = true;
+            isPlayerVulnerable = true;
         }
     }
 

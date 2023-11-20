@@ -177,7 +177,7 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     public int SetCurrentAbility(Ability.Type ability)
     {
-        if (skillSlotToEdit + 1 >= skillSlotCount)
+        if (skillSlotToEdit + 1 > skillSlotCount)
         {
             skillSlotToEdit = 1;
         }
@@ -185,7 +185,7 @@ public class PlayerAbilityHandler : MonoBehaviour
         {
             skillSlotToEdit++;
         }
-        //Debug.Log("skillSlotToEdit " + skillSlotToEdit);
+        Debug.Log("skillSlotToEdit " + skillSlotToEdit);
         if (FindAbility(ability) != -1)
         {
             if (skillSlotToEdit == 1)

@@ -23,7 +23,7 @@ public class UISkillHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_skillIconRef.material.SetColor("_Color", Color.white);
+        //m_skillIconRef.material.SetColor("_Color", Color.white);
         m_skillIconRef.material.SetTexture("_Texture", m_blank);
         m_skillIconRef.fillAmount = 1.0f;
         m_anim = GetComponent<Animator>();
@@ -32,9 +32,14 @@ public class UISkillHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_setAbility == Ability.Type.NONE) return;
+        if (m_setAbility == Ability.Type.NONE)
+        {
+            m_skillIconRef.fillAmount = 1.0f;
 
-        if (skillMeter <= 0.9f)
+            return;
+        }
+
+        if (skillMeter <= 1f)
         {
             //float output = 1f - skillMeter;
             //m_skillIconRef.material.SetColor("_Color", Color.white * output);
