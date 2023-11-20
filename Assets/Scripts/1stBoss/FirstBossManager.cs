@@ -10,7 +10,8 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private List<GameObject> hpTorches;
     public List<int> litTorches;
     private bool isDoneSettingTorches = false;
-    bool areBothTorchesLit = false;
+    private bool firstPhase = true;
+    private bool areBothTorchesLit = false;
 
     // Boss 
     [SerializeField] private TextMeshProUGUI bossHpText;
@@ -22,7 +23,7 @@ public class FirstBossManager : MonoBehaviour
     [SerializeField] private float diplayDistance = 10.0f;
     [SerializeField] private FirstBossUIManager firstBossUIManager;
     private float bossMaxHp = 1f;
-    private float bossHp = 1f;
+    [SerializeField] private float bossHp = 1f;
     private float bossMaxSpeed;
     private bool isCutscenePlaying = false;
     [SerializeField] private Animator firstBossAnimator;
@@ -75,12 +76,25 @@ public class FirstBossManager : MonoBehaviour
                 }
                 else
                 {
-                    //Debug.Log("TAKE DAMAGE!!");
-                    DealDamageToBoss();
-                    isBossDead = CheckBossDead();
-                    //bossHpText.text = bossHp.ToString();
-                    if (!isBossDead)
-                        LigtTwoTorches();
+                   if(firstPhase)
+                   {
+                        DealDamageToBoss();
+                        isBossDead = CheckBossDead();
+                        if (!isBossDead)
+                            LigtTwoTorches();
+                        firstPhase = false;
+                   }
+                   else
+                   {
+                        if(isDoneSettingTorches)
+                        {
+                            DealDamageToBoss();
+                            isBossDead = CheckBossDead();
+                            if (!isBossDead)
+                                LigtTwoTorches();
+                        }
+                    }
+ 
                 }
             }
             else
@@ -212,9 +226,6 @@ public class FirstBossManager : MonoBehaviour
         SoundManager.Instance.TB_LightTorch();
         hpTorches[litTorches[0]].GetComponent<HpTorchHandler>().SetFlameLight(true);
         hpTorches[litTorches[1]].GetComponent<HpTorchHandler>().SetFlameLight(true);
-
-        // reset values
-        isDoneSettingTorches = false;
     }
 
     public void DealDamageToBoss()
@@ -233,6 +244,9 @@ public class FirstBossManager : MonoBehaviour
         }
         else
         {
+            // reset values
+            isDoneSettingTorches = false;
+
             return false;
         }
     }
