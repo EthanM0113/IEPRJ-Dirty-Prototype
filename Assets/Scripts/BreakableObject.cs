@@ -6,7 +6,7 @@ public class BreakableObject : MonoBehaviour
 {
     [SerializeField] ParticleSystem breakEffect;
     int zeroCoinRates = 60;
-    int oneCoinRates = 35;
+    int oneCoinRates = 35; 
 
     int lowReward = 1;
     int highReward = 20;
@@ -29,19 +29,20 @@ public class BreakableObject : MonoBehaviour
 
         breakEffect.Play();
 
-        int random = Random.Range(0, 99);
+        int random = Random.Range(0, 100);
         Debug.Log("value: " + random);
         if (random >= 0 && random < zeroCoinRates)
         {
-            
+            SoundManager.Instance.PropBreak();
         }
         else if(random >= zeroCoinRates && random < oneCoinRates + zeroCoinRates)
         {
-            
+            SoundManager.Instance.PropBreak();
             PlayerMoneyManager.Instance.AddCoins(lowReward);
         }
         else
         {
+            SoundManager.Instance.PropBreak();
             PlayerMoneyManager.Instance.AddCoins(highReward);
         }
         gameObject.GetComponent<MeshRenderer>().enabled = false;

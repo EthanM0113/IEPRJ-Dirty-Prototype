@@ -152,7 +152,6 @@ GameObject:
   - component: {fileID: 4265655650748634448}
   - component: {fileID: 2077936785258865050}
   - component: {fileID: 2758037181733004219}
-  - component: {fileID: 6999109332826499663}
   m_Layer: 6
   m_Name: prop_crate (3)
   m_TagString: Breakable
@@ -247,23 +246,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 100, y: 99.999985, z: 99.99999}
   m_Center: {x: 0, y: 0, z: 0.000003814697}
---- !u!114 &6999109332826499663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 564827984137928783}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d9dcacb7860ce2478f245e740aab8f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakEffect: {fileID: 8732158056828918934}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &923295938084407402
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,10 +366,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 2925370559699118419}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &1090839608885252025
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,10 +653,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 2286405934280702454}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &2455572939689445269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,10 +3259,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 6096248598855702508}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &5613330732833089919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3440,10 +3410,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 3807704567631990929}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &5936734469501616665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3623,7 +3589,6 @@ GameObject:
   - component: {fileID: 7365177511491240541}
   - component: {fileID: 4743040984465634967}
   - component: {fileID: 8881800977332630710}
-  - component: {fileID: 8633737957682656765}
   m_Layer: 6
   m_Name: prop_crate
   m_TagString: Breakable
@@ -3718,23 +3683,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 100, y: 99.999985, z: 99.99999}
   m_Center: {x: 0, y: 0, z: 0.000003814697}
---- !u!114 &8633737957682656765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6544388683441559362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d9dcacb7860ce2478f245e740aab8f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakEffect: {fileID: 1504757863107370234}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &6634824730914657851
 GameObject:
   m_ObjectHideFlags: 0
@@ -4813,10 +4761,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 5399695326774573742}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &7540483929225697119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4969,10 +4913,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 4968783979310689438}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1 &8602975068976320884
 GameObject:
   m_ObjectHideFlags: 0
@@ -5148,8 +5088,6 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
-  IsBossRoom: 0
-  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 7574124414852715749}
 --- !u!65 &-6626730573810689135
 BoxCollider:
@@ -5420,11 +5358,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
---- !u!198 &1504757863107370234 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 766146797146660801, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
-  m_PrefabInstance: {fileID: 2179776571446346555}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7923913337640509403 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
@@ -6278,10 +6211,5 @@ PrefabInstance:
 --- !u!4 &15840680088510391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
-  m_PrefabInstance: {fileID: 8326941371510326103}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8732158056828918934 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 766146797146660801, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
   m_PrefabInstance: {fileID: 8326941371510326103}
   m_PrefabAsset: {fileID: 0}

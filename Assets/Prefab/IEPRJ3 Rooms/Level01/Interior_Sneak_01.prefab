@@ -3773,11 +3773,9 @@ MonoBehaviour:
   NeedsIcon: 0
   IsActive: 0
   HasEnemy: 1
-  IsEndRoom: 0
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
-  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 1786502464416988604}
 --- !u!1 &4168705927426029737
 GameObject:
@@ -5632,7 +5630,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5496975662022685538, guid: 5618ee38c93708f43a9f18474f0d48d8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6077,7 +6076,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5496975662022685538, guid: 5618ee38c93708f43a9f18474f0d48d8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6201,7 +6201,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5496975662022685538, guid: 5618ee38c93708f43a9f18474f0d48d8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

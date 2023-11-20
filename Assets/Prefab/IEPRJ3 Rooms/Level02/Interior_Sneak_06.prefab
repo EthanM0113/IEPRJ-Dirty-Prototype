@@ -3765,8 +3765,6 @@ MonoBehaviour:
   PlayerLayer:
     serializedVersion: 2
     m_Bits: 2048
-  IsBossRoom: 0
-  BossMusic: {fileID: 0}
   EnteredRoomSprite: {fileID: 1786502464416988604}
 --- !u!1 &4168705927426029737
 GameObject:
@@ -5511,6 +5509,10 @@ PrefabInstance:
       value: bg_barrel (4)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -5572,10 +5574,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 1341750423714559039}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &147586681632990760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5587,6 +5585,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5661,7 +5667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.578
+      value: 0.355
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5705,7 +5711,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -5773,10 +5779,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 5817045087994729158}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &464388009362124564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5788,6 +5790,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5961,7 +5971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.578
+      value: 0.355
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6005,7 +6015,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -6068,10 +6078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 923290824559571157}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!4 &806330834704021016 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
@@ -6088,6 +6094,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6156,6 +6170,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle_BreakEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6222,6 +6244,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalScale.x
@@ -6419,7 +6449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -6482,10 +6512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 7750028163585929068}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!4 &3229495743215306177 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
@@ -6621,7 +6647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -6689,10 +6715,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 8212491801020368308}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &3616443555813544990
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6755,7 +6777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -6823,10 +6845,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 2153114900281685303}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &3881722715149578303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6988,7 +7006,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -7051,10 +7069,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 1458691452964011274}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!4 &4441177901855032190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
@@ -7336,6 +7350,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle_BreakEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7453,7 +7475,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -7521,10 +7543,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 7192591231681336399}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &6406192766305218898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7587,7 +7605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -7650,10 +7668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 5109724369963832375}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!4 &6876406315001960121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
@@ -7670,6 +7684,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7737,6 +7759,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7904,6 +7934,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Particle_BreakEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8021,7 +8059,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02d8a8d04711b9d4887d0ee84feee8b4, type: 3}
       propertyPath: m_IsActive
@@ -8089,10 +8127,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 625353002108778985}
-  zeroCoinRates: 60
-  oneCoinRates: 35
-  lowReward: 1
-  highReward: 20
 --- !u!1001 &8234810367437382057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8269,6 +8303,14 @@ PrefabInstance:
     - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_Name
       value: Particle_BreakEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3122474829394934072, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680720364509919940, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 8338267429470575840, guid: c8ab10c906c70fc4ba2cfd964b28dc69, type: 3}
       propertyPath: m_LocalPosition.x

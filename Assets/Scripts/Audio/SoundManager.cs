@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
 
     //sound effects
     [SerializeField] private AudioClip playerDeath, fireball, backstabMiss, backstabHit, gameStart, pause, playerWalk, bigTorch, 
-        purchaseSuccess, purchaseFail, bossSlay, wispTP, emptyFeedback, detected, interact, doorOpen;
+        purchaseSuccess, purchaseFail, bossSlay, wispTP, emptyFeedback, detected, interact, doorOpen, propBreak;
 
 
     // Torchbearer SFX
@@ -194,6 +194,12 @@ public class SoundManager : MonoBehaviour
     {
         effectsSource.volume = 1.0f * sfxMultiplier;
         effectsSource.PlayOneShot(doorOpen);
+    }
+
+    public void PropBreak()
+    {
+        effectsSource.volume = 0.2f * sfxMultiplier;
+        effectsSource.PlayOneShot(propBreak);
     }
     // Torchbearer SFX
 
