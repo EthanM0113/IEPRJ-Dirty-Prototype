@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class EndRoomDetector : MonoBehaviour
 {
     [SerializeField] private AudioClip BossMusic;
+    private bool hasPlayed = false;
     private bool isBossLevel = false;
 
     private void Start()
@@ -23,10 +24,11 @@ public class EndRoomDetector : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             gameObject.transform.parent.GetComponentInParent<RoomProperties>().EndWalls();
-            if (isBossLevel)
+            if (isBossLevel && !hasPlayed)
             {
                 SoundManager.Instance.DisableDarkerTheme();
                 SoundManager.Instance.PlayMusic(BossMusic);
+                hasPlayed = true;
             }
 
         }
