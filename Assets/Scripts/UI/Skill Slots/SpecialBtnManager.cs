@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,10 +19,62 @@ public class SpecialBtnManager : MonoBehaviour
     bool buttonpressed = false;
 
     GameObject firstButton;
-
+    Vector3 lastMouseCoordinate = Vector3.zero;
+    [SerializeField] bool isMouseMoving = false;
+    [SerializeField] float mouseDuration = 3.0f;
     // Update is called once per frame
     void Update()
     {
+        Vector3 mouseDelta = Input.mousePosition - lastMouseCoordinate;
+
+
+        if (mouseDelta != Vector3.zero)
+        {
+            isMouseMoving = true;
+        }
+
+        bool checkMouse = false;
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (Input.GetMouseButton(i))
+            {
+                checkMouse = true; break;
+            }
+        }
+
+        if (!Input.GetKeyUp(KeyCode.Escape) && !checkMouse && Input.anyKeyDown)
+        {
+            isMouseMoving = false;
+        }
+
+        HandleKeyboardInput();
+
+        // Then we store our mousePosition so that we can check it again next frame.
+        lastMouseCoordinate = Input.mousePosition;
+    }
+    void HandleKeyboardInput()
+    {
+        if (isMouseMoving)
+        {
+            if (btn.Length > 0)
+            {
+                //Check if Panel changed, wenn ja aktiviere den ersten Button
+                if (firstButton != btn[0])
+                {
+                    selected_Button = 0;
+                }
+                firstButton = btn[0];
+
+                //Higlight the active Button
+                for (int a = 0; a < btn.Length; a++)
+                {
+                    btn[a].GetComponent<Image>().sprite = btn[a].GetComponent<UISpecialBTN>().GetNormal();
+                }
+            }
+            return;
+        }
+
         // Make an array of all the buttons with the tag 'button'
         //btn = GameObject.FindGameObjectsWithTag("Button");
 
@@ -204,6 +257,6 @@ public class SpecialBtnManager : MonoBehaviour
 
         }
         else { selected_Button = 0; }
-
     }
+
 }

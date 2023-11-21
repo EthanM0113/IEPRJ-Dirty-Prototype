@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 using UnityEngine.Animations;
 
@@ -14,6 +15,7 @@ public class UISkillHandler : MonoBehaviour
     [SerializeField] private Texture2D m_skillIcon4;
 
     [SerializeField] private Image m_skillIconRef;
+    [SerializeField] private TMP_Text m_level;
 
     Ability.Type m_setAbility = Ability.Type.NONE;
     Animator m_anim;
@@ -86,8 +88,11 @@ public class UISkillHandler : MonoBehaviour
                 m_skillIconRef.material.SetTexture("_Texture", m_skillIcon4); m_setAbility = Ability.Type.SENTRY; break;
             }
         }
+    }
 
-        
+    public void ShowSkillLevel(int level)
+    {
+        m_level.SetText(level.ToString());
     }
 
     public void PlayNotReady()

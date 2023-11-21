@@ -39,11 +39,15 @@ public class BreakableObject : MonoBehaviour
         {
             SoundManager.Instance.PropBreak();
             PlayerMoneyManager.Instance.AddCoins(lowReward);
+            FindObjectOfType<PlayerMoneyUIHandler>().PulseCointText();
+            FindObjectOfType<PlayerMoneyUIHandler>().SpinCoinImage();
         }
         else
         {
             SoundManager.Instance.PropBreak();
             PlayerMoneyManager.Instance.AddCoins(highReward);
+            FindObjectOfType<PlayerMoneyUIHandler>().PulseCointText();
+            FindObjectOfType<PlayerMoneyUIHandler>().SpinCoinImage();
         }
         gameObject.GetComponent<MeshRenderer>().enabled = false;
         gameObject.GetComponent<Collider>().enabled = false;

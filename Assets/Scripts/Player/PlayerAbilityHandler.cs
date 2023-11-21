@@ -60,6 +60,7 @@ public class PlayerAbilityHandler : MonoBehaviour
     private void Update()
     {
         uISkillHandler.SetAbility(currentAbility[skillSlotIndex]);
+        uISkillHandler.ShowSkillLevel(GetAbilityLevel());
     }
 
     public void Consume()
