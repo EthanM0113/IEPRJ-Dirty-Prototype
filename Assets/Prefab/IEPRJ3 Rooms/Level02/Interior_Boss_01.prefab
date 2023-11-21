@@ -10268,8 +10268,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.9229363, y: 1, z: 0.9232291}
+  m_Center: {x: 0.028085208, y: 0, z: 0.0014115886}
 --- !u!114 &3390903493103518093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10284,7 +10284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossUI: {fileID: 259127792560129807}
   playerWithinRange: 0
-  bossMusicPlayed: 0
 --- !u!1 &2690872568420816228
 GameObject:
   m_ObjectHideFlags: 0
@@ -10351,7 +10350,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 728eff34190100c49a0efd5616a6cb0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BossMusic: {fileID: 8300000, guid: fb105530572727f4b9e5dc73592a7493, type: 3}
 --- !u!1 &2762322446610797684
 GameObject:
   m_ObjectHideFlags: 0
@@ -27328,6 +27326,7 @@ MonoBehaviour:
   bossUI: {fileID: 259127792560129807}
   diplayDistance: 11
   firstBossUIManager: {fileID: 3390903493103518093}
+  bossHp: 1
   firstBossAnimator: {fileID: 5726315607176851316}
   attackCircle: {fileID: 5227790099023296230}
   attackAura: {fileID: 2561685305470747041}

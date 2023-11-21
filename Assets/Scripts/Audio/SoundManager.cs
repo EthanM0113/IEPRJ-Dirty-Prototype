@@ -18,10 +18,10 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip tb_litTorch, tb_extinguishTorch, tb_gruntA, tb_gruntB, tb_damage, tb_defeat;
 
     //ost
-    [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer;
+    [SerializeField] private AudioClip darkerTheme, gameOver, levelMusic, mainMenu, torchbearer, shadowBoss;
 
     // multiplier for option screen
-    [SerializeField] private float musicMultiplier = 5f;
+    [SerializeField] private float musicMultiplier = 1.0f;
     [SerializeField] private float sfxMultiplier = 1.0f;
     [SerializeField] private float walkSFXMultiplier = 1.0f;
 
@@ -31,43 +31,58 @@ public class SoundManager : MonoBehaviour
     void Awake() {
         if(Instance == null) {
             Instance = this;
-            //DontDestroyOnLoad(gameObject);
+
+            // Initialize Sound Manager in Awake
+            PlayerDataHolder data = PlayerDataHolder.Instance;
+
+            musicMultiplier = data.GetCurrentMusicVolume();
+            sfxMultiplier = data.GetCurrentSFXVolume();
+            walkSFXMultiplier = sfxMultiplier;
         }
-        //else
-            //Destroy(gameObject);
     }
 
     private void Start()
     {
-        PlayerDataHolder data = PlayerDataHolder.Instance;
-
-        musicMultiplier = data.GetCurrentMusicVolume();
-        sfxMultiplier = data.GetCurrentSFXVolume();
+       
     }
 
     public void editVolume(float newMusicMultiplier, float newSfxMultiplier)
     {
-        //musicSource.volume = music;
-        //effectsSource.volume = effect;
-
         musicMultiplier = newMusicMultiplier;
         sfxMultiplier = newSfxMultiplier;
         walkSFXMultiplier = newSfxMultiplier;
-
-        // For any currently playing music
-        musicSource.volume = 10.0f * musicMultiplier;
     }
-    
+
+    public void editMusic(float newMusicMultiplier)
+    {
+        musicMultiplier = newMusicMultiplier;
+    }
+
+    public void editSFX(float newSfxMultiplier)
+    {
+        sfxMultiplier = newSfxMultiplier;
+        walkSFXMultiplier = newSfxMultiplier;
+    }
+
     // OST and Music
 
     public void Torchbearer() {
-        musicSource.volume = 0.1f * musicMultiplier;
-        musicSource.PlayOneShot(torchbearer);
+        musicSource.volume = 1.0f * musicMultiplier;
+        musicSource.clip = torchbearer;
+        musicSource.Play();
+        musicSource.loop = true;
+    }
+
+    public void ShadowBoss()
+    {
+        musicSource.volume = 1.0f * musicMultiplier;
+        musicSource.clip = shadowBoss;
+        musicSource.Play();
         musicSource.loop = true;
     }
 
     public void MainMenu() {
-        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.volume = 0.4f * musicMultiplier;
         musicSource.PlayOneShot(mainMenu);
         musicSource.loop = true;
     }
@@ -80,7 +95,7 @@ public class SoundManager : MonoBehaviour
 
     public void GameOver() {
         if(playGameOverOnce) return;
-        musicSource.volume = .05f * musicMultiplier;
+        musicSource.volume = 1.0f  * musicMultiplier;
         musicSource.clip = gameOver;
         musicSource.Play();
         musicSource.loop = true;
@@ -89,7 +104,7 @@ public class SoundManager : MonoBehaviour
 
     public void DarkerTheme() {
         if (!enableDarkerMusic) return;
-        musicSource.volume = 0.1f * musicMultiplier;
+        musicSource.volume = 0.4f * musicMultiplier;
         musicSource.PlayOneShot(darkerTheme);
         musicSource.loop = true;
     }

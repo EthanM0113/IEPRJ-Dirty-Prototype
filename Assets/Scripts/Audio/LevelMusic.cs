@@ -13,7 +13,7 @@ public class LevelMusic : MonoBehaviour
 
     private void Update()
     {
-        musicSource.volume = 0.1f * SoundManager.Instance.GetMusicMultiplier();
+        musicSource.volume = 1.0f * SoundManager.Instance.GetMusicMultiplier();
     }
 
     public void StopMusic()

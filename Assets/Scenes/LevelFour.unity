@@ -951,7 +951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44ef776e895deb48b51719bd0271e4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicSource: {fileID: 1188762220}
+  musicSource: {fileID: 1628352262}
   effectsSource: {fileID: 1470149566}
   walkingSource: {fileID: 1537095901}
   playerDeath: {fileID: 8300000, guid: 195fff384ab3e3241a569a64c4dfa5c4, type: 3}
@@ -982,6 +982,7 @@ MonoBehaviour:
   levelMusic: {fileID: 8300000, guid: a83b2218e5a83e5489fb0784b80c522c, type: 3}
   mainMenu: {fileID: 8300000, guid: bb2169c1eb6b0c24298af030beed41c6, type: 3}
   torchbearer: {fileID: 8300000, guid: 9832cb116884db94d9b140d2aeb947b0, type: 3}
+  shadowBoss: {fileID: 8300000, guid: f210afb785212994389bc47bb30704e3, type: 3}
   musicMultiplier: 1
   sfxMultiplier: 1
   walkSFXMultiplier: 1
@@ -2678,18 +2679,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 654602046, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1628352261}
     - target: {fileID: 4625612951826085654, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
       propertyPath: m_Name
       value: Game Phase GUI
       objectReference: {fileID: 0}
-    - target: {fileID: 6623224520937104723, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 1628352261}
     - target: {fileID: 8587222282222562612, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2770,10 +2763,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8841615280121031964, guid: a00f1c4ff5f1a824582234f751c40a14, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 862048143}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3136,7 +3125,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1188762220
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4643,7 +4632,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1628352261
 MonoBehaviour:
   m_ObjectHideFlags: 0

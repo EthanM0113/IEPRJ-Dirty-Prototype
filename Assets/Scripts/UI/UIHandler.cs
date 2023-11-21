@@ -40,15 +40,20 @@ public class UIHandler : MonoBehaviour
         musicSlider.value = SoundManager.Instance.GetMusicMultiplier();
         sfxSlider.value = SoundManager.Instance.GetSFXMultiplier();
 
+        brightnessSlider.value = PlayerDataHolder.Instance.GetCurrentColor();
         var tempColor = _overLay.color;
-        tempColor.a = 1.0f - PlayerDataHolder.Instance.GetCurrentColor();
+        tempColor.a = 1.0f - brightnessSlider.value;
         _overLay.color = tempColor;
     }
 
-    public void AdjustVolume()
+    public void AdjustMusic()
     {
-        SoundManager.Instance.editVolume(musicSlider.value, sfxSlider.value);
-        
+        SoundManager.Instance.editMusic(musicSlider.value); 
+    }
+
+    public void AdjustSFX()
+    {
+        SoundManager.Instance.editSFX(sfxSlider.value);
     }
 
     public void DarkOverlay()

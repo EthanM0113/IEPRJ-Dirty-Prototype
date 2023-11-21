@@ -780,7 +780,7 @@ public class PlayerController : MonoBehaviour
     {
         if (health <= 0)
         {
-            levelMusic.GetComponent<AudioSource>().Stop();              // stop level music
+            //levelMusic.GetComponent<AudioSource>().Stop();              // stop level music
             darkerMusic.GetComponent<AudioSource>().Stop();
 
             if (!loseMusic.GetComponent<AudioSource>().isPlaying)       // start game over music, if it isn't already playing

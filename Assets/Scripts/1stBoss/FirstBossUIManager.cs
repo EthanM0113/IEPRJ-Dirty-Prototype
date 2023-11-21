@@ -7,14 +7,13 @@ public class FirstBossUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject bossUI;
     [SerializeField] private bool playerWithinRange;
-    [SerializeField] private bool bossMusicPlayed;
     private bool isBossDead = false;
 
     // Start is called before the first frame update
     void Start()
     {
         playerWithinRange = false;
-        bossMusicPlayed = false;
+        //bossMusicPlayed = false;
     }
 
     // Update is called once per frame
@@ -29,17 +28,7 @@ public class FirstBossUIManager : MonoBehaviour
         {
             if (playerWithinRange)
             {
-                if (!bossMusicPlayed)
-                {
-                    SoundManager.Instance.Torchbearer(); // play music as well
-                    bossMusicPlayed = true;
-                }
-
                 bossUI.SetActive(true);
-            }
-            else
-            {
-                bossUI.SetActive(false);
             }
         }
        
@@ -53,15 +42,6 @@ public class FirstBossUIManager : MonoBehaviour
             Debug.Log(other.gameObject.name + "entered boss area");
         }
  
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerWithinRange = false;
-            Debug.Log(other.gameObject.name + "exited boss area");
-        }   
     }
 
     public bool GetPlayerWithinRange()

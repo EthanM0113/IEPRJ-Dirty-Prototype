@@ -38,10 +38,6 @@ public class FinalBossUIManager : MonoBehaviour
 
                 bossUI.SetActive(true);
             }
-            else
-            {
-                bossUI.SetActive(false);
-            }
         }
        
     }
@@ -54,15 +50,6 @@ public class FinalBossUIManager : MonoBehaviour
             Debug.Log(other.gameObject.name + "entered boss area");
         }
  
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            playerWithinRange = false;
-            Debug.Log(other.gameObject.name + "exited boss area");
-        }   
     }
 
     public bool GetPlayerWithinRange()
