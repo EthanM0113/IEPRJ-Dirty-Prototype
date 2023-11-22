@@ -736,4 +736,14 @@ public class FinalBossManager : MonoBehaviour
         finalBossSpriteRenderer.color = new Color(1f, 1f, 1f, 1f); // back to white
         isRooted = false;
     }
+
+    public bool GetIsHunting()
+    {
+        return isHunting;   
+    }
+
+    public BOSS_STATE GetBossState()
+    {
+        return state;
+    }
 }

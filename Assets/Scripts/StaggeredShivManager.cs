@@ -91,15 +91,18 @@ public class StaggeredShivManager : MonoBehaviour
         {
             isFinalBoss = true;
             enemyFinalBossManager = FindObjectOfType<FinalBossManager>();
-            enemySpriteRenderer = other.GetComponentInChildren<SpriteRenderer>();
-            srObject = enemySpriteRenderer.gameObject;
+            if ((enemyFinalBossManager.GetIsHunting() && enemyFinalBossManager.GetBossState() == BOSS_STATE.PHASE_TWO) || enemyFinalBossManager.GetBossState() == BOSS_STATE.PHASE_ONE)
+            {
+                enemySpriteRenderer = other.GetComponentInChildren<SpriteRenderer>();
+                srObject = enemySpriteRenderer.gameObject;
 
-            Debug.Log("Triggering Root FinalBoss.");
-            SoundManager.Instance.StaggeredShiv();
+                Debug.Log("Triggering Root FinalBoss.");
+                SoundManager.Instance.StaggeredShiv();
 
-            // Get contacted enemy's rigidbody
-            enemyRB = other.gameObject.GetComponent<Rigidbody>();
-            didRoot = true;
+                // Get contacted enemy's rigidbody
+                enemyRB = other.gameObject.GetComponent<Rigidbody>();
+                didRoot = true;
+            }
         }
         if (other.CompareTag("TestEnemy") && canRoot)
         {
@@ -221,16 +224,19 @@ public class StaggeredShivManager : MonoBehaviour
 
     public IEnumerator TriggerFinalBossRootEffect()
     {
-        if (!didSpawnRootOverlay)
+        if ((enemyFinalBossManager.GetIsHunting() && enemyFinalBossManager.GetBossState() == BOSS_STATE.PHASE_TWO) || enemyFinalBossManager.GetBossState() == BOSS_STATE.PHASE_ONE)
         {
-            rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
-            Destroy(rootObject, rootDuration);
-            didSpawnRootOverlay = true;
-        }
-        StartCoroutine(enemyFinalBossManager.RootBoss(rootDuration));
-        yield return new WaitForSeconds(rootDuration);
-        didRoot = false;
-        gameObject.SetActive(false);
+            if (!didSpawnRootOverlay)
+            {
+                rootObject = Instantiate(rootOverlay, srObject.transform); // spawn root overlay on Sprite Renderer Game Object
+                Destroy(rootObject, rootDuration);
+                didSpawnRootOverlay = true;
+            }
+            StartCoroutine(enemyFinalBossManager.RootBoss(rootDuration));
+            yield return new WaitForSeconds(rootDuration);
+            didRoot = false;
+            gameObject.SetActive(false);
+        }   
     }
 
     public IEnumerator TriggerFirstBossRootEffect()
