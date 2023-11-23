@@ -92,7 +92,14 @@ public class UISkillHandler : MonoBehaviour
 
     public void ShowSkillLevel(int level)
     {
+
+        if (level < 0)
+        {
+            m_level.SetText("");
+            return;
+        }
         m_level.SetText(level.ToString());
+
     }
 
     public void PlayNotReady()
