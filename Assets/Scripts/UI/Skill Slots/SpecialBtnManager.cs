@@ -22,36 +22,39 @@ public class SpecialBtnManager : MonoBehaviour
     Vector3 lastMouseCoordinate = Vector3.zero;
     [SerializeField] bool isMouseMoving = false;
     [SerializeField] float mouseDuration = 3.0f;
+
+    float moveTimeInterval = 1.5f;
+    float endTime = 0.0f;
     // Update is called once per frame
     void Update()
     {
-        Vector3 mouseDelta = Input.mousePosition - lastMouseCoordinate;
+        //Vector3 mouseDelta = Input.mousePosition - lastMouseCoordinate;
 
 
-        if (mouseDelta != Vector3.zero)
-        {
-            isMouseMoving = true;
-        }
+        //if (mouseDelta != Vector3.zero)
+        //{
+        //    isMouseMoving = true;
+        //}
 
-        bool checkMouse = false;
+        //bool checkMouse = false;
 
-        for (int i = 0; i < 3; i++)
-        {
-            if (Input.GetMouseButton(i))
-            {
-                checkMouse = true; break;
-            }
-        }
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    if (Input.GetMouseButton(i))
+        //    {
+        //        checkMouse = true; break;
+        //    }
+        //}
 
-        if (!Input.GetKeyUp(KeyCode.Escape) && !checkMouse && Input.anyKeyDown)
-        {
-            isMouseMoving = false;
-        }
+        //if (!Input.GetKeyUp(KeyCode.Escape) && !checkMouse && Input.anyKeyDown)
+        //{
+        //    isMouseMoving = false;
+        //}
 
         HandleKeyboardInput();
 
         // Then we store our mousePosition so that we can check it again next frame.
-        lastMouseCoordinate = Input.mousePosition;
+        //lastMouseCoordinate = Input.mousePosition;
     }
     void HandleKeyboardInput()
     {
@@ -132,10 +135,10 @@ public class SpecialBtnManager : MonoBehaviour
             //if a closer difference in positions for buttons is true, this will be overwriten
             float new_vert = 9999;
             float new_hor = 9999;
-
-            if (Input.GetKeyDown(KeyCode.S) && !buttonpressed)
+            // Down
+            if (Input.GetAxisRaw("VerticalD") <= -0.1f && !buttonpressed)
             {
-
+                
                 buttonpressed = true;
 
                 for (int a = 0; a < btn.Length; a++)
@@ -165,7 +168,8 @@ public class SpecialBtnManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.W) && !buttonpressed)
+            // Up
+            if (Input.GetAxisRaw("VerticalD") >= 0.1f && !buttonpressed)
             {
 
                 buttonpressed = true;
@@ -194,7 +198,7 @@ public class SpecialBtnManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.A) && !buttonpressed)
+            if (Input.GetAxisRaw("HorizontalD") >= 0.1f && !buttonpressed)
             {
 
                 buttonpressed = true;
@@ -223,7 +227,8 @@ public class SpecialBtnManager : MonoBehaviour
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.D) && !buttonpressed)
+            // Left
+            if (Input.GetAxisRaw("HorizontalD") <= -0.1f && !buttonpressed)
             {
 
                 buttonpressed = true;

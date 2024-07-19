@@ -11,6 +11,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private KeyCode sneak;
     [SerializeField] private KeyCode skillSlotMenu;
     [SerializeField] private KeyCode cycleSkill;
+    [SerializeField] private KeyCode cycleSkill2;
 
     bool usingAttack = false;
     bool usingConsume = false;
@@ -34,7 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
         if(canInput)
         {
             // Attacking
-            if (Input.GetKeyDown(attack))
+            if (Input.GetButtonDown("Submit"))
             {
                 usingAttack = true;
             }
@@ -84,7 +85,7 @@ public class PlayerInputHandler : MonoBehaviour
             }
 
             usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu);
-            usingCycle = Input.GetKeyDown(cycleSkill);
+            usingCycle = Input.GetKeyDown(cycleSkill) || Input.GetKeyDown(cycleSkill2);
         }  
     }
 

@@ -261,8 +261,9 @@ public class PlayerController : MonoBehaviour
             moveInput.x = 0;
             moveInput.y = 0;
         }
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
 
-       
         if (/*Input.GetKey(KeyCode.J)*/ inputHandler.IsConsume()) // Consume
         {
             GetComponent<AudioSource>().Stop(); // Stops walking animation from overlapping
@@ -280,8 +281,7 @@ public class PlayerController : MonoBehaviour
 
             if (!preventMovementInput)
             {
-                moveInput.x = Input.GetAxisRaw("Horizontal");
-                moveInput.y = Input.GetAxisRaw("Vertical");
+                
 
                 if (Mathf.Abs(moveInput.x) > 0 ||
                     Mathf.Abs(moveInput.y) > 0) // if there is a movement input
@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour
             
             if(!preventAttackInput)
             {
-                if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) // Attack
+                if (Input.GetKeyDown(KeyCode.Joystick1Button2)/*Input.GetKeyDown(KeyCode.U) inputHandler.IsAttack()*/ ) // Attack
                 {
                     if (playerCombat.CheckRadius())
                     {
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
                 fuelBarHandler.PlayNoFuel();
             }
 
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(Input.GetKeyDown(KeyCode.Joystick1Button6))
             {
                 if(!isPaused)
                 {
