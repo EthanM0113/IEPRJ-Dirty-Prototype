@@ -53,6 +53,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private bool quickBuyHealth;
     [SerializeField] private bool quickBuyFuel;
 
+    // Input Handler
+    [SerializeField] private PlayerInputHandler inputHandler;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -75,6 +78,8 @@ public class ShopManager : MonoBehaviour
         mainCameraManager = FindAnyObjectByType<MainCameraManager>();
         isCameraTransitioning = false;
         isShopCameraActive = false;
+
+        inputHandler = FindObjectOfType<PlayerInputHandler>();
     }
 
     // Update is called once per frame
@@ -133,7 +138,7 @@ public class ShopManager : MonoBehaviour
     {
         if(isPlayerInteractingWithShop)
         {
-            if (Input.GetKeyDown(KeyCode.U)) // Buy Max Hp Increase
+            if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack()) /// Buy Max Hp Increase
             {
                 bool successfulPurchase = BuyItem(hpIncreasePrice);
                 if (successfulPurchase)
@@ -157,11 +162,7 @@ public class ShopManager : MonoBehaviour
                     SoundManager.Instance.PurchaseFail();
                 }
             }
-            if(Input.GetKeyUp(KeyCode.U)) 
-            {
-                finishedPurchase = false;
-            }
-            if (Input.GetKeyDown(KeyCode.I)) // Buy Max Fuel Increase
+            if (/*Input.GetKeyDown(KeyCode.I)*/ inputHandler.IsAbility()) // Buy Max Fuel Increase
             {
                 bool successfulPurchase = BuyItem(fuelIncreasePrice);
                 if(successfulPurchase) 
@@ -185,7 +186,7 @@ public class ShopManager : MonoBehaviour
                     SoundManager.Instance.PurchaseFail();
                 }
             }
-            if (Input.GetKeyDown(KeyCode.J))
+            if (/*Input.GetKeyDown(KeyCode.J)*/ inputHandler.IsConsume())
             {
                 playerController.SetIsInShop(false);
                 shopUI.SetActive(false);
@@ -221,7 +222,7 @@ public class ShopManager : MonoBehaviour
  
         if (distanceToPlayer <= 1f && !isPlayerInteractingWithShop && !finishedPurchase)
         {
-            if(Input.GetKeyDown(KeyCode.U))
+            if (/*Input.GetKeyDown(KeyCode.U)*/ inputHandler.IsAttack())
             {
                 isCameraTransitioning = true;
 

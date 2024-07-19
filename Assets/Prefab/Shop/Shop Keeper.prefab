@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 1876475831006242282}
   - component: {fileID: 912916551840493119}
   - component: {fileID: 1181145009335121459}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Coin Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -499,7 +499,7 @@ GameObject:
   - component: {fileID: 5232957745688711382}
   - component: {fileID: 4990477131839036391}
   - component: {fileID: 1138630686366034588}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextboxBrackets
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,6 +636,9 @@ MonoBehaviour:
   hpCardAnimator: {fileID: 4612064231193136946}
   fuelCardAnimator: {fileID: 856772592277742343}
   shopKeeper: {fileID: 0}
+  quickBuyHealth: 0
+  quickBuyFuel: 0
+  inputHandler: {fileID: 0}
 --- !u!65 &3124027606451765783
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -669,7 +672,7 @@ GameObject:
   - component: {fileID: 875735313300048408}
   - component: {fileID: 5969034275880466649}
   - component: {fileID: 4939191475803802105}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CoinValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1780,7 +1783,7 @@ GameObject:
   - component: {fileID: 5762790004778268137}
   - component: {fileID: 2462529327104763144}
   - component: {fileID: 4369149463897160073}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CoinPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1860,6 +1863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinText: {fileID: 5969034275880466649}
   coinTextAnimator: {fileID: 4939191475803802105}
+  coinImageAnimator: {fileID: 0}
 --- !u!1 &5473324729215438168
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,7 +2057,7 @@ GameObject:
   - component: {fileID: 5327900659928855235}
   - component: {fileID: 7630065279930169234}
   - component: {fileID: 8282492211010568383}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: BackImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3178,7 +3182,7 @@ GameObject:
   - component: {fileID: 195795555711704980}
   - component: {fileID: 273817577209548384}
   - component: {fileID: 1272186965839335}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
