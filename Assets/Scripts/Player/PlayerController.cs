@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour
             
             if(!preventAttackInput)
             {
-                if (Input.GetKeyDown(KeyCode.Joystick1Button2)/*Input.GetKeyDown(KeyCode.U) inputHandler.IsAttack()*/ ) // Attack
+                if (/*Input.GetKeyDown(KeyCode.U)*/  inputHandler.IsAttack()) // Attack
                 {
                     if (playerCombat.CheckRadius())
                     {
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
                 fuelBarHandler.PlayNoFuel();
             }
 
-            if(Input.GetKeyDown(KeyCode.Joystick1Button6))
+            if(Input.GetKeyDown(KeyCode.Joystick1Button6) || Input.GetKeyDown(KeyCode.Escape))
             {
                 if(!isPaused)
                 {

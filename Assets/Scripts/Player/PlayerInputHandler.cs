@@ -35,7 +35,7 @@ public class PlayerInputHandler : MonoBehaviour
         if(canInput)
         {
             // Attacking
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetKeyDown(attack) || Input.GetKeyDown(KeyCode.U))
             {
                 usingAttack = true;
             }
@@ -45,7 +45,7 @@ public class PlayerInputHandler : MonoBehaviour
             }
 
             // Consuming
-            if (Input.GetKey(consume))
+            if (Input.GetKey(consume) || Input.GetKeyDown(KeyCode.J))
             {
                 usingConsume = true;
             }
@@ -55,7 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
             }
 
             // Using Ability
-            if (Input.GetKeyDown(ability))
+            if (Input.GetKeyDown(ability) || Input.GetKeyDown(KeyCode.I))
             {
                 usingAbility = true;
             }
@@ -65,7 +65,7 @@ public class PlayerInputHandler : MonoBehaviour
             }
 
             // Dashing
-            if (Input.GetKeyDown(dash))
+            if (Input.GetKeyDown(dash) || Input.GetKeyDown(KeyCode.Space))
             {
                 usingDash = true;
             }
@@ -84,8 +84,8 @@ public class PlayerInputHandler : MonoBehaviour
                 usingSneak = false;
             }
 
-            usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu);
-            usingCycle = Input.GetKeyDown(cycleSkill) || Input.GetKeyDown(cycleSkill2);
+            usingSkillSlotMenu = Input.GetKeyDown(skillSlotMenu) || Input.GetKeyDown(KeyCode.Tab);
+            usingCycle = Input.GetKeyDown(cycleSkill) || Input.GetKeyDown(cycleSkill2) || Input.GetKeyDown(KeyCode.E);
         }  
     }
 
