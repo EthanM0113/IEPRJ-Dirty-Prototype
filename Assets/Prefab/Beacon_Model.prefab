@@ -1117,7 +1117,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 50
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -2968,11 +2968,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.06
+      scalar: -0.05
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3129,7 +3129,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.33
+    frequency: 0.27
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
